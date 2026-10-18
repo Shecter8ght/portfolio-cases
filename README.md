@@ -1,0 +1,6 @@
+# portfolio-cases
+
+Файлы страниц кейсов для ovchinnikov-dsgn.ru. Отдаются через jsDelivr:
+`https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/<кейс>/<файл>`
+
+- `prospect/` — кейс «Prospect кейтеринг»: видео, скриншоты и `tilda-block.html` (код для блока T123).

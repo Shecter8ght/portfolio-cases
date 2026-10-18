@@ -1,0 +1,522 @@
+<!-- Кейс Prospect · «Анатомия». Вставьте целиком в блок T123 (HTML-код). Отступы блока сверху и снизу поставьте 0. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+/* Layout: кейс как запись визита. Фирменный стиль ovchinnikov-dsgn.ru (тёплый белый, сливово-чёрный, коралл, моно-подписи)
+   снаружи, мир клиента (зелёный Prospect, живые экраны) внутри рамок устройств. Глубина в px — настоящие координаты блоков на cateringyar.ru. */
+.ovp{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#846F81; --line:#E7E2E4;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --leaf:#1E8C4C;
+  --night:#1D181D; --night-2:#2A232A; --night-ink:#F4EEF2; --night-muted:#A8979F; --night-line:#3B323A;
+  --dim:rgba(29,24,29,.55);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:22px;
+}
+html[data-theme="dark"] .ovp{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A9979F; --line:#352D34;
+  --coral:#FF7A64; --coral-ink:#1A1012; --leaf:#43BE77;
+  --night:#0F0C0F; --night-2:#1E181E; --night-line:#342B33; --dim:rgba(8,6,8,.62); color-scheme:dark}
+
+.ovp,.ovp *{box-sizing:border-box}
+.ovp [hidden]{display:none!important}
+.ovp{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+.ovp .wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovp a{color:inherit}
+.ovp :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.ovp .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .mono b{color:var(--coral);font-weight:500}
+.ovp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--leaf);vertical-align:middle;margin-right:6px}
+.ovp .btn{display:inline-flex;flex-direction:column;justify-content:center;gap:2px;padding:14px 26px;border-radius:999px;background:var(--coral);color:var(--coral-ink);text-decoration:none;font:600 16px/1.2 var(--f-display);box-shadow:0 14px 30px -14px var(--coral);transition:transform .25s,box-shadow .25s}
+.ovp .btn small{font:500 12px var(--f-body);opacity:.85}
+.ovp .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--coral)}
+.ovp .link{font:600 15px var(--f-display);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.ovp h2.big{font:700 clamp(36px,5.6vw,80px)/.95 var(--f-display);letter-spacing:-.045em;margin:10px 0 0;text-wrap:balance}
+.ovp h2.big em{font-style:normal;color:var(--muted)}
+
+/* шапка */
+.ovp .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ovp .top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.ovp .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.ovp .logo svg{flex:none}
+.ovp .logo b{display:block;font:600 15px/1.15 var(--f-display);letter-spacing:.02em}
+.ovp .logo span{display:block;font-size:13px;color:var(--muted)}
+.ovp .top nav{margin-left:auto;display:flex;align-items:center;gap:22px}
+.ovp .top nav a{font:500 15px var(--f-body);text-decoration:none;color:var(--muted)}
+.ovp .top nav a:hover{color:var(--ink)}
+.ovp .rec{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:500 12px var(--f-mono);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ovp .rec i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:ovp-blink 1.4s steps(2) infinite}
+@keyframes ovp-blink{50%{opacity:.15}}
+
+/* hero */
+.ovp .hero{padding-block:18px 40px}
+.ovp .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ovp .word{display:flex;align-items:center;justify-content:space-between;gap:.06em;font:800 min(15.4vw,214px)/.8 var(--f-display);letter-spacing:-.065em;margin:0;text-transform:uppercase;white-space:nowrap}
+.ovp .word .part{display:flex;overflow:hidden;padding-block:.06em .02em}
+.ovp .word .part span{display:inline-block;animation:ovp-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*55ms + 120ms)}
+@keyframes ovp-rise{from{transform:translateY(105%)}}
+.ovp .reel-chip{position:relative;flex:none;width:1.62em;aspect-ratio:16/10;border-radius:.09em;overflow:visible;animation:ovp-pop 1s cubic-bezier(.2,.9,.25,1.15) .45s both;margin-top:.05em!important}
+.ovp .reel-chip video{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:inherit;display:block;background:var(--night);box-shadow:0 30px 60px -30px rgba(29,24,29,.55)}
+.ovp .reel-chip::after{content:"";position:absolute;right:-.05em;top:-.05em;width:.12em;height:.12em;border-radius:50%;background:var(--coral);border:.022em solid var(--bg)}
+.ovp .reel-chip figcaption{position:absolute;left:.06em;bottom:.06em;font:500 clamp(9px,.9vw,12px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,16,20,.62);backdrop-filter:blur(6px);padding:6px 9px;border-radius:999px}
+@keyframes ovp-pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+.ovp .hero-low{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:28px;align-items:end;margin-top:30px}
+.ovp .hero-low h1{font:700 clamp(28px,3.3vw,46px)/1.02 var(--f-display);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ovp .hero-low h1 em{font-style:normal;color:var(--muted)}
+.ovp .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ovp .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.ovp .fact{padding:20px 20px 4px 0;display:grid;gap:6px}
+.ovp .fact+.fact{padding-left:20px;border-left:1px solid var(--line)}
+.ovp .fact b{font:700 clamp(34px,4.2vw,58px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.ovp .fact b sup{font-size:.42em;color:var(--coral);vertical-align:.95em;margin-left:2px}
+
+/* ролик */
+.ovp .cinema{background:var(--night);color:var(--night-ink);margin-top:56px;border-radius:32px 32px 0 0;overflow:hidden}
+.ovp .cinema .wrap{padding-block:70px 80px}
+.ovp .cinema .mono{color:var(--night-muted)}
+.ovp .cinema-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.ovp .cinema-head h2{color:var(--night-ink)}
+.ovp .cinema-head h2 em{color:var(--night-muted)}
+.ovp .stage{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:start}
+.ovp .chapters{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.ovp .chapters button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;width:100%;padding:16px 18px;border-radius:16px;position:relative;overflow:hidden;transition:background .3s}
+.ovp .chapters button:hover{background:var(--night-2)}
+.ovp .chapters button[aria-current="true"]{background:var(--night-2)}
+.ovp .chapters .n{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px}
+.ovp .chapters .t{font:600 18px/1.25 var(--f-display);letter-spacing:-.02em}
+.ovp .chapters .d{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.ovp .chapters .s{grid-column:2/4;font-size:14px;line-height:1.45;color:var(--night-muted);display:none}
+.ovp .chapters button[aria-current="true"] .s{display:block}
+.ovp .chapters button[aria-current="true"] .n{color:var(--coral)}
+.ovp .chapters .bar{position:absolute;left:18px;right:18px;bottom:8px;height:2px;background:var(--night-line);border-radius:2px;opacity:0}
+.ovp .chapters button[aria-current="true"] .bar{opacity:1}
+.ovp .chapters .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:inherit}
+.ovp .screen-wrap{position:relative;padding-right:min(9%,110px);padding-bottom:40px}
+.ovp .browser{border-radius:18px;background:#E9E6E8;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.ovp .browser .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFECEE}
+.ovp .browser .bar i{width:11px;height:11px;border-radius:50%;background:#D3CDD1}
+.ovp .browser .bar i:first-child{background:#F36A55}
+.ovp .browser .bar span{margin-left:14px;flex:1;max-width:360px;font:500 12px var(--f-mono);color:#6E5F6B;background:#fff;border-radius:8px;padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovp .browser video,.ovp .browser img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#fff}
+.ovp .phone{position:relative;width:100%;border-radius:38px;padding:9px;background:#141114;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),inset 0 0 0 1.5px #3A3239}
+.ovp .phone .scr{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:390/844;background:#fff}
+.ovp .phone .scr::before{content:"";position:absolute;z-index:2;left:50%;top:9px;width:30%;height:22px;border-radius:12px;background:#141114;transform:translateX(-50%)}
+.ovp .phone video,.ovp .phone img{display:block;width:100%}
+.ovp .phone video{height:100%;object-fit:cover;object-position:top}
+.ovp .stage .phone{position:absolute;right:0;bottom:0;width:min(23%,230px)}
+
+/* анатомия */
+.ovp .anat{padding-block:100px 40px}
+.ovp .anat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ovp .anat-head p{max-width:34em;color:var(--muted);margin:16px 0 0}
+.ovp .toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .toggle button{border:0;background:transparent;color:var(--muted);font:600 14px var(--f-display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.ovp .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ovp .anat-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;margin-top:40px}
+.ovp .steps{display:grid}
+.ovp .step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.38;transition:opacity .5s}
+.ovp .step:first-child{border-top:0}
+.ovp .step.on{opacity:1}
+.ovp .step .mono{display:flex;gap:12px;flex-wrap:wrap}
+.ovp .step h3{font:700 clamp(26px,2.8vw,40px)/1.04 var(--f-display);letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.ovp .step p{margin:0;max-width:31em}
+.ovp .step .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ovp .step .tags span{font:500 13px var(--f-body);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .viewer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);height:calc(100vh - 130px);max-height:820px;display:flex;align-items:flex-start;justify-content:center}
+.ovp .viewer .browser{width:100%;height:100%;display:flex;flex-direction:column}
+.ovp .viewer .phone{height:100%;width:auto;aspect-ratio:408/862;max-width:100%}
+.ovp .port{position:relative;flex:1;overflow:hidden;background:#fff}
+.ovp .viewer .phone .scr{height:100%;width:100%;aspect-ratio:auto}
+.ovp .layer{position:absolute;left:0;top:0;width:100%;transition:transform 1.15s cubic-bezier(.7,0,.2,1);will-change:transform}
+.ovp .layer img{display:block;width:100%;aspect-ratio:auto;height:auto;object-fit:fill}
+.ovp .hl{position:absolute;left:6px;right:6px;border-radius:14px;box-shadow:0 0 0 2px var(--coral),0 0 0 4000px var(--dim);transition:top 1.15s cubic-bezier(.7,0,.2,1),height 1.15s cubic-bezier(.7,0,.2,1);pointer-events:none}
+.ovp .hl b{position:absolute;left:10px;top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--coral);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ovp .viewer-note{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums}
+
+/* конструктор */
+.ovp .grow{padding-block:90px}
+.ovp .grow-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:center}
+.ovp .grow p.lead{color:var(--muted);max-width:32em;margin:18px 0 0}
+.ovp .flow{display:grid;gap:12px;margin-top:34px}
+.ovp .flow-step{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding:20px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+.ovp .flow-step .k{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:600 15px var(--f-display);background:color-mix(in srgb,var(--leaf) 14%,transparent);color:var(--leaf)}
+.ovp .flow-step h4{margin:2px 0 4px;font:700 20px/1.2 var(--f-display);letter-spacing:-.02em}
+.ovp .flow-step p{margin:0;font-size:15px;color:var(--muted)}
+.ovp .tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.ovp .tier{padding:10px 12px;border-radius:12px;border:1px solid var(--line);font-size:13px;color:var(--muted)}
+.ovp .tier b{display:block;font:700 18px var(--f-display);color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ovp .grow-media{position:relative;display:flex;justify-content:center}
+.ovp .grow-media .phone{width:min(300px,78%)}
+.ovp .grow-media .sticker{position:absolute;left:0;bottom:12%;white-space:nowrap;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:0 20px 40px -24px rgba(29,24,29,.4);}
+.ovp .grow-media .sticker b{display:block;font:700 20px/1.1 var(--f-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+
+/* стена телефонов */
+.ovp .wall{background:var(--surface);border-block:1px solid var(--line);overflow:hidden}
+.ovp .wall .wrap{padding-block:80px}
+.ovp .wall-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;margin-top:40px}
+.ovp .wall-row figure{margin:0;display:grid;gap:14px}
+.ovp .wall-row figure:nth-child(even){transform:translateY(48px)}
+.ovp .wall-row figcaption{display:flex;justify-content:space-between;gap:8px}
+.ovp .wall .phone .scr img{animation:ovp-feed var(--dur,30s) ease-in-out infinite alternate;animation-delay:var(--del,0s)}
+@keyframes ovp-feed{0%,8%{transform:translateY(0)}92%,100%{transform:translateY(calc(-1 * var(--dist,0px)))}}
+
+/* процесс */
+.ovp .proc{padding-block:120px 60px}
+.ovp .track{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;margin-top:44px;position:relative}
+.ovp .track::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .st{position:relative;padding:44px 18px 0 0}
+.ovp .st::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--coral)}
+.ovp .st .mono{color:var(--coral)}
+.ovp .st h4{margin:8px 0 8px;font:700 21px/1.15 var(--f-display);letter-spacing:-.025em}
+.ovp .st p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.ovp .span-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px dashed var(--line)}
+
+/* итог */
+.ovp .result{padding-block:60px 110px}
+.ovp .result-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.ovp .res-num{border-radius:28px;background:var(--night);color:var(--night-ink);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:380px}
+.ovp .res-num .mono{color:var(--night-muted)}
+.ovp .res-num b{font:800 clamp(90px,13vw,190px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .res-num b span{color:var(--coral)}
+.ovp .res-num p{margin:0;color:var(--night-muted);max-width:26em}
+.ovp .quote{border-radius:28px;background:var(--surface);border:1px solid var(--line);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+.ovp .quote blockquote{margin:0;font:600 clamp(22px,2.2vw,30px)/1.25 var(--f-display);letter-spacing:-.025em;text-wrap:pretty}
+.ovp .who{display:flex;align-items:center;gap:14px}
+.ovp .who img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.ovp .who b{display:block;font:600 16px var(--f-display)}
+.ovp .who span{font-size:14px;color:var(--muted)}
+.ovp .cta{margin-top:24px;border-radius:28px;background:var(--coral);color:var(--coral-ink);padding:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.ovp .cta h2{margin:0;font:700 clamp(30px,3.8vw,54px)/1 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .cta p{margin:12px 0 0;opacity:.85}
+.ovp .cta .acts{display:grid;gap:12px;justify-items:start}
+.ovp .cta .btn{background:var(--coral-ink);color:var(--coral);box-shadow:none}
+.ovp .cta .phone-num{font:600 20px var(--f-display);user-select:all}
+.ovp .next{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding-block:28px 40px;border-top:1px solid var(--line)}
+.ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
+.ovp .next a:hover{color:var(--coral)}
+
+/* «Ваш визит» */
+.ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
+.ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+.ovp .visit .bars i{width:4px;border-radius:2px;background:var(--line);height:20%;transition:height .6s,background .6s}
+.ovp .visit .bars i.hot{background:var(--coral)}
+.ovp .visit .bars i.warm{background:color-mix(in srgb,var(--coral) 45%,var(--line))}
+.ovp .visit div{min-width:0}
+.ovp .visit .mono{font-size:10px}
+.ovp .visit b{display:block;font:600 15px/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.ovp .visit b em{font:500 13px var(--f-mono);font-style:normal;color:var(--coral);margin-left:6px}
+
+@media (max-width:1100px){
+  .ovp .stage{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .chapters .s{display:none!important}
+  .ovp .wall-row{grid-template-columns:repeat(5,minmax(200px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:60px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+  .ovp .wall-row figure{scroll-snap-align:start}
+  .ovp .track{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
+  .ovp .track::before{display:none}
+}
+@media (max-width:900px){
+  .ovp .top nav a.hide-s{display:none}
+  .ovp .word{font-size:min(16.2vw,214px);flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:0}
+  .ovp .reel-chip{order:3;width:100%;font-size:16px;margin-top:22px;border-radius:16px}
+  .ovp .reel-chip::after{width:14px;height:14px;border-width:3px}
+  .ovp .hero-low{grid-template-columns:minmax(0,1fr)}
+  .ovp .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .fact:nth-child(3){border-left:0;padding-left:0}
+  .ovp .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
+  .ovp .step{min-height:56vh}
+  .ovp .grow-grid,.ovp .result-grid,.ovp .cta{grid-template-columns:minmax(0,1fr)}
+  .ovp .grow-media .sticker{position:static;margin-top:-40px;justify-self:start}
+  .ovp .grow-media{flex-direction:column;align-items:center}
+}
+@media (max-width:560px){
+  .ovp{font-size:16px}
+  .ovp .top .wrap{gap:10px}
+  .ovp .logo span{display:none}
+  .ovp .rec span{display:none}
+  .ovp .chapters{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters button{padding:12px 14px}
+  .ovp .screen-wrap{padding-right:0;padding-bottom:0}
+  .ovp .stage .phone{display:none}
+  .ovp .track{grid-template-columns:minmax(0,1fr)}
+  .ovp .res-num,.ovp .quote,.ovp .cta{padding:28px}
+  .ovp .visit .bars{display:none}
+  .ovp .visit b{max-width:72vw}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovp *,.ovp *::before,.ovp *::after{animation:none!important;transition:none!important}
+}
+</style>
+<div class="ovp">
+
+<section class="wrap hero" data-zone="Первый экран кейса">
+  <div class="hero-meta">
+    <span class="mono">Кейс · Кейтеринг · Ярославль · Tilda</span>
+    <span class="mono"><span class="dot"></span>cateringyar.ru · сайт работает</span>
+  </div>
+  <h2 class="word" aria-label="Проспект">
+    <span class="part" aria-hidden="true"><span style="--i:0">П</span><span style="--i:1">Р</span><span style="--i:2">О</span><span style="--i:3">С</span></span>
+    <figure class="reel-chip" style="margin:0">
+      <video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/hero.jpg" autoplay muted loop playsinline preload="auto" aria-label="Запись первого экрана cateringyar.ru"></video>
+      <figcaption>Живая запись сайта</figcaption>
+    </figure>
+    <span class="part" aria-hidden="true"><span style="--i:4">П</span><span style="--i:5">Е</span><span style="--i:6">К</span><span style="--i:7">Т</span></span>
+  </h2>
+  <div class="hero-low">
+    <h1>Сайт для кейтеринга, который считает меню за&nbsp;гостя <em>и собирает около 30 заявок в&nbsp;месяц</em></h1>
+    <div class="hero-cta">
+      <a class="btn" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">Хочу такой сайт<small>расчёт бюджета за 24 часа</small></a>
+      <a class="link" href="#reel">Смотреть сайт в движении ↓</a>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="mono">Страниц</span><b>8</b></div>
+    <div class="fact"><span class="mono">Рабочих дней</span><b>19</b></div>
+    <div class="fact"><span class="mono">Заявок в месяц</span><b>≈30</b></div>
+    <div class="fact"><span class="mono">Позиций в меню</span><b>218</b></div>
+  </div>
+</section>
+
+<section class="cinema" id="reel" data-zone="Ролик">
+  <div class="wrap">
+    <div class="cinema-head">
+      <div><span class="mono">Запись · 1440 × 900 · без монтажа</span><h2 class="big">Сайт в движении. <em>Четыре сцены, которые продают</em></h2></div>
+    </div>
+    <div class="stage">
+      <ol class="chapters" id="chapters">
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/hero.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/hero.jpg" data-url="cateringyar.ru" aria-current="true"><span class="n">01</span><span class="t">Первый экран</span><span class="d">0:11</span><span class="s">Цена от 790 ₽ за гостя, выгода до 7% и Елена за работой. Кнопка ведёт в короткую форму.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/menu_cards.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/menu_cards.jpg" data-url="cateringyar.ru/#menu"><span class="n">02</span><span class="t">Меню на любой вкус</span><span class="d">0:13</span><span class="s">Шесть категорий в своих цветах. При наведении карточка показывает, что внутри.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/quiz.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/quiz.jpg" data-url="cateringyar.ru/#zakaz"><span class="n">03</span><span class="t">Квиз на 5 вопросов</span><span class="d">0:23</span><span class="s">Повод, гости, формат, бюджет, дата. За заявку посетитель получает скидку 7%.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/constructor.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/constructor.jpg" data-url="cateringyar.ru/menu?cat=zakuski"><span class="n">04</span><span class="t">Конструктор меню</span><span class="d">0:36</span><span class="s">Банкет на 50 гостей: выбрал вариант «Классика» и получил состав со сметой.</span><span class="bar"><i></i></span></button></li>
+      </ol>
+      <div class="screen-wrap">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span id="urlbar">cateringyar.ru</span></div>
+          <video id="player" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/hero.jpg" muted playsinline autoplay preload="auto" aria-label="Запись сайта cateringyar.ru"></video>
+        </div>
+        <div class="phone" aria-label="Мобильная версия: меню и первый экран">
+          <div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/mobile_menu.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/mobile_menu.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap anat" id="anat" data-zone="Анатомия">
+  <div class="anat-head">
+    <div>
+      <span class="mono">Разбор главной · 18 788 px сверху вниз</span>
+      <h2 class="big">Анатомия главной. <em>Зачем здесь каждый блок</em></h2>
+      <p>Листайте: справа настоящий скриншот сайта доезжает до блока, о котором я рассказываю. Глубина в пикселях показывает, где блок стоит на странице.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Устройство">
+      <button id="tD" aria-pressed="true">Компьютер</button>
+      <button id="tM" aria-pressed="false">Телефон</button>
+    </div>
+  </div>
+  <div class="anat-grid">
+    <div class="steps" id="steps">
+      <article class="step on" data-d="130,676" data-m="114,1579">
+        <span class="mono"><b>↓ 130 px</b><span>Первый экран</span></span>
+        <h3>Цена в заголовке и хозяйка в кадре</h3>
+        <p>«Кейтеринг от 790 ₽/чел.» и «выгода до 7%» сразу дают порядок цен: посетитель не уходит искать прайс. Рядом Елена, владелица, за работой, а не стоковая улыбка. Кнопка «Запросить меню» ведёт в короткую форму, а меню с ценами приходит в удобный мессенджер.</p>
+        <div class="tags"><span>от 790 ₽ за гостя</span><span>скидка до 7%</span><span>фото владелицы</span></div>
+      </article>
+      <article class="step" data-d="926,616" data-m="1753,854">
+        <span class="mono"><b>↓ 926 px</b><span>Что такое кейтеринг</span></span>
+        <h3>Говорим словами, которые ищут</h3>
+        <p>По Wordstat люди ищут не «кейтеринг», а «фуршет» и «банкет». Блок объясняет, что это одно и то же, только с выездом, и снимает вопрос «а мне это подходит?». Шесть коротких видео показывают форматы вживую.</p>
+        <div class="tags"><span>банкет</span><span>фуршет</span><span>кофе-брейк</span><span>фуршет-боксы</span></div>
+      </article>
+      <article class="step" data-d="2567,1322" data-m="3293,1318">
+        <span class="mono"><b>↓ 2 567 px</b><span>Меню</span></span>
+        <h3>Меню, по которому хочется кликнуть</h3>
+        <p>218 позиций разложены на 6 категорий. У каждой свой цвет, фото и число позиций, при наведении появляется состав. Подачу я подсмотрел у «ВкусВилла» и «Самоката»: ярко, но без шума. Блюда и услуги разделил, в буклете Елены они были перемешаны.</p>
+        <div class="tags"><span>закуски 92</span><span>горячее 34</span><span>сладкое 36</span><span>станции 22</span></div>
+      </article>
+      <article class="step" data-d="3889,1031" data-m="4611,1187">
+        <span class="mono"><b>↓ 3 889 px</b><span>Квиз</span></span>
+        <h3>Пять вопросов вместо формы</h3>
+        <p>Для тех, кто уже готов заказать: повод, гости, формат, бюджет, дата. В конце скидка 7% и фото Елены, которая перезвонит. Квиз появился после запуска рекламы: я посмотрел записи визитов в Вебвизоре и увидел, где люди уходят.</p>
+        <div class="tags"><span>5 шагов</span><span>скидка 7%</span><span>после Вебвизора</span></div>
+      </article>
+      <article class="step" data-d="4920,2513" data-m="5798,4239">
+        <span class="mono"><b>↓ 4 920 px</b><span>Услуги</span></span>
+        <h3>Шесть форматов, у каждого своя кнопка</h3>
+        <p>Кейтеринг, фуршет с доставкой, готовое питание, food-станции, полевая кухня, аренда оборудования. На каждой карточке две кнопки: рассчитать стоимость и посмотреть примеры работ. Заявка в один клик из любого места.</p>
+        <div class="tags"><span>6 услуг</span><span>12 кнопок</span><span>свои обложки</span></div>
+      </article>
+      <article class="step" data-d="7553,3391" data-m="10097,2986">
+        <span class="mono"><b>↓ 7 553 px</b><span>Наши работы</span></span>
+        <h3>Пауза на настоящие столы</h3>
+        <p>«2000+ мероприятий в Ярославле и области». Галерея почти без текста даёт отдохнуть от чтения и показывает реальные столы команды. Полная подборка живёт на отдельной странице с вкладками: свадьбы, корпоративы, дни рождения, фуршеты с доставкой, городские праздники.</p>
+        <div class="tags"><span>2000+ мероприятий</span><span>5 вкладок на /works</span></div>
+      </article>
+      <article class="step" data-d="11750,1026" data-m="13863,1878">
+        <span class="mono"><b>↓ 11 750 px</b><span>Доставка</span></span>
+        <h3>Доставка без страха за закуски</h3>
+        <p>Карта области с шестью городами: Ярославль, Рыбинск, Углич, Переславль, Тутаев, Ростов. Три плашки отвечают на опасения заранее: упаковка в сумки-холодильники, оборудование и как считается стоимость.</p>
+        <div class="tags"><span>6 городов</span><span>упаковка</span><span>оборудование</span><span>стоимость</span></div>
+      </article>
+      <article class="step" data-d="12776,1816" data-m="15741,2538">
+        <span class="mono"><b>↓ 12 776 px</b><span>О компании</span></span>
+        <h3>Доверие: Елена и известные клиенты</h3>
+        <p>23 года опыта, Альфа-Банк и Билайн среди клиентов. Логотипы стоят прямо над кнопкой «Заказать»: корпоративный клиент оставляет заявку в момент, когда доверие на пике.</p>
+        <div class="tags"><span>23 года</span><span>Альфа-Банк</span><span>Билайн</span></div>
+      </article>
+      <article class="step" data-d="14832,2553" data-m="18399,4192">
+        <span class="mono"><b>↓ 14 832 px</b><span>Отзывы и FAQ</span></span>
+        <h3>Отзывы, которые можно проверить</h3>
+        <p>Отзывы взяты с Яндекса, рядом ссылки на Яндекс, 2ГИС и Google, чтобы проверить самому. В FAQ 12 вопросов, и первый из них самый частый: сколько стоит кейтеринг на человека.</p>
+        <div class="tags"><span>Яндекс</span><span>2ГИС</span><span>Google</span><span>12 вопросов</span></div>
+      </article>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="browser" id="vD">
+        <div class="bar"><i></i><i></i><i></i><span>cateringyar.ru</span></div>
+        <div class="port" id="portD"><div class="layer" id="layerD"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/home-d.jpg" alt="Полный скриншот главной cateringyar.ru, компьютер" width="1100" height="14352"><div class="hl" id="hlD"><b>Первый экран</b></div></div><span class="viewer-note" id="noteD">↓ 130 px</span></div>
+      </div>
+      <div class="phone" id="vM" hidden>
+        <div class="scr port" id="portM"><div class="layer" id="layerM"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/home-m.jpg" alt="Полный скриншот главной cateringyar.ru, телефон" width="520" height="33329"><div class="hl" id="hlM"><b>Первый экран</b></div></div><span class="viewer-note" id="noteM">↓ 114 px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap grow" data-zone="Конструктор меню">
+  <div class="grow-grid">
+    <div>
+      <span class="mono">Развитие после запуска · /menu</span>
+      <h2 class="big">Цены вернулись. <em>Теперь меню считается само</em></h2>
+      <p class="lead">На старте мы убрали цены, потому что они часто менялись, и пообещали полноценный каталог. Теперь на сайте конструктор: гость задаёт формат и число гостей, выбирает вариант и получает состав со сметой, не дожидаясь менеджера.</p>
+      <div class="flow">
+        <div class="flow-step"><span class="k">1</span><div><h4>Параметры</h4><p>Формат из пяти, число гостей ползунком, длительность, повод, ограничения вроде «без свинины» или «детское меню».</p></div></div>
+        <div class="flow-step"><span class="k">2</span><div><h4>Вариант меню</h4><p>Три готовых набора с ценой за гостя. Пример для фуршета на 30 гостей на 2–4 часа:</p>
+          <div class="tiers"><div class="tier"><b>≈1 290 ₽</b>Лайт</div><div class="tier"><b>≈1 650 ₽</b>Классика</div><div class="tier"><b>≈2 000 ₽</b>Премиум</div></div></div></div>
+        <div class="flow-step"><span class="k">3</span><div><h4>Состав и смета</h4><p>Каталог блюд с фото и граммовкой, сбоку живой итог. Позиции можно добавлять и убирать, смета пересчитывается сразу.</p></div></div>
+      </div>
+    </div>
+    <div class="grow-media">
+      <div class="phone"><div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/mobile_constructor.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/mobile_constructor.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Конструктор меню на телефоне"></video></div></div>
+      <div class="sticker"><span class="mono">Банкет · 50 гостей</span><b>120 400 – 145 800 ₽</b><span class="mono">≈2 545 ₽ на гостя</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wall" data-zone="Мобильная версия">
+  <div class="wrap">
+    <span class="mono">Мобильная версия · 390 px</span>
+    <h2 class="big">Всё то же самое в кармане. <em>Каждый экран свёрстан под палец</em></h2>
+    <div class="wall-row" id="wall">
+      <figure><div class="phone"><div class="scr"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/ph-home.jpg" alt="Главная на телефоне" loading="lazy" style="--dur:46s"></div></div><figcaption><span class="mono">Главная</span><span class="mono">/</span></figcaption></figure>
+      <figure><div class="phone"><div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/mobile_menu.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/mobile_menu.jpg" autoplay muted loop playsinline preload="none" aria-label="Мобильное меню"></video></div></div><figcaption><span class="mono">Меню-шторка</span><span class="mono">запись</span></figcaption></figure>
+      <figure><div class="phone"><div class="scr"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/ph-works.jpg" alt="Страница «Наши работы» на телефоне" loading="lazy" style="--dur:30s;--del:-6s"></div></div><figcaption><span class="mono">Наши работы</span><span class="mono">/works</span></figcaption></figure>
+      <figure><div class="phone"><div class="scr"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/ph-zakuski.jpg" alt="Конструктор меню на телефоне" loading="lazy" style="--dur:28s;--del:-3s"></div></div><figcaption><span class="mono">Меню</span><span class="mono">/menu</span></figcaption></figure>
+      <figure><div class="phone"><div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/mobile_constructor.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/mobile_constructor.jpg" autoplay muted loop playsinline preload="none" aria-label="Выбор формата в конструкторе"></video></div></div><figcaption><span class="mono">Конструктор</span><span class="mono">запись</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="wrap proc" id="proc" data-zone="Как шла работа">
+  <span class="mono">Как шла работа</span>
+  <h2 class="big">Шесть этапов. <em>От звонка до рекламы</em></h2>
+  <div class="track" id="track">
+    <div class="st"><span class="mono">01 · 2 часа</span><h4>Интервью</h4><p>Задаю от 50 до 200 вопросов: услуги, преимущества, проекты, контент. Чем глубже ответы, тем сильнее сайт.</p></div>
+    <div class="st"><span class="mono">02</span><h4>Анализ</h4><p>Конкуренты в Ярославле и аудитория: отзывы, «боли», запросы в Wordstat. Из этого родились смыслы и тексты.</p></div>
+    <div class="st"><span class="mono">03 · несколько дней</span><h4>Прототип</h4><p>Структуру наметил ещё на анализе и собрал прототип целиком, без промежуточных показов.</p></div>
+    <div class="st"><span class="mono">04</span><h4>Дизайн</h4><p>Ярко и просто, по мотивам «ВкусВилла» и «Самоката». Разделил меню и услуги, которые смешивались в буклете.</p></div>
+    <div class="st"><span class="mono">05 · ≈2 недели</span><h4>Вёрстка и запуск</h4><p>Собрал на Tilda, согласовал с Еленой каждую деталь и запустил на домене.</p></div>
+    <div class="st"><span class="mono">06 · после запуска</span><h4>Директ</h4><p>Настроил рекламу, разобрал Вебвизор и добавил квиз и новые формы. Пошли заявки.</p></div>
+  </div>
+  <div class="span-note"><span class="mono">Звонок по рекомендации клиента</span><span class="mono"><b>19 рабочих дней</b> на сайт</span><span class="mono">≈30 заявок в месяц</span></div>
+</section>
+
+<section class="wrap result" data-zone="Результат">
+  <div class="result-grid">
+    <div class="res-num">
+      <span class="mono">Результат после доработок</span>
+      <b>≈30<span>.</span></b>
+      <p>Заявок в месяц после запуска Директа, квиза и новых форм. Елена до сих пор работает со мной: реклама, оформление ВКонтакте в стиле сайта, конструктор меню.</p>
+    </div>
+    <div class="quote">
+      <blockquote>«Валерий отличный специалист — собрал сайт по моим пожеланиям, сам нашёл нужную информацию и предложил крутые решения. Сопровождает проект, всё объяснил, сделал оформление ВК в стиле сайта. Сейчас настраивает рекламу — всё хорошо, огромное спасибо!»</blockquote>
+      <div class="who"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/prospect/elena.jpg" alt="Елена Кукушкина" width="56" height="56"><div><b>Елена Кукушкина</b><span>владелица «Проспект кейтеринг»</span></div></div>
+    </div>
+  </div>
+  <div class="cta">
+    <div>
+      <h2>Нужен сайт, который окупится за 2–3 продажи?</h2>
+      <p>Расскажите о бизнесе, и я пришлю бюджет и сроки меньше чем за 24 часа.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="https://t.me/Ovchinnikov_dsgn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <span class="phone-num">+7 (910) 970-01-24</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap next">
+  <span class="mono">Следующий кейс</span>
+  <a href="https://ovchinnikov-dsgn.ru/project_alexkitchen" target="_blank" rel="noopener">Alex Kitchen, кухни на заказ →</a>
+</footer>
+</div>
+<script>
+
+(()=>{
+const R=document.querySelector('.ovp');if(!R)return;const $=s=>R.querySelector(s),$$=s=>[...R.querySelectorAll(s)];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* слово в hero подгоняется под ширину колонки */
+const word=$('.word');function fit(){const narrow=innerWidth<=900;word.style.fontSize='';
+  const parts=[...word.querySelectorAll('.part')],chip=word.querySelector('.reel-chip');
+  const need=parts.reduce((a,p)=>a+p.scrollWidth,0)+(narrow?0:chip.offsetWidth)+ (narrow?4:40);
+  const fs=parseFloat(getComputedStyle(word).fontSize);if(need>word.clientWidth)word.style.fontSize=(fs*word.clientWidth/need*.985)+'px'}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);addEventListener('resize',fit);fit();
+
+/* ролик по главам */
+const player=$('#player'),chs=$$('#chapters button');let cur=0;
+function play(i){cur=(i+chs.length)%chs.length;chs.forEach((b,k)=>{b.setAttribute('aria-current',k===cur);b.querySelector('.bar i').style.width='0'});
+  const b=chs[cur];player.poster=b.dataset.poster;player.src=b.dataset.src;$('#urlbar').textContent=b.dataset.url;player.play().catch(()=>{})}
+chs.forEach((b,i)=>b.addEventListener('click',()=>play(i)));
+player.addEventListener('timeupdate',()=>{if(player.duration)chs[cur].querySelector('.bar i').style.width=(player.currentTime/player.duration*100)+'%'});
+player.addEventListener('ended',()=>play(cur+1));
+// видео играют только на экране
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.15});
+$$('video').forEach(v=>{if(reduce){v.removeAttribute('autoplay');v.pause()}vio.observe(v)});
+
+/* анатомия */
+const W={d:1440,m:390},SHOT={d:1,m:24997/25104};let mode='d',active=0;
+const steps=$$('.step');
+function show(i){active=i;steps.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const s=steps[i],[y,h]=s.dataset[mode].split(',').map(Number),port=$('#port'+mode.toUpperCase()),layer=$('#layer'+mode.toUpperCase()),img=layer.querySelector('img');
+  const k=port.clientWidth/W[mode]*SHOT[mode],ph=port.clientHeight,top=y*k,hh=h*k;
+  const imgH=port.clientWidth*img.height/img.width;
+  let off=hh<ph-60?top-(ph-hh)/2:top-28;off=Math.max(0,Math.min(off,imgH-ph));
+  layer.style.transform=`translateY(${-off}px)`;const hl=$('#hl'+mode.toUpperCase());hl.style.top=top+'px';hl.style.height=hh+'px';
+  hl.querySelector('b').textContent=s.querySelector('.mono span').textContent;
+  $('#note'+mode.toUpperCase()).textContent='↓ '+Math.round(y).toLocaleString('ru-RU')+' px'}
+// активный шаг выбирается по линии чтения, а не IntersectionObserver: во встроенном фрейме rootMargin не работает
+const viewer=$('#viewer');let raf=0;
+function pick(){raf=0;const vr=viewer.getBoundingClientRect(),narrow=innerWidth<=900;
+  const line=narrow?vr.bottom+(innerHeight-vr.bottom)*.35:innerHeight*.5;let i=0;
+  steps.forEach((s,k)=>{if(s.getBoundingClientRect().top<=line)i=k});if(i!==active)show(i)}
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+steps.forEach((s,i)=>s.addEventListener('click',()=>show(i)));
+function setMode(m){mode=m;$('#tD').setAttribute('aria-pressed',m==='d');$('#tM').setAttribute('aria-pressed',m==='m');$('#vD').hidden=m!=='d';$('#vM').hidden=m!=='m';
+  const im=$('#layerM img');if(m==='m'&&!im.src){im.src=im.dataset.src;im.onload=()=>show(active)}requestAnimationFrame(()=>show(active))}
+$('#tD').onclick=()=>setMode('d');$('#tM').onclick=()=>setMode('m');
+addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('load',()=>show(active));show(0);
+
+/* стена телефонов: прокрутка каждого экрана на свою длину */
+$$('#wall img').forEach(im=>{const set=()=>{const scr=im.parentElement;im.style.setProperty('--dist',Math.max(0,im.clientHeight-scr.clientHeight)+'px')};im.complete?set():im.addEventListener('load',set);addEventListener('resize',set)});
+
+/* процесс: линия заполняется по мере прокрутки */
+const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+})();
+</script>
