@@ -1,0 +1,722 @@
+<!-- Кейс Alex Kitchen · «Эволюция». Вставьте целиком в блок T123 (HTML-код). Отступы блока сверху и снизу поставьте 0. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+/* Layout: кейс как история редизайнов. Фирменный стиль ovchinnikov-dsgn.ru (тёплый белый, сливово-чёрный, коралл, моно-подписи)
+   снаружи, мир клиента (графит и оранжевый Alex Kitchen) внутри рамок устройств. Глубина в px — настоящие координаты блоков на alex-kitchen.ru. */
+.ovp{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#846F81; --line:#E7E2E4;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --leaf:#1E8C4C;
+  --night:#1D181D; --night-2:#2A232A; --night-ink:#F4EEF2; --night-muted:#A8979F; --night-line:#3B323A;
+  --dim:rgba(29,24,29,.55);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:22px;
+}
+html[data-theme="dark"] .ovp{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A9979F; --line:#352D34;
+  --coral:#FF7A64; --coral-ink:#1A1012; --leaf:#43BE77;
+  --night:#0F0C0F; --night-2:#1E181E; --night-line:#342B33; --dim:rgba(8,6,8,.62); color-scheme:dark}
+
+.ovp,.ovp *{box-sizing:border-box}
+.ovp [hidden]{display:none!important}
+.ovp{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+.ovp .wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovp a{color:inherit}
+.ovp :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.ovp .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .mono b{color:var(--coral);font-weight:500}
+.ovp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--leaf);vertical-align:middle;margin-right:6px}
+.ovp .btn{display:inline-flex;flex-direction:column;justify-content:center;gap:2px;padding:14px 26px;border-radius:999px;background:var(--coral);color:var(--coral-ink);text-decoration:none;font:600 16px/1.2 var(--f-display);box-shadow:0 14px 30px -14px var(--coral);transition:transform .25s,box-shadow .25s}
+.ovp .btn small{font:500 12px var(--f-body);opacity:.85}
+.ovp .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--coral)}
+.ovp .link{font:600 15px var(--f-display);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.ovp h2.big{font:700 clamp(36px,5.6vw,80px)/.95 var(--f-display);letter-spacing:-.045em;margin:10px 0 0;text-wrap:balance}
+.ovp h2.big em{font-style:normal;color:var(--muted)}
+
+/* шапка */
+.ovp .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ovp .top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.ovp .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.ovp .logo svg{flex:none}
+.ovp .logo b{display:block;font:600 15px/1.15 var(--f-display);letter-spacing:.02em}
+.ovp .logo span{display:block;font-size:13px;color:var(--muted)}
+.ovp .top nav{margin-left:auto;display:flex;align-items:center;gap:22px}
+.ovp .top nav a{font:500 15px var(--f-body);text-decoration:none;color:var(--muted)}
+.ovp .top nav a:hover{color:var(--ink)}
+.ovp .rec{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:500 12px var(--f-mono);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ovp .rec i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:ovp-blink 1.4s steps(2) infinite}
+@keyframes ovp-blink{50%{opacity:.15}}
+
+/* hero */
+.ovp .hero{padding-block:18px 40px}
+.ovp .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ovp .word{display:flex;align-items:center;justify-content:space-between;gap:.06em;font:800 min(11.4vw,170px)/.8 var(--f-display);letter-spacing:-.065em;margin:0;text-transform:uppercase;white-space:nowrap}
+.ovp .word .part{display:flex;overflow:hidden;padding-block:.06em .02em}
+.ovp .word .part span{display:inline-block;animation:ovp-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*55ms + 120ms)}
+@keyframes ovp-rise{from{transform:translateY(105%)}}
+.ovp .reel-chip{position:relative;flex:none;width:1.62em;aspect-ratio:16/10;border-radius:.09em;overflow:visible;animation:ovp-pop 1s cubic-bezier(.2,.9,.25,1.15) .45s both;margin-top:.05em!important}
+.ovp .reel-chip .stack{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--night);box-shadow:0 30px 60px -30px rgba(29,24,29,.55)}
+.ovp .reel-chip .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .5s}
+.ovp .reel-chip .stack img.on{opacity:1}
+.ovp .reel-chip::after{content:"";position:absolute;right:-.05em;top:-.05em;width:.12em;height:.12em;border-radius:50%;background:var(--coral);border:.022em solid var(--bg)}
+.ovp .reel-chip figcaption{position:absolute;left:.06em;bottom:.06em;font:500 clamp(9px,.9vw,12px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,16,20,.62);backdrop-filter:blur(6px);padding:6px 9px;border-radius:999px;font-variant-numeric:tabular-nums}
+@keyframes ovp-pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+.ovp .hero-low{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:28px;align-items:end;margin-top:30px}
+.ovp .hero-low h1{font:700 clamp(28px,3.3vw,46px)/1.02 var(--f-display);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ovp .hero-low h1 em{font-style:normal;color:var(--muted)}
+.ovp .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ovp .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.ovp .fact{padding:20px 20px 4px 0;display:grid;gap:6px}
+.ovp .fact+.fact{padding-left:20px;border-left:1px solid var(--line)}
+.ovp .fact b{font:700 clamp(34px,4.2vw,58px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+
+/* эволюция: пять версий сайта по прокрутке */
+.ovp .evo{position:relative;height:calc(var(--n,6) * 78vh + 40vh);margin-top:40px}
+.ovp .evo-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);height:calc(100vh - 86px);min-height:520px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto minmax(0,1fr) auto;gap:18px 48px;padding-block:10px 78px}
+.ovp .evo-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .evo-head h2{margin:0;font:700 clamp(26px,3vw,42px)/1 var(--f-display);letter-spacing:-.04em}
+.ovp .evo-head h2 em{font-style:normal;color:var(--muted)}
+.ovp .evo-text{position:relative;min-width:0;display:grid;align-content:center}
+.ovp .ver{grid-area:1/1;display:grid;gap:14px;align-content:center;opacity:0;transform:translateY(24px);transition:opacity .55s,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ovp .ver.on{opacity:1;transform:none;pointer-events:auto}
+.ovp .ver .yr{font:800 clamp(72px,9.5vw,150px)/.8 var(--f-display);letter-spacing:-.07em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:.12em}
+.ovp .ver .yr small{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}
+.ovp .ver h3{margin:6px 0 0;font:700 clamp(22px,2.2vw,30px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .ver p{margin:0;max-width:30em;color:var(--muted)}
+.ovp .sw{display:flex;gap:6px;align-items:center}
+.ovp .sw i{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--c)}
+.ovp .sw span{margin-left:6px}
+.ovp .evo-screen{position:relative;min-width:0;display:flex;align-items:center}
+.ovp .evo-screen .browser{width:100%;position:relative}
+.ovp .shots{position:relative;aspect-ratio:16/10;background:#1E1E20;overflow:hidden}
+.ovp .shot{position:absolute;inset:0;clip-path:inset(0 0 0 100%);transition:clip-path 1s cubic-bezier(.7,0,.2,1)}
+.ovp .shot.in{clip-path:inset(0 0 0 0)}
+.ovp .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .6s}
+.ovp .shot img.on{opacity:1}
+.ovp .shot::before{content:"";position:absolute;z-index:2;left:0;top:0;bottom:0;width:3px;background:var(--coral);box-shadow:0 0 30px 6px color-mix(in srgb,var(--coral) 50%,transparent);opacity:0;transition:opacity .4s}
+.ovp .shot.wipe::before{opacity:1}
+.ovp .frame-ix{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums}
+.ovp .rail{grid-column:1/-1;display:grid;grid-template-columns:repeat(var(--n,6),minmax(0,1fr));position:relative;padding-top:16px}
+.ovp .rail::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .rail button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:2px;padding:4px 10px 0 0;position:relative;min-width:0}
+.ovp .rail button::before{content:"";position:absolute;left:0;top:-23px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--line);transition:border-color .3s,background .3s}
+.ovp .rail button.done::before{border-color:var(--coral)}
+.ovp .rail button[aria-current="true"]::before{background:var(--coral);border-color:var(--coral)}
+.ovp .rail b{font:700 18px/1.1 var(--f-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ovp .rail span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ролик */
+.ovp .cinema{background:var(--night);color:var(--night-ink);border-radius:32px 32px 0 0;overflow:hidden}
+.ovp .cinema .wrap{padding-block:70px 80px}
+.ovp .cinema .mono{color:var(--night-muted)}
+.ovp .cinema-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.ovp .cinema-head h2{color:var(--night-ink)}
+.ovp .cinema-head h2 em{color:var(--night-muted)}
+.ovp .stage{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:start}
+.ovp .chapters{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.ovp .chapters button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;width:100%;padding:16px 18px;border-radius:16px;position:relative;overflow:hidden;transition:background .3s}
+.ovp .chapters button:hover{background:var(--night-2)}
+.ovp .chapters button[aria-current="true"]{background:var(--night-2)}
+.ovp .chapters .n{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px}
+.ovp .chapters .t{font:600 18px/1.25 var(--f-display);letter-spacing:-.02em}
+.ovp .chapters .d{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.ovp .chapters .s{grid-column:2/4;font-size:14px;line-height:1.45;color:var(--night-muted);display:none}
+.ovp .chapters button[aria-current="true"] .s{display:block}
+.ovp .chapters button[aria-current="true"] .n{color:var(--coral)}
+.ovp .chapters .bar{position:absolute;left:18px;right:18px;bottom:8px;height:2px;background:var(--night-line);border-radius:2px;opacity:0}
+.ovp .chapters button[aria-current="true"] .bar{opacity:1}
+.ovp .chapters .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:inherit}
+.ovp .screen-wrap{position:relative;padding-right:min(9%,110px);padding-bottom:40px}
+.ovp .browser{border-radius:18px;background:#E9E6E8;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.ovp .browser .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFECEE}
+.ovp .browser .bar i{width:11px;height:11px;border-radius:50%;background:#D3CDD1}
+.ovp .browser .bar i:first-child{background:#F36A55}
+.ovp .browser .bar span{margin-left:14px;flex:1;max-width:360px;font:500 12px var(--f-mono);color:#6E5F6B;background:#fff;border-radius:8px;padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovp .browser video,.ovp .browser > img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#fff}
+.ovp .phone{position:relative;width:100%;border-radius:38px;padding:9px;background:#141114;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),inset 0 0 0 1.5px #3A3239}
+.ovp .phone .scr{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:390/844;background:#fff}
+.ovp .phone .scr::before{content:"";position:absolute;z-index:2;left:50%;top:9px;width:30%;height:22px;border-radius:12px;background:#141114;transform:translateX(-50%)}
+.ovp .phone video,.ovp .phone img{display:block;width:100%}
+.ovp .phone video{height:100%;object-fit:cover;object-position:top}
+.ovp .stage .phone{position:absolute;right:0;bottom:0;width:min(23%,230px)}
+
+/* анатомия */
+.ovp .anat{padding-block:100px 40px}
+.ovp .anat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ovp .anat-head p{max-width:34em;color:var(--muted);margin:16px 0 0}
+.ovp .toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .toggle button{border:0;background:transparent;color:var(--muted);font:600 14px var(--f-display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.ovp .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ovp .anat-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;margin-top:40px}
+.ovp .steps{display:grid}
+.ovp .step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.38;transition:opacity .5s}
+.ovp .step:first-child{border-top:0}
+.ovp .step.on{opacity:1}
+.ovp .step .mono{display:flex;gap:12px;flex-wrap:wrap}
+.ovp .step h3{font:700 clamp(26px,2.8vw,40px)/1.04 var(--f-display);letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.ovp .step p{margin:0;max-width:31em}
+.ovp .step .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ovp .step .tags span{font:500 13px var(--f-body);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .viewer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);height:calc(100vh - 130px);max-height:820px;display:flex;align-items:flex-start;justify-content:center}
+.ovp .viewer .browser{width:100%;height:100%;display:flex;flex-direction:column}
+.ovp .viewer .phone{height:100%;width:auto;aspect-ratio:408/862;max-width:100%}
+.ovp .port{position:relative;flex:1;overflow:hidden;background:#1E1E20}
+.ovp .viewer .phone .scr{height:100%;width:100%;aspect-ratio:auto}
+.ovp .layer{position:absolute;left:0;top:0;width:100%;transition:transform 1.15s cubic-bezier(.7,0,.2,1);will-change:transform}
+.ovp .layer img{display:block;width:100%;aspect-ratio:auto;height:auto;object-fit:fill}
+.ovp .hl{position:absolute;left:6px;right:6px;border-radius:14px;box-shadow:0 0 0 2px var(--coral),0 0 0 4000px var(--dim);transition:top 1.15s cubic-bezier(.7,0,.2,1),height 1.15s cubic-bezier(.7,0,.2,1),opacity .4s;pointer-events:none}
+.ovp .hl b{position:absolute;left:10px;top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--coral);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ovp .viewer-note{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums;max-width:calc(100% - 24px)}
+
+/* инструменты после запуска */
+.ovp .kit{padding-block:90px 40px}
+.ovp .kit-head p{max-width:36em;color:var(--muted);margin:16px 0 0}
+.ovp .kit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:40px}
+.ovp .tile{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ovp .tile h3{margin:0;font:700 clamp(21px,1.9vw,26px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .tile p{margin:0;font-size:15px;color:var(--muted);max-width:34em}
+.ovp .t-qr{grid-column:span 4;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:26px;align-items:center}
+.ovp .t-qr .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .qr{width:92px;height:92px;border-radius:14px;background:var(--surface);border:1px solid var(--line);padding:8px;display:grid}
+.ovp .qr canvas{width:100%;height:100%;image-rendering:pixelated}
+.ovp .t-tg{grid-column:span 2;background:var(--night);color:var(--night-ink);border-color:var(--night)}
+.ovp .t-tg p{color:var(--night-muted)}
+.ovp .msg{margin-top:auto;border-radius:16px 16px 16px 4px;background:var(--night-2);padding:14px 16px;display:grid;gap:4px;font-size:14px;animation:ovp-msg 4.5s cubic-bezier(.2,.8,.2,1) infinite}
+.ovp .msg b{font:600 14px var(--f-display)}
+.ovp .msg span{color:var(--night-muted)}
+.ovp .msg .mono{color:var(--coral)}
+@keyframes ovp-msg{0%{transform:translateY(16px);opacity:0}10%,85%{transform:none;opacity:1}100%{opacity:0}}
+.ovp .t-promo{grid-column:span 3}
+.ovp .t-utp{grid-column:span 3}
+.ovp .promos,.ovp .utps{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.ovp .promos li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .promos li .mono{grid-row:span 2;align-self:center;min-width:5.6em}
+.ovp .promos li b{font:600 15px/1.3 var(--f-display)}
+.ovp .promos li:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 8%,transparent)}
+.ovp .promos li small{font-size:13px;color:var(--muted)}
+.ovp .utps li{display:grid;grid-template-columns:3.6em minmax(0,1fr);gap:12px;align-items:baseline;font:600 16px/1.3 var(--f-display);letter-spacing:-.01em;color:var(--muted)}
+.ovp .utps li s{text-decoration-color:color-mix(in srgb,var(--muted) 60%,transparent)}
+.ovp .utps li:last-child{color:var(--ink)}
+.ovp .t-an{grid-column:span 6;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:30px;align-items:center}
+.ovp .t-an .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .flowmap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;position:relative}
+.ovp .flowmap .col{display:grid;gap:10px}
+.ovp .flowmap .col > .mono{margin-bottom:2px}
+.ovp .node{border-radius:12px;padding:10px 12px;font:600 14px/1.25 var(--f-display);border:1px solid var(--line);background:var(--bg);position:relative}
+.ovp .node.btnish{background:var(--coral);color:var(--coral-ink);border-color:transparent;border-radius:999px;text-align:center}
+.ovp .node.goal{border-style:dashed}
+.ovp .node small{display:block;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.04em;margin-top:2px}
+.ovp .flowmap .col:not(:last-child) .node::after{content:"→";position:absolute;right:-11px;top:50%;transform:translate(50%,-50%);font:500 14px var(--f-mono);color:var(--coral)}
+
+/* процесс */
+.ovp .proc{padding-block:100px 60px}
+.ovp .track{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;margin-top:44px;position:relative}
+.ovp .track::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .st{position:relative;padding:44px 18px 0 0}
+.ovp .st::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--coral)}
+.ovp .st .mono{color:var(--coral)}
+.ovp .st h4{margin:8px 0 8px;font:700 21px/1.15 var(--f-display);letter-spacing:-.025em}
+.ovp .st p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.ovp .span-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px dashed var(--line)}
+
+/* итог */
+.ovp .result{padding-block:60px 110px}
+.ovp .result-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.ovp .res-num{border-radius:28px;background:var(--night);color:var(--night-ink);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:380px}
+.ovp .res-num .mono{color:var(--night-muted)}
+.ovp .res-num b{font:800 clamp(90px,13vw,190px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .res-num b span{color:var(--coral)}
+.ovp .res-num p{margin:0;color:var(--night-muted);max-width:26em}
+.ovp .quote{border-radius:28px;background:var(--surface);border:1px solid var(--line);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+.ovp .quote blockquote{margin:0;font:600 clamp(22px,2.2vw,30px)/1.25 var(--f-display);letter-spacing:-.025em;text-wrap:pretty}
+.ovp .who{display:flex;align-items:center;gap:14px}
+.ovp .who img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.ovp .who b{display:block;font:600 16px var(--f-display)}
+.ovp .who span{font-size:14px;color:var(--muted)}
+.ovp .cta{margin-top:24px;border-radius:28px;background:var(--coral);color:var(--coral-ink);padding:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.ovp .cta h2{margin:0;font:700 clamp(30px,3.8vw,54px)/1 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .cta p{margin:12px 0 0;opacity:.85}
+.ovp .cta .acts{display:grid;gap:12px;justify-items:start}
+.ovp .cta .btn{background:var(--coral-ink);color:var(--coral);box-shadow:none}
+.ovp .cta .phone-num{font:600 20px var(--f-display);user-select:all}
+.ovp .next{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding-block:28px 40px;border-top:1px solid var(--line)}
+.ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
+.ovp .next a:hover{color:var(--coral)}
+
+/* «Ваш визит» */
+.ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
+.ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+.ovp .visit .bars i{width:4px;border-radius:2px;background:var(--line);height:20%;transition:height .6s,background .6s}
+.ovp .visit .bars i.hot{background:var(--coral)}
+.ovp .visit .bars i.warm{background:color-mix(in srgb,var(--coral) 45%,var(--line))}
+.ovp .visit div{min-width:0}
+.ovp .visit .mono{font-size:10px}
+.ovp .visit b{display:block;font:600 15px/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.ovp .visit b em{font:500 13px var(--f-mono);font-style:normal;color:var(--coral);margin-left:6px}
+
+@media (max-width:1100px){
+  .ovp .stage{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .chapters .s{display:none!important}
+  .ovp .track{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
+  .ovp .track::before{display:none}
+  .ovp .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .t-qr,.ovp .t-an{grid-column:span 2}
+  .ovp .t-tg,.ovp .t-promo,.ovp .t-utp{grid-column:span 1}
+  .ovp .t-tg{grid-column:span 2}
+}
+@media (max-width:900px){
+  .ovp .top nav a.hide-s{display:none}
+  .ovp .word{font-size:min(13vw,170px);flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:0}
+  .ovp .reel-chip{order:3;width:100%;font-size:16px;margin-top:22px;border-radius:16px}
+  .ovp .reel-chip::after{width:14px;height:14px;border-width:3px}
+  .ovp .hero-low{grid-template-columns:minmax(0,1fr)}
+  .ovp .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .fact:nth-child(3){border-left:0;padding-left:0}
+  .ovp .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .ovp .evo-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto;gap:14px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px)}
+  .ovp .evo-screen{order:-1;grid-row:2}
+  .ovp .evo-head{grid-row:1}
+  .ovp .evo-text{grid-row:3;align-content:start}
+  .ovp .ver{align-content:start;gap:10px}
+  .ovp .ver .yr{font-size:clamp(54px,15vw,90px)}
+  .ovp .ver p{font-size:15px;line-height:1.5}
+  .ovp .rail{grid-row:4}
+  .ovp .rail span{display:none}
+  .ovp .rail b{font-size:14px}
+  .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
+  .ovp .step{min-height:56vh}
+  .ovp .result-grid,.ovp .cta,.ovp .t-qr,.ovp .t-an{grid-template-columns:minmax(0,1fr)}
+  .ovp .kit-grid{grid-template-columns:minmax(0,1fr)}
+  .ovp .t-qr,.ovp .t-an,.ovp .t-tg,.ovp .t-promo,.ovp .t-utp{grid-column:auto}
+}
+@media (max-width:560px){
+  .ovp{font-size:16px}
+  .ovp .top .wrap{gap:10px}
+  .ovp .logo span{display:none}
+  .ovp .rec span{display:none}
+  .ovp .chapters{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters button{padding:12px 14px}
+  .ovp .screen-wrap{padding-right:0;padding-bottom:0}
+  .ovp .stage .phone{display:none}
+  .ovp .track{grid-template-columns:minmax(0,1fr)}
+  .ovp .res-num,.ovp .quote,.ovp .cta{padding:28px}
+  .ovp .tile{padding:20px}
+  .ovp .flowmap{grid-template-columns:minmax(0,1fr)}
+  .ovp .flowmap .col:not(:last-child) .node::after{display:none}
+  .ovp .evo-head .mono{display:none}
+  .ovp .visit .bars{display:none}
+  .ovp .visit b{max-width:72vw}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovp *,.ovp *::before,.ovp *::after{animation:none!important;transition:none!important}
+}
+</style>
+<div class="ovp">
+
+<section class="wrap hero" data-zone="Первый экран кейса">
+  <div class="hero-meta">
+    <span class="mono">Кейс · Кухни на заказ · Ярославль · Tilda</span>
+    <span class="mono"><span class="dot"></span>alex-kitchen.ru · сайт работает с 2021 года</span>
+  </div>
+  <h2 class="word" aria-label="Alex Kitchen">
+    <span class="part" aria-hidden="true"><span style="--i:0">A</span><span style="--i:1">L</span><span style="--i:2">E</span><span style="--i:3">X</span></span>
+    <figure class="reel-chip" style="margin:0">
+      <div class="stack" id="chip">
+        <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v1_01.jpg" alt="Первая версия сайта, 2021">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v2_01.jpg" alt="Вторая версия сайта, 2023" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v3_01.jpg" alt="Третья версия сайта, 2023" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v4_01.jpg" alt="Четвёртая версия сайта, 2024" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v5_01.jpg" alt="Пятая версия сайта, 2025" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v6_01.jpg" alt="Сайт сейчас" loading="lazy">
+      </div>
+      <figcaption id="chipT">2021 · версия 1</figcaption>
+    </figure>
+    <span class="part" aria-hidden="true"><span style="--i:4">K</span><span style="--i:5">I</span><span style="--i:6">T</span><span style="--i:7">C</span><span style="--i:8">H</span><span style="--i:9">E</span><span style="--i:10">N</span></span>
+  </h2>
+  <div class="hero-low">
+    <h1>Сайт для студии кухонь, который растёт вместе с бизнесом: <em>пять версий за четыре года, и он всё ещё меняется</em></h1>
+    <div class="hero-cta">
+      <a class="btn" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">Хочу такой сайт<small>расчёт бюджета за 24 часа</small></a>
+      <a class="link" href="#evo">Смотреть, как менялся сайт ↓</a>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="mono">Страниц</span><b>3</b></div>
+    <div class="fact"><span class="mono">Дней разработки</span><b>21</b></div>
+    <div class="fact"><span class="mono">Версий сайта</span><b>5</b></div>
+    <div class="fact"><span class="mono">Лет вместе</span><b>4</b></div>
+  </div>
+</section>
+
+<section class="evo" id="evo" data-zone="Эволюция сайта" style="--n:6">
+  <div class="wrap evo-pin">
+    <div class="evo-head">
+      <h2>Пять версий одного сайта. <em>Листайте</em></h2>
+      <span class="mono">Скриншоты каждой версии · 1440 × 900</span>
+    </div>
+    <div class="evo-text" id="vers">
+      <article class="ver on">
+        <div class="yr">2021<small>Декабрь · версия 1</small></div>
+        <h3>Простой лендинг, с которого всё началось</h3>
+        <p>Мой первый сайт. Тёплый бежевый, выверенная двухколоночная сетка и минимум элементов: видеоотзывы, фото работ, процесс в девять шагов и Александр в блоке «О компании». На старте этого хватило, сайт начал приводить заявки.</p>
+        <div class="sw"><i style="--c:#F7F2EA"></i><i style="--c:#B98A5E"></i><i style="--c:#2B2B2B"></i><span class="mono">беж · дерево</span></div>
+      </article>
+      <article class="ver">
+        <div class="yr">2023<small>Январь · версия 2</small></div>
+        <h3>Цена и срок на первом экране</h3>
+        <p>Через год стало ясно, что нужен редизайн. В заголовок вышли «кухни от 85 тыс. ₽» и «срок до 45 дней», появились отзывы с Яндекса, работы с ценами и статьи о материалах. Но для мебели на заказ сайт всё ещё выглядел слишком просто.</p>
+        <div class="sw"><i style="--c:#FEFFEC"></i><i style="--c:#6C4CD6"></i><i style="--c:#1F8A5B"></i><span class="mono">светлый · фиолетовый</span></div>
+      </article>
+      <article class="ver">
+        <div class="yr">2023<small>Версия 3</small></div>
+        <h3>Палитра из мебельного буклета</h3>
+        <p>Александр принёс зарубежный мебельный буклет, и мы взяли его палитру: графит, серый и оранжевый. Сайт стал солиднее. На первом экране появился сам Александр, а вместо обычной формы квиз, где тип кухни выбирают по картинке.</p>
+        <div class="sw"><i style="--c:#3E4043"></i><i style="--c:#8FA58A"></i><i style="--c:#F26A2E"></i><span class="mono">графит · оранжевый</span></div>
+      </article>
+      <article class="ver">
+        <div class="yr">2024<small>Август · версия 4</small></div>
+        <h3>Тёмная тема и спокойная эстетика</h3>
+        <p>Стилистику сохранили и сделали акцент на эстетике: тёмный фон, аккуратные шрифты, крупное фото интерьера и форма прямо на первом экране. Добавили плитки «Мы про качество» и свою схему проезда к производству.</p>
+        <div class="sw"><i style="--c:#1E1E20"></i><i style="--c:#C8C7C4"></i><i style="--c:#F15A24"></i><span class="mono">ночь · оранжевый</span></div>
+      </article>
+      <article class="ver">
+        <div class="yr">2025<small>Лето · версия 5</small></div>
+        <h3>Редизайн ради заявок</h3>
+        <p>Последний редизайн был про маркетинг. Шесть причин выбрать студию, отзывы с Яндекса, реальные проекты со сроком и итоговой ценой, команда и частые вопросы. Каждый блок заканчивается быстрой формой или понятной кнопкой.</p>
+        <div class="sw"><i style="--c:#222224"></i><i style="--c:#FFFFFF"></i><i style="--c:#FF5A1F"></i><span class="mono">графит · акцент</span></div>
+      </article>
+      <article class="ver">
+        <div class="yr">Сейчас<small>alex-kitchen.ru</small></div>
+        <h3>Сайт продолжает меняться</h3>
+        <p>Первый экран снова светлый: «цены напрямую от ярославского производителя» и «за 40 дней», рядом четыре карточки о цене, сроках, бесплатных услугах и гарантии. Каждый месяц на сайте новая акция, а заголовки и офферы мы регулярно тестируем.</p>
+        <div class="sw"><i style="--c:#F1F0EF"></i><i style="--c:#2B2B2D"></i><i style="--c:#FF5722"></i><span class="mono">свет · графит</span></div>
+      </article>
+    </div>
+    <div class="evo-screen">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span id="evoUrl">alex-kitchen.ru · декабрь 2021</span></div>
+        <div class="shots" id="shots">
+          <div class="shot in" data-v="1"><img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v1_01.jpg" alt="Версия 1: первый экран"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v1_03.jpg" alt="Версия 1: фото работ" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v1_04.jpg" alt="Версия 1: преимущества" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v1_08.jpg" alt="Версия 1: о компании" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v1_09.jpg" alt="Версия 1: контакты" loading="lazy"></div>
+          <div class="shot" data-v="2"><img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v2_01.jpg" alt="Версия 2: первый экран" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v2_03.jpg" alt="Версия 2: отзывы с Яндекса" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v2_04.jpg" alt="Версия 2: работы с ценами" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v2_07.jpg" alt="Версия 2: этапы" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v2_08.jpg" alt="Версия 2: статьи" loading="lazy"></div>
+          <div class="shot" data-v="3"><img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v3_01.jpg" alt="Версия 3: первый экран с Александром" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v3_02.jpg" alt="Версия 3: квиз" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v3_04.jpg" alt="Версия 3: подарок" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v3_06.jpg" alt="Версия 3: наши работы" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v3_07.jpg" alt="Версия 3: способы расчёта" loading="lazy"></div>
+          <div class="shot" data-v="4"><img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v4_01.jpg" alt="Версия 4: первый экран" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v4_04.jpg" alt="Версия 4: мы про качество" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v4_05.jpg" alt="Версия 4: подарок" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v4_09.jpg" alt="Версия 4: этапы работы" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v4_12.jpg" alt="Версия 4: схема проезда" loading="lazy"></div>
+          <div class="shot" data-v="5"><img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v5_01.jpg" alt="Версия 5: первый экран" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v5_02.jpg" alt="Версия 5: шесть причин" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v5_04.jpg" alt="Версия 5: отзывы" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v5_05.jpg" alt="Версия 5: реальные проекты" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v5_10.jpg" alt="Версия 5: команда" loading="lazy"></div>
+          <div class="shot" data-v="6"><img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/v6_01.jpg" alt="Сайт сейчас: первый экран" loading="lazy"></div>
+          <span class="frame-ix" id="frameIx">1 / 5</span>
+        </div>
+      </div>
+    </div>
+    <nav class="rail" id="rail" aria-label="Версии сайта">
+      <button aria-current="true"><b>2021</b><span>Лендинг</span></button>
+      <button><b>2023</b><span>Цена и срок</span></button>
+      <button><b>2023</b><span>Графит</span></button>
+      <button><b>2024</b><span>Тёмная тема</span></button>
+      <button><b>2025</b><span>Маркетинг</span></button>
+      <button><b>Сейчас</b><span>alex-kitchen.ru</span></button>
+    </nav>
+  </div>
+</section>
+
+<section class="cinema" id="reel" data-zone="Ролик">
+  <div class="wrap">
+    <div class="cinema-head">
+      <div><span class="mono">Запись · 1440 × 900 · без монтажа</span><h2 class="big">Сайт сегодня. <em>Шесть сцен, которые продают кухни</em></h2></div>
+    </div>
+    <div class="stage">
+      <ol class="chapters" id="chapters">
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/hero.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/hero.jpg" data-url="alex-kitchen.ru" aria-current="true"><span class="n">01</span><span class="t">Первый экран</span><span class="d">0:09</span><span class="s">Цены от производителя, срок 40 дней и две кнопки: расчёт стоимости и консультация дизайнера.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/quiz.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/quiz.jpg" data-url="alex-kitchen.ru/#calc"><span class="n">02</span><span class="t">Квиз с картинками</span><span class="d">0:21</span><span class="s">Тип кухни и стиль выбираются по фото. В конце три варианта кухни под бюджет и подарок.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/promo.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/promo.jpg" data-url="alex-kitchen.ru/#akcii"><span class="n">03</span><span class="t">Акция месяца</span><span class="d">0:06</span><span class="s">Три выдвижных ящика на скрытых направляющих, экономия около 27 000 ₽.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/projects.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/projects.jpg" data-url="alex-kitchen.ru/#works"><span class="n">04</span><span class="t">Реальные проекты</span><span class="d">0:23</span><span class="s">Десять кухонь с фотогалереей, размерами, сроком изготовления и итоговой ценой.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/faq.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/faq.jpg" data-url="alex-kitchen.ru/#faq"><span class="n">05</span><span class="t">Частые вопросы</span><span class="d">0:12</span><span class="s">Из чего складывается цена, сколько длится цикл, что покрывает гарантия.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/map.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/map.jpg" data-url="alex-kitchen.ru/#contacts"><span class="n">06</span><span class="t">Схема проезда</span><span class="d">0:07</span><span class="s">Где встретят пешком, как проехать на машине и какие автобусы идут до остановки.</span><span class="bar"><i></i></span></button></li>
+      </ol>
+      <div class="screen-wrap">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span id="urlbar">alex-kitchen.ru</span></div>
+          <video id="player" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/hero.jpg" muted playsinline autoplay preload="auto" aria-label="Запись сайта alex-kitchen.ru"></video>
+        </div>
+        <div class="phone" aria-label="Мобильная версия главной">
+          <div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/mobile_scroll.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/mobile_scroll.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap anat" id="anat" data-zone="Анатомия">
+  <div class="anat-head">
+    <div>
+      <span class="mono">Разбор главной · 15 282 px сверху вниз</span>
+      <h2 class="big">Анатомия главной. <em>Зачем здесь каждый блок</em></h2>
+      <p>Листайте: справа настоящий скриншот сайта доезжает до блока, о котором я рассказываю. Глубина в пикселях показывает, где блок стоит на странице.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Устройство">
+      <button id="tD" aria-pressed="true">Компьютер</button>
+      <button id="tM" aria-pressed="false">Телефон</button>
+    </div>
+  </div>
+  <div class="anat-grid">
+    <div class="steps" id="steps">
+      <article class="step on" data-d="68,832" data-m="102,1780">
+        <span class="mono"><b>↓ 68 px</b><span>Первый экран</span></span>
+        <h3>Кто, сколько и как быстро</h3>
+        <p>Заголовок отвечает сразу на три вопроса: «кухни на заказ с ценами напрямую от ярославского производителя за 40 дней, под ваш бюджет». Четыре карточки ниже снимают страхи: цена фиксируется в договоре, замер и дизайн-проект бесплатно, гарантия 2 года. Бегущая строка повторяет выгоды для тех, кто листает быстро.</p>
+        <div class="tags"><span>40 дней</span><span>цена в договоре</span><span>гарантия 2 года</span></div>
+      </article>
+      <article class="step" data-d="1020,590" data-m="1885,736">
+        <span class="mono"><b>↓ 1 020 px</b><span>6 причин</span></span>
+        <h3>Шесть причин в цифрах</h3>
+        <p>2500+ проектов с 2014 года, три проекта на выбор после замера, точность около миллиметра для нестандартных размеров. 95% кухонь сдаём в среднем за 34 дня, клиент экономит до 30% бюджета, а акции идут каждый месяц. Никаких «индивидуальных подходов», только то, что можно проверить.</p>
+        <div class="tags"><span>2500+ проектов</span><span>34 дня</span><span>до 30% бюджета</span></div>
+      </article>
+      <article class="step" data-d="1730,860" data-m="2670,1278">
+        <span class="mono"><b>↓ 1 730 px</b><span>Квиз</span></span>
+        <h3>Кухню выбирают глазами</h3>
+        <p>«Рассчитайте 3 варианта кухни под ваш бюджет и выберите подарок». Тип и стиль кухни выбираются по фото: прямая, угловая, П-образная, с островом. Сбоку дизайнер-технолог Александр объясняет, что будет после заявки, а внизу видно, что посетитель получит в конце.</p>
+        <div class="tags"><span>выбор по фото</span><span>3 варианта</span><span>подарок</span></div>
+      </article>
+      <article class="step" data-d="2710,760" data-m="4019,821">
+        <span class="mono"><b>↓ 2 710 px</b><span>Акция месяца</span></span>
+        <h3>Акция, которая меняется каждый месяц</h3>
+        <p>Сейчас это три выдвижных ящика на скрытых направляющих, экономия около 27 000 ₽. Блоки с акциями заготовлены заранее: заказчик включает нужный в пару кликов, и за год предложения почти не повторяются.</p>
+        <div class="tags"><span>≈27 000 ₽</span><span>готовые блоки</span><span>12 акций в год</span></div>
+      </article>
+      <article class="step" data-d="3650,740" data-m="4939,766">
+        <span class="mono"><b>↓ 3 650 px</b><span>Отзывы</span></span>
+        <h3>Отзывы, которые можно проверить</h3>
+        <p>Рейтинг 5.0 на Яндексе и больше 60 отзывов. На каждой карточке имя, дата, фото кухни и кнопка «Оригинал отзыва», которая ведёт на Яндекс Карты.</p>
+        <div class="tags"><span>Яндекс 5.0</span><span>60+ отзывов</span><span>оригинал в один клик</span></div>
+      </article>
+      <article class="step" data-d="4510,3210" data-m="5765,6760">
+        <span class="mono"><b>↓ 4 510 px</b><span>Реальные проекты</span></span>
+        <h3>Десять кухонь с итоговой ценой</h3>
+        <p>Главный вопрос покупателя «а сколько выйдет у меня?». Поэтому у каждой кухни галерея, размеры, улица, срок изготовления от 26 до 44 дней и итоговая цена от 115 000 до 520 000 ₽. Каждый находит свой бюджет и сразу жмёт «Получить консультацию дизайнера».</p>
+        <div class="tags"><span>10 проектов</span><span>115–520 тыс. ₽</span><span>26–44 дня</span></div>
+      </article>
+      <article class="step" data-d="7780,1250" data-m="">
+        <span class="mono"><b>↓ 7 780 px</b><span>Качество в деталях</span></span>
+        <h3>Почему кухня прослужит долго</h3>
+        <p>Плитки с фото готовых кухонь и тремя доводами: оборудование ЧПУ с идеальными швами и пазами до 0,4 мм, фурнитура BLUM и Firmax с ресурсом больше 200 000 циклов, 200+ цветов и фактур с образцами столешниц в шоу-руме.</p>
+        <div class="tags"><span>ЧПУ 0,4 мм</span><span>BLUM и Firmax</span><span>200+ цветов</span></div>
+      </article>
+      <article class="step" data-d="9270,3110" data-m="12696,4957">
+        <span class="mono"><b>↓ 9 270 px</b><span>Расчёт, этапы, вопросы</span></span>
+        <h3>Три пути к расчёту и понятный процесс</h3>
+        <p>Расчёт удалённо по своему проекту, в офисе или с замерщиком, у каждого способа своя кнопка. Дальше восемь этапов от замера до гарантийного обслуживания и девять частых вопросов: зачем замер, из чего складывается цена, сколько длится весь цикл.</p>
+        <div class="tags"><span>3 способа</span><span>8 этапов</span><span>9 вопросов</span></div>
+      </article>
+      <article class="step" data-d="13175,1777" data-m="18319,1166">
+        <span class="mono"><b>↓ 13 175 px</b><span>Контакты</span></span>
+        <h3>Схема, по которой не заблудишься</h3>
+        <p>Производство стоит в промзоне, поэтому вместо стандартной карты на сайте своя схема: где встретят пешком, как проехать на машине, где вход на территорию и какие автобусы идут до остановки. Рядом форма, в которую можно сразу приложить свой проект.</p>
+        <div class="tags"><span>пешком</span><span>на машине</span><span>автобусы</span></div>
+      </article>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="browser" id="vD">
+        <div class="bar"><i></i><i></i><i></i><span>alex-kitchen.ru</span></div>
+        <div class="port" id="portD"><div class="layer" id="layerD"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/home-d.jpg" alt="Полный скриншот главной alex-kitchen.ru, компьютер" width="1100" height="11674"><div class="hl" id="hlD"><b>Первый экран</b></div></div><span class="viewer-note" id="noteD">↓ 68 px</span></div>
+      </div>
+      <div class="phone" id="vM" hidden>
+        <div class="scr port" id="portM"><div class="layer" id="layerM"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/home-m.jpg" alt="Полный скриншот главной alex-kitchen.ru, телефон" width="520" height="27024"><div class="hl" id="hlM"><b>Первый экран</b></div></div><span class="viewer-note" id="noteM">↓ 102 px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap kit" data-zone="Сайт после запуска">
+  <div class="kit-head">
+    <span class="mono">Что работает за кадром</span>
+    <h2 class="big">Сайт как инструмент. <em>Пять вещей, которых не видно на главной</em></h2>
+    <p>Хороший сайт для производства не заканчивается на заявке. Вот что мы с Александром добавили за четыре года, чтобы заявки не терялись, а реклама становилась дешевле.</p>
+  </div>
+  <div class="kit-grid">
+    <article class="tile t-qr">
+      <div class="txt">
+        <div class="qr"><canvas id="qr" width="21" height="21" aria-label="Пример QR-кода"></canvas></div>
+        <span class="mono">Гарантия · alex-kitchen.ru/service</span>
+        <h3>QR-код на каждой новой кухне</h3>
+        <p>Код ведёт на отдельную страницу гарантийных заявок. Клиент указывает номер и дату договора, описывает проблему и прикладывает фото дефекта. Менеджер сразу видит, о какой кухне речь, и не тратит время на расспросы.</p>
+      </div>
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span>alex-kitchen.ru/service</span></div>
+        <video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/service.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/service.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Страница гарантийной заявки"></video>
+      </div>
+    </article>
+    <article class="tile t-tg">
+      <span class="mono">Скорость ответа</span>
+      <h3>Заявки сразу в Telegram-группу</h3>
+      <p>Каждая заявка с сайта приходит в общую группу менеджеров. Её видят все и сразу берут в работу.</p>
+      <div class="msg" aria-hidden="true"><span class="mono">Новая заявка · квиз</span><b>Тип кухни: угловая</b><span>Стиль: современный · есть дизайн-проект</span></div>
+    </article>
+    <article class="tile t-promo">
+      <span class="mono">Акции</span>
+      <h3>Новая акция каждый месяц</h3>
+      <p>Блоки заготовлены заранее и включаются за пару кликов, поэтому за год предложения почти не повторяются. Несколько акций из разных версий сайта:</p>
+      <ol class="promos">
+        <li><span class="mono">2023</span><b>План по розеткам и коммуникациям в подарок</b><small>первый экран версий 2 и 3</small></li>
+        <li><span class="mono">До 31.08</span><b>Тонкая столешница нового поколения в подарок</b><small>версия 3</small></li>
+        <li><span class="mono">До 31.07</span><b>Скидка на фурнитуру до 30%</b><small>версия 4</small></li>
+        <li><span class="mono">Сейчас</span><b>3 выдвижных ящика на скрытых направляющих</b><small>экономия ≈ 27 000 ₽</small></li>
+      </ol>
+    </article>
+    <article class="tile t-utp">
+      <span class="mono">Тесты УТП</span>
+      <h3>Раз в месяц новый заголовок</h3>
+      <p>Мы пробуем разные офферы и оставляем тот, что приносит больше заявок. Так менялся первый экран:</p>
+      <ol class="utps">
+        <li><span class="mono">2023</span><s>Кухни от 85 тыс. руб. Срок изготовления до 45 дней</s></li>
+        <li><span class="mono">2024</span><s>Сделаем кухню на заказ за 45 дней в Ярославле</s></li>
+        <li><span class="mono">2025</span><s>Кухня, которая идеально встанет в вашу квартиру и прослужит 25 лет</s></li>
+        <li><span class="mono">Сейчас</span><span>Кухни на заказ с ценами напрямую от ярославского производителя за 40 дней</span></li>
+      </ol>
+    </article>
+    <article class="tile t-an">
+      <div class="txt">
+        <span class="mono">Сквозная аналитика</span>
+        <h3>У каждой кнопки своя страница «спасибо»</h3>
+        <p>В Яндекс Метрике на каждую такую страницу настроена отдельная цель. Раз в полгода мы проводим сквозную аналитику и смотрим, какие блоки и кнопки приносят заявки, а какие нужно усилить.</p>
+      </div>
+      <div class="flowmap" aria-label="Схема: кнопка ведёт на свою страницу благодарности, у страницы своя цель в Метрике">
+        <div class="col"><span class="mono">Кнопка</span><div class="node btnish">Расчёт стоимости</div><div class="node btnish">Консультация дизайнера</div><div class="node btnish">Забрать акцию</div></div>
+        <div class="col"><span class="mono">Страница</span><div class="node">«Спасибо» №1<small>первый экран</small></div><div class="node">«Спасибо» №2<small>проекты</small></div><div class="node">«Спасибо» №3<small>акция месяца</small></div></div>
+        <div class="col"><span class="mono">Метрика</span><div class="node goal">Цель 1</div><div class="node goal">Цель 2</div><div class="node goal">Цель 3</div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap proc" id="proc" data-zone="Как шла работа">
+  <span class="mono">Как появилась первая версия</span>
+  <h2 class="big">Шесть этапов. <em>От интервью до рекламы</em></h2>
+  <div class="track" id="track">
+    <div class="st"><span class="mono">01</span><h4>Интервью</h4><p>Разобрали, как студия работает от замера до установки и чем Alex Kitchen отличается от соседей.</p></div>
+    <div class="st"><span class="mono">02</span><h4>Анализ</h4><p>Конкуренты в Ярославле и аудитория: кто заказывает кухни, чего боится и на что смотрит при выборе.</p></div>
+    <div class="st"><span class="mono">03</span><h4>Прототип</h4><p>Выстроил блоки в том порядке, в каком покупатель задаёт вопросы студии.</p></div>
+    <div class="st"><span class="mono">04</span><h4>Дизайн-проект</h4><p>Тёплая светлая палитра, двухколоночная сетка и минимум элементов.</p></div>
+    <div class="st"><span class="mono">05</span><h4>Вёрстка и запуск</h4><p>Собрал сайт на Tilda и запустил на домене. Три страницы за 21 день.</p></div>
+    <div class="st"><span class="mono">06</span><h4>Реклама</h4><p>Рекламу заказчик запустил сам, и сайт сразу начал приводить заявки.</p></div>
+  </div>
+  <div class="span-note"><span class="mono">Первый запуск · декабрь 2021</span><span class="mono"><b>21 день</b> на разработку</span><span class="mono">Пятая версия · лето 2025</span></div>
+</section>
+
+<section class="wrap result" data-zone="Результат">
+  <div class="result-grid">
+    <div class="res-num">
+      <span class="mono">Четыре года вместе</span>
+      <b>5<span>.</span></b>
+      <p>Версий сайта за четыре года. Каждая отвечала на то, что было нужно бизнесу в тот момент: сначала просто появиться в сети, потом выглядеть солиднее, потом продавать. Сайт по-прежнему развивается: акции, тесты офферов, аналитика.</p>
+    </div>
+    <div class="quote">
+      <blockquote>Alex Kitchen основал мой одноклассник Александр. Мы давно дружим и помогаем друг другу, поэтому этот проект для меня особенный и символичный: это был мой первый сайт.</blockquote>
+      <div class="who"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/alex-kitchen/alex.jpg" alt="Александр, основатель Alex Kitchen" width="56" height="56"><div><b>Александр</b><span>основатель Alex Kitchen, Ярославль</span></div></div>
+    </div>
+  </div>
+  <div class="cta">
+    <div>
+      <h2>Нужен сайт, который будет расти вместе с бизнесом?</h2>
+      <p>Расскажите о бизнесе, и я пришлю бюджет и сроки меньше чем за 24 часа.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="https://t.me/Ovchinnikov_dsgn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <span class="phone-num">+7 (910) 970-01-24</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap next">
+  <span class="mono">Следующий кейс</span>
+  <a href="https://ovchinnikov-dsgn.ru/project_prospect" target="_blank" rel="noopener">Prospect, кейтеринг в Ярославле →</a>
+</footer>
+</div>
+<script>
+
+(()=>{
+const R=document.querySelector('.ovp');if(!R)return;const $=s=>R.querySelector(s),$$=s=>[...R.querySelectorAll(s)];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* слово в hero подгоняется под ширину колонки */
+const word=$('.word');function fit(){const narrow=innerWidth<=900;word.style.fontSize='';
+  const parts=[...word.querySelectorAll('.part')],chip=word.querySelector('.reel-chip');
+  const need=parts.reduce((a,p)=>a+p.scrollWidth,0)+(narrow?0:chip.offsetWidth)+ (narrow?4:40);
+  const fs=parseFloat(getComputedStyle(word).fontSize);if(need>word.clientWidth)word.style.fontSize=(fs*word.clientWidth/need*.985)+'px'}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);addEventListener('resize',fit);fit();
+
+/* окошко в hero листает версии сайта */
+const chipImgs=$$('#chip img'),chipLbl=['2021 · версия 1','2023 · версия 2','2023 · версия 3','2024 · версия 4','2025 · версия 5','сейчас'];let ci=0;
+if(!reduce)setInterval(()=>{chipImgs[ci].classList.remove('on');ci=(ci+1)%chipImgs.length;chipImgs[ci].classList.add('on');$('#chipT').textContent=chipLbl[ci]},1800);
+
+/* эволюция: версия выбирается прокруткой, новая версия «стирает» старую */
+const evo=$('#evo'),vers=$$('#vers .ver'),shots=$$('#shots .shot'),railB=$$('#rail button'),N=vers.length;
+const URLS=['декабрь 2021','январь 2023','2023','август 2024','лето 2025','сейчас'];let ev=-1,fi=0,ftimer=0;
+function setV(i){if(i===ev)return;const prev=ev;ev=i;
+  vers.forEach((v,k)=>v.classList.toggle('on',k===i));
+  shots.forEach((s,k)=>{s.classList.toggle('in',k<=i);s.classList.toggle('wipe',k===i&&i>prev&&prev>=0)});
+  setTimeout(()=>shots[i]&&shots[i].classList.remove('wipe'),1000);
+  railB.forEach((b,k)=>{b.setAttribute('aria-current',k===i);b.classList.toggle('done',k<i)});
+  $('#rail').style.setProperty('--p',(i/(N-1)*100).toFixed(1)+'%');
+  $('#evoUrl').textContent='alex-kitchen.ru · '+URLS[i];
+  const imgs=[...shots[i].querySelectorAll('img')];imgs.forEach((im,k)=>im.classList.toggle('on',k===0));fi=0;
+  $('#frameIx').textContent=`1 / ${imgs.length}`;clearInterval(ftimer);
+  if(!reduce&&imgs.length>1)ftimer=setInterval(()=>{imgs[fi].classList.remove('on');fi=(fi+1)%imgs.length;imgs[fi].classList.add('on');$('#frameIx').textContent=`${fi+1} / ${imgs.length}`},2200)}
+let er=0;function evoPick(){er=0;const r=evo.getBoundingClientRect(),span=r.height-innerHeight;
+  const p=Math.min(1,Math.max(0,-r.top/Math.max(1,span)));setV(Math.min(N-1,Math.floor(p*N*.999)))}
+addEventListener('scroll',()=>{if(!er)er=requestAnimationFrame(evoPick)},{passive:true});
+railB.forEach((b,k)=>b.addEventListener('click',()=>{const span=evo.offsetHeight-innerHeight;scrollTo({top:evo.getBoundingClientRect().top+scrollY+span*(k+.5)/N,behavior:reduce?'auto':'smooth'})}));
+setV(0);evoPick();
+
+/* ролик по главам */
+const player=$('#player'),chs=$$('#chapters button');let cur=0;
+function play(i){cur=(i+chs.length)%chs.length;chs.forEach((b,k)=>{b.setAttribute('aria-current',k===cur);b.querySelector('.bar i').style.width='0'});
+  const b=chs[cur];player.poster=b.dataset.poster;player.src=b.dataset.src;$('#urlbar').textContent=b.dataset.url;player.play().catch(()=>{})}
+chs.forEach((b,i)=>b.addEventListener('click',()=>play(i)));
+player.addEventListener('timeupdate',()=>{if(player.duration)chs[cur].querySelector('.bar i').style.width=(player.currentTime/player.duration*100)+'%'});
+player.addEventListener('ended',()=>play(cur+1));
+// видео играют только на экране
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.15});
+$$('video').forEach(v=>{if(reduce){v.removeAttribute('autoplay');v.pause()}vio.observe(v)});
+
+/* анатомия */
+const W={d:1440,m:390};let mode='d',active=0;
+const steps=$$('.step');
+function show(i){active=i;steps.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const s=steps[i],M=mode.toUpperCase(),port=$('#port'+M),layer=$('#layer'+M),img=layer.querySelector('img'),hl=$('#hl'+M);
+  if(!s.dataset[mode]){hl.style.opacity='0';$('#note'+M).textContent='Этот блок есть только на компьютере';return}
+  hl.style.opacity='1';
+  const [y,h]=s.dataset[mode].split(',').map(Number);
+  const k=port.clientWidth/W[mode],ph=port.clientHeight,top=y*k,hh=h*k;
+  const imgH=port.clientWidth*img.height/img.width;
+  let off=hh<ph-60?top-(ph-hh)/2:top-28;off=Math.max(0,Math.min(off,imgH-ph));
+  layer.style.transform=`translateY(${-off}px)`;hl.style.top=top+'px';hl.style.height=hh+'px';
+  hl.querySelector('b').textContent=s.querySelector('.mono span').textContent;
+  $('#note'+M).textContent='↓ '+Math.round(y).toLocaleString('ru-RU')+' px'}
+// активный шаг выбирается по линии чтения, а не IntersectionObserver: во встроенном фрейме rootMargin не работает
+const viewer=$('#viewer');let raf=0;
+function pick(){raf=0;const vr=viewer.getBoundingClientRect(),narrow=innerWidth<=900;
+  const line=narrow?vr.bottom+(innerHeight-vr.bottom)*.35:innerHeight*.5;let i=0;
+  steps.forEach((s,k)=>{if(s.getBoundingClientRect().top<=line)i=k});if(i!==active)show(i)}
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+steps.forEach((s,i)=>s.addEventListener('click',()=>show(i)));
+function setMode(m){mode=m;$('#tD').setAttribute('aria-pressed',m==='d');$('#tM').setAttribute('aria-pressed',m==='m');$('#vD').hidden=m!=='d';$('#vM').hidden=m!=='m';
+  const im=$('#layerM img');if(m==='m'&&!im.src){im.src=im.dataset.src;im.onload=()=>show(active)}requestAnimationFrame(()=>show(active))}
+$('#tD').onclick=()=>setMode('d');$('#tM').onclick=()=>setMode('m');
+addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('load',()=>show(active));show(0);
+
+/* QR-код-иллюстрация: настоящие поисковые узоры, середина декоративная */
+const q=$('#qr');if(q){const c=q.getContext('2d'),n=21;c.fillStyle=getComputedStyle(q).color||'#2F282E';
+  const fill=(x,y)=>c.fillRect(x,y,1,1);const finder=(x0,y0)=>{for(let y=0;y<7;y++)for(let x=0;x<7;x++){const e=x===0||y===0||x===6||y===6,i=x>1&&x<5&&y>1&&y<5;if(e||i)fill(x0+x,y0+y)}};
+  finder(0,0);finder(14,0);finder(0,14);let s=7;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;
+  for(let y=0;y<n;y++)for(let x=0;x<n;x++){const inF=(x<8&&y<8)||(x>12&&y<8)||(x<8&&y>12);if(!inF&&rnd()>.52)fill(x,y)}}
+
+/* процесс: линия заполняется по мере прокрутки */
+const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+})();
+</script>
