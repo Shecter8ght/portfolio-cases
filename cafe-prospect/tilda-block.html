@@ -1,0 +1,873 @@
+<!-- Кейс «Кафе Проспект» · «Стол накрыт». Вставьте целиком в блок T123 (HTML-код). Отступы блока сверху и снизу поставьте 0. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+/* Layout: кейс как банкетный стол, который накрывается по мере прокрутки. Фирменный стиль ovchinnikov-dsgn.ru (тёплый белый, сливово-чёрный, коралл, моно-подписи)
+   снаружи, мир кафе (сливочный, глубокий зелёный, шалфей, золото и шрифт Gropled с сайта) внутри. Глубина в px — настоящие координаты блоков на cafe-prospekt76.ru. */
+@font-face{font-family:"Gropled";src:url(https://static.tildacdn.com/tild3163-3161-4261-b561-303234326137/Gropled-Bold.woff) format("woff");font-weight:400 800;font-display:swap;ascent-override:83%;descent-override:22%;line-gap-override:0%}
+.ovp{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#846F81; --line:#E7E2E4;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --leaf:#14604A;
+  --night:#1D181D; --night-2:#2A232A; --night-ink:#F4EEF2; --night-muted:#A8979F; --night-line:#3B323A;
+  --dim:rgba(29,24,29,.55);
+  --cream:#FFFBF3; --cream-2:#F3E8D3; --cream-line:#E8DCC6; --pine:#14604A; --sage:#61765E; --sage-2:#7E9277; --gold:#B8893F; --mint:#95D390; --rose:#EE8C86;
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --f-cafe:"Gropled","Inter Tight",system-ui,sans-serif;
+  --r:22px;
+}
+html[data-theme="dark"] .ovp{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A9979F; --line:#352D34;
+  --coral:#FF7A64; --coral-ink:#1A1012; --leaf:#43BE8F;
+  --night:#0F0C0F; --night-2:#1E181E; --night-line:#342B33; --dim:rgba(8,6,8,.62);
+  --cream:#17201C; --cream-2:#1F2A25; --cream-line:#2E3B35; --pine:#7FD1B0; --sage:#9DB49A; --sage-2:#6F8669; --gold:#D6A75A; color-scheme:dark}
+
+.ovp,.ovp *{box-sizing:border-box}
+.ovp [hidden]{display:none!important}
+.ovp{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+.ovp .wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovp a{color:inherit}
+.ovp :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.ovp .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .mono b{color:var(--coral);font-weight:500}
+.ovp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--leaf);vertical-align:middle;margin-right:6px}
+.ovp .btn{display:inline-flex;flex-direction:column;justify-content:center;gap:2px;padding:14px 26px;border-radius:999px;background:var(--coral);color:var(--coral-ink);text-decoration:none;font:600 16px/1.2 var(--f-display);box-shadow:0 14px 30px -14px var(--coral);transition:transform .25s,box-shadow .25s}
+.ovp .btn small{font:500 12px var(--f-body);opacity:.85}
+.ovp .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--coral)}
+.ovp .link{font:600 15px var(--f-display);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.ovp h2.big{font:700 clamp(36px,5.6vw,80px)/.95 var(--f-display);letter-spacing:-.045em;margin:10px 0 0;text-wrap:balance}
+.ovp h2.big em{font-style:normal;color:var(--muted)}
+
+/* шапка */
+.ovp .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ovp .top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.ovp .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.ovp .logo svg{flex:none}
+.ovp .logo b{display:block;font:600 15px/1.15 var(--f-display);letter-spacing:.02em}
+.ovp .logo span{display:block;font-size:13px;color:var(--muted)}
+.ovp .top nav{margin-left:auto;display:flex;align-items:center;gap:22px}
+.ovp .top nav a{font:500 15px var(--f-body);text-decoration:none;color:var(--muted)}
+.ovp .top nav a:hover{color:var(--ink)}
+.ovp .rec{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:500 12px var(--f-mono);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ovp .rec i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:ovp-blink 1.4s steps(2) infinite}
+@keyframes ovp-blink{50%{opacity:.15}}
+
+/* hero */
+.ovp .hero{padding-block:18px 40px}
+.ovp .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ovp .word{display:flex;align-items:center;justify-content:space-between;gap:.06em;font:800 min(11.4vw,170px)/.8 var(--f-display);letter-spacing:-.065em;margin:0;text-transform:uppercase;white-space:nowrap}
+.ovp .word .part{display:flex;overflow:hidden;padding-block:.06em .02em}
+.ovp .word .part span{display:inline-block;animation:ovp-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*55ms + 120ms)}
+@keyframes ovp-rise{from{transform:translateY(105%)}}
+/* окошко-арка, как полукруглые фото на сайте кафе; золотое зеркало из декора зала медленно вращается */
+.ovp .arch{position:relative;flex:1 1 auto;min-width:1.2em;max-width:2.4em;height:.86em;margin:0 .1em!important;animation:ovp-pop 1s cubic-bezier(.2,.9,.25,1.15) .45s both}
+.ovp .arch .stack{position:absolute;inset:0;border-radius:999px 999px .08em .08em;overflow:hidden;background:var(--cream-2);box-shadow:0 30px 60px -30px rgba(20,60,45,.55)}
+.ovp .arch .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity .9s,transform 4s linear}
+.ovp .arch .stack img.on{opacity:1;transform:scale(1)}
+.ovp .arch .sun{position:absolute;right:-.22em;top:-.26em;width:.56em;height:.56em;animation:ovp-spin 40s linear infinite;filter:drop-shadow(0 10px 18px rgba(80,55,20,.35));pointer-events:none}
+.ovp .arch figcaption{position:absolute;left:50%;bottom:.06em;transform:translateX(-50%);font:500 clamp(9px,.9vw,12px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,40,32,.6);backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px;white-space:nowrap}
+@keyframes ovp-pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+@keyframes ovp-spin{to{transform:rotate(360deg)}}
+.ovp .hero-low{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:28px;align-items:end;margin-top:30px}
+.ovp .hero-low h1{font:700 clamp(28px,3.3vw,46px)/1.02 var(--f-display);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ovp .hero-low h1 em{font-style:normal;color:var(--muted)}
+.ovp .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ovp .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.ovp .fact{padding:20px 20px 4px 0;display:grid;gap:6px}
+.ovp .fact+.fact{padding-left:20px;border-left:1px solid var(--line)}
+.ovp .fact b{font:700 clamp(34px,4.2vw,58px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+
+/* задача: кафе, о котором забыли */
+.ovp .task{padding-block:40px 20px}
+.ovp .task-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px;align-items:center}
+.ovp .task p.lead{font:600 clamp(24px,2.6vw,36px)/1.2 var(--f-display);letter-spacing:-.03em;margin:14px 0 0;text-wrap:pretty}
+.ovp .task p.lead em{font-style:normal;color:var(--muted)}
+.ovp .task .then{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:30px;border-top:1px solid var(--line)}
+.ovp .task .then div{padding:16px 16px 0 0;display:grid;gap:4px}
+.ovp .task .then div+div{padding-left:16px;border-left:1px solid var(--line)}
+.ovp .task .then b{font:600 16px/1.3 var(--f-display)}
+.ovp .task .then span:not(.mono){font-size:14px;color:var(--muted);line-height:1.45}
+.ovp .hall{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:16/10;background:var(--cream-2)}
+.ovp .hall img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.12);transition:transform 1.6s cubic-bezier(.2,.8,.2,1)}
+.ovp .hall.in img{transform:scale(1)}
+.ovp .hall figcaption{position:absolute;left:16px;bottom:16px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,40,32,.62);backdrop-filter:blur(6px);padding:7px 11px;border-radius:999px}
+.ovp .hall .chairs{position:absolute;right:16px;top:16px;display:flex;gap:4px;padding:8px 10px;border-radius:999px;background:rgba(255,251,243,.88)}
+.ovp .hall .chairs i{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--sage);transition:background .3s}
+.ovp .hall .chairs i.on{background:var(--sage)}
+
+/* стол: сайт накрывается как банкет на 20 гостей */
+.ovp .tb{position:relative;height:calc(var(--n,6) * 80vh + 40vh);margin-top:60px;background:var(--cream);border-radius:36px 36px 0 0}
+.ovp .tb::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(60% 40% at 85% 10%,color-mix(in srgb,var(--gold) 14%,transparent),transparent 70%),radial-gradient(50% 30% at 0% 60%,color-mix(in srgb,var(--sage) 12%,transparent),transparent 70%);pointer-events:none}
+.ovp .tb-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);height:calc(100vh - 86px);min-height:560px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto minmax(0,1fr) auto;gap:18px 48px;padding-block:22px 74px}
+.ovp .tb-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .tb-head h2{margin:0;font:700 clamp(26px,3vw,44px)/1.05 var(--f-cafe);letter-spacing:.005em;color:var(--pine)}
+.ovp .tb-head h2 em{font-style:normal;color:var(--sage)}
+.ovp .tb .mono{color:var(--sage)}
+.ovp .tb .mono b{color:var(--gold)}
+.ovp .tb-left{min-width:0;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:14px;align-content:start}
+.ovp .plan{position:relative;border-radius:22px;background:color-mix(in srgb,var(--cream-2) 55%,var(--cream));border:1px solid var(--cream-line);padding:12px 10px 8px}
+.ovp .plan svg{display:block;width:100%;height:auto;overflow:visible}
+.ovp .plan-meta{display:flex;justify-content:space-between;gap:10px;padding:2px 6px 0}
+.ovp .plan-meta b{font:700 15px var(--f-mono);color:var(--pine);font-variant-numeric:tabular-nums}
+.ovp .seat{opacity:0;transform:translateY(var(--dy,-10px)) scale(.4);transform-box:fill-box;transform-origin:center;transition:opacity .5s,transform .7s cubic-bezier(.2,.9,.3,1.3)}
+.ovp .seat.on{opacity:1;transform:none}
+.ovp .vase{opacity:0;transform:scale(0);transform-box:fill-box;transform-origin:center;transition:opacity .4s,transform .6s cubic-bezier(.2,.9,.3,1.4)}
+.ovp .vase.on{opacity:1;transform:none}
+.ovp .qa{position:relative;min-height:0}
+.ovp .q{position:absolute;inset:0;display:grid;gap:12px;align-content:start;opacity:0;transform:translateY(24px);transition:opacity .55s,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ovp .q.on{opacity:1;transform:none;pointer-events:auto}
+.ovp .q .who{display:flex;align-items:center;gap:10px}
+.ovp .q .who i{width:30px;height:30px;border-radius:50%;background:var(--cream-2);border:1px solid var(--cream-line);display:grid;place-items:center;font:500 12px var(--f-mono);font-style:normal;color:var(--sage)}
+.ovp .q h3{margin:0;font:700 clamp(22px,2.3vw,32px)/1.12 var(--f-cafe);color:var(--pine);letter-spacing:.005em;text-wrap:balance}
+.ovp .q p{margin:0;font-size:16px;line-height:1.55;max-width:32em}
+.ovp .q .ans{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:baseline;padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--cream-line)}
+.ovp .q .ans .mono{color:var(--gold)}
+.ovp .tb-screen{position:relative;min-width:0;display:flex;align-items:center}
+.ovp .tb-screen .browser{width:100%;position:relative}
+.ovp .shots{position:relative;aspect-ratio:16/10;background:var(--cream-2);overflow:hidden}
+.ovp .shots img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transform:scale(1.04) translateY(10px);transition:opacity .6s,transform 1.4s cubic-bezier(.2,.8,.2,1)}
+.ovp .shots img.on{opacity:1;transform:none}
+.ovp .shots .tag{position:absolute;right:12px;top:12px;z-index:3;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--pine);padding:6px 10px;border-radius:999px}
+.ovp .tb .sun2{position:absolute;right:-46px;bottom:-40px;width:150px;animation:ovp-spin 60s linear infinite;pointer-events:none;filter:drop-shadow(0 16px 24px rgba(80,55,20,.3));z-index:2}
+.ovp .rail{grid-column:1/-1;display:grid;grid-template-columns:repeat(var(--n,6),minmax(0,1fr));position:relative;padding-top:16px}
+.ovp .rail::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--pine) var(--p,0%),var(--cream-line) var(--p,0%))}
+.ovp .rail button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:2px;padding:4px 10px 0 0;position:relative;min-width:0}
+.ovp .rail button::before{content:"";position:absolute;left:0;top:-23px;width:12px;height:12px;border-radius:50%;background:var(--cream);border:2px solid var(--cream-line);transition:border-color .3s,background .3s}
+.ovp .rail button.done::before{border-color:var(--pine)}
+.ovp .rail button[aria-current="true"]::before{background:var(--pine);border-color:var(--pine)}
+.ovp .rail b{font:700 18px/1.1 var(--f-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--pine)}
+.ovp .rail span{font-size:13px;color:var(--sage);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ролик */
+.ovp .cinema{background:var(--night);color:var(--night-ink);border-radius:32px 32px 0 0;overflow:hidden;margin-top:-36px;position:relative}
+.ovp .cinema .wrap{padding-block:70px 80px}
+.ovp .cinema .mono{color:var(--night-muted)}
+.ovp .cinema-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.ovp .cinema-head h2{color:var(--night-ink)}
+.ovp .cinema-head h2 em{color:var(--night-muted)}
+.ovp .stage{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:start}
+.ovp .chapters{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.ovp .chapters button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;width:100%;padding:14px 18px;border-radius:16px;position:relative;overflow:hidden;transition:background .3s}
+.ovp .chapters button:hover{background:var(--night-2)}
+.ovp .chapters button[aria-current="true"]{background:var(--night-2)}
+.ovp .chapters .n{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px}
+.ovp .chapters .t{font:600 18px/1.25 var(--f-display);letter-spacing:-.02em}
+.ovp .chapters .d{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.ovp .chapters .s{grid-column:2/4;font-size:14px;line-height:1.45;color:var(--night-muted);display:none}
+.ovp .chapters button[aria-current="true"] .s{display:block}
+.ovp .chapters button[aria-current="true"] .n{color:var(--coral)}
+.ovp .chapters .bar{position:absolute;left:18px;right:18px;bottom:7px;height:2px;background:var(--night-line);border-radius:2px;opacity:0}
+.ovp .chapters button[aria-current="true"] .bar{opacity:1}
+.ovp .chapters .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:inherit}
+.ovp .screen-wrap{position:relative;padding-right:min(9%,110px);padding-bottom:40px}
+.ovp .browser{border-radius:18px;background:#E9E6E8;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.ovp .tb .browser{box-shadow:0 40px 80px -40px rgba(20,60,45,.45);border-color:var(--cream-line)}
+.ovp .browser .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFECEE}
+.ovp .browser .bar i{width:11px;height:11px;border-radius:50%;background:#D3CDD1}
+.ovp .browser .bar i:first-child{background:#F36A55}
+.ovp .browser .bar span{margin-left:14px;flex:1;max-width:360px;font:500 12px var(--f-mono);color:#6E5F6B;background:#fff;border-radius:8px;padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovp .browser video,.ovp .browser > img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#fff}
+.ovp .phone{position:relative;width:100%;border-radius:38px;padding:9px;background:#141114;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),inset 0 0 0 1.5px #3A3239}
+.ovp .phone .scr{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:390/844;background:#fff}
+.ovp .phone .scr::before{content:"";position:absolute;z-index:2;left:50%;top:9px;width:30%;height:22px;border-radius:12px;background:#141114;transform:translateX(-50%)}
+.ovp .phone video,.ovp .phone img{display:block;width:100%}
+.ovp .phone video{height:100%;object-fit:cover;object-position:top}
+.ovp .stage .phone{position:absolute;right:0;bottom:0;width:min(23%,230px)}
+
+/* анатомия */
+.ovp .anat{padding-block:100px 40px}
+.ovp .anat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ovp .anat-head p{max-width:34em;color:var(--muted);margin:16px 0 0}
+.ovp .toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .toggle button{border:0;background:transparent;color:var(--muted);font:600 14px var(--f-display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.ovp .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ovp .anat-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;margin-top:40px}
+.ovp .steps{display:grid}
+.ovp .step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.38;transition:opacity .5s}
+.ovp .step:first-child{border-top:0}
+.ovp .step.on{opacity:1}
+.ovp .step .mono{display:flex;gap:12px;flex-wrap:wrap}
+.ovp .step h3{font:700 clamp(26px,2.8vw,40px)/1.04 var(--f-display);letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.ovp .step p{margin:0;max-width:31em}
+.ovp .step .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ovp .step .tags span{font:500 13px var(--f-body);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .viewer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);height:calc(100vh - 130px);max-height:820px;display:flex;align-items:flex-start;justify-content:center}
+.ovp .viewer .browser{width:100%;height:100%;display:flex;flex-direction:column}
+.ovp .viewer .phone{height:100%;width:auto;aspect-ratio:408/862;max-width:100%}
+.ovp .port{position:relative;flex:1;overflow:hidden;background:#1E1E20}
+.ovp .viewer .phone .scr{height:100%;width:100%;aspect-ratio:auto}
+.ovp .layer{position:absolute;left:0;top:0;width:100%;transition:transform 1.15s cubic-bezier(.7,0,.2,1);will-change:transform}
+.ovp .layer img{display:block;width:100%;aspect-ratio:auto;height:auto;object-fit:fill}
+.ovp .hl{position:absolute;left:6px;right:6px;border-radius:14px;box-shadow:0 0 0 2px var(--coral),0 0 0 4000px var(--dim);transition:top 1.15s cubic-bezier(.7,0,.2,1),height 1.15s cubic-bezier(.7,0,.2,1),opacity .4s;pointer-events:none}
+.ovp .hl b{position:absolute;left:10px;top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--coral);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ovp .viewer-note{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums;max-width:calc(100% - 24px)}
+
+/* за кадром */
+.ovp .kit{padding-block:90px 40px}
+.ovp .kit-head p{max-width:36em;color:var(--muted);margin:16px 0 0}
+.ovp .kit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:40px}
+.ovp .tile{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ovp .tile h3{margin:0;font:700 clamp(21px,1.9vw,26px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .tile p{margin:0;font-size:15px;color:var(--muted);max-width:34em}
+.ovp .t-seat{grid-column:span 4;background:var(--cream);border-color:var(--cream-line);display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:26px;align-items:center}
+.ovp .t-seat .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .t-seat h3{color:var(--pine)}
+.ovp .t-seat .mono{color:var(--sage)}
+.ovp .seg{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--cream-line);align-self:start}
+.ovp .seg button{border:0;background:transparent;color:var(--sage);font:600 14px var(--f-display);padding:9px 16px;border-radius:999px;cursor:pointer}
+.ovp .seg button[aria-pressed="true"]{background:var(--pine);color:var(--cream)}
+.ovp .calc{display:grid;gap:12px}
+.ovp .calc .plan{padding:10px 8px 6px}
+.ovp .range{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center}
+.ovp .range input{width:100%;accent-color:var(--pine)}
+.ovp .range output{font:700 22px var(--f-display);color:var(--pine);font-variant-numeric:tabular-nums;min-width:2ch;text-align:right}
+.ovp .sum{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--cream-line)}
+.ovp .sum b{font:700 clamp(24px,2.4vw,32px)/1 var(--f-display);letter-spacing:-.03em;color:var(--pine);font-variant-numeric:tabular-nums}
+.ovp .sum small{font-size:13px;color:var(--muted);flex-basis:100%}
+.ovp .t-calm{grid-column:span 2;background:var(--night);color:var(--night-ink);border-color:var(--night)}
+.ovp .t-calm p{color:var(--night-muted)}
+.ovp .t-calm .mono{color:var(--night-muted)}
+.ovp .btns{margin-top:auto;display:grid;gap:10px}
+.ovp .btns span{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;font:600 14px var(--f-body)}
+.ovp .btns span:first-child{background:#95D390;color:#14402F}
+.ovp .btns span:last-child{background:#5E5C5A;color:#fff}
+.ovp .btns small{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.ovp .t-est{grid-column:span 3}
+.ovp .t-rev{grid-column:span 3}
+.ovp .est{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:6px}
+.ovp .est li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 14px;border-radius:12px;border:1px solid var(--line);font:600 15px var(--f-display);opacity:.35;transform:translateX(-8px);transition:opacity .5s,transform .5s}
+.ovp .est li.on{opacity:1;transform:none}
+.ovp .est li i{width:18px;height:18px;border-radius:50%;border:2px solid var(--leaf);display:grid;place-items:center;font:700 11px var(--f-mono);font-style:normal;color:var(--leaf)}
+.ovp .est li .mono{font-size:11px}
+.ovp .est li:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 7%,transparent)}
+.ovp .revs{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.ovp .revs span{font:500 13px var(--f-body);padding:7px 12px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.ovp .revs span.hot{background:var(--coral);border-color:var(--coral);color:var(--coral-ink)}
+.ovp .rev-q{margin:auto 0 0;padding:16px 18px;border-radius:16px;border:1px solid var(--line);font:600 17px/1.35 var(--f-display);letter-spacing:-.01em}
+.ovp .rev-q small{display:block;margin-top:8px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ovp .t-train{grid-column:span 6;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:30px;align-items:center}
+.ovp .t-train .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .route{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ovp .route::before{content:"";position:absolute;left:8%;right:8%;top:22px;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 10px,transparent 10px 18px)}
+.ovp .route div{position:relative;display:grid;gap:6px;justify-items:start;padding-top:44px}
+.ovp .route div::before{content:"";position:absolute;left:0;top:14px;width:18px;height:18px;border-radius:50%;background:var(--surface);border:2px solid var(--leaf)}
+.ovp .route div:last-child::before{background:var(--coral);border-color:var(--coral)}
+.ovp .route b{font:600 16px/1.25 var(--f-display)}
+.ovp .route span{font-size:14px;color:var(--muted);line-height:1.45}
+.ovp .route .pkg{position:absolute;top:8px;left:0;width:30px;height:30px;border-radius:9px;background:var(--leaf);display:grid;place-items:center;color:#fff;font:600 14px var(--f-mono);animation:ovp-ride 6s cubic-bezier(.6,0,.3,1) infinite;z-index:2}
+@keyframes ovp-ride{0%,8%{left:0}42%,50%{left:calc(50% - 15px)}84%,100%{left:calc(100% - 30px)}}
+
+/* процесс */
+.ovp .proc{padding-block:100px 60px}
+.ovp .track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:44px;position:relative}
+.ovp .track::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .st{position:relative;padding:44px 18px 0 0}
+.ovp .st::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--coral)}
+.ovp .st .mono{color:var(--coral)}
+.ovp .st h4{margin:8px 0 8px;font:700 21px/1.15 var(--f-display);letter-spacing:-.025em}
+.ovp .st p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.ovp .span-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px dashed var(--line)}
+
+/* итог */
+.ovp .result{padding-block:60px 110px}
+.ovp .result-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.ovp .res-num{border-radius:28px;background:var(--night);color:var(--night-ink);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:380px}
+.ovp .res-num .mono{color:var(--night-muted)}
+.ovp .res-num b{font:800 clamp(90px,13vw,190px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .res-num b span{color:var(--coral)}
+.ovp .res-num p{margin:0;color:var(--night-muted);max-width:26em}
+.ovp .res-num .after{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;padding-top:20px;border-top:1px solid var(--night-line)}
+.ovp .res-num .after strong{font:700 clamp(28px,3vw,40px)/1 var(--f-display);letter-spacing:-.04em;color:var(--night-ink);white-space:nowrap}
+.ovp .res-num .after span{font-size:15px;color:var(--night-muted)}
+.ovp .quote{border-radius:28px;background:var(--cream);border:1px solid var(--cream-line);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;position:relative;overflow:hidden}
+.ovp .quote .mark{font:700 120px/.6 var(--f-cafe);color:var(--rose)}
+.ovp .quote blockquote{margin:0;font:700 clamp(26px,2.8vw,40px)/1.15 var(--f-cafe);letter-spacing:.005em;color:var(--pine);text-wrap:balance}
+.ovp .quote p{margin:0;font-size:15px;color:var(--muted);max-width:30em}
+.ovp .quote .src{display:flex;align-items:center;gap:10px;font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--sage)}
+.ovp .quote .src i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#FC3F1D;color:#fff;font:700 14px var(--f-display);font-style:normal}
+.ovp .quote .bq{position:absolute;right:-30px;top:-30px;width:180px;opacity:.95;pointer-events:none}
+.ovp .cta{margin-top:24px;border-radius:28px;background:var(--coral);color:var(--coral-ink);padding:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.ovp .cta h2{margin:0;font:700 clamp(30px,3.8vw,54px)/1 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .cta p{margin:12px 0 0;opacity:.85}
+.ovp .cta .acts{display:grid;gap:12px;justify-items:start}
+.ovp .cta .btn{background:var(--coral-ink);color:var(--coral);box-shadow:none}
+.ovp .cta .phone-num{font:600 20px var(--f-display);user-select:all}
+.ovp .next{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding-block:28px 40px;border-top:1px solid var(--line)}
+.ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
+.ovp .next a:hover{color:var(--coral)}
+
+/* «Ваш визит» */
+.ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
+.ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+.ovp .visit .bars i{width:4px;border-radius:2px;background:var(--line);height:20%;transition:height .6s,background .6s}
+.ovp .visit .bars i.hot{background:var(--coral)}
+.ovp .visit .bars i.warm{background:color-mix(in srgb,var(--coral) 45%,var(--line))}
+.ovp .visit div{min-width:0}
+.ovp .visit .mono{font-size:10px}
+.ovp .visit b{display:block;font:600 15px/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.ovp .visit b em{font:500 13px var(--f-mono);font-style:normal;color:var(--coral);margin-left:6px}
+
+@media (max-width:1100px){
+  .ovp .stage{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .chapters .s{display:none!important}
+  .ovp .track{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
+  .ovp .track::before{display:none}
+  .ovp .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .t-seat,.ovp .t-train{grid-column:span 2}
+  .ovp .t-calm,.ovp .t-est,.ovp .t-rev{grid-column:span 1}
+  .ovp .t-calm{grid-column:span 2}
+}
+@media (max-width:900px){
+  .ovp .top nav a.hide-s{display:none}
+  .ovp .word{font-size:min(13vw,170px);flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:0}
+  .ovp .arch{order:3;flex:none;width:100%;max-width:none;min-width:0;height:auto;aspect-ratio:16/11;font-size:16px;margin:22px 0 0!important}
+  .ovp .arch .stack{border-radius:200px 200px 16px 16px}
+  .ovp .arch .sun{width:110px;height:110px;right:-14px;top:-26px}
+  .ovp .hero-low{grid-template-columns:minmax(0,1fr)}
+  .ovp .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .fact:nth-child(3){border-left:0;padding-left:0}
+  .ovp .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .ovp .task-grid{grid-template-columns:minmax(0,1fr);gap:28px}
+  .ovp .tb-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto;gap:12px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px);padding-block:14px 64px}
+  .ovp .tb-screen{grid-row:2}
+  .ovp .tb-left{grid-row:3;grid-template-rows:auto minmax(0,1fr);gap:10px}
+  .ovp .tb-left > .mono{display:none}
+  .ovp .plan{padding:8px 6px 4px;border-radius:16px}
+  .ovp .plan-meta{display:none}
+  .ovp .q{gap:8px}
+  .ovp .q .who{display:none}
+  .ovp .q h3{font-size:20px}
+  .ovp .q p{font-size:14px;line-height:1.45}
+  .ovp .q .ans{padding:9px 12px}
+  .ovp .tb .sun2{display:none}
+  .ovp .rail{grid-row:4}
+  .ovp .rail span{display:none}
+  .ovp .rail b{font-size:14px}
+  .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
+  .ovp .step{min-height:56vh}
+  .ovp .result-grid,.ovp .cta,.ovp .t-seat,.ovp .t-train{grid-template-columns:minmax(0,1fr)}
+  .ovp .kit-grid{grid-template-columns:minmax(0,1fr)}
+  .ovp .t-seat,.ovp .t-train,.ovp .t-calm,.ovp .t-est,.ovp .t-rev{grid-column:auto}
+}
+@media (max-width:560px){
+  .ovp{font-size:16px}
+  .ovp .top .wrap{gap:10px}
+  .ovp .logo span{display:none}
+  .ovp .rec span{display:none}
+  .ovp .chapters{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters button{padding:12px 14px}
+  .ovp .screen-wrap{padding-right:0;padding-bottom:0}
+  .ovp .stage .phone{display:none}
+  .ovp .track{grid-template-columns:minmax(0,1fr)}
+  .ovp .res-num,.ovp .quote,.ovp .cta{padding:28px}
+  .ovp .tile{padding:20px}
+  .ovp .task .then{grid-template-columns:minmax(0,1fr)}
+  .ovp .task .then div+div{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:12px}
+  .ovp .route{grid-template-columns:minmax(0,1fr);gap:4px}
+  .ovp .route::before,.ovp .route .pkg{display:none}
+  .ovp .route div{padding:0 0 10px 30px}
+  .ovp .route div::before{top:2px}
+  .ovp .tb-head .mono{display:none}
+  .ovp .q p{display:none}
+  .ovp .visit .bars{display:none}
+  .ovp .visit b{max-width:72vw}
+}
+@media (max-height:760px) and (min-width:901px){
+  .ovp .q p{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovp *,.ovp *::before,.ovp *::after{animation:none!important;transition:none!important}
+}
+</style>
+<div class="ovp">
+
+<section class="wrap hero" data-zone="Первый экран кейса">
+  <div class="hero-meta">
+    <span class="mono">Кейс · Банкетный зал · Ярославль · Tilda</span>
+    <span class="mono"><span class="dot"></span>cafe-prospekt76.ru · проспект Ленина, 37/73</span>
+  </div>
+  <h2 class="word" aria-label="Проспект">
+    <span class="part" aria-hidden="true"><span style="--i:0">П</span><span style="--i:1">Р</span><span style="--i:2">О</span><span style="--i:3">С</span></span>
+    <figure class="arch" style="margin:0">
+      <div class="stack" id="chip">
+        <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/ph_hall1.jpg" alt="Банкетный зал кафе «Проспект», накрытый стол">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/ph_table.jpg" alt="Сервировка: зелёные салфетки и розовые цветы" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/ph_hall2.jpg" alt="Зал кафе «Проспект» с длинным столом" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/ph_hall3.jpg" alt="Банкетный стол у окна" loading="lazy">
+      </div>
+      <img class="sun" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/gold.png" alt="" aria-hidden="true">
+      <figcaption id="chipT">зал · 1 из 4</figcaption>
+    </figure>
+    <span class="part" aria-hidden="true"><span style="--i:4">П</span><span style="--i:5">Е</span><span style="--i:6">К</span><span style="--i:7">Т</span></span>
+  </h2>
+  <div class="hero-low">
+    <h1>Первый сайт кафе с одним банкетным залом, который отвечает гостю на главное: <em>будут ли чужие люди, сколько стоит и кто всё организует</em></h1>
+    <div class="hero-cta">
+      <a class="btn" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">Хочу такой сайт<small>расчёт бюджета за 24 часа</small></a>
+      <a class="link" href="#table">Накрыть стол ↓</a>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="mono">Банкетный зал</span><b>1</b></div>
+    <div class="fact"><span class="mono">Гостей в зале</span><b>до 30</b></div>
+    <div class="fact"><span class="mono">Отзывов гостей на сайте</span><b>14</b></div>
+    <div class="fact"><span class="mono">Заявки за первую неделю</span><b>2</b></div>
+  </div>
+</section>
+
+<section class="wrap task" data-zone="Задача">
+  <div class="task-grid">
+    <div>
+      <span class="mono">Задача</span>
+      <p class="lead">Лет восемь назад кафе «Проспект» знали в городе без всякой рекламы. <em>Потом праздники стали искать в интернете, а у кафе не было даже сайта, и о нём начали забывать.</em></p>
+      <div class="then">
+        <div><span class="mono">Было</span><b>Карточка на картах</b><span>Отзывы гостей на Яндексе и больше ничего</span></div>
+        <div><span class="mono">Нужно</span><b>Загрузить зал</b><span>Чтобы праздники проходили каждую неделю</span></div>
+        <div><span class="mono">Сделали</span><b>Первый сайт</b><span>Один лендинг, на который можно вести рекламу</span></div>
+      </div>
+    </div>
+    <figure class="hall" id="hall" style="margin:0">
+      <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/ph_wide.jpg" alt="Пустой банкетный зал кафе «Проспект» днём" loading="lazy">
+      <div class="chairs" id="chairs" aria-hidden="true"></div>
+      <figcaption>Зал ждёт гостей · проспект Ленина</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="tb" id="table" data-zone="Накрываем стол" style="--n:6">
+  <div class="wrap tb-pin">
+    <div class="tb-head">
+      <h2>Сайт, накрытый как стол. <em>Каждое место — ответ гостю</em></h2>
+      <span class="mono">6 вопросов гостя · <b>20 мест</b> на банкет</span>
+    </div>
+    <div class="tb-left">
+      <div class="plan">
+        <svg id="planSvg" viewBox="0 0 1000 220" role="img" aria-label="Банкетный стол на 20 гостей, вид сверху"></svg>
+        <div class="plan-meta"><span class="mono">Вид сверху · один стол, один праздник</span><b id="seatN">0 / 20</b></div>
+      </div>
+      <span class="mono" id="qTag">Вопрос 1 из 6</span>
+      <div class="qa" id="qa">
+        <article class="q on">
+          <div class="who"><i>01</i><span class="mono">Гость спрашивает</span></div>
+          <h3>«Где это и на сколько человек?»</h3>
+          <div class="ans"><span class="mono">Сайт</span><span>Банкетный зал в Ярославле до 30 гостей, меню от 1700 ₽ на человека.</span></div>
+          <p>Всё это в заголовке первого экрана. Ниже две кнопки: рассчитать стоимость на дату или сразу позвонить. Под ними фото того самого стола, который накроют для вас.</p>
+        </article>
+        <article class="q">
+          <div class="who"><i>02</i><span class="mono">Гость спрашивает</span></div>
+          <h3>«За соседним столом будут чужие люди?»</h3>
+          <div class="ans"><span class="mono">Сайт</span><span>Нет. Зал один, и в день проходит только одно событие.</span></div>
+          <p>Это главное отличие кафе, поэтому ему отдан целый блок «Полное уединение» и фраза гостя из отзыва: «Особенно понравилось то, что мы были одни в зале».</p>
+        </article>
+        <article class="q">
+          <div class="who"><i>03</i><span class="mono">Гость спрашивает</span></div>
+          <h3>«Сколько это будет стоить?»</h3>
+          <div class="ans"><span class="mono">Сайт</span><span>Смета до предоплаты: блюда, порции, посуда, сервировка и сумма на человека.</span></div>
+          <p>Форма сразу спрашивает повод, дату и число гостей, поэтому разговор с кафе начинается с расчёта, а не с «перезвоните мне».</p>
+        </article>
+        <article class="q">
+          <div class="who"><i>04</i><span class="mono">Гость спрашивает</span></div>
+          <h3>«С кем договариваться?»</h3>
+          <div class="ans"><span class="mono">Сайт</span><span>С Еленой, владелицей кафе. Она сама составляет меню и считает бюджет.</span></div>
+          <p>Её фотография и прямые слова на тёмно-зелёном фоне, рядом цитаты гостей о том, как Елена помогла вписаться в бюджет.</p>
+        </article>
+        <article class="q">
+          <div class="who"><i>05</i><span class="mono">Гость спрашивает</span></div>
+          <h3>«Как всё пройдёт?»</h3>
+          <div class="ans"><span class="mono">Сайт</span><span>Шесть шагов от заявки до накрытого стола.</span></div>
+          <p>Просмотр зала, меню и смета в Excel, дегустация по желанию, предоплата 30% с квитанцией и сам праздник. Остатки еды упакуют с собой.</p>
+        </article>
+        <article class="q">
+          <div class="who"><i>06</i><span class="mono">Гость спрашивает</span></div>
+          <h3>«А если повод грустный?»</h3>
+          <div class="ans"><span class="mono">Сайт</span><span>Поминальные обеды отдельным форматом: до 30 гостей, меню 1700 и 2000 ₽.</span></div>
+          <p>Спокойная серая кнопка «Обсудить» вместо яркого «Рассчитать», официант уже в цене, детали можно согласовать без приезда в кафе.</p>
+        </article>
+      </div>
+    </div>
+    <div class="tb-screen">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span id="tbUrl">cafe-prospekt76.ru · первый экран</span></div>
+        <div class="shots" id="shots">
+          <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/s_hero.jpg" alt="Первый экран сайта кафе «Проспект»">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/s_privacy.jpg" alt="Блок «Полное уединение»" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/s_smeta.jpg" alt="Блок со сметой и формой расчёта" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/s_elena.jpg" alt="Блок о владелице кафе Елене" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/s_steps.jpg" alt="Этапы: от заявки до накрытого стола" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/s_formats.jpg" alt="Два формата: банкет и поминальные обеды" loading="lazy">
+          <span class="tag" id="tbTag">1440 × 900</span>
+        </div>
+      </div>
+      <img class="sun2" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/gold.png" alt="" aria-hidden="true">
+    </div>
+    <nav class="rail" id="rail" aria-label="Вопросы гостя">
+      <button aria-current="true"><b>01</b><span>Где и сколько</span></button>
+      <button><b>02</b><span>Чужие люди</span></button>
+      <button><b>03</b><span>Стоимость</span></button>
+      <button><b>04</b><span>Елена</span></button>
+      <button><b>05</b><span>Как пройдёт</span></button>
+      <button><b>06</b><span>Поминки</span></button>
+    </nav>
+  </div>
+</section>
+
+<section class="cinema" id="reel" data-zone="Ролик">
+  <div class="wrap">
+    <div class="cinema-head">
+      <div><span class="mono">Запись · 1440 × 900 · без монтажа</span><h2 class="big">Сайт сегодня. <em>Семь сцен от первого экрана до заявки</em></h2></div>
+    </div>
+    <div class="stage">
+      <ol class="chapters" id="chapters">
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/hero.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/hero.jpg" data-url="cafe-prospekt76.ru" aria-current="true"><span class="n">01</span><span class="t">Первый экран</span><span class="d">0:15</span><span class="s">Зал до 30 гостей, меню от 1700 ₽ и форматы: камерная свадьба, день рождения, корпоратив.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/privacy.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/privacy.jpg" data-url="cafe-prospekt76.ru · о зале"><span class="n">02</span><span class="t">Только ваши гости</span><span class="d">0:16</span><span class="s">Четыре причины, почему зал целиком ваш, и приглашение посмотреть его вживую.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/smeta.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/smeta.jpg" data-url="cafe-prospekt76.ru · смета"><span class="n">03</span><span class="t">Смета под событие</span><span class="d">0:15</span><span class="s">Повод, дата и число гостей в форме, справа всё, что войдёт в смету.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/elena.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/elena.jpg" data-url="cafe-prospekt76.ru · как всё проходит"><span class="n">04</span><span class="t">Елена и этапы</span><span class="d">0:15</span><span class="s">Владелица кафе и шесть шагов от заявки до накрытого стола.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/formats.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/formats.jpg" data-url="cafe-prospekt76.ru · стоимость"><span class="n">05</span><span class="t">Два формата</span><span class="d">0:16</span><span class="s">Банкет от 3500 ₽, поминальные обеды от 1700 ₽ и обеды с доставкой к поезду.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/reviews.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/reviews.jpg" data-url="cafe-prospekt76.ru · отзывы"><span class="n">06</span><span class="t">Отзывы и кухня</span><span class="d">0:18</span><span class="s">Дословные отзывы с Яндекс Карт, поставщики, чистота и галерея зала.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/faq.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/faq.jpg" data-url="cafe-prospekt76.ru · вопросы и ответы"><span class="n">07</span><span class="t">Вопросы и дата</span><span class="d">0:16</span><span class="s">Десять ответов до звонка и форма «Проверить дату».</span><span class="bar"><i></i></span></button></li>
+      </ol>
+      <div class="screen-wrap">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span id="urlbar">cafe-prospekt76.ru</span></div>
+          <video id="player" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/hero.jpg" muted playsinline autoplay preload="auto" aria-label="Запись сайта cafe-prospekt76.ru"></video>
+        </div>
+        <div class="phone" aria-label="Мобильная версия сайта">
+          <div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/mobile_scroll.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/mobile_scroll.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap anat" id="anat" data-zone="Анатомия">
+  <div class="anat-head">
+    <div>
+      <span class="mono">Разбор лендинга · 18 147 px сверху вниз</span>
+      <h2 class="big">Анатомия сайта. <em>Зачем здесь каждый блок</em></h2>
+      <p>Листайте: справа настоящий скриншот сайта доезжает до блока, о котором я рассказываю. Глубина в пикселях показывает, где блок стоит на странице.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Устройство">
+      <button id="tD" aria-pressed="true">Компьютер</button>
+      <button id="tM" aria-pressed="false">Телефон</button>
+    </div>
+  </div>
+  <div class="anat-grid">
+    <div class="steps" id="steps">
+      <article class="step on" data-d="0,1655" data-m="0,1209">
+        <span class="mono"><b>↓ 0 px</b><span>Первый экран</span></span>
+        <h3>Что, где, на сколько и почём</h3>
+        <p>«Банкетный зал в Ярославле для семейных событий и корпоративов до 30 человек». Под заголовком уединённый зал и меню от 1700 ₽ на гостя. Фото накрытого стола из этого самого зала, а в углу золотое зеркало и эвкалипт: так зал выглядит и вживую.</p>
+        <div class="tags"><span>до 30 гостей</span><span>от 1700 ₽</span><span>позвонить</span></div>
+      </article>
+      <article class="step" data-d="1835,1023" data-m="1305,2381">
+        <span class="mono"><b>↓ 1 835 px</b><span>Для каких событий</span></span>
+        <h3>Три повода, три кнопки</h3>
+        <p>Камерная свадьба, день рождения и юбилей, корпоратив. У каждого повода своя форма расчёта, поэтому Елена ещё до звонка знает, о каком празднике речь. Свой алкоголь без пробкового сбора написан прямо в карточке.</p>
+        <div class="tags"><span>свадьба</span><span>юбилей</span><span>корпоратив</span></div>
+      </article>
+      <article class="step" data-d="3038,1896" data-m="3792,1634">
+        <span class="mono"><b>↓ 3 038 px</b><span>Полное уединение</span></span>
+        <h3>Зал только для одного события</h3>
+        <p>Четыре коротких обещания: рядом нет чужого праздника, громкость музыки можно отрегулировать, дверь закрывается, мебель расставят как удобно. Дальше большое фото зала в арке и фраза гостя: «Особенно понравилось то, что мы были одни в зале».</p>
+        <div class="tags"><span>один зал</span><span>одно событие</span><span>слова гостя</span></div>
+      </article>
+      <article class="step" data-d="4934,1652" data-m="5426,2091">
+        <span class="mono"><b>↓ 4 934 px</b><span>Просмотр и смета</span></span>
+        <h3>Сначала посмотреть, потом посчитать</h3>
+        <p>Приглашение приехать и увидеть зал своими глазами, а за ним форма сметы. Повод, дата, число гостей кнопками плюс и минус, справа список того, что будет в смете: от блюд и порций до суммы на человека.</p>
+        <div class="tags"><span>просмотр зала</span><span>7 строк сметы</span></div>
+      </article>
+      <article class="step" data-d="6766,838" data-m="7677,1224">
+        <span class="mono"><b>↓ 6 766 px</b><span>Елена</span></span>
+        <h3>Владелица, а не менеджер</h3>
+        <p>Тёмно-зелёный блок с фото Елены и её словами: «Работаю с вами лично: составляю меню, рассчитываю порции, считаю бюджет». Рядом две короткие цитаты гостей, обе про неё.</p>
+        <div class="tags"><span>лично</span><span>меню и бюджет</span></div>
+      </article>
+      <article class="step" data-d="7784,1205" data-m="9081,2061">
+        <span class="mono"><b>↓ 7 784 px</b><span>Этапы</span></span>
+        <h3>От заявки до накрытого стола</h3>
+        <p>Шесть шагов в карточках: заявка с ответом за 15 минут, встреча в зале, меню и смета, дегустация, предоплата 30%, праздник. Для поминок отдельно сказано, что всё можно согласовать без приезда.</p>
+        <div class="tags"><span>15 минут</span><span>смета в Excel</span><span>30%</span></div>
+      </article>
+      <article class="step" data-d="9169,1438" data-m="11322,2338">
+        <span class="mono"><b>↓ 9 169 px</b><span>Форматы и цены</span></span>
+        <h3>Банкет и поминальный обед рядом, но по-разному</h3>
+        <p>Банкет от 3500 ₽ на гостя, до 20 человек и до 6 часов. Поминальный обед от 1700 ₽, до 30 человек и 3–4 часа, с готовыми меню и спокойной серой кнопкой. Аренда зала уже включена в цену меню.</p>
+        <div class="tags"><span>от 3500 ₽</span><span>от 1700 ₽</span><span>аренда включена</span></div>
+      </article>
+      <article class="step" data-d="10787,607" data-m="13840,646">
+        <span class="mono"><b>↓ 10 787 px</b><span>Доставка к поезду</span></span>
+        <h3>Обед прямо к вагону</h3>
+        <p>Дополнительная услуга для тех, кто едет через Ярославль: горячий обед из той же кухни привезут на вокзал Ярославль-Главный. Отдельная карточка с кнопкой, чтобы не потеряться среди банкетов.</p>
+        <div class="tags"><span>Ярославль-Главный</span><span>та же кухня</span></div>
+      </article>
+      <article class="step" data-d="11574,1384" data-m="14666,1260">
+        <span class="mono"><b>↓ 11 574 px</b><span>Отзывы</span></span>
+        <h3>Отзывы как фотографии на булавках</h3>
+        <p>Четырнадцать дословных отзывов с Яндекс Карт. У каждого фото стола и подпись-повод: юбилей, день рождения мужа, 40 дней, поминки на 22 гостя. По подписи легко найти свой случай.</p>
+        <div class="tags"><span>14 отзывов</span><span>Яндекс Карты</span><span>повод в подписи</span></div>
+      </article>
+      <article class="step" data-d="13138,1932" data-m="16106,2548">
+        <span class="mono"><b>↓ 13 138 px</b><span>Кухня и зал</span></span>
+        <h3>Свежие продукты и чистота</h3>
+        <p>Поставщики мяса с документами в «Меркурии», проверка каждой поставки, чистая кухня. Ниже галерея зала без постановки: стулья, зелень, длинный стол под белой скатертью.</p>
+        <div class="tags"><span>«Меркурий»</span><span>галерея</span></div>
+      </article>
+      <article class="step" data-d="15250,1223" data-m="18834,2025">
+        <span class="mono"><b>↓ 15 250 px</b><span>Вопросы</span></span>
+        <h3>Десять ответов до звонка</h3>
+        <p>Сколько гостей поместится, можно ли свой алкоголь и торт, что входит в стоимость, можно ли включить свою музыку и оформить фотозону. Ответы короткие и конкретные, без «уточняйте у менеджера».</p>
+        <div class="tags"><span>10 вопросов</span><span>свой торт</span><span>своя музыка</span></div>
+      </article>
+      <article class="step" data-d="16653,1455" data-m="21039,1996">
+        <span class="mono"><b>↓ 16 653 px</b><span>Проверить дату</span></span>
+        <h3>Последний шаг: свободна ли дата</h3>
+        <p>Форма на фоне праздничного стола напоминает: в кафе одно событие в день, выходные разбирают заранее. Перезвонят за 15 минут. В подвале адрес, маршрут и мессенджеры.</p>
+        <div class="tags"><span>одно событие в день</span><span>15 минут</span></div>
+      </article>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="browser" id="vD">
+        <div class="bar"><i></i><i></i><i></i><span>cafe-prospekt76.ru</span></div>
+        <div class="port" id="portD"><div class="layer" id="layerD"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/home-d.jpg" alt="Полный скриншот сайта cafe-prospekt76.ru, компьютер" width="1100" height="13862"><div class="hl" id="hlD"><b>Первый экран</b></div></div><span class="viewer-note" id="noteD">↓ 0 px</span></div>
+      </div>
+      <div class="phone" id="vM" hidden>
+        <div class="scr port" id="portM"><div class="layer" id="layerM"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/home-m.jpg" alt="Полный скриншот сайта cafe-prospekt76.ru, телефон" width="520" height="30806"><div class="hl" id="hlM"><b>Первый экран</b></div></div><span class="viewer-note" id="noteM">↓ 0 px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap kit" data-zone="За кадром">
+  <div class="kit-head">
+    <span class="mono">Что работает за кадром</span>
+    <h2 class="big">Сайт банкетного зала. <em>Пять решений, которые гость не замечает</em></h2>
+    <p>Гость приходит с одним вопросом: «Поместимся ли мы и сколько это будет стоить». Всё остальное на сайте помогает ответить на него быстрее, чем гость закроет вкладку.</p>
+  </div>
+  <div class="kit-grid">
+    <article class="tile t-seat">
+      <div class="txt">
+        <span class="mono">Вместимость · попробуйте сами</span>
+        <h3>Двадцать на праздник, тридцать на поминки</h3>
+        <p>Для банкета нужен танцпол, поэтому за стол садятся до 20 гостей. Поминальному обеду танцы не нужны, и зал принимает до 30. Сайт объясняет это прямо, чтобы гость не гадал.</p>
+        <div class="seg" role="group" aria-label="Формат">
+          <button id="fB" aria-pressed="true">Банкет</button>
+          <button id="fP" aria-pressed="false">Поминальный обед</button>
+        </div>
+      </div>
+      <div class="calc">
+        <div class="plan"><svg id="calcSvg" viewBox="0 0 1000 220" role="img" aria-label="Рассадка гостей за столом"></svg></div>
+        <label class="range"><span class="mono">Гостей</span><input id="gN" type="range" min="6" max="20" value="14" aria-label="Количество гостей"><output id="gOut">14</output></label>
+        <div class="sum"><span class="mono" id="sumL">Ориентир сметы</span><b id="sumV">от 49 000 ₽</b><small id="sumS">Аренда зала, посуда, текстиль и сервировка уже в цене меню. До 6 часов, работа официанта оплачивается отдельно.</small></div>
+      </div>
+    </article>
+    <article class="tile t-calm">
+      <span class="mono">Тон · грустный повод</span>
+      <h3>Кнопка, которая не торопит</h3>
+      <p>У банкета яркая зелёная кнопка «Рассчитать». У поминального обеда спокойная серая «Обсудить» и обещание помочь «спокойно согласовать организационные вопросы».</p>
+      <div class="btns" aria-hidden="true"><span>Рассчитать банкет<small>праздник</small></span><span>Обсудить поминальный обед<small>спокойно</small></span></div>
+    </article>
+    <article class="tile t-est">
+      <span class="mono">Смета до предоплаты</span>
+      <h3>Гость знает, за что платит</h3>
+      <p>Главный страх перед банкетом — итоговая сумма, которая вырастет в день праздника. Поэтому состав сметы показан ещё до формы:</p>
+      <ol class="est" id="est">
+        <li><i>✓</i><span>Выбранные блюда</span><span class="mono">меню</span></li>
+        <li><i>✓</i><span>Количество порций</span><span class="mono">на гостей</span></li>
+        <li><i>✓</i><span>Напитки и хлеб</span><span class="mono">к столу</span></li>
+        <li><i>✓</i><span>Посуда, текстиль, сервировка</span><span class="mono">в цене</span></li>
+        <li><i>✓</i><span>Итог и сумма на человека</span><span class="mono">не меняется</span></li>
+      </ol>
+    </article>
+    <article class="tile t-rev">
+      <span class="mono">Отзывы · Яндекс Карты</span>
+      <h3>Повод в подписи вместо имени</h3>
+      <p>Отзывы перенесены дословно, а подписью к каждому служит повод. Гость, который ищет зал на 40 дней, сразу видит свой случай:</p>
+      <div class="revs" id="revs"><span>юбилей</span><span>день рождения мужа</span><span>юбилей мамы</span><span>свадьба дома</span><span>семейный праздник</span><span>поминальный обед</span><span>40 дней</span><span>поминки, 22 гостя</span><span>одни в зале</span></div>
+      <p class="rev-q">«Для поминального обеда на 40 дней выбор пал на это заведение, потому что в других посадка от 15 человек, а нас максимум 12»<small>Отзыв гостя · 40 дней</small></p>
+    </article>
+    <article class="tile t-train">
+      <div class="txt">
+        <span class="mono">Дополнительная услуга</span>
+        <h3>Горячий обед к поезду</h3>
+        <p>Для тех, кто едет через Ярославль проездом. Обеды к вагону на вокзал Ярославль-Главный готовят на той же кухне, что и банкеты, а на сайте им отдана отдельная карточка, чтобы услуга не потерялась среди праздников.</p>
+      </div>
+      <div class="route" aria-label="Путь обеда: кухня кафе, дорога, вагон">
+        <i class="pkg" aria-hidden="true">◎</i>
+        <div><b>Кухня кафе</b><span>Та же, где готовят для банкетов</span></div>
+        <div><b>Вокзал</b><span>Ярославль-Главный</span></div>
+        <div><b>Вагон</b><span>Обед в руках до отправления</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap proc" id="proc" data-zone="Как шла работа">
+  <span class="mono">Как появился сайт</span>
+  <h2 class="big">С нуля. <em>Сайта у кафе не было вообще</em></h2>
+  <div class="track" id="track">
+    <div class="st"><span class="mono">01</span><h4>Разговор с Еленой</h4><p>Какой зал, какие праздники в нём проходят и почему о кафе стали забывать.</p></div>
+    <div class="st"><span class="mono">02</span><h4>Отзывы гостей</h4><p>Прочитал отзывы на Яндекс Картах: гости чаще всего хвалят уединение, домашнюю кухню и Елену лично.</p></div>
+    <div class="st"><span class="mono">03</span><h4>Структура</h4><p>Выстроил лендинг вокруг вопросов гостя: где, сколько стоит, будут ли посторонние, кто организует.</p></div>
+    <div class="st"><span class="mono">04</span><h4>Дизайн</h4><p>Цвета взял из самого зала: зелёные салфетки на белых скатертях, золото на стенах, живые растения.</p></div>
+    <div class="st"><span class="mono">05</span><h4>Запуск</h4><p>Вёрстка на Tilda, формы с выбором повода и числа гостей, Метрика, политика и согласия.</p></div>
+  </div>
+  <div class="span-note"><span class="mono">Было · карточка на картах</span><span class="mono"><b>Первый</b> сайт кафе</span><span class="mono">Стало · сайт для рекламы</span></div>
+</section>
+
+<section class="wrap result" data-zone="Результат">
+  <div class="result-grid">
+    <div class="res-num">
+      <span class="mono">Первая неделя · без рекламы</span>
+      <b>2<span>.</span></b>
+      <p>Заявки на банкет пришли за первую неделю после запуска, когда рекламы ещё не было.</p>
+      <div class="after"><strong>1 в 7–10 дней</strong><span>Стабильно, после того как Елена подключила рекламу в Яндексе</span></div>
+    </div>
+    <div class="quote">
+      <img class="bq" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/cafe-prospect/bouquet.png" alt="" aria-hidden="true">
+      <span class="mark" aria-hidden="true">“</span>
+      <blockquote>Особенно понравилось то, что мы были одни в зале</blockquote>
+      <p>Фраза из отзыва гостя на Яндекс Картах. На сайте она стоит отдельным блоком сразу после рассказа о зале: лучше неё уединение не объяснит ни один рекламный текст.</p>
+      <span class="src"><i>Я</i>Отзыв гостя · поминальный обед</span>
+    </div>
+  </div>
+  <div class="cta">
+    <div>
+      <h2>Нужен сайт, после которого звонят с готовой датой?</h2>
+      <p>Расскажите о бизнесе, и я пришлю бюджет и сроки меньше чем за 24 часа.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="https://t.me/Ovchinnikov_dsgn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <span class="phone-num">+7 (910) 970-01-24</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap next">
+  <span class="mono">Следующий кейс · тот же клиент</span>
+  <a href="https://ovchinnikov-dsgn.ru/project_prospect" target="_blank" rel="noopener">Prospect, кейтеринг Елены →</a>
+</footer>
+</div>
+<script>
+
+(()=>{
+const R=document.querySelector('.ovp');if(!R)return;const $=s=>R.querySelector(s),$$=s=>[...R.querySelectorAll(s)];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* слово в hero подгоняется под ширину колонки */
+const word=$('.word');function fit(){const narrow=innerWidth<=900;word.style.fontSize='';
+  const parts=[...word.querySelectorAll('.part')],chip=word.querySelector('.arch');
+  const need=parts.reduce((a,p)=>a+p.scrollWidth,0)+(narrow?0:parseFloat(getComputedStyle(word).fontSize)*1.4)+(narrow?4:40);
+  const fs=parseFloat(getComputedStyle(word).fontSize);if(need>word.clientWidth)word.style.fontSize=(fs*word.clientWidth/need*.985)+'px'}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);addEventListener('resize',fit);fit();
+
+/* арка в hero: фотографии зала сменяют друг друга */
+const chipImgs=$$('#chip img');let ci=0;
+if(!reduce)setInterval(()=>{chipImgs[ci].classList.remove('on');ci=(ci+1)%chipImgs.length;chipImgs[ci].classList.add('on');$('#chipT').textContent=`зал · ${ci+1} из ${chipImgs.length}`},2600);
+
+/* стол, вид сверху: cols мест с каждой стороны, места ставятся от центра к краям */
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent&&parent.appendChild(e);return e}
+function table(svg,cols){svg.innerHTML='';
+  const L=30,R=970,step=(R-L)/cols,cream='var(--cream)';
+  el('rect',{x:L,y:62,width:R-L,height:96,rx:12,fill:'#FFFFFF',stroke:'#E4D8C3','stroke-width':2},svg);
+  // дорожка из шалфейной ткани, как на столах в зале
+  let d=`M${L+14} 104`;for(let x=L+14;x<R-14;x+=40)d+=` q10 -5 20 0 t20 0`;d+=` L${R-14} 116`;for(let x=R-14;x>L+14;x-=40)d+=` q-10 5 -20 0 t-20 0`;d+='Z';
+  el('path',{d,fill:'#7E9277',opacity:.85},svg);
+  const order=[...Array(cols).keys()].sort((a,b)=>Math.abs(a-(cols-1)/2)-Math.abs(b-(cols-1)/2)||a-b);
+  const seats=[];order.forEach(i=>{for(const side of [0,1]){const cx=L+step/2+i*step,top=side===0;
+    const g=el('g',{class:'seat',style:`--dy:${top?-14:14}px`},svg);
+    const cw=Math.min(54,step*.62);
+    el('rect',{x:cx-cw/2,y:top?30:162,width:cw,height:26,rx:10,fill:'#FFFFFF',stroke:'#DCCFB8','stroke-width':2},g);
+    const py=top?86:134,pr=Math.min(17,step*.2);
+    el('circle',{cx,cy:py,r:pr,fill:'#FFFFFF',stroke:'#D9CDB6','stroke-width':2},g);
+    el('circle',{cx,cy:py,r:pr*.62,fill:'none',stroke:'#ECE3D2','stroke-width':1.5},g);
+    el('path',{d:`M${cx-pr*.55} ${py+(top?-2:2)} q${pr*.55} ${top?-pr*.7:pr*.7} ${pr*1.1} 0 q${-pr*.2} ${top?pr*.5:-pr*.5} ${-pr*.55} ${top?pr*.6:-pr*.6}Z`,fill:'#61765E'},g);
+    el('circle',{cx:cx+pr+6,cy:py+(top?-pr*.6:pr*.6),r:Math.min(5.5,step*.07),fill:'rgba(205,225,232,.7)',stroke:'#B9C8CC','stroke-width':1.2},g);
+    seats.push(g)}});
+  const vases=[];const nv=Math.max(3,Math.round(cols/2));for(let k=0;k<nv;k++){const x=L+(R-L)*(k+.5)/nv,g=el('g',{class:'vase'},svg);
+    el('ellipse',{cx:x-9,cy:110,rx:9,ry:4,fill:'#4E6A4B',transform:`rotate(-25 ${x-9} 110)`},g);el('ellipse',{cx:x+9,cy:110,rx:9,ry:4,fill:'#4E6A4B',transform:`rotate(25 ${x+9} 110)`},g);
+    el('circle',{cx:x,cy:110,r:8,fill:'#EE8C86'},g);el('circle',{cx:x-4,cy:107,r:4,fill:'#F4AAA4'},g);vases.push(g)}
+  return {seats,vases}}
+function setSeats(tb,n,stagger){tb.seats.forEach((s,k)=>{const on=k<n;if(on!==s.classList.contains('on')){s.style.transitionDelay=on&&stagger?`${(k%4)*90}ms`:'0ms';s.classList.toggle('on',on)}});
+  const nv=Math.ceil(tb.vases.length*n/tb.seats.length);tb.vases.forEach((v,k)=>v.classList.toggle('on',k<nv))}
+
+/* задача: стулья в зале занимаются, когда фото попадает на экран */
+const chairs=$('#chairs');for(let k=0;k<10;k++)chairs.appendChild(document.createElement('i'));
+new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;$('#hall').classList.add('in');
+  [...chairs.children].forEach((c,k)=>setTimeout(()=>c.classList.add('on'),reduce?0:400+k*160))}),{threshold:.35}).observe($('#hall'));
+
+/* фирменная секция: каждый вопрос гостя накрывает ещё несколько мест */
+const tbSec=$('#table'),qs=$$('#qa .q'),shots=$$('#shots img'),railB=$$('#rail button'),N=qs.length;
+const plan=table($('#planSvg'),10),SEATS=[4,7,10,13,16,20];
+const URLS=['первый экран','полное уединение','смета','владелица Елена','этапы работы','два формата'];let bi=-1;
+function setQ(i){if(i===bi)return;bi=i;
+  qs.forEach((v,k)=>v.classList.toggle('on',k===i));shots.forEach((p,k)=>p.classList.toggle('on',k===i));
+  railB.forEach((b,k)=>{b.setAttribute('aria-current',k===i);b.classList.toggle('done',k<i)});
+  $('#rail').style.setProperty('--p',(i/(N-1)*100).toFixed(1)+'%');$('#tbUrl').textContent='cafe-prospekt76.ru · '+URLS[i];
+  $('#qTag').textContent=`Вопрос ${i+1} из ${N}`;setSeats(plan,SEATS[i],!reduce);$('#seatN').textContent=`${SEATS[i]} / 20`}
+let br=0;function tbPick(){br=0;const r=tbSec.getBoundingClientRect(),span=r.height-innerHeight;
+  const p=Math.min(1,Math.max(0,-r.top/Math.max(1,span)));setQ(Math.min(N-1,Math.floor(p*N*.999)))}
+addEventListener('scroll',()=>{if(!br)br=requestAnimationFrame(tbPick)},{passive:true});
+railB.forEach((b,k)=>b.addEventListener('click',()=>{const span=tbSec.offsetHeight-innerHeight;scrollTo({top:tbSec.getBoundingClientRect().top+scrollY+span*(k+.5)/N,behavior:reduce?'auto':'smooth'})}));
+setQ(0);tbPick();
+
+/* ролик по главам */
+const player=$('#player'),chs=$$('#chapters button');let cur=0;
+function play(i){cur=(i+chs.length)%chs.length;chs.forEach((b,k)=>{b.setAttribute('aria-current',k===cur);b.querySelector('.bar i').style.width='0'});
+  const b=chs[cur];player.poster=b.dataset.poster;player.src=b.dataset.src;$('#urlbar').textContent=b.dataset.url;player.play().catch(()=>{})}
+chs.forEach((b,i)=>b.addEventListener('click',()=>play(i)));
+player.addEventListener('timeupdate',()=>{if(player.duration)chs[cur].querySelector('.bar i').style.width=(player.currentTime/player.duration*100)+'%'});
+player.addEventListener('ended',()=>play(cur+1));
+// видео играют только на экране
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.15});
+$$('video').forEach(v=>{if(reduce){v.removeAttribute('autoplay');v.pause()}vio.observe(v)});
+
+/* анатомия */
+const W={d:1440,m:390};let mode='d',active=0;
+const steps=$$('.step');
+function show(i){active=i;steps.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const s=steps[i],M=mode.toUpperCase(),port=$('#port'+M),layer=$('#layer'+M),img=layer.querySelector('img'),hl=$('#hl'+M);
+  if(!s.dataset[mode]){hl.style.opacity='0';$('#note'+M).textContent='Этот блок есть только на компьютере';return}
+  hl.style.opacity='1';
+  const [y,h]=s.dataset[mode].split(',').map(Number);
+  const k=port.clientWidth/W[mode],ph=port.clientHeight,top=y*k,hh=h*k;
+  const imgH=port.clientWidth*img.height/img.width;
+  let off=hh<ph-60?top-(ph-hh)/2:top-28;off=Math.max(0,Math.min(off,imgH-ph));
+  layer.style.transform=`translateY(${-off}px)`;hl.style.top=top+'px';hl.style.height=hh+'px';
+  hl.querySelector('b').textContent=s.querySelector('.mono span').textContent;
+  $('#note'+M).textContent='↓ '+Math.round(y).toLocaleString('ru-RU')+' px'}
+// активный шаг выбирается по линии чтения, а не IntersectionObserver: во встроенном фрейме rootMargin не работает
+const viewer=$('#viewer');let raf=0;
+function pick(){raf=0;const vr=viewer.getBoundingClientRect(),narrow=innerWidth<=900;
+  const line=narrow?vr.bottom+(innerHeight-vr.bottom)*.35:innerHeight*.5;let i=0;
+  steps.forEach((s,k)=>{if(s.getBoundingClientRect().top<=line)i=k});if(i!==active)show(i)}
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+steps.forEach((s,i)=>s.addEventListener('click',()=>show(i)));
+function setMode(m){mode=m;$('#tD').setAttribute('aria-pressed',m==='d');$('#tM').setAttribute('aria-pressed',m==='m');$('#vD').hidden=m!=='d';$('#vM').hidden=m!=='m';
+  const im=$('#layerM img');if(m==='m'&&!im.src){im.src=im.dataset.src;im.onload=()=>show(active)}requestAnimationFrame(()=>show(active))}
+$('#tD').onclick=()=>setMode('d');$('#tM').onclick=()=>setMode('m');
+addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('load',()=>show(active));show(0);
+
+/* рассадка: банкет до 20 гостей, поминальный обед до 30; цены «от» с сайта кафе */
+const calc=table($('#calcSvg'),15),gN=$('#gN'),F={b:{max:20,price:3500,lbl:'Банкет',note:'Аренда зала, посуда, текстиль и сервировка уже в цене меню. До 6 часов, работа официанта оплачивается отдельно.'},
+  p:{max:30,price:1700,lbl:'Поминальный обед',note:'Два готовых меню, 1700 и 2000 ₽ на человека. 3–4 часа, обслуживание официанта уже включено.'}};let fm='b';
+function calcUpd(){const f=F[fm],n=+gN.value;$('#gOut').textContent=n;setSeats(calc,n,false);
+  $('#sumV').textContent='от '+(n*f.price).toLocaleString('ru-RU')+' ₽';$('#sumS').textContent=f.note;$('#sumL').textContent=f.lbl+' · '+n+' гостей'}
+function setF(m){fm=m;$('#fB').setAttribute('aria-pressed',m==='b');$('#fP').setAttribute('aria-pressed',m==='p');gN.max=F[m].max;if(+gN.value>F[m].max)gN.value=F[m].max;calcUpd()}
+$('#fB').onclick=()=>setF('b');$('#fP').onclick=()=>setF('p');gN.addEventListener('input',calcUpd);calcUpd();
+
+/* смета и отзывы: строки отмечаются, поводы подсвечиваются по очереди */
+const est=$$('#est li');new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)est.forEach((l,k)=>setTimeout(()=>l.classList.add('on'),reduce?0:k*260))}),{threshold:.4}).observe($('#est'));
+const revs=$$('#revs span');let ri=0;if(!reduce)setInterval(()=>{revs.forEach(s=>s.classList.remove('hot'));revs[ri].classList.add('hot');ri=(ri+1)%revs.length},1400);
+
+/* процесс: линия заполняется по мере прокрутки */
+const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+})();
+</script>
