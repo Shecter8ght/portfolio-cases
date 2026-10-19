@@ -1,0 +1,279 @@
+<!-- блок «Работы» для главной. Вставьте целиком в блок T123 (HTML-код), отступы блока сверху и снизу 0.
+     Новый проект: строка в PROJECTS + файлы <slug>.mp4 и <slug>.jpg в папке projects/ репозитория portfolio-cases. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: один экран. Слева окно браузера с живой записью выбранного сайта, справа короткий индекс всех работ.
+   Индекс сам листается раз в несколько секунд, наведение или нажатие выбирает сайт. На телефоне — лента карточек со свайпом. */
+.opb{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#8A7987; --faint:#C2B7BF; --line:#E5DFE2;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --chrome:#ECE8EA; --shadow:rgba(47,40,46,.22);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+html[data-theme="dark"] .opb{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A3929C; --faint:#5E505A; --line:#342C33;
+  --coral:#FF7A64; --coral-ink:#1A1012; --chrome:#2A232A; --shadow:rgba(0,0,0,.55); color-scheme:dark}
+
+.opb,.opb *{box-sizing:border-box}
+.opb [hidden]{display:none!important}
+.opb{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+.opb a{color:inherit;text-decoration:none}
+.opb button{font:inherit;color:inherit}
+.opb :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.opb .wrap{max-width:1360px;margin:0 auto;padding-block:clamp(40px,4.4vw,72px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.opb .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.opb .mono b{color:var(--coral);font-weight:500}
+
+/* заголовок */
+.opb .head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px 40px;flex-wrap:wrap;margin-bottom:clamp(24px,3vw,40px)}
+.opb h2{font:700 clamp(32px,3.6vw,54px)/1 var(--f-display);letter-spacing:-.05em;margin:12px 0 0;max-width:20ch;text-wrap:balance}
+.opb h2 em{font-style:normal;color:var(--muted)}
+.opb .head p{margin:0;color:var(--muted);max-width:36ch;font-size:16px}
+
+/* сцена */
+.opb .grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(300px,1fr);gap:clamp(24px,3.4vw,56px);align-items:start}
+.opb .stage{position:relative;min-width:0}
+.opb .tone{position:absolute;inset:-8% -6% 12% -6%;border-radius:40px;background:radial-gradient(110% 90% at 30% 15%,color-mix(in srgb,var(--tone,#F36A55) 32%,transparent),transparent 70%);filter:blur(30px);opacity:.8;transition:background .8s;pointer-events:none}
+.opb .win{position:relative;border-radius:16px;background:var(--surface);box-shadow:0 0 0 1px var(--line),0 40px 80px -40px var(--shadow);overflow:hidden;transform:perspective(1600px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.opb .bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:10px 14px;background:var(--chrome);border-bottom:1px solid var(--line)}
+.opb .dots{display:flex;gap:6px}.opb .dots i{width:10px;height:10px;border-radius:50%;background:var(--faint)}
+.opb .dots i:first-child{background:var(--coral)}
+.opb .url{justify-self:center;min-width:0;max-width:100%;display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:8px;padding:5px 14px;font:400 13px/1.3 var(--f-mono);white-space:nowrap;overflow:hidden}
+.opb .url svg{flex:none;width:11px;height:11px;color:var(--muted)}
+.opb .caret{display:inline-block;width:1px;height:1.1em;background:var(--coral);margin-left:1px;vertical-align:-2px;animation:opb-blink 1s steps(2) infinite}
+@keyframes opb-blink{50%{opacity:0}}
+.opb .count{font:500 12px/1 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.opb .count b{color:var(--ink);font-weight:500}
+.opb .screen{position:relative;display:block;aspect-ratio:16/10;background:var(--chrome);overflow:hidden}
+.opb .lay{position:absolute;inset:0;opacity:0;transform:scale(1.035);transition:opacity .55s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.opb .lay.on{opacity:1;transform:none}
+.opb .lay img,.opb .lay video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.opb .cap{position:relative;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px 24px;margin-top:18px}
+.opb .lay video{transition:opacity .4s}
+.opb .cap p{margin:0;font:500 16px/1.45 var(--f-body);max-width:44ch;flex:1 1 280px}
+.opb .btns{display:flex;gap:10px;flex-wrap:wrap}
+.opb .go{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;background:var(--coral);color:var(--coral-ink);font:600 15px/1 var(--f-display);white-space:nowrap;box-shadow:0 14px 30px -16px var(--coral);transition:transform .25s}
+.opb .go:hover{transform:translateY(-2px)}
+.opb .go.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.opb .go.ghost:hover{box-shadow:inset 0 0 0 1px var(--ink)}
+
+/* индекс */
+.opb .side{min-width:0;display:flex;flex-direction:column;gap:14px}
+.opb .list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);max-height:min(500px,60vh);overflow:auto;scrollbar-width:thin}
+.opb .list li{border-bottom:1px solid var(--line)}
+.opb .row{position:relative;width:100%;appearance:none;border:0;background:none;cursor:pointer;display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:9px 0;text-align:left;color:var(--faint);transition:color .3s}
+.opb .row .n{font:500 11px/1 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.opb .row .t{font:600 clamp(19px,1.7vw,24px)/1.15 var(--f-display);letter-spacing:-.03em;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.opb .row .k{font:500 11px/1.3 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:right;max-width:20ch}
+.opb .row::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--coral);transform-origin:0 50%;transform:scaleX(0)}
+.opb .row:hover{color:var(--muted)}
+.opb .row.on{color:var(--ink)}
+.opb .row.on .t{transform:translateX(6px)}
+.opb .row.on .k{color:var(--coral)}
+.opb .row.on::after{animation:opb-fill var(--dur,6s) linear forwards}
+.opb.hold .row.on::after{animation-play-state:paused}
+@keyframes opb-fill{to{transform:scaleX(1)}}
+.opb .all{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.opb .all a{font:600 15px/1 var(--f-display);border-bottom:1px solid currentColor;padding-bottom:3px}
+
+/* карточки для телефона */
+.opb .feed{display:none}
+@media (max-width:899px){
+  .opb .grid{display:none}
+  .opb .feed{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));padding-bottom:6px;scrollbar-width:none}
+  .opb .feed::-webkit-scrollbar{display:none}
+  .opb .card{flex:0 0 86%;scroll-snap-align:center;border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:0 0 0 1px var(--line),0 24px 50px -32px var(--shadow);display:flex;flex-direction:column}
+  .opb .card .bar{padding:8px 10px;gap:10px}
+  .opb .card .dots i{width:8px;height:8px}
+  .opb .card .url{font-size:11px;padding:4px 10px}
+  .opb .card .lay{opacity:1;transform:none}
+  .opb .card .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .opb .card .t{font:600 26px/1.05 var(--f-display);letter-spacing:-.035em}
+  .opb .card .res{font:500 11px/1.3 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--coral)}
+  .opb .card .btns{margin-top:auto;padding-top:10px}
+  .opb .card .go{padding:11px 16px;font-size:14px}
+  .opb .pager{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+  .opb .pager .ticks{display:flex;gap:4px}
+  .opb .pager .ticks i{width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .3s,width .3s}
+  .opb .pager .ticks i.on{background:var(--coral);width:18px;border-radius:3px}
+}
+@media (min-width:900px){.opb .pager{display:none}}
+@media (prefers-reduced-motion:reduce){.opb *,.opb *::after{animation:none!important;transition:none!important}}
+</style>
+
+<div class="opb" id="opb">
+  <section class="wrap" id="portfolio">
+    <div class="head">
+      <div>
+        <span class="mono" data-k="kicker"></span>
+        <h2>Сайты, которые превращают посетителей <em>в клиентов</em></h2>
+      </div>
+      <p>От кухонь до стоматологии. Опыт в разных нишах помогает точнее попадать в вопросы клиентов.</p>
+    </div>
+
+    <div class="grid">
+      <div class="stage">
+        <div class="tone"></div>
+        <div class="win" aria-hidden="true">
+          <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="5.5" width="8" height="5.5" rx="1.2"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5"/></svg><span class="host"></span><i class="caret"></i></span><span class="count"></span></div>
+          <div class="screen"><div class="lay"><img alt=""><video muted playsinline loop preload="none"></video></div><div class="lay"><img alt=""><video muted playsinline loop preload="none"></video></div></div>
+        </div>
+        <div class="cap"><p></p><div class="btns"><a class="go go-main"></a><a class="go ghost go-want">Хочу такой сайт</a></div></div>
+      </div>
+      <div class="side">
+        <ol class="list" data-k="list"></ol>
+        <div class="all"><span class="mono" data-k="geo"></span><a data-k="allLink" hidden>Все работы →</a></div>
+      </div>
+    </div>
+
+    <div class="feed" data-k="feed"></div>
+    <div class="pager"><span class="mono count" data-k="mcount"></span><span class="ticks" data-k="mticks"></span></div>
+  </section>
+</div>
+
+<script>
+(() => {
+'use strict';
+/* =====================================================================
+   ВСЕ РАБОТЫ — ОДИН СПИСОК. Новый проект = новая строка + два файла в MEDIA:
+   <slug>.mp4 (запись первого экрана, 800×500, до 9 с) и <slug>.jpg (кадр из неё).
+   page — страница кейса на этом сайте; пусто — кнопка ведёт на сайт клиента.
+   Порядок строк = порядок в блоке.
+   ===================================================================== */
+const MEDIA = 'https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/projects/';
+const WANT = '#popup:quiz';     // кнопка «Хочу такой сайт»
+const ALL = '';                 // ссылка «Все работы →», например '/portfolio'; пусто — не показывать
+const STEP = 6;                 // секунд на один сайт при автопрокрутке
+const PROJECTS = [
+  {slug:'prospect',      name:'Проспект',          kind:'Кейтеринг',              city:'Ярославль',         site:'cateringyar.ru',       page:'/project_prospect',    result:'30–40 заявок в месяц',            tone:'#2F7A4A', line:'Гость собирает меню банкета на сайте и сразу видит смету.'},
+  {slug:'alex-kitchen',  name:'Alex Kitchen',      kind:'Кухни на заказ',         city:'Ярославль',         site:'alex-kitchen.ru',      page:'/project_alexkitchen', result:'Окупился за 2 продажи',           tone:'#E06A2C', line:'Сайт растёт вместе с компанией: шестая версия с 2021 года.'},
+  {slug:'dentroom',      name:'Дентрум',           kind:'Стоматология',           city:'Ярославль',         site:'dentroom76.ru',        page:'/project_dentroom',    result:'Заявки каждую неделю без рекламы',tone:'#1F5A40', line:'Новый сайт клиники: имплантация, врачи и запись на приём.'},
+  {slug:'cafe-prospect', name:'Проспект кафе',     kind:'Кафе',                   city:'Ярославль',         site:'cafe-prospekt76.ru',   page:'',                     result:'2 заявки в первую неделю',        tone:'#8C9A62', line:'Банкетный зал на 20–30 гостей: форматы, меню и расчёт стоимости.'},
+  {slug:'setka',         name:'Сетка-гармошка 76', kind:'Изделия для дома',       city:'Ярославль',         site:'setka-garmoshka76.ru', page:'',                     result:'259 заявок за год',               tone:'#F26A1B', line:'Многостраничный сайт: сетки, шторы плиссе, двери-гармошки и монтаж.'},
+  {slug:'mirmo',         name:'МирМО76',           kind:'Мягкие окна',            city:'Ярославль',         site:'mirmo76.ru',           page:'',                     result:'501 заявка за год',               tone:'#13A6A3', line:'Мягкие окна, ПВХ-завесы и тенты: восемь страниц под восемь покупателей.'},
+  {slug:'depo',          name:'Депо',              kind:'Питание и лофт-зал',     city:'Якутск',            site:'depofood.ru',          page:'',                     result:'15 дней от брифа до запуска',     tone:'#D8262C', line:'Лофт для мероприятий и магазин готовой еды на одном сайте.'},
+  {slug:'rentvill',      name:'РентВилл',          kind:'Посуточная аренда',      city:'Санкт-Петербург',   site:'rentvill.ru',          page:'',                     result:'Бронирования через сайт в сезон', tone:'#24507E', line:'Квартиры посуточно с онлайн-бронированием прямо с сайта.'},
+  {slug:'pali',          name:'Пали кейтеринг',    kind:'Кейтеринг',              city:'Ярославль',         site:'palicatering.ru',      page:'/project_pali',        result:'Заявки на аренду без рекламы',    tone:'#EE8A1E', line:'Банкеты, фуршеты, доставка и аренда мебели с шатрами.'},
+  {slug:'tricolor',      name:'Триколор',          kind:'Строительство',          city:'Ярославль',         site:'stroy76pro.ru',        page:'',                     result:'',                                tone:'#E2553A', line:'Коттеджи и здания из металлоконструкций, ремонт и технадзор.'},
+  {slug:'biznes-plus',   name:'Бизнес Плюс',       kind:'Промышленные здания',    city:'Свердловская обл.', site:'montage-nt.ru',        page:'',                     result:'',                                tone:'#3567B0', line:'Быстровозводимые здания под ключ: проект, каркас и тёплый контур.'},
+];
+/* ===================================================================== */
+
+const R = document.getElementById('opb'); if (!R || R.dataset.ready) return; R.dataset.ready = '1';
+const $ = s => R.querySelector(s), $$ = s => [...R.querySelectorAll(s)];
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const DESK = matchMedia('(min-width: 900px)');
+const HOST = /ovchinnikov-dsgn\.ru$/.test(location.hostname) ? '' : 'https://ovchinnikov-dsgn.ru';
+const N = PROJECTS.length;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad = n => String(n).padStart(2, '0');
+const plural = (n, a, b, c) => { const x = n % 100, y = n % 10; return (x > 10 && x < 20) ? c : y === 1 ? a : (y > 1 && y < 5) ? b : c; };
+const href = p => p.page ? HOST + p.page : 'https://' + p.site;
+const linkAttrs = p => `href="${esc(href(p))}"` + (p.page ? '' : ' target="_blank" rel="noopener"');
+const action = p => p.page ? 'Смотреть кейс →' : 'Открыть сайт ↗';
+const lock = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="5.5" width="8" height="5.5" rx="1.2"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5"/></svg>';
+
+const cities = [...new Set(PROJECTS.map(p => p.city))];
+$('[data-k="kicker"]').innerHTML = `Работы · <b>${pad(N)}</b> ${plural(N, 'сайт', 'сайта', 'сайтов')}`;
+$('[data-k="geo"]').textContent = `${cities.length} ${plural(cities.length, 'регион', 'региона', 'регионов')} · от Петербурга до Якутска`;
+if (ALL) { const a = $('[data-k="allLink"]'); a.href = ALL; a.hidden = false; }
+R.style.setProperty('--dur', STEP + 's');
+
+/* ---------- компьютер: окно + индекс ---------- */
+$('[data-k="list"]').innerHTML = PROJECTS.map((p, i) =>
+  `<li><button class="row" type="button" data-i="${i}"><span class="n">${pad(i + 1)}</span><span class="t">${esc(p.name)}</span><span class="k">${esc(p.result || p.kind)}</span></button></li>`).join('');
+const rows = $$('.row');
+const lays = $$('.stage .lay'), vids = lays.map(l => l.querySelector('video'));
+const hostEl = $('.host'), countEl = $('.stage .count'), capP = $('.cap p'), goMain = $('.go-main'), goWant = $('.go-want');
+goWant.href = WANT;
+let lastV = null, cur = -1, front = 0, typing = 0, timer = 0, inView = false, hover = false;
+
+function typeHost(s){
+  clearInterval(typing);
+  if (RM) { hostEl.textContent = s; return; }
+  let k = 0; hostEl.textContent = '';
+  typing = setInterval(() => { hostEl.textContent = s.slice(0, ++k); if (k >= s.length) clearInterval(typing); }, 28);
+}
+function pick(i){
+  if (i === cur) return; cur = i;
+  const p = PROJECTS[i];
+  rows.forEach((r, k) => { r.classList.toggle('on', k === i); r.setAttribute('aria-pressed', k === i); });
+  R.style.setProperty('--tone', p.tone || '#F36A55');
+  typeHost(p.site);
+  countEl.innerHTML = `<b>${pad(i + 1)}</b> / ${pad(N)}`;
+  capP.textContent = p.line;
+  goMain.textContent = action(p);
+  goMain.href = href(p);
+  if (p.page) { goMain.removeAttribute('target'); goMain.removeAttribute('rel'); } else { goMain.target = '_blank'; goMain.rel = 'noopener'; }
+  const back = 1 - front, v = vids[back]; lastV = v;
+  const im = lays[back].querySelector('img');
+  im.src = MEDIA + p.slug + '.jpg';
+  v.removeAttribute('src'); v.style.opacity = 0;
+  v.src = MEDIA + p.slug + '.mp4';
+  v.onplaying = () => { v.style.opacity = 1; };
+  const show = () => { lays[back].classList.add('on'); lays[front].classList.remove('on'); vids[front].pause(); front = back; };
+  if (inView && !RM) v.play().catch(() => {});
+  let done = false; const go = () => { if (!done) { done = true; show(); } };
+  if (im.complete) go(); else { im.addEventListener('load', go, {once: true}); setTimeout(go, 500); }
+  const list = $('.list'), r = rows[i], lt = list.getBoundingClientRect(), rt = r.getBoundingClientRect();
+  if (rt.top < lt.top || rt.bottom > lt.bottom) list.scrollTop += rt.top - lt.top - 8;
+  restart();
+}
+function restart(){
+  clearTimeout(timer);
+  const r = rows[cur]; if (r) { r.classList.remove('on'); void r.offsetWidth; r.classList.add('on'); }
+  if (!RM && inView && !hover && DESK.matches) timer = setTimeout(() => pick((cur + 1) % N), STEP * 1000);
+}
+function hold(on){ hover = on; R.classList.toggle('hold', on); if (on) clearTimeout(timer); else restart(); }
+rows.forEach((r, i) => {
+  r.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') pick(i); });
+  r.addEventListener('click', () => pick(i));
+  r.addEventListener('focus', () => pick(i));
+});
+$('.grid').addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hold(true); });
+$('.grid').addEventListener('pointerleave', () => hold(false));
+const win = $('.win'), stage = $('.stage');
+if (!RM) {
+  stage.addEventListener('pointermove', e => { const b = win.getBoundingClientRect(); const x = (e.clientX - b.left) / b.width - .5, y = (e.clientY - b.top) / b.height - .5; win.style.setProperty('--ry', (x * 5).toFixed(2) + 'deg'); win.style.setProperty('--rx', (-y * 4).toFixed(2) + 'deg'); });
+  stage.addEventListener('pointerleave', () => { win.style.setProperty('--ry', '0deg'); win.style.setProperty('--rx', '0deg'); });
+}
+
+/* ---------- телефон: лента карточек ---------- */
+$('[data-k="feed"]').innerHTML = PROJECTS.map((p, i) => `
+  <article class="card" data-i="${i}">
+    <span class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">${lock}<span>${esc(p.site)}</span></span><span class="count">${pad(i + 1)}</span></span>
+    <span class="screen"><span class="lay"><img alt="" loading="lazy" src="${MEDIA}${p.slug}.jpg"><video muted playsinline loop preload="none"></video></span></span>
+    <div class="body">
+      <span class="mono">${esc(p.kind)} · ${esc(p.city)}</span>
+      <span class="t">${esc(p.name)}</span>
+      ${p.result ? `<span class="res">${esc(p.result)}</span>` : ''}
+      <div class="btns"><a class="go" ${linkAttrs(p)}>${action(p)}</a><a class="go ghost" href="${esc(WANT)}">Хочу такой</a></div>
+    </div>
+  </article>`).join('');
+const cards = $$('.card'), mticks = $('[data-k="mticks"]'), mcount = $('[data-k="mcount"]');
+mticks.innerHTML = PROJECTS.map(() => '<i></i>').join('');
+let mcur = -1;
+function mpick(i){
+  if (i === mcur) return; mcur = i;
+  [...mticks.children].forEach((t, k) => t.classList.toggle('on', k === i));
+  mcount.innerHTML = `<b>${pad(i + 1)}</b> / ${pad(N)}`;
+  cards.forEach((c, k) => { const v = c.querySelector('video'); if (k === i) { if (!v.src) { v.style.opacity = 0; v.onplaying = () => { v.style.opacity = 1; }; v.src = MEDIA + PROJECTS[k].slug + '.mp4'; } if (!RM && inView) v.play().catch(() => {}); } else v.pause(); });
+}
+const cio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) mpick(+e.target.dataset.i); }), {root: $('.feed'), threshold: .6});
+cards.forEach(c => cio.observe(c));
+
+/* играем, только когда блок на экране */
+new IntersectionObserver(([e]) => {
+  inView = e.isIntersecting;
+  const v = DESK.matches ? lastV : cards[Math.max(mcur, 0)].querySelector('video');
+  if (inView) { if (!RM && v && v.src) v.play().catch(() => {}); } else { vids.forEach(x => x.pause()); cards.forEach(c => c.querySelector('video').pause()); }
+  restart();
+}, {threshold: .25}).observe(R);
+
+pick(0); mpick(0);
+DESK.addEventListener('change', restart);
+})();
+</script>
