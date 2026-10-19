@@ -1,0 +1,762 @@
+<!-- Кейс «Дентрум» · «До и после». Вставьте целиком в блок T123 (HTML-код). Отступы блока сверху и снизу поставьте 0. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+/* Layout: кейс как снимки «до» и «после». Фирменный стиль ovchinnikov-dsgn.ru (тёплый белый, сливово-чёрный, коралл, моно-подписи)
+   снаружи, мир клиента (бирюзовый DentRoom 2023 и зелёный с золотом «Дентрум» 2026) внутри рамок устройств. Глубина в px — настоящие координаты блоков на dentroom76.ru. */
+.ovp{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#846F81; --line:#E7E2E4;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --leaf:#1E8C4C;
+  --night:#1D181D; --night-2:#2A232A; --night-ink:#F4EEF2; --night-muted:#A8979F; --night-line:#3B323A;
+  --dim:rgba(29,24,29,.55);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:22px;
+}
+html[data-theme="dark"] .ovp{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A9979F; --line:#352D34;
+  --coral:#FF7A64; --coral-ink:#1A1012; --leaf:#43BE77;
+  --night:#0F0C0F; --night-2:#1E181E; --night-line:#342B33; --dim:rgba(8,6,8,.62); color-scheme:dark}
+
+.ovp,.ovp *{box-sizing:border-box}
+.ovp [hidden]{display:none!important}
+.ovp{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+.ovp .wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovp a{color:inherit}
+.ovp :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.ovp .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .mono b{color:var(--coral);font-weight:500}
+.ovp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--leaf);vertical-align:middle;margin-right:6px}
+.ovp .btn{display:inline-flex;flex-direction:column;justify-content:center;gap:2px;padding:14px 26px;border-radius:999px;background:var(--coral);color:var(--coral-ink);text-decoration:none;font:600 16px/1.2 var(--f-display);box-shadow:0 14px 30px -14px var(--coral);transition:transform .25s,box-shadow .25s}
+.ovp .btn small{font:500 12px var(--f-body);opacity:.85}
+.ovp .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--coral)}
+.ovp .link{font:600 15px var(--f-display);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.ovp h2.big{font:700 clamp(36px,5.6vw,80px)/.95 var(--f-display);letter-spacing:-.045em;margin:10px 0 0;text-wrap:balance}
+.ovp h2.big em{font-style:normal;color:var(--muted)}
+
+/* шапка */
+.ovp .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ovp .top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.ovp .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.ovp .logo svg{flex:none}
+.ovp .logo b{display:block;font:600 15px/1.15 var(--f-display);letter-spacing:.02em}
+.ovp .logo span{display:block;font-size:13px;color:var(--muted)}
+.ovp .top nav{margin-left:auto;display:flex;align-items:center;gap:22px}
+.ovp .top nav a{font:500 15px var(--f-body);text-decoration:none;color:var(--muted)}
+.ovp .top nav a:hover{color:var(--ink)}
+.ovp .rec{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:500 12px var(--f-mono);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ovp .rec i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:ovp-blink 1.4s steps(2) infinite}
+@keyframes ovp-blink{50%{opacity:.15}}
+
+/* hero */
+.ovp .hero{padding-block:18px 40px}
+.ovp .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ovp .word{display:flex;align-items:center;justify-content:space-between;gap:.06em;font:800 min(11.4vw,170px)/.8 var(--f-display);letter-spacing:-.065em;margin:0;text-transform:uppercase;white-space:nowrap}
+.ovp .word .part{display:flex;overflow:hidden;padding-block:.06em .02em}
+.ovp .word .part span{display:inline-block;animation:ovp-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*55ms + 120ms)}
+@keyframes ovp-rise{from{transform:translateY(105%)}}
+.ovp .reel-chip{position:relative;flex:none;width:1.62em;aspect-ratio:16/10;border-radius:.09em;overflow:visible;animation:ovp-pop 1s cubic-bezier(.2,.9,.25,1.15) .45s both;margin-top:.05em!important}
+.ovp .reel-chip .stack{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--night);box-shadow:0 30px 60px -30px rgba(29,24,29,.55)}
+.ovp .reel-chip .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .5s}
+.ovp .reel-chip .stack img.on{opacity:1}
+.ovp .reel-chip::after{content:"";position:absolute;right:-.05em;top:-.05em;width:.12em;height:.12em;border-radius:50%;background:var(--coral);border:.022em solid var(--bg)}
+.ovp .reel-chip figcaption{position:absolute;left:.06em;bottom:.06em;font:500 clamp(9px,.9vw,12px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,16,20,.62);backdrop-filter:blur(6px);padding:6px 9px;border-radius:999px;font-variant-numeric:tabular-nums}
+@keyframes ovp-pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+.ovp .hero-low{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:28px;align-items:end;margin-top:30px}
+.ovp .hero-low h1{font:700 clamp(28px,3.3vw,46px)/1.02 var(--f-display);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ovp .hero-low h1 em{font-style:normal;color:var(--muted)}
+.ovp .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ovp .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.ovp .fact{padding:20px 20px 4px 0;display:grid;gap:6px}
+.ovp .fact+.fact{padding-left:20px;border-left:1px solid var(--line)}
+.ovp .fact b{font:700 clamp(34px,4.2vw,58px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+
+/* до / после: старый и новый сайт под шторкой, как снимки до и после лечения */
+.ovp .ba{position:relative;height:calc(var(--n,6) * 80vh + 40vh);margin-top:40px}
+.ovp .ba-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);height:calc(100vh - 86px);min-height:540px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto minmax(0,1fr) auto;gap:18px 48px;padding-block:10px 78px}
+.ovp .ba-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .ba-head h2{margin:0;font:700 clamp(26px,3vw,42px)/1 var(--f-display);letter-spacing:-.04em}
+.ovp .ba-head h2 em{font-style:normal;color:var(--muted)}
+.ovp .ba-text{position:relative;min-width:0;display:grid;align-content:center}
+.ovp .pr{grid-area:1/1;display:grid;gap:14px;align-content:center;opacity:0;transform:translateY(24px);transition:opacity .55s,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ovp .pr.on{opacity:1;transform:none;pointer-events:auto}
+.ovp .pr .no{font:800 clamp(64px,8vw,128px)/.8 var(--f-display);letter-spacing:-.07em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:.14em}
+.ovp .pr .no small{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}
+.ovp .pr h3{margin:4px 0 0;font:700 clamp(22px,2.2vw,30px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .diff{margin:4px 0 0;display:grid;gap:8px}
+.ovp .diff div{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .diff div:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 7%,transparent)}
+.ovp .diff dt{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .diff div:last-child dt{color:var(--coral)}
+.ovp .diff dd{margin:0;font-size:15px;line-height:1.45}
+.ovp .ba-screen{position:relative;min-width:0;display:flex;align-items:center}
+.ovp .ba-screen .browser{width:100%;position:relative}
+.ovp .cmp{position:relative;aspect-ratio:16/10;background:#E9EEEE;overflow:hidden;--x:50%;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.ovp .cmp .pair{position:absolute;inset:0;opacity:0;transition:opacity .45s}
+.ovp .cmp .pair.on{opacity:1}
+.ovp .cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none;-webkit-user-drag:none}
+.ovp .cmp .after{clip-path:inset(0 0 0 var(--x))}
+.ovp .cmp .tag{position:absolute;top:12px;z-index:3;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,16,20,.7);backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px;transition:opacity .3s}
+.ovp .cmp .tag.l{left:12px}
+.ovp .cmp .tag.r{right:12px;background:var(--coral);color:var(--coral-ink)}
+.ovp .knob{position:absolute;z-index:4;top:0;bottom:0;left:var(--x);width:0;border:0;padding:0;background:none;cursor:ew-resize}
+.ovp .knob::before{content:"";position:absolute;top:0;bottom:0;left:-1.5px;width:3px;background:#fff;box-shadow:0 0 24px rgba(0,0,0,.35)}
+.ovp .knob span{position:absolute;top:50%;left:0;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;font:600 16px var(--f-mono);box-shadow:0 10px 30px -8px rgba(0,0,0,.45);transition:transform .25s}
+.ovp .knob:hover span,.ovp .cmp.drag .knob span{transform:scale(1.08)}
+.ovp .knob:focus-visible span{outline:2px solid var(--coral);outline-offset:3px}
+.ovp .hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:3;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,16,20,.7);padding:6px 12px;border-radius:999px;white-space:nowrap;transition:opacity .4s}
+.ovp .cmp.touched .hint{opacity:0}
+.ovp .rail{grid-column:1/-1;display:grid;grid-template-columns:repeat(var(--n,6),minmax(0,1fr));position:relative;padding-top:16px}
+.ovp .rail::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .rail button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:2px;padding:4px 10px 0 0;position:relative;min-width:0}
+.ovp .rail button::before{content:"";position:absolute;left:0;top:-23px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--line);transition:border-color .3s,background .3s}
+.ovp .rail button.done::before{border-color:var(--coral)}
+.ovp .rail button[aria-current="true"]::before{background:var(--coral);border-color:var(--coral)}
+.ovp .rail b{font:700 18px/1.1 var(--f-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ovp .rail span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ролик */
+.ovp .cinema{background:var(--night);color:var(--night-ink);border-radius:32px 32px 0 0;overflow:hidden}
+.ovp .cinema .wrap{padding-block:70px 80px}
+.ovp .cinema .mono{color:var(--night-muted)}
+.ovp .cinema-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.ovp .cinema-head h2{color:var(--night-ink)}
+.ovp .cinema-head h2 em{color:var(--night-muted)}
+.ovp .stage{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:start}
+.ovp .chapters{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.ovp .chapters button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;width:100%;padding:16px 18px;border-radius:16px;position:relative;overflow:hidden;transition:background .3s}
+.ovp .chapters button:hover{background:var(--night-2)}
+.ovp .chapters button[aria-current="true"]{background:var(--night-2)}
+.ovp .chapters .n{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px}
+.ovp .chapters .t{font:600 18px/1.25 var(--f-display);letter-spacing:-.02em}
+.ovp .chapters .d{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.ovp .chapters .s{grid-column:2/4;font-size:14px;line-height:1.45;color:var(--night-muted);display:none}
+.ovp .chapters button[aria-current="true"] .s{display:block}
+.ovp .chapters button[aria-current="true"] .n{color:var(--coral)}
+.ovp .chapters .bar{position:absolute;left:18px;right:18px;bottom:8px;height:2px;background:var(--night-line);border-radius:2px;opacity:0}
+.ovp .chapters button[aria-current="true"] .bar{opacity:1}
+.ovp .chapters .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:inherit}
+.ovp .screen-wrap{position:relative;padding-right:min(9%,110px);padding-bottom:40px}
+.ovp .browser{border-radius:18px;background:#E9E6E8;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.ovp .browser .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFECEE}
+.ovp .browser .bar i{width:11px;height:11px;border-radius:50%;background:#D3CDD1}
+.ovp .browser .bar i:first-child{background:#F36A55}
+.ovp .browser .bar span{margin-left:14px;flex:1;max-width:360px;font:500 12px var(--f-mono);color:#6E5F6B;background:#fff;border-radius:8px;padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovp .browser video,.ovp .browser > img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#fff}
+.ovp .phone{position:relative;width:100%;border-radius:38px;padding:9px;background:#141114;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),inset 0 0 0 1.5px #3A3239}
+.ovp .phone .scr{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:390/844;background:#fff}
+.ovp .phone .scr::before{content:"";position:absolute;z-index:2;left:50%;top:9px;width:30%;height:22px;border-radius:12px;background:#141114;transform:translateX(-50%)}
+.ovp .phone video,.ovp .phone img{display:block;width:100%}
+.ovp .phone video{height:100%;object-fit:cover;object-position:top}
+.ovp .stage .phone{position:absolute;right:0;bottom:0;width:min(23%,230px)}
+
+/* анатомия */
+.ovp .anat{padding-block:100px 40px}
+.ovp .anat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ovp .anat-head p{max-width:34em;color:var(--muted);margin:16px 0 0}
+.ovp .toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .toggle button{border:0;background:transparent;color:var(--muted);font:600 14px var(--f-display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.ovp .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ovp .anat-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;margin-top:40px}
+.ovp .steps{display:grid}
+.ovp .step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.38;transition:opacity .5s}
+.ovp .step:first-child{border-top:0}
+.ovp .step.on{opacity:1}
+.ovp .step .mono{display:flex;gap:12px;flex-wrap:wrap}
+.ovp .step h3{font:700 clamp(26px,2.8vw,40px)/1.04 var(--f-display);letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.ovp .step p{margin:0;max-width:31em}
+.ovp .step .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ovp .step .tags span{font:500 13px var(--f-body);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .viewer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);height:calc(100vh - 130px);max-height:820px;display:flex;align-items:flex-start;justify-content:center}
+.ovp .viewer .browser{width:100%;height:100%;display:flex;flex-direction:column}
+.ovp .viewer .phone{height:100%;width:auto;aspect-ratio:408/862;max-width:100%}
+.ovp .port{position:relative;flex:1;overflow:hidden;background:#1E1E20}
+.ovp .viewer .phone .scr{height:100%;width:100%;aspect-ratio:auto}
+.ovp .layer{position:absolute;left:0;top:0;width:100%;transition:transform 1.15s cubic-bezier(.7,0,.2,1);will-change:transform}
+.ovp .layer img{display:block;width:100%;aspect-ratio:auto;height:auto;object-fit:fill}
+.ovp .hl{position:absolute;left:6px;right:6px;border-radius:14px;box-shadow:0 0 0 2px var(--coral),0 0 0 4000px var(--dim);transition:top 1.15s cubic-bezier(.7,0,.2,1),height 1.15s cubic-bezier(.7,0,.2,1),opacity .4s;pointer-events:none}
+.ovp .hl b{position:absolute;left:10px;top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--coral);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ovp .viewer-note{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums;max-width:calc(100% - 24px)}
+
+/* инструменты после запуска */
+.ovp .kit{padding-block:90px 40px}
+.ovp .kit-head p{max-width:36em;color:var(--muted);margin:16px 0 0}
+.ovp .kit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:40px}
+.ovp .tile{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ovp .tile h3{margin:0;font:700 clamp(21px,1.9vw,26px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .tile p{margin:0;font-size:15px;color:var(--muted);max-width:34em}
+.ovp .t-qr{grid-column:span 4;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:26px;align-items:center}
+.ovp .t-qr .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .qr{width:92px;height:92px;border-radius:14px;background:var(--surface);border:1px solid var(--line);padding:8px;display:grid}
+.ovp .qr canvas{width:100%;height:100%;image-rendering:pixelated}
+.ovp .t-tg{grid-column:span 2;background:var(--night);color:var(--night-ink);border-color:var(--night)}
+.ovp .t-tg p{color:var(--night-muted)}
+.ovp .msg{margin-top:auto;border-radius:16px 16px 16px 4px;background:var(--night-2);padding:14px 16px;display:grid;gap:4px;font-size:14px;animation:ovp-msg 4.5s cubic-bezier(.2,.8,.2,1) infinite}
+.ovp .msg b{font:600 14px var(--f-display)}
+.ovp .msg span{color:var(--night-muted)}
+.ovp .msg .mono{color:var(--coral)}
+@keyframes ovp-msg{0%{transform:translateY(16px);opacity:0}10%,85%{transform:none;opacity:1}100%{opacity:0}}
+.ovp .t-promo{grid-column:span 3}
+.ovp .t-utp{grid-column:span 3}
+.ovp .promos,.ovp .utps{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.ovp .promos li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .promos li .mono{grid-row:span 2;align-self:center;min-width:5.6em}
+.ovp .promos li b{font:600 15px/1.3 var(--f-display)}
+.ovp .promos li:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 8%,transparent)}
+.ovp .promos li small{font-size:13px;color:var(--muted)}
+.ovp .utps li{display:grid;grid-template-columns:3.6em minmax(0,1fr);gap:12px;align-items:baseline;font:600 16px/1.3 var(--f-display);letter-spacing:-.01em;color:var(--muted)}
+.ovp .utps li s{text-decoration-color:color-mix(in srgb,var(--muted) 60%,transparent)}
+.ovp .utps li:last-child{color:var(--ink)}
+.ovp .t-an{grid-column:span 6;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:30px;align-items:center}
+.ovp .t-an .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .flowmap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;position:relative}
+.ovp .flowmap .col{display:grid;gap:10px}
+.ovp .flowmap .col > .mono{margin-bottom:2px}
+.ovp .node{border-radius:12px;padding:10px 12px;font:600 14px/1.25 var(--f-display);border:1px solid var(--line);background:var(--bg);position:relative}
+.ovp .node.btnish{background:var(--coral);color:var(--coral-ink);border-color:transparent;border-radius:999px;text-align:center}
+.ovp .node.goal{border-style:dashed}
+.ovp .node small{display:block;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.04em;margin-top:2px}
+.ovp .flowmap .col:not(:last-child) .node::after{content:"→";position:absolute;right:-11px;top:50%;transform:translate(50%,-50%);font:500 14px var(--f-mono);color:var(--coral)}
+
+/* процесс */
+.ovp .proc{padding-block:100px 60px}
+.ovp .track{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;margin-top:44px;position:relative}
+.ovp .track::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .st{position:relative;padding:44px 18px 0 0}
+.ovp .st::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--coral)}
+.ovp .st .mono{color:var(--coral)}
+.ovp .st h4{margin:8px 0 8px;font:700 21px/1.15 var(--f-display);letter-spacing:-.025em}
+.ovp .st p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.ovp .span-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px dashed var(--line)}
+
+/* итог */
+.ovp .result{padding-block:60px 110px}
+.ovp .result-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.ovp .res-num{border-radius:28px;background:var(--night);color:var(--night-ink);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:380px}
+.ovp .res-num .mono{color:var(--night-muted)}
+.ovp .res-num b{font:800 clamp(90px,13vw,190px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .res-num b span{color:var(--coral)}
+.ovp .res-num p{margin:0;color:var(--night-muted);max-width:26em}
+.ovp .quote{border-radius:28px;background:var(--surface);border:1px solid var(--line);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+.ovp .quote blockquote{margin:0;font:600 clamp(22px,2.2vw,30px)/1.25 var(--f-display);letter-spacing:-.025em;text-wrap:pretty}
+.ovp .who{display:flex;align-items:center;gap:14px}
+.ovp .who img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.ovp .who b{display:block;font:600 16px var(--f-display)}
+.ovp .who span{font-size:14px;color:var(--muted)}
+.ovp .cta{margin-top:24px;border-radius:28px;background:var(--coral);color:var(--coral-ink);padding:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.ovp .cta h2{margin:0;font:700 clamp(30px,3.8vw,54px)/1 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .cta p{margin:12px 0 0;opacity:.85}
+.ovp .cta .acts{display:grid;gap:12px;justify-items:start}
+.ovp .cta .btn{background:var(--coral-ink);color:var(--coral);box-shadow:none}
+.ovp .cta .phone-num{font:600 20px var(--f-display);user-select:all}
+.ovp .next{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding-block:28px 40px;border-top:1px solid var(--line)}
+.ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
+.ovp .next a:hover{color:var(--coral)}
+
+/* «Ваш визит» */
+.ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
+.ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+.ovp .visit .bars i{width:4px;border-radius:2px;background:var(--line);height:20%;transition:height .6s,background .6s}
+.ovp .visit .bars i.hot{background:var(--coral)}
+.ovp .visit .bars i.warm{background:color-mix(in srgb,var(--coral) 45%,var(--line))}
+.ovp .visit div{min-width:0}
+.ovp .visit .mono{font-size:10px}
+.ovp .visit b{display:block;font:600 15px/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.ovp .visit b em{font:500 13px var(--f-mono);font-style:normal;color:var(--coral);margin-left:6px}
+
+@media (max-width:1100px){
+  .ovp .stage{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .chapters .s{display:none!important}
+  .ovp .track{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
+  .ovp .track::before{display:none}
+  .ovp .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .t-qr,.ovp .t-an{grid-column:span 2}
+  .ovp .t-tg,.ovp .t-promo,.ovp .t-utp{grid-column:span 1}
+  .ovp .t-tg{grid-column:span 2}
+}
+@media (max-width:900px){
+  .ovp .top nav a.hide-s{display:none}
+  .ovp .word{font-size:min(13vw,170px);flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:0}
+  .ovp .reel-chip{order:3;width:100%;font-size:16px;margin-top:22px;border-radius:16px}
+  .ovp .reel-chip::after{width:14px;height:14px;border-width:3px}
+  .ovp .hero-low{grid-template-columns:minmax(0,1fr)}
+  .ovp .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .fact:nth-child(3){border-left:0;padding-left:0}
+  .ovp .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .ovp .ba-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto;gap:14px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px)}
+  .ovp .ba-screen{order:-1;grid-row:2}
+  .ovp .ba-head{grid-row:1}
+  .ovp .ba-text{grid-row:3;align-content:start}
+  .ovp .pr{align-content:start;gap:8px}
+  .ovp .pr .no{display:none}
+  .ovp .pr h3{font-size:21px}
+  .ovp .diff div{padding:9px 12px;gap:10px}
+  .ovp .diff dd{font-size:14px;line-height:1.4}
+  .ovp .knob span{width:42px;height:42px;margin:-21px 0 0 -21px}
+  .ovp .rail{grid-row:4}
+  .ovp .rail span{display:none}
+  .ovp .rail b{font-size:14px}
+  .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
+  .ovp .step{min-height:56vh}
+  .ovp .result-grid,.ovp .cta,.ovp .t-qr,.ovp .t-an{grid-template-columns:minmax(0,1fr)}
+  .ovp .kit-grid{grid-template-columns:minmax(0,1fr)}
+  .ovp .t-qr,.ovp .t-an,.ovp .t-tg,.ovp .t-promo,.ovp .t-utp{grid-column:auto}
+}
+@media (max-width:560px){
+  .ovp{font-size:16px}
+  .ovp .top .wrap{gap:10px}
+  .ovp .logo span{display:none}
+  .ovp .rec span{display:none}
+  .ovp .chapters{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters button{padding:12px 14px}
+  .ovp .screen-wrap{padding-right:0;padding-bottom:0}
+  .ovp .stage .phone{display:none}
+  .ovp .track{grid-template-columns:minmax(0,1fr)}
+  .ovp .res-num,.ovp .quote,.ovp .cta{padding:28px}
+  .ovp .tile{padding:20px}
+  .ovp .flowmap{grid-template-columns:minmax(0,1fr)}
+  .ovp .flowmap .col:not(:last-child) .node::after{display:none}
+  .ovp .ba-head .mono{display:none}
+  .ovp .pr p{display:none}
+  .ovp .visit .bars{display:none}
+  .ovp .visit b{max-width:72vw}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovp *,.ovp *::before,.ovp *::after{animation:none!important;transition:none!important}
+}
+</style>
+<div class="ovp">
+
+<section class="wrap hero" data-zone="Первый экран кейса">
+  <div class="hero-meta">
+    <span class="mono">Кейс · Стоматология · Ярославль · Tilda</span>
+    <span class="mono"><span class="dot"></span>dentroom76.ru · два филиала, одна главная услуга</span>
+  </div>
+  <h2 class="word" aria-label="Дентрум">
+    <span class="part" aria-hidden="true"><span style="--i:0">Д</span><span style="--i:1">Е</span><span style="--i:2">Н</span><span style="--i:3">Т</span></span>
+    <figure class="reel-chip" style="margin:0">
+      <div class="stack" id="chip">
+        <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/old_hero.jpg" alt="Сайт DentRoom 2023 года">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/new_hero.jpg" alt="Сайт «Дентрум» 2026 года" loading="lazy">
+      </div>
+      <figcaption id="chipT">до · 2023</figcaption>
+    </figure>
+    <span class="part" aria-hidden="true"><span style="--i:4">Р</span><span style="--i:5">У</span><span style="--i:6">М</span></span>
+  </h2>
+  <div class="hero-low">
+    <h1>Сайт стоматологии, который говорит с пациентом о том, что его волнует: <em>о цене, боли, враче и о том, что будет, если тянуть</em></h1>
+    <div class="hero-cta">
+      <a class="btn" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">Хочу такой сайт<small>расчёт бюджета за 24 часа</small></a>
+      <a class="link" href="#ba">Сравнить «до» и «после» ↓</a>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="mono">Страницы</span><b>2</b></div>
+    <div class="fact"><span class="mono">Недели до запуска</span><b>3</b></div>
+    <div class="fact"><span class="mono">Версии сайта</span><b>2</b></div>
+    <div class="fact"><span class="mono">Заявки в неделю</span><b>2+</b></div>
+  </div>
+</section>
+
+<section class="ba" id="ba" data-zone="До и после" style="--n:6">
+  <div class="wrap ba-pin">
+    <div class="ba-head">
+      <h2>Было и стало. <em>Тяните шторку или листайте</em></h2>
+      <span class="mono">2023 → 2026 · одни и те же разделы · 1440 × 900</span>
+    </div>
+    <div class="ba-text" id="prs">
+      <article class="pr on">
+        <div class="no">01<small>Первый экран</small></div>
+        <h3>От «инноваций» к цене и рейтингу</h3>
+        <dl class="diff">
+          <div><dt>2023</dt><dd>«Стоматология DentRoom — инновации в лечении зубов», два факта о лаборатории и портрет главного врача.</dd></div>
+          <div><dt>2026</dt><dd>Имплантация под ключ от 65 000 ₽, рейтинг 4.8 и 1500+ клиентов. Консультация 1500 ₽, панорамный снимок в подарок.</dd></div>
+        </dl>
+        <p class="mono">Главная услуга клиники и её цена видны до первой прокрутки</p>
+      </article>
+      <article class="pr">
+        <div class="no">02<small>Акция</small></div>
+        <h3>Одна акция, которую легко посчитать</h3>
+        <dl class="diff">
+          <div><dt>2023</dt><dd>Три карточки: скидка при лечении от трёх кариесов, «индивидуальные предложения», имплантация Neodent.</dd></div>
+          <div><dt>2026</dt><dd>3 имплантации под ключ по цене 2: 195 000 → 130 000 ₽. Условия, срок до 31 декабря и импланты Straumann Group и Neodent.</dd></div>
+        </dl>
+        <p class="mono">Выгода от 65 000 ₽ написана цифрой, а не обещанием</p>
+      </article>
+      <article class="pr">
+        <div class="no">03<small>Страхи</small></div>
+        <h3>Честный разговор вместо «не страшно»</h3>
+        <dl class="diff">
+          <div><dt>2023</dt><dd>«Лечить зубы — не страшно» и шесть общих карточек про комфорт и качество.</dd></div>
+          <div><dt>2026</dt><dd>Четыре настоящих страха из отзывов пациентов: цена, боль, опыт врача, подделка импланта. Ниже честный таймлайн: что будет через 3 месяца, год и 3 года без зуба.</dd></div>
+        </dl>
+        <p class="mono">Сначала признаём тревогу, потом снимаем её</p>
+      </article>
+      <article class="pr">
+        <div class="no">04<small>Цены</small></div>
+        <h3>Прайс, в котором не нужно разбираться</h3>
+        <dl class="diff">
+          <div><dt>2023</dt><dd>Полный прайс клиники: больше 30 строк в пяти разделах с ценами через тире.</dd></div>
+          <div><dt>2026</dt><dd>Имплантация под ключ за 65 000 ₽ с составом услуги, рядом три коротких группы: протезирование, лечение, гигиена. У каждой строки пояснение.</dd></div>
+        </dl>
+        <p class="mono">Пациент видит, что входит в цену, а не только цифру</p>
+      </article>
+      <article class="pr">
+        <div class="no">05<small>Работы</small></div>
+        <h3>Клинические случаи со шторкой</h3>
+        <dl class="diff">
+          <div><dt>2023</dt><dd>Слайдеры с фотографиями зубов и короткими подписями.</dd></div>
+          <div><dt>2026</dt><dd>Каждый случай с исходной ситуацией, этапами и результатом. «До» и «после» сравниваются той же шторкой, что и здесь.</dd></div>
+        </dl>
+        <p class="mono">Результат врача можно рассмотреть, а не поверить на слово</p>
+      </article>
+      <article class="pr">
+        <div class="no">06<small>Вопросы и контакты</small></div>
+        <h3>Девять ответов и два адреса</h3>
+        <dl class="diff">
+          <div><dt>2023</dt><dd>Три вопроса и контакты одного филиала в Карачихе.</dd></div>
+          <div><dt>2026</dt><dd>Девять вопросов, которые пациенты задают на консультации, оба филиала со ссылками на карты и форма «Перезвоним сами».</dd></div>
+        </dl>
+        <p class="mono">Ответ на возражение раньше, чем пациент позвонит</p>
+      </article>
+    </div>
+    <div class="ba-screen">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span id="baUrl">dentroom76.ru · первый экран</span></div>
+        <div class="cmp" id="cmp">
+          <div class="pair on"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/old_hero.jpg" alt="2023: первый экран"><img class="after" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/new_hero.jpg" alt="2026: первый экран"></div>
+          <div class="pair"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/old_promo.jpg" alt="2023: акции" loading="lazy"><img class="after" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/new_promo.jpg" alt="2026: акция 3 по цене 2" loading="lazy"></div>
+          <div class="pair"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/old_fear.jpg" alt="2023: лечить зубы не страшно" loading="lazy"><img class="after" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/new_fear.jpg" alt="2026: честно о страхах" loading="lazy"></div>
+          <div class="pair"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/old_price.jpg" alt="2023: услуги и цены" loading="lazy"><img class="after" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/new_price.jpg" alt="2026: услуги и стоимость" loading="lazy"></div>
+          <div class="pair"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/old_works.jpg" alt="2023: результаты работ" loading="lazy"><img class="after" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/new_works.jpg" alt="2026: наши работы" loading="lazy"></div>
+          <div class="pair"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/old_faq.jpg" alt="2023: вопросы и контакты" loading="lazy"><img class="after" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/new_faq.jpg" alt="2026: частые вопросы пациентов" loading="lazy"></div>
+          <span class="tag l">До · 2023</span><span class="tag r">После · 2026</span>
+          <button class="knob" id="knob" role="slider" aria-label="Шторка: старый и новый сайт" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span aria-hidden="true">‹ ›</span></button>
+          <span class="hint">тяните шторку</span>
+        </div>
+      </div>
+    </div>
+    <nav class="rail" id="rail" aria-label="Разделы сайта">
+      <button aria-current="true"><b>01</b><span>Первый экран</span></button>
+      <button><b>02</b><span>Акция</span></button>
+      <button><b>03</b><span>Страхи</span></button>
+      <button><b>04</b><span>Цены</span></button>
+      <button><b>05</b><span>Работы</span></button>
+      <button><b>06</b><span>Вопросы</span></button>
+    </nav>
+  </div>
+</section>
+
+<section class="cinema" id="reel" data-zone="Ролик">
+  <div class="wrap">
+    <div class="cinema-head">
+      <div><span class="mono">Запись · 1440 × 900 · без монтажа</span><h2 class="big">Сайт сегодня. <em>Шесть сцен на пути к записи</em></h2></div>
+    </div>
+    <div class="stage">
+      <ol class="chapters" id="chapters">
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/hero.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/hero.jpg" data-url="dentroom76.ru" aria-current="true"><span class="n">01</span><span class="t">Первый экран</span><span class="d">0:08</span><span class="s">Цена имплантации, рейтинг и кнопка записи, ниже акция «3 по цене 2».</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/fears.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/fears.jpg" data-url="dentroom76.ru/#fears"><span class="n">02</span><span class="t">Страхи и таймлайн</span><span class="d">0:13</span><span class="s">Четыре страха пациента и что будет с зубами через 3 месяца, год и 3 года.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/quiz.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/quiz.jpg" data-url="dentroom76.ru/#quiz"><span class="n">03</span><span class="t">Квиз</span><span class="d">0:16</span><span class="s">Три вопроса о ситуации, в конце персональный план и звонок за 15 минут.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/why.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/why.jpg" data-url="dentroom76.ru/#services"><span class="n">04</span><span class="t">Причины и цены</span><span class="d">0:11</span><span class="s">Шесть причин выбрать клинику и прайс с составом каждой услуги.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/works.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/works.jpg" data-url="dentroom76.ru/#works"><span class="n">05</span><span class="t">Наши работы</span><span class="d">0:08</span><span class="s">Клинические случаи с этапами и результатом.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/faq.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/faq.jpg" data-url="dentroom76.ru/#faq"><span class="n">06</span><span class="t">Частые вопросы</span><span class="d">0:14</span><span class="s">Боль, приживление, сроки, рассрочка и два адреса клиники.</span><span class="bar"><i></i></span></button></li>
+      </ol>
+      <div class="screen-wrap">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span id="urlbar">dentroom76.ru</span></div>
+          <video id="player" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/hero.jpg" muted playsinline autoplay preload="auto" aria-label="Запись сайта dentroom76.ru"></video>
+        </div>
+        <div class="phone" aria-label="Мобильная версия главной">
+          <div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/mobile_scroll.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/mobile_scroll.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap anat" id="anat" data-zone="Анатомия">
+  <div class="anat-head">
+    <div>
+      <span class="mono">Разбор главной · 19 982 px сверху вниз</span>
+      <h2 class="big">Анатомия главной. <em>Зачем здесь каждый блок</em></h2>
+      <p>Листайте: справа настоящий скриншот сайта доезжает до блока, о котором я рассказываю. Глубина в пикселях показывает, где блок стоит на странице.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Устройство">
+      <button id="tD" aria-pressed="true">Компьютер</button>
+      <button id="tM" aria-pressed="false">Телефон</button>
+    </div>
+  </div>
+  <div class="anat-grid">
+    <div class="steps" id="steps">
+      <article class="step on" data-d="0,932" data-m="0,1098">
+        <span class="mono"><b>↓ 0 px</b><span>Первый экран</span></span>
+        <h3>Услуга, цена и доверие в одном экране</h3>
+        <p>«Имплантация зубов под ключ от 65 000 ₽ в Ярославле у главного врача». Над заголовком рейтинг 4.8 и 1500+ клиентов за два года, под кнопкой цена консультации и подарок: панорамный снимок. Справа настоящий кабинет клиники, а не фото со стока.</p>
+        <div class="tags"><span>65 000 ₽</span><span>4.8</span><span>снимок в подарок</span></div>
+      </article>
+      <article class="step" data-d="996,818" data-m="1098,1412">
+        <span class="mono"><b>↓ 996 px</b><span>Акция</span></span>
+        <h3>Три импланта по цене двух</h3>
+        <p>Цена до и после акции крупно: 195 000 и 130 000 ₽, выгода от 65 000 ₽. Рядом карточки с брендами имплантов, Straumann Group и Neodent с приживляемостью 99,7%, и честное объяснение, как работает акция: можно прийти вместе с близкими.</p>
+        <div class="tags"><span>195 → 130 тыс. ₽</span><span>до 31 декабря</span><span>Straumann · Neodent</span></div>
+      </article>
+      <article class="step" data-d="1814,762" data-m="2510,1426">
+        <span class="mono"><b>↓ 1 814 px</b><span>Страхи</span></span>
+        <h3>Почему люди откладывают имплантацию</h3>
+        <p>Четыре страха, собранные из откровений пациентов и отзывов: непонятный разброс цен, боль, неизвестный опыт врача и поддельный имплант. Блок не уговаривает, а показывает, что клиника знает, о чём думает пациент.</p>
+        <div class="tags"><span>цена</span><span>боль</span><span>опыт врача</span><span>материалы</span></div>
+      </article>
+      <article class="step" data-d="2696,2564" data-m="4056,3764">
+        <span class="mono"><b>↓ 2 696 px</b><span>Что будет, если ждать</span></span>
+        <h3>Таймлайн на тёмно-зелёном фоне</h3>
+        <p>Фотокарточки на булавках: сейчас, через 3 месяца, через год, через 3 года. Соседние зубы смещаются, кость убывает, лечение дорожает кратно. Ниже ответ на тревогу: в «Дентруме» сначала план и смета, потом процедуры.</p>
+        <div class="tags"><span>4 точки</span><span>план до лечения</span><span>смета</span></div>
+      </article>
+      <article class="step" data-d="5500,602" data-m="8060,677">
+        <span class="mono"><b>↓ 5 500 px</b><span>Квиз</span></span>
+        <h3>Три вопроса вместо пустой формы</h3>
+        <p>Какая ситуация с зубами, что беспокоит больше всего и как давно. В конце пациент получает персональный план, а администратор перезванивает в течение 15 минут.</p>
+        <div class="tags"><span>3 вопроса</span><span>15 минут</span></div>
+      </article>
+      <article class="step" data-d="6102,1336" data-m="8737,2623">
+        <span class="mono"><b>↓ 6 102 px</b><span>Почему «Дентрум»</span></span>
+        <h3>Шесть причин с фотографиями клиники</h3>
+        <p>Своя лаборатория (не нужно ждать коронку 2–3 недели), цифровой протокол, европейское и корейское оборудование, клиника без ощущения больницы и главный врач, который сам ведёт имплантацию и протезирование.</p>
+        <div class="tags"><span>своя лаборатория</span><span>цифровой протокол</span></div>
+      </article>
+      <article class="step" data-d="7558,1538" data-m="11480,3327">
+        <span class="mono"><b>↓ 7 558 px</b><span>Услуги и цены</span></span>
+        <h3>Цена с составом услуги</h3>
+        <p>Главная карточка: имплантация под ключ за 65 000 ₽, от первого снимка до постоянной коронки, с перечнем того, что входит. Рядом три группы: протезирование, лечение и удаление, диагностика и гигиена. У каждой строки пояснение, когда цена «от».</p>
+        <div class="tags"><span>65 000 ₽</span><span>что входит</span><span>3 группы</span></div>
+      </article>
+      <article class="step" data-d="9216,600" data-m="14927,762">
+        <span class="mono"><b>↓ 9 216 px</b><span>Онлайн-запись</span></span>
+        <h3>Билет на приём</h3>
+        <p>Анимированный календарь и карточка «Консультация, 16 сентября, 14:30» показывают, что будет после нажатия. Пациент выбирает врача и время сам, без звонка.</p>
+        <div class="tags"><span>без звонка</span><span>выбор врача</span></div>
+      </article>
+      <article class="step" data-d="10056,1868" data-m="15929,2574">
+        <span class="mono"><b>↓ 10 056 px</b><span>Наши работы</span></span>
+        <h3>Клинические случаи на тёмном фоне</h3>
+        <p>Лечение кариеса под коффердамом, All-on-6 на верхнюю челюсть, протезирование, гигиена Air-Flow. У каждого случая этапы и результат, «до» и «после» сравниваются шторкой.</p>
+        <div class="tags"><span>до / после</span><span>этапы</span><span>All-on-6</span></div>
+      </article>
+      <article class="step" data-d="12164,1760" data-m="18743,2523">
+        <span class="mono"><b>↓ 12 164 px</b><span>Отзывы и врач</span></span>
+        <h3>Кто будет лечить</h3>
+        <p>Отзывы дословно с Яндекса и ПроДокторов, с датами. Ниже бейдж главного врача: Василий Кузьминов, 8 лет в имплантации, 1500+ имплантаций под ключ, обучение в Москве, Дубае, Египте и Сингапуре.</p>
+        <div class="tags"><span>8 лет</span><span>1500+ имплантаций</span></div>
+      </article>
+      <article class="step" data-d="14164,3413" data-m="21506,3972">
+        <span class="mono"><b>↓ 14 164 px</b><span>Клиника</span></span>
+        <h3>Видео и интерьер без постановки</h3>
+        <p>«Стоматология простым языком»: короткие ролики о процедурах. Дальше галерея интерьера, фасада и оборудования. Задача блока одна: показать, что это уютная клиника, а не больница.</p>
+        <div class="tags"><span>видео</span><span>интерьер</span><span>оборудование</span></div>
+      </article>
+      <article class="step" data-d="17697,2285" data-m="25598,3894">
+        <span class="mono"><b>↓ 17 697 px</b><span>Вопросы и контакты</span></span>
+        <h3>Ответы до звонка</h3>
+        <p>Девять вопросов: больно ли, что если имплант не приживётся, есть ли рассрочка, лечат ли детей. Дальше оба филиала со ссылками на карты, форма записи и «Перезвоним сами» для тех, кто не готов звонить.</p>
+        <div class="tags"><span>9 вопросов</span><span>2 филиала</span></div>
+      </article>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="browser" id="vD">
+        <div class="bar"><i></i><i></i><i></i><span>dentroom76.ru</span></div>
+        <div class="port" id="portD"><div class="layer" id="layerD"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/home-d.jpg" alt="Полный скриншот главной dentroom76.ru, компьютер" width="1100" height="15264"><div class="hl" id="hlD"><b>Первый экран</b></div></div><span class="viewer-note" id="noteD">↓ 0 px</span></div>
+      </div>
+      <div class="phone" id="vM" hidden>
+        <div class="scr port" id="portM"><div class="layer" id="layerM"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/home-m.jpg" alt="Полный скриншот главной dentroom76.ru, телефон" width="520" height="39323"><div class="hl" id="hlM"><b>Первый экран</b></div></div><span class="viewer-note" id="noteM">↓ 0 px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap kit" data-zone="За кадром">
+  <div class="kit-head">
+    <span class="mono">Что работает за кадром</span>
+    <h2 class="big">Сайт клиники. <em>Пять вещей, о которых пациент не думает</em></h2>
+    <p>У медицинского сайта свои правила: реклама с оговорками, лицензия, согласия на каждую рассылку. Я встроил их так, чтобы они не мешали записаться.</p>
+  </div>
+  <div class="kit-grid">
+    <article class="tile t-qr">
+      <div class="txt">
+        <span class="mono">Онлайн-запись · dentroom76.ru/#booking</span>
+        <h3>Записаться без звонка</h3>
+        <p>Пациент выбирает врача, день и время прямо на сайте, а клиника получает готовую запись. Блок оформлен как билет на приём: «Ваше время для себя».</p>
+      </div>
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span>dentroom76.ru · онлайн-запись</span></div>
+        <video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/booking.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/booking.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Блок онлайн-записи"></video>
+      </div>
+    </article>
+    <article class="tile t-tg">
+      <span class="mono">Медицина по закону</span>
+      <h3>Лицензия и оговорки на своих местах</h3>
+      <p>«Имеются противопоказания» у каждой акции и цены, номер лицензии со ссылкой на реестр Росздравнадзора, cookie с настройкой по категориям.</p>
+      <div class="msg" aria-hidden="true"><span class="mono">Лицензия · реестр Росздравнадзора</span><b>Л041-01132-76/00096549</b><span>от 31.03.2022 · медицинская деятельность</span></div>
+    </article>
+    <article class="tile t-promo">
+      <span class="mono">Отзывы</span>
+      <h3>Дословно, как на Яндексе</h3>
+      <p>Отзывы перенесены с Яндекса и ПроДокторов без редактуры, с именем и датой. Чаще всего пациенты пишут о страхе, который прошёл:</p>
+      <ol class="promos">
+        <li><span class="mono">Май 2026</span><b>«Очень долго боялась даже думать об имплантах… всё прошло совершенно безболезненно»</b><small>Ирина Разина</small></li>
+        <li><span class="mono">Июнь 2025</span><b>«Спасибо, что помогли побороть дентофобию»</b><small>Татьяна К.</small></li>
+        <li><span class="mono">Ноябрь 2025</span><b>«Сделали сложную работу качественно»</b><small>Алексей Волков</small></li>
+      </ol>
+    </article>
+    <article class="tile t-utp">
+      <span class="mono">Заголовок</span>
+      <h3>Первый экран отвечает на вопрос «сколько?»</h3>
+      <p>Самое заметное изменение между версиями. Пациент приходит за конкретной услугой и хочет понять порядок цен:</p>
+      <ol class="utps">
+        <li><span class="mono">2023</span><s>Стоматология DentRoom — инновации в лечении зубов</s></li>
+        <li><span class="mono">2026</span><span>Имплантация зубов под ключ от 65 000 ₽ в Ярославле у главного врача в клинике Дентрум</span></li>
+      </ol>
+    </article>
+    <article class="tile t-an">
+      <div class="txt">
+        <span class="mono">Квиз · 3 вопроса</span>
+        <h3>Администратор звонит уже подготовленным</h3>
+        <p>Вместо пустой формы три вопроса о ситуации. Пациент получает «персональный план», а администратор ещё до звонка знает, что у человека болит, чего он боится и сколько уже откладывает. Перезванивают в течение 15 минут.</p>
+      </div>
+      <div class="flowmap" aria-label="Схема квиза: вопрос, ответ пациента, что получает администратор">
+        <div class="col"><span class="mono">Вопрос</span><div class="node btnish">Какая ситуация?</div><div class="node btnish">Что беспокоит?</div><div class="node btnish">Как давно?</div></div>
+        <div class="col"><span class="mono">Ответ</span><div class="node">Не хватает зубов<small>или кариес, гигиена</small></div><div class="node">Боль<small>или цена, врач, материалы</small></div><div class="node">Несколько месяцев<small>или «давно откладываю»</small></div></div>
+        <div class="col"><span class="mono">Администратор</span><div class="node goal">Услуга</div><div class="node goal">Возражение</div><div class="node goal">Срочность</div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap proc" id="proc" data-zone="Как шла работа">
+  <span class="mono">Как появилась новая версия</span>
+  <h2 class="big">Три недели. <em>От интервью до запуска</em></h2>
+  <div class="track" id="track" style="grid-template-columns:repeat(5,minmax(0,1fr))">
+    <div class="st"><span class="mono">01</span><h4>Интервью</h4><p>Полтора-два часа с главным врачом: какие услуги приносят клинике больше всего и с чем приходят пациенты.</p></div>
+    <div class="st"><span class="mono">02</span><h4>Исследование</h4><p>Конкуренты в Ярославле, отзывы пациентов о стоматологиях и реестр смыслов клиники.</p></div>
+    <div class="st"><span class="mono">03</span><h4>Прототип и тексты</h4><p>Выстроил страницу вокруг имплантации и страхов пациента, написал тексты простым языком.</p></div>
+    <div class="st"><span class="mono">04</span><h4>Дизайн</h4><p>Глубокий зелёный и тёплое золото: клиника без ощущения больницы, но с медицинской точностью.</p></div>
+    <div class="st"><span class="mono">05</span><h4>Запуск</h4><p>Вёрстка на Tilda, домен, Метрика, базовое SEO, онлайн-запись и юридические блоки.</p></div>
+  </div>
+  <div class="span-note"><span class="mono">Первая версия · 2023</span><span class="mono"><b>3 недели</b> на новую версию</span><span class="mono">Новая версия · 2026</span></div>
+</section>
+
+<section class="wrap result" data-zone="Результат">
+  <div class="result-grid">
+    <div class="res-num">
+      <span class="mono">Без рекламы</span>
+      <b>2<span>+</span></b>
+      <p>Заявки в неделю с сайта и звонки, хотя реклама ещё не запускалась. Пациенты приходят из поиска и карт. Онлайн-запись подключили недавно, в этой цифре её пока нет.</p>
+    </div>
+    <div class="quote">
+      <blockquote>Сайт был создан в оговоренные рамки времени, Валерий был всегда на связи и оказывал онлайн-поддержку и корректировку, даже спустя время. Сайт запущен, работает по задуманному протоколу.</blockquote>
+      <div class="who"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/dentroom/vasily.jpg" alt="Василий Кузьминов, главный врач клиники «Дентрум»" width="56" height="56"><div><b>Василий Кузьминов</b><span>главный врач клиники «Дентрум», Ярославль</span></div></div>
+    </div>
+  </div>
+  <div class="cta">
+    <div>
+      <h2>Нужен сайт, который снимает страхи клиентов?</h2>
+      <p>Расскажите о бизнесе, и я пришлю бюджет и сроки меньше чем за 24 часа.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="https://t.me/Ovchinnikov_dsgn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <span class="phone-num">+7 (910) 970-01-24</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap next">
+  <span class="mono">Следующий кейс</span>
+  <a href="https://ovchinnikov-dsgn.ru/project_alexkitchen" target="_blank" rel="noopener">Alex Kitchen, кухни на заказ →</a>
+</footer>
+</div>
+<script>
+
+(()=>{
+const R=document.querySelector('.ovp');if(!R)return;const $=s=>R.querySelector(s),$$=s=>[...R.querySelectorAll(s)];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* слово в hero подгоняется под ширину колонки */
+const word=$('.word');function fit(){const narrow=innerWidth<=900;word.style.fontSize='';
+  const parts=[...word.querySelectorAll('.part')],chip=word.querySelector('.reel-chip');
+  const need=parts.reduce((a,p)=>a+p.scrollWidth,0)+(narrow?0:chip.offsetWidth)+ (narrow?4:40);
+  const fs=parseFloat(getComputedStyle(word).fontSize);if(need>word.clientWidth)word.style.fontSize=(fs*word.clientWidth/need*.985)+'px'}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);addEventListener('resize',fit);fit();
+
+/* окошко в hero: старый и новый сайт сменяют друг друга */
+const chipImgs=$$('#chip img'),chipLbl=['до · 2023','после · 2026'];let ci=0;
+if(!reduce)setInterval(()=>{chipImgs[ci].classList.remove('on');ci=(ci+1)%chipImgs.length;chipImgs[ci].classList.add('on');$('#chipT').textContent=chipLbl[ci]},2000);
+
+/* до / после: раздел выбирается прокруткой, шторка открывает новую версию, её можно тянуть */
+const ba=$('#ba'),prs=$$('#prs .pr'),pairs=$$('#cmp .pair'),railB=$$('#rail button'),N=prs.length,cmp=$('#cmp'),knob=$('#knob');
+const URLS=['первый экран','акция','страхи','цены','наши работы','вопросы и адреса'];let bi=-1,x=50,anim=0;
+function setX(v){x=Math.max(0,Math.min(100,v));cmp.style.setProperty('--x',x+'%');knob.setAttribute('aria-valuenow',Math.round(x))}
+function sweep(from,to,ms){cancelAnimationFrame(anim);if(reduce){setX(to);return}const t0=performance.now(),e=t=>1-Math.pow(1-t,4);
+  (function f(n){const p=Math.min(1,(n-t0)/ms);setX(from+(to-from)*e(p));if(p<1)anim=requestAnimationFrame(f)})(t0)}
+function setP(i){if(i===bi)return;bi=i;
+  prs.forEach((v,k)=>v.classList.toggle('on',k===i));pairs.forEach((p,k)=>p.classList.toggle('on',k===i));
+  railB.forEach((b,k)=>{b.setAttribute('aria-current',k===i);b.classList.toggle('done',k<i)});
+  $('#rail').style.setProperty('--p',(i/(N-1)*100).toFixed(1)+'%');$('#baUrl').textContent='dentroom76.ru · '+URLS[i];
+  sweep(96,50,1300)}
+let br=0;function baPick(){br=0;const r=ba.getBoundingClientRect(),span=r.height-innerHeight;
+  const p=Math.min(1,Math.max(0,-r.top/Math.max(1,span)));setP(Math.min(N-1,Math.floor(p*N*.999)))}
+addEventListener('scroll',()=>{if(!br)br=requestAnimationFrame(baPick)},{passive:true});
+railB.forEach((b,k)=>b.addEventListener('click',()=>{const span=ba.offsetHeight-innerHeight;scrollTo({top:ba.getBoundingClientRect().top+scrollY+span*(k+.5)/N,behavior:reduce?'auto':'smooth'})}));
+// перетаскивание: мышь и палец двигают шторку, вертикальная прокрутка на телефоне не блокируется
+let drag=false;const at=e=>{const r=cmp.getBoundingClientRect();setX((e.clientX-r.left)/r.width*100)};
+cmp.addEventListener('pointerdown',e=>{drag=true;cancelAnimationFrame(anim);cmp.classList.add('drag','touched');at(e);cmp.setPointerCapture(e.pointerId)});
+cmp.addEventListener('pointermove',e=>{if(drag)at(e)});
+const end=()=>{drag=false;cmp.classList.remove('drag')};cmp.addEventListener('pointerup',end);cmp.addEventListener('pointercancel',end);
+knob.addEventListener('keydown',e=>{const d={ArrowLeft:-5,ArrowRight:5,Home:-100,End:100}[e.key];if(d!==undefined){e.preventDefault();cancelAnimationFrame(anim);cmp.classList.add('touched');setX(x+d)}});
+setP(0);baPick();
+
+/* ролик по главам */
+const player=$('#player'),chs=$$('#chapters button');let cur=0;
+function play(i){cur=(i+chs.length)%chs.length;chs.forEach((b,k)=>{b.setAttribute('aria-current',k===cur);b.querySelector('.bar i').style.width='0'});
+  const b=chs[cur];player.poster=b.dataset.poster;player.src=b.dataset.src;$('#urlbar').textContent=b.dataset.url;player.play().catch(()=>{})}
+chs.forEach((b,i)=>b.addEventListener('click',()=>play(i)));
+player.addEventListener('timeupdate',()=>{if(player.duration)chs[cur].querySelector('.bar i').style.width=(player.currentTime/player.duration*100)+'%'});
+player.addEventListener('ended',()=>play(cur+1));
+// видео играют только на экране
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.15});
+$$('video').forEach(v=>{if(reduce){v.removeAttribute('autoplay');v.pause()}vio.observe(v)});
+
+/* анатомия */
+const W={d:1440,m:390};let mode='d',active=0;
+const steps=$$('.step');
+function show(i){active=i;steps.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const s=steps[i],M=mode.toUpperCase(),port=$('#port'+M),layer=$('#layer'+M),img=layer.querySelector('img'),hl=$('#hl'+M);
+  if(!s.dataset[mode]){hl.style.opacity='0';$('#note'+M).textContent='Этот блок есть только на компьютере';return}
+  hl.style.opacity='1';
+  const [y,h]=s.dataset[mode].split(',').map(Number);
+  const k=port.clientWidth/W[mode],ph=port.clientHeight,top=y*k,hh=h*k;
+  const imgH=port.clientWidth*img.height/img.width;
+  let off=hh<ph-60?top-(ph-hh)/2:top-28;off=Math.max(0,Math.min(off,imgH-ph));
+  layer.style.transform=`translateY(${-off}px)`;hl.style.top=top+'px';hl.style.height=hh+'px';
+  hl.querySelector('b').textContent=s.querySelector('.mono span').textContent;
+  $('#note'+M).textContent='↓ '+Math.round(y).toLocaleString('ru-RU')+' px'}
+// активный шаг выбирается по линии чтения, а не IntersectionObserver: во встроенном фрейме rootMargin не работает
+const viewer=$('#viewer');let raf=0;
+function pick(){raf=0;const vr=viewer.getBoundingClientRect(),narrow=innerWidth<=900;
+  const line=narrow?vr.bottom+(innerHeight-vr.bottom)*.35:innerHeight*.5;let i=0;
+  steps.forEach((s,k)=>{if(s.getBoundingClientRect().top<=line)i=k});if(i!==active)show(i)}
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+steps.forEach((s,i)=>s.addEventListener('click',()=>show(i)));
+function setMode(m){mode=m;$('#tD').setAttribute('aria-pressed',m==='d');$('#tM').setAttribute('aria-pressed',m==='m');$('#vD').hidden=m!=='d';$('#vM').hidden=m!=='m';
+  const im=$('#layerM img');if(m==='m'&&!im.src){im.src=im.dataset.src;im.onload=()=>show(active)}requestAnimationFrame(()=>show(active))}
+$('#tD').onclick=()=>setMode('d');$('#tM').onclick=()=>setMode('m');
+addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('load',()=>show(active));show(0);
+
+/* процесс: линия заполняется по мере прокрутки */
+const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+})();
+</script>
