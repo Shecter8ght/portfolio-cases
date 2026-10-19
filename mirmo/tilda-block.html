@@ -290,6 +290,63 @@ html[data-theme="dark"] .ovp{
 .ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
 .ovp .next a:hover{color:var(--coral)}
 
+/* заявки: статистика Tilda, один ряд данных, тонкие столбики со скруглённым верхом */
+.ovp .stats{border-radius:28px;background:var(--night);color:var(--night-ink);padding:44px;display:grid;gap:34px;margin-bottom:24px}
+.ovp .stats .mono{color:var(--night-muted)}
+.ovp .stats-head{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:30px;align-items:end}
+.ovp .stats h2{margin:10px 0 0;font:700 clamp(34px,4.8vw,70px)/.95 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .stats h2 em{font-style:normal;color:var(--night-muted)}
+.ovp .stats-head p{margin:0;color:var(--night-muted);max-width:30em}
+.ovp .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--night-line)}
+.ovp .kpi{padding:18px 18px 0 0;display:grid;gap:6px;align-content:start}
+.ovp .kpi+.kpi{padding-left:18px;border-left:1px solid var(--night-line)}
+.ovp .kpi b{font:700 clamp(30px,3.6vw,50px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.ovp .kpi b small{font-size:.5em;color:var(--night-muted);margin-left:.08em;letter-spacing:-.02em}
+.ovp .kpi span{font-size:14px;line-height:1.35;color:var(--night-muted)}
+.ovp .lc{position:relative}
+.ovp .lc-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.ovp .lc-tg{appearance:none;border:1px solid var(--night-line);background:transparent;color:var(--night-ink);border-radius:999px;padding:7px 14px;font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.ovp .lc-tg:hover{border-color:var(--night-muted)}
+.ovp .lc-plot{position:relative;height:300px;margin-left:34px}
+.ovp .lc-grid{position:absolute;inset:0;pointer-events:none}
+.ovp .lc-grid i{position:absolute;left:0;right:0;border-top:1px solid var(--night-line);bottom:var(--y)}
+.ovp .lc-grid i span{position:absolute;right:calc(100% + 8px);transform:translateY(-50%);font:400 11px var(--f-mono);color:var(--night-muted);font-variant-numeric:tabular-nums}
+.ovp .lc-grid i:first-child{border-top-color:var(--night-muted)}
+.ovp .lc-cols{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,minmax(0,1fr))}
+.ovp .lc-col{appearance:none;border:0;background:transparent;padding:0;margin:0;position:relative;cursor:default;color:inherit;font:inherit;border-radius:10px}
+.ovp .lc-col::before{content:"";position:absolute;inset:0 2px;border-radius:10px;background:rgba(255,255,255,.04);opacity:0;transition:opacity .2s}
+.ovp .lc-col:hover::before,.ovp .lc-col:focus-visible::before{opacity:1}
+.ovp .lc-col i{position:absolute;left:50%;bottom:0;width:clamp(10px,2.1vw,26px);transform:translateX(-50%);height:calc(var(--v)*1%*var(--on,0));border-radius:4px 4px 0 0;background:var(--teal);transition:height 1.1s cubic-bezier(.2,.8,.2,1) var(--d,0s),opacity .2s}
+.ovp .lc-col.part i{background:repeating-linear-gradient(135deg,var(--teal) 0 3px,color-mix(in srgb,var(--teal) 35%,transparent) 3px 7px)}
+.ovp .lc.hov .lc-col:not(:hover):not(:focus-visible) i{opacity:.45}
+.ovp .lc-col em{position:absolute;left:50%;bottom:calc(var(--v)*1% + 8px);transform:translateX(-50%);font:600 15px var(--f-display);font-style:normal;color:var(--night-ink);white-space:nowrap;font-variant-numeric:tabular-nums;opacity:var(--on,0);transition:opacity .4s 1s}
+.ovp .lc-col.part em{font-weight:500;color:var(--night-muted)}
+.ovp .lc-col:not(.lab) em{display:none}
+.ovp .lc-x{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));margin:10px 0 0 34px}
+.ovp .lc-x span{text-align:center;font:400 11px var(--f-mono);letter-spacing:.04em;color:var(--night-muted);text-transform:uppercase}
+.ovp .lc-x span.y{color:var(--night-ink)}
+.ovp .lc-tip{position:absolute;z-index:3;pointer-events:none;min-width:190px;padding:12px 14px;border-radius:14px;background:var(--night-2);border:1px solid var(--night-line);box-shadow:0 18px 40px -18px rgba(0,0,0,.7);transform:translate(14px,-50%);opacity:0;transition:opacity .15s}
+.ovp .lc-tip.on{opacity:1}
+.ovp .lc-tip.l{transform:translate(calc(-100% - 14px),-50%)}
+.ovp .lc-tip b{display:block;font:600 14px var(--f-display);margin-bottom:6px}
+.ovp .lc-tip div{display:flex;justify-content:space-between;gap:16px;font-size:13px;color:var(--night-muted);font-variant-numeric:tabular-nums}
+.ovp .lc-tip div span:last-child{color:var(--night-ink)}
+.ovp .lc-tip div:first-of-type span:first-child::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--teal);margin-right:7px}
+.ovp .lc table{width:100%;border-collapse:collapse;color:inherit;font-size:14px;font-variant-numeric:tabular-nums}
+.ovp .lc th,.ovp .lc td{text-align:right;padding:8px 10px;border-bottom:1px solid var(--night-line)}
+.ovp .lc th:first-child,.ovp .lc td:first-child{text-align:left}
+.ovp .lc th{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--night-muted)}
+.ovp .lc-note{margin:16px 0 0;font-size:13px;color:var(--night-muted)}
+.ovp .pages-top{border-radius:28px;background:var(--surface);border:1px solid var(--line);padding:40px;display:flex;flex-direction:column;gap:22px;min-height:380px}
+.ovp .pages-top h3{margin:0;font:700 clamp(24px,2.4vw,34px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .pages-top p{margin:0;color:var(--muted);font-size:15px}
+.ovp .ptop{display:grid;gap:16px;margin-top:auto}
+.ovp .ptop div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;align-items:baseline}
+.ovp .ptop span{font:600 16px var(--f-display)}
+.ovp .ptop span small{display:block;font:400 12px var(--f-mono);color:var(--muted);letter-spacing:.02em}
+.ovp .ptop b{font:700 22px var(--f-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ovp .ptop i{grid-column:1/-1;height:8px;border-radius:0 4px 4px 0;background:var(--teal);width:var(--w)}
+
 /* «Ваш визит» */
 .ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
 .ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
@@ -341,7 +398,10 @@ html[data-theme="dark"] .ovp{
   .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
   .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
   .ovp .step{min-height:56vh}
-  .ovp .result-grid,.ovp .cta,.ovp .t-quiz,.ovp .t-grow{grid-template-columns:minmax(0,1fr)}
+  .ovp .result-grid,.ovp .cta,.ovp .t-quiz,.ovp .t-grow,.ovp .stats-head{grid-template-columns:minmax(0,1fr)}
+  .ovp .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .kpi:nth-child(3){padding-left:0;border-left:0}
+  .ovp .kpi:nth-child(n+3){margin-top:14px;border-top:1px solid var(--night-line)}
   .ovp .kit-grid{grid-template-columns:minmax(0,1fr)}
   .ovp .t-quiz,.ovp .t-grow,.ovp .t-two,.ovp .t-est,.ovp .t-deal{grid-column:auto}
 }
@@ -355,7 +415,12 @@ html[data-theme="dark"] .ovp{
   .ovp .screen-wrap{padding-right:0;padding-bottom:0}
   .ovp .stage .phone{display:none}
   .ovp .track{grid-template-columns:minmax(0,1fr)}
-  .ovp .res-num,.ovp .review,.ovp .cta{padding:28px}
+  .ovp .res-num,.ovp .review,.ovp .cta,.ovp .pages-top{padding:28px}
+  .ovp .stats{padding:28px 20px;gap:26px}
+  .ovp .lc-plot{height:230px;margin-left:28px}
+  .ovp .lc-x{margin-left:28px}
+  .ovp .lc-x span{font-size:9px;letter-spacing:0}
+  .ovp .lc-col em{font-size:12px}
   .ovp .tile{padding:20px}
   .ovp .lay{grid-template-columns:minmax(0,1fr) auto}
   .ovp .lay .mono{grid-column:1/-1}
@@ -402,7 +467,7 @@ html[data-theme="dark"] .ovp{
     <div class="fact"><span class="mono">Страниц</span><b>8</b></div>
     <div class="fact"><span class="mono">От брифа до запуска</span><b>~40<small>дней</small></b></div>
     <div class="fact"><span class="mono">Направлений продукции</span><b>5</b></div>
-    <div class="fact"><span class="mono">Сайта у клиента</span><b>2</b></div>
+    <div class="fact"><span class="mono">Заявок за год</span><b>501</b></div>
   </div>
 </section>
 
@@ -455,7 +520,7 @@ html[data-theme="dark"] .ovp{
           <div class="no">02<small>Мягкие окна</small></div>
           <h3>Сначала его дождь, потом материалы</h3>
           <dl class="diff">
-            <div><dt>Кто приходит</dt><dd>Владелец беседки, террасы или летней веранды кафе.</dd></div>
+            <div><dt>Кто приходит</dt><dd>Владелец беседки, террасы или летней веранды кафе. Это самая посещаемая страница сайта.</dd></div>
             <div><dt>Что находит</dt><dd>«Дождь мешает отдыхать на веранде?», цену от 1400 ₽ за м², четыре материала с фотографиями и москитную сетку в подарок от 20 м².</dd></div>
           </dl>
         </article>
@@ -658,6 +723,7 @@ html[data-theme="dark"] .ovp{
           <li>Нужен ли вам монтаж?</li>
           <li>Контакты для расчёта</li>
         </ol>
+        <p>Для рекламы есть и отдельный квиз-лендинг: шесть вопросов от директора по производству. За год он собрал 16 тысяч сессий, это вторая по посещаемости страница сайта.</p>
       </div>
       <div class="browser">
         <div class="bar"><i></i><i></i><i></i><span>mirmo76.ru · квиз</span></div>
@@ -723,11 +789,77 @@ html[data-theme="dark"] .ovp{
 </section>
 
 <section class="wrap result" data-zone="Результат">
+  <div class="stats">
+    <div class="stats-head">
+      <div>
+        <span class="mono">Статистика Tilda · ноябрь 2025 — октябрь 2026</span>
+        <h2>501 заявка за год. <em>150 только в сентябре</em></h2>
+      </div>
+      <p>Рекламу ведёт директолог, а сайт принимает этот поток: у каждого продукта своя страница и свой квиз. С апреля, когда начинается сезон веранд и беседок, заявок становится в разы больше.</p>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b>×3,6</b><span>заявок к предыдущим двенадцати месяцам</span></div>
+      <div class="kpi"><b>49<small>тыс.</small></b><span>сессий за год</span></div>
+      <div class="kpi"><b>86<small>%</small></b><span>посетителей заходят с телефона</span></div>
+      <div class="kpi"><b>1<small>%</small></b><span>посетителей оставляют заявку</span></div>
+    </div>
+    <figure class="lc" id="lc" style="margin:0">
+      <div class="lc-top">
+        <figcaption class="mono">Заявки по месяцам</figcaption>
+        <button class="lc-tg" id="lcT" aria-pressed="false">Таблицей</button>
+      </div>
+      <div id="lcG">
+        <div class="lc-plot">
+          <div class="lc-grid" aria-hidden="true"><i style="--y:0.00%"><span>0</span></i><i style="--y:31.25%"><span>50</span></i><i style="--y:62.50%"><span>100</span></i><i style="--y:93.75%"><span>150</span></i></div>
+          <div class="lc-cols">
+          <button class="lc-col lab" style="--v:7.50;--d:0.00s" data-m="Ноябрь 2025" data-l="12" data-s="1 787" data-c="0,7%" aria-label="Ноябрь 2025: 12 заявок, 1 787 сессий"><i></i><em>12</em></button>
+          <button class="lc-col" style="--v:4.38;--d:0.06s" data-m="Декабрь 2025" data-l="7" data-s="4 708" data-c="0,1%" aria-label="Декабрь 2025: 7 заявок, 4 708 сессий"><i></i><em>7</em></button>
+          <button class="lc-col" style="--v:6.25;--d:0.12s" data-m="Январь 2026" data-l="10" data-s="5 597" data-c="0,2%" aria-label="Январь 2026: 10 заявок, 5 597 сессий"><i></i><em>10</em></button>
+          <button class="lc-col" style="--v:3.12;--d:0.18s" data-m="Февраль 2026" data-l="5" data-s="2 286" data-c="0,2%" aria-label="Февраль 2026: 5 заявок, 2 286 сессий"><i></i><em>5</em></button>
+          <button class="lc-col" style="--v:8.12;--d:0.24s" data-m="Март 2026" data-l="13" data-s="2 084" data-c="0,6%" aria-label="Март 2026: 13 заявок, 2 084 сессий"><i></i><em>13</em></button>
+          <button class="lc-col" style="--v:18.12;--d:0.30s" data-m="Апрель 2026" data-l="29" data-s="2 642" data-c="1,1%" aria-label="Апрель 2026: 29 заявок, 2 642 сессий"><i></i><em>29</em></button>
+          <button class="lc-col" style="--v:30.00;--d:0.36s" data-m="Май 2026" data-l="48" data-s="4 679" data-c="1,0%" aria-label="Май 2026: 48 заявок, 4 679 сессий"><i></i><em>48</em></button>
+          <button class="lc-col" style="--v:30.00;--d:0.42s" data-m="Июнь 2026" data-l="48" data-s="2 665" data-c="1,8%" aria-label="Июнь 2026: 48 заявок, 2 665 сессий"><i></i><em>48</em></button>
+          <button class="lc-col" style="--v:29.38;--d:0.48s" data-m="Июль 2026" data-l="47" data-s="2 856" data-c="1,6%" aria-label="Июль 2026: 47 заявок, 2 856 сессий"><i></i><em>47</em></button>
+          <button class="lc-col" style="--v:33.12;--d:0.54s" data-m="Август 2026" data-l="53" data-s="2 446" data-c="2,2%" aria-label="Август 2026: 53 заявок, 2 446 сессий"><i></i><em>53</em></button>
+          <button class="lc-col lab" style="--v:93.75;--d:0.60s" data-m="Сентябрь 2026" data-l="150" data-s="9 819" data-c="1,5%" aria-label="Сентябрь 2026: 150 заявок, 9 819 сессий"><i></i><em>150</em></button>
+          <button class="lc-col part lab" style="--v:49.38;--d:0.66s" data-m="Октябрь 2026 (по 19 октября)" data-l="79" data-s="7 847" data-c="1,0%" aria-label="Октябрь 2026 (по 19 октября): 79 заявок, 7 847 сессий"><i></i><em>79 · по 19.10</em></button>
+          </div>
+          <div class="lc-tip" id="lcTip" aria-hidden="true"></div>
+        </div>
+        <div class="lc-x" aria-hidden="true"><span class="y">Ноя ’25</span><span>Дек</span><span class="y">Янв ’26</span><span>Фев</span><span>Мар</span><span>Апр</span><span>Май</span><span>Июн</span><span>Июл</span><span>Авг</span><span>Сен</span><span>Окт</span></div>
+      </div>
+      <div id="lcTab" hidden>
+        <table>
+          <thead><tr><th>Месяц</th><th>Заявки</th><th>Сессии</th><th>Конверсия</th></tr></thead>
+          <tbody>
+          <tr><td>Ноябрь 2025</td><td>12</td><td>1 787</td><td>0,7%</td></tr>
+          <tr><td>Декабрь 2025</td><td>7</td><td>4 708</td><td>0,1%</td></tr>
+          <tr><td>Январь 2026</td><td>10</td><td>5 597</td><td>0,2%</td></tr>
+          <tr><td>Февраль 2026</td><td>5</td><td>2 286</td><td>0,2%</td></tr>
+          <tr><td>Март 2026</td><td>13</td><td>2 084</td><td>0,6%</td></tr>
+          <tr><td>Апрель 2026</td><td>29</td><td>2 642</td><td>1,1%</td></tr>
+          <tr><td>Май 2026</td><td>48</td><td>4 679</td><td>1,0%</td></tr>
+          <tr><td>Июнь 2026</td><td>48</td><td>2 665</td><td>1,8%</td></tr>
+          <tr><td>Июль 2026</td><td>47</td><td>2 856</td><td>1,6%</td></tr>
+          <tr><td>Август 2026</td><td>53</td><td>2 446</td><td>2,2%</td></tr>
+          <tr><td>Сентябрь 2026</td><td>150</td><td>9 819</td><td>1,5%</td></tr>
+          <tr><td>Октябрь 2026*</td><td>79</td><td>7 847</td><td>1,0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lc-note">* Октябрь неполный: данные по 19 число.</p>
+    </figure>
+  </div>
   <div class="result-grid">
-    <div class="res-num">
-      <span class="mono">Посадочные страницы</span>
-      <b>8<span>.</span></b>
-      <p>У каждого направления своя страница и свой квиз, поэтому реклама ведёт человека сразу к его продукту, а не на общую главную.</p>
+    <div class="pages-top">
+      <span class="mono">Куда приходят чаще всего</span>
+      <h3>Мягкие окна и квиз собрали больше всего посетителей</h3>
+      <p>Сессии за год по страницам. Обе страницы сразу о продукте: человек из рекламы видит то, что искал, и может оставить заявку, не уходя со страницы.</p>
+      <div class="ptop">
+        <div><span>Мягкие окна<small>mirmo76.ru/myagkie_okna</small></span><b>26 421</b><i style="--w:100%"></i></div>
+        <div><span>Квиз-лендинг<small>mirmo76.ru/quiz</small></span><b>16 012</b><i style="--w:60.6%"></i></div>
+      </div>
     </div>
     <a class="review" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">
       <span class="mono">Видеоотзыв</span>
@@ -858,5 +990,17 @@ addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('l
 
 /* процесс: линия заполняется по мере прокрутки */
 const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+
+/* заявки: столбики вырастают при появлении, подсказка по наведению и фокусу */
+const lc=$('#lc'),tip=$('#lcTip'),cols=$$('.lc-col');
+function lcIn(){const r=lc.getBoundingClientRect();if(r.top<innerHeight*.85&&r.bottom>0){lc.style.setProperty('--on',1);removeEventListener('scroll',lcIn)}}
+if(reduce)lc.style.setProperty('--on',1);else{addEventListener('scroll',lcIn,{passive:true});lcIn()}
+function lcTip(b){const p=b.parentElement.getBoundingClientRect(),r=b.getBoundingClientRect(),v=parseFloat(b.style.getPropertyValue('--v'));
+  tip.innerHTML=`<b>${b.dataset.m}</b><div><span>Заявки</span><span>${b.dataset.l}</span></div><div><span>Сессии</span><span>${b.dataset.s}</span></div><div><span>Конверсия</span><span>${b.dataset.c}</span></div>`;
+  const left=r.left-p.left>p.width*.6,x=left?r.left-p.left:r.right-p.left,y=clamp(p.height*(1-v/100),62,p.height-62);
+  tip.classList.toggle('l',left);tip.style.left=x+'px';tip.style.top=y+'px';tip.classList.add('on');lc.classList.add('hov')}
+function lcOff(){tip.classList.remove('on');lc.classList.remove('hov')}
+cols.forEach(b=>{b.addEventListener('pointerenter',()=>lcTip(b));b.addEventListener('focus',()=>lcTip(b));b.addEventListener('pointerleave',lcOff);b.addEventListener('blur',lcOff)});
+$('#lcT').onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',on);e.currentTarget.textContent=on?'Графиком':'Таблицей';$('#lcG').hidden=on;$('#lcTab').hidden=!on};
 })();
 </script>
