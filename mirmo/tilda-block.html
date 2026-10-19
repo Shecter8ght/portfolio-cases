@@ -1,0 +1,862 @@
+<!-- Кейс «МирМО76» · «Восемь страниц». Вставьте целиком в блок T123 (HTML-код). Отступы блока сверху и снизу поставьте 0. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+/* Layout: кейс как вход через ПВХ-завесу. Фирменный стиль ovchinnikov-dsgn.ru (тёплый белый, сливово-чёрный, коралл, моно-подписи)
+   снаружи, бирюзовый мир МирМО76 внутри рамок. Высоты страниц в px — настоящие высоты страниц mirmo76.ru при ширине 1440. */
+.ovp{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#846F81; --line:#E7E2E4;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --teal:#39CAC6; --deep:#0F3A35;
+  --night:#1D181D; --night-2:#2A232A; --night-ink:#F4EEF2; --night-muted:#A8979F; --night-line:#3B323A;
+  --dim:rgba(29,24,29,.55);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:22px;
+}
+html[data-theme="dark"] .ovp{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A9979F; --line:#352D34;
+  --coral:#FF7A64; --coral-ink:#1A1012; --teal:#4FD6D2;
+  --night:#0F0C0F; --night-2:#1E181E; --night-line:#342B33; --dim:rgba(8,6,8,.62); color-scheme:dark}
+
+.ovp,.ovp *{box-sizing:border-box}
+.ovp [hidden]{display:none!important}
+.ovp .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ovp{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+.ovp .wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovp a{color:inherit}
+.ovp :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.ovp .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .mono b{color:var(--coral);font-weight:500}
+.ovp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal);vertical-align:middle;margin-right:6px}
+.ovp .btn{display:inline-flex;flex-direction:column;justify-content:center;gap:2px;padding:14px 26px;border-radius:999px;background:var(--coral);color:var(--coral-ink);text-decoration:none;font:600 16px/1.2 var(--f-display);box-shadow:0 14px 30px -14px var(--coral);transition:transform .25s,box-shadow .25s}
+.ovp .btn small{font:500 12px var(--f-body);opacity:.85}
+.ovp .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--coral)}
+.ovp .link{font:600 15px var(--f-display);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.ovp h2.big{font:700 clamp(36px,5.6vw,80px)/.95 var(--f-display);letter-spacing:-.045em;margin:10px 0 0;text-wrap:balance}
+.ovp h2.big em{font-style:normal;color:var(--muted)}
+
+/* шапка */
+.ovp .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ovp .top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.ovp .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.ovp .logo svg{flex:none}
+.ovp .logo b{display:block;font:600 15px/1.15 var(--f-display);letter-spacing:.02em}
+.ovp .logo span{display:block;font-size:13px;color:var(--muted)}
+.ovp .top nav{margin-left:auto;display:flex;align-items:center;gap:22px}
+.ovp .top nav a{font:500 15px var(--f-body);text-decoration:none;color:var(--muted)}
+.ovp .top nav a:hover{color:var(--ink)}
+.ovp .rec{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:500 12px var(--f-mono);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ovp .rec i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:ovp-blink 1.4s steps(2) infinite}
+@keyframes ovp-blink{50%{opacity:.15}}
+
+/* hero */
+.ovp .hero{padding-block:18px 34px}
+.ovp .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ovp .word{display:flex;align-items:center;justify-content:space-between;gap:0;font:800 min(15vw,200px)/.8 var(--f-display);letter-spacing:-.065em;margin:0;text-transform:uppercase;white-space:nowrap}
+.ovp .word .part{display:flex;overflow:hidden;padding-block:.06em .02em}
+.ovp .word .part span{display:inline-block;animation:ovp-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*55ms + 120ms)}
+.ovp .word .part .t{color:var(--teal)}
+@keyframes ovp-rise{from{transform:translateY(105%)}}
+.ovp .reel-chip{position:relative;flex:1 1 auto;min-width:1.4em;height:.74em;margin-inline:.14em!important;border-radius:.08em;overflow:visible;animation:ovp-pop 1s cubic-bezier(.2,.9,.25,1.15) .45s both;margin-top:.05em!important}
+.ovp .reel-chip .stack{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--night);box-shadow:0 30px 60px -30px rgba(29,24,29,.55)}
+.ovp .reel-chip .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%;opacity:0;transition:opacity .5s}
+.ovp .reel-chip .stack img.on{opacity:1}
+.ovp .reel-chip::after{content:"";position:absolute;right:-.05em;top:-.05em;width:.1em;height:.1em;border-radius:50%;background:var(--coral);border:.02em solid var(--bg)}
+.ovp .reel-chip figcaption{position:absolute;left:.05em;bottom:.05em;font:500 clamp(9px,.9vw,12px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,16,20,.62);backdrop-filter:blur(6px);padding:6px 9px;border-radius:999px;font-variant-numeric:tabular-nums}
+@keyframes ovp-pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+.ovp .hero-low{display:grid;grid-template-columns:minmax(0,1.25fr) auto;gap:28px;align-items:end;margin-top:30px}
+.ovp .hero-low h1{font:700 clamp(28px,3.3vw,46px)/1.02 var(--f-display);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ovp .hero-low h1 em{font-style:normal;color:var(--muted)}
+.ovp .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ovp .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.ovp .fact{padding:20px 20px 4px 0;display:grid;gap:6px}
+.ovp .fact+.fact{padding-left:20px;border-left:1px solid var(--line)}
+.ovp .fact b{font:700 clamp(34px,4.2vw,58px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.ovp .fact b small{font-size:.5em;color:var(--muted);letter-spacing:-.02em;margin-left:.1em}
+
+/* завеса: полосы ПВХ висят на рейке над живой записью сайта и расходятся от курсора */
+.ovp .veil{padding-block:8px 20px}
+.ovp .veil-stage{position:relative;border-radius:30px;overflow:hidden;background:radial-gradient(120% 90% at 50% 30%,#21423F 0%,#0C1716 70%);aspect-ratio:16/8;min-height:440px;max-height:780px;width:100%;touch-action:pan-y;isolation:isolate}
+.ovp .veil-stage::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 2px,transparent 2px 120px);z-index:0}
+.ovp .veil-screen{position:absolute;left:50%;top:54%;width:min(78%,1020px);transform:translate(-50%,-50%);z-index:1}
+.ovp .veil-screen .browser{box-shadow:0 60px 120px -40px rgba(0,0,0,.85)}
+.ovp .veil-rail{position:absolute;left:0;right:0;top:0;height:18px;z-index:4;background:linear-gradient(#E3E8E9,#9AA6A8 60%,#7E898B);box-shadow:0 8px 18px rgba(0,0,0,.45)}
+.ovp .veil-rail::after{content:"";position:absolute;left:0;right:0;bottom:3px;height:2px;background:rgba(255,255,255,.45)}
+.ovp .strips{position:absolute;inset:14px 0 0;z-index:3;pointer-events:none}
+.ovp .strip{position:absolute;top:0;height:calc(100% + 60px);width:calc(100%/var(--n) + 12px);left:calc(var(--i)*100%/var(--n) - 6px);transform-origin:50% 0;will-change:transform;
+  background:linear-gradient(90deg,rgba(255,255,255,.20),rgba(190,236,238,.07) 20%,rgba(255,255,255,.02) 52%,rgba(190,236,238,.09) 82%,rgba(255,255,255,.26));
+  backdrop-filter:blur(1.4px) saturate(1.25) brightness(1.08);-webkit-backdrop-filter:blur(1.4px) saturate(1.25) brightness(1.08);
+  border-left:1px solid rgba(255,255,255,.34);border-right:1px solid rgba(10,30,30,.18);border-radius:0 0 4px 4px}
+.ovp .strip::before{content:"";position:absolute;top:-2px;left:50%;width:12px;height:16px;margin-left:-6px;border:2px solid #C6CFD1;border-top:0;border-radius:0 0 4px 4px}
+.ovp .strip::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.12),transparent 18%,transparent 70%,rgba(57,202,198,.10));pointer-events:none}
+.ovp .veil-hint{position:absolute;left:24px;bottom:22px;z-index:5;display:flex;align-items:center;gap:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(12,23,22,.66);backdrop-filter:blur(8px);padding:9px 14px;border-radius:999px;transition:opacity .5s;pointer-events:none}
+.ovp .veil-hint i{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:ovp-blink 1.4s steps(2) infinite}
+.ovp .veil-stage.touched .veil-hint{opacity:0}
+.ovp .veil-tag{position:absolute;right:24px;top:30px;z-index:5;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.75);pointer-events:none}
+.ovp .veil-cap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px}
+
+/* общие рамки */
+.ovp .browser{border-radius:18px;background:#E9E6E8;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.ovp .browser .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFECEE}
+.ovp .browser .bar i{width:11px;height:11px;border-radius:50%;background:#D3CDD1}
+.ovp .browser .bar i:first-child{background:#F36A55}
+.ovp .browser .bar span{margin-left:14px;flex:1;max-width:360px;font:500 12px var(--f-mono);color:#6E5F6B;background:#fff;border-radius:8px;padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovp .browser video,.ovp .browser > img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#fff}
+.ovp .phone{position:relative;width:100%;border-radius:38px;padding:9px;background:#141114;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),inset 0 0 0 1.5px #3A3239}
+.ovp .phone .scr{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:390/844;background:#fff}
+.ovp .phone .scr::before{content:"";position:absolute;z-index:2;left:50%;top:9px;width:30%;height:22px;border-radius:12px;background:#141114;transform:translateX(-50%)}
+.ovp .phone video,.ovp .phone img{display:block;width:100%}
+.ovp .phone video{height:100%;object-fit:cover;object-position:top}
+
+/* восемь страниц: город из страниц, текущая прокручивается вместе с читателем */
+.ovp .pages{position:relative;height:calc(var(--n,8) * 95vh + 50vh);margin-top:70px}
+.ovp .pg-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);height:calc(100vh - 86px);min-height:560px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto minmax(0,1fr);gap:20px 48px;padding-block:10px 26px}
+.ovp .pg-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .pg-head h2{margin:0;font:700 clamp(26px,3vw,42px)/1 var(--f-display);letter-spacing:-.04em;text-wrap:balance}
+.ovp .pg-head h2 em{font-style:normal;color:var(--muted)}
+.ovp .pg-left{min-width:0;display:grid;grid-template-rows:auto minmax(0,1fr);gap:26px}
+.ovp .sky{position:relative;display:grid;grid-template-columns:repeat(var(--n,8),minmax(0,1fr));gap:8px;align-items:end;height:clamp(110px,21vh,190px);padding-bottom:26px;border-bottom:1px solid var(--line)}
+.ovp .sky button{all:unset;box-sizing:border-box;cursor:pointer;position:relative;height:calc(var(--h) * 100%);border-radius:5px 5px 2px 2px;overflow:visible;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.ovp .sky button .im{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--surface);box-shadow:0 0 0 1px var(--line);opacity:.5;filter:grayscale(.7);transition:opacity .4s,filter .4s,box-shadow .3s}
+.ovp .sky button img{display:block;width:100%;height:100%;object-fit:fill}
+.ovp .sky button b{position:absolute;left:0;right:0;bottom:-24px;text-align:center;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.04em}
+.ovp .sky button.done .im{opacity:.8;filter:none}
+.ovp .sky button[aria-current="true"]{transform:translateY(-6px)}
+.ovp .sky button[aria-current="true"] .im{opacity:1;filter:none;box-shadow:0 0 0 2px var(--coral),0 18px 30px -16px rgba(29,24,29,.5)}
+.ovp .sky button[aria-current="true"] b{color:var(--coral)}
+.ovp .lens{position:absolute;left:-3px;right:-3px;top:0;height:10%;border:2px solid var(--coral);border-radius:4px;background:color-mix(in srgb,var(--coral) 22%,transparent);box-shadow:0 0 0 999px transparent;opacity:0;transition:opacity .3s;pointer-events:none}
+.ovp .sky button[aria-current="true"] .lens{opacity:1}
+.ovp .pg-text{position:relative;min-width:0;display:grid;align-content:center}
+.ovp .pr{grid-area:1/1;display:grid;gap:14px;align-content:center;opacity:0;transform:translateY(24px);transition:opacity .55s,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ovp .pr.on{opacity:1;transform:none;pointer-events:auto}
+.ovp .pr .no{font:800 clamp(56px,6.4vw,104px)/.8 var(--f-display);letter-spacing:-.07em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:.16em}
+.ovp .pr .no small{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}
+.ovp .pr h3{margin:2px 0 0;font:700 clamp(22px,2.2vw,30px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .diff{margin:2px 0 0;display:grid;gap:8px}
+.ovp .diff div{display:grid;grid-template-columns:6.4em minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .diff div:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 7%,transparent)}
+.ovp .diff dt{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .diff div:last-child dt{color:var(--coral)}
+.ovp .diff dd{margin:0;font-size:15px;line-height:1.45}
+.ovp .pg-screen{position:relative;min-width:0;display:flex}
+.ovp .pg-screen .browser{width:100%;display:flex;flex-direction:column}
+.ovp .scrub{position:relative;flex:1;overflow:hidden;background:#fff}
+.ovp .scrub img{position:absolute;left:0;top:0;width:100%;height:auto;opacity:0;will-change:transform}
+.ovp .scrub img.on{opacity:1}
+.ovp .wipe{position:absolute;inset:0;z-index:2;background:var(--teal);transform:translateY(101%);pointer-events:none}
+.ovp .wipe.go{animation:ovp-wipe .8s cubic-bezier(.7,0,.2,1)}
+@keyframes ovp-wipe{0%{transform:translateY(101%)}45%,55%{transform:none}100%{transform:translateY(-101%)}}
+.ovp .depth{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.72);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums}
+.ovp .depth i{display:inline-block;width:46px;height:3px;margin:0 8px 2px;border-radius:2px;background:rgba(255,255,255,.25);vertical-align:middle;position:relative;overflow:hidden}
+.ovp .depth i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--d,0%);background:var(--teal)}
+
+/* ролик */
+.ovp .cinema{background:var(--night);color:var(--night-ink);border-radius:32px 32px 0 0;overflow:hidden}
+.ovp .cinema .wrap{padding-block:70px 80px}
+.ovp .cinema .mono{color:var(--night-muted)}
+.ovp .cinema-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.ovp .cinema-head h2{color:var(--night-ink)}
+.ovp .cinema-head h2 em{color:var(--night-muted)}
+.ovp .stage{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:start}
+.ovp .chapters{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.ovp .chapters button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;width:100%;padding:13px 18px;border-radius:16px;position:relative;overflow:hidden;transition:background .3s}
+.ovp .chapters button:hover{background:var(--night-2)}
+.ovp .chapters button[aria-current="true"]{background:var(--night-2)}
+.ovp .chapters .n{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px}
+.ovp .chapters .t{font:600 17px/1.25 var(--f-display);letter-spacing:-.02em}
+.ovp .chapters .d{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.ovp .chapters .s{grid-column:2/4;font-size:14px;line-height:1.45;color:var(--night-muted);display:none}
+.ovp .chapters button[aria-current="true"] .s{display:block}
+.ovp .chapters button[aria-current="true"] .n{color:var(--coral)}
+.ovp .chapters .bar{position:absolute;left:18px;right:18px;bottom:7px;height:2px;background:var(--night-line);border-radius:2px;opacity:0}
+.ovp .chapters button[aria-current="true"] .bar{opacity:1}
+.ovp .chapters .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:inherit}
+.ovp .screen-wrap{position:relative;padding-right:min(9%,110px);padding-bottom:40px;position:sticky;top:110px}
+.ovp .stage .phone{position:absolute;right:0;bottom:0;width:min(23%,230px)}
+
+/* анатомия */
+.ovp .anat{padding-block:100px 40px}
+.ovp .anat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ovp .anat-head p{max-width:34em;color:var(--muted);margin:16px 0 0}
+.ovp .toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .toggle button{border:0;background:transparent;color:var(--muted);font:600 14px var(--f-display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.ovp .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ovp .anat-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;margin-top:40px}
+.ovp .steps{display:grid}
+.ovp .step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.38;transition:opacity .5s}
+.ovp .step:first-child{border-top:0}
+.ovp .step.on{opacity:1}
+.ovp .step .mono{display:flex;gap:12px;flex-wrap:wrap}
+.ovp .step h3{font:700 clamp(26px,2.8vw,40px)/1.04 var(--f-display);letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.ovp .step p{margin:0;max-width:31em}
+.ovp .step .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ovp .step .tags span{font:500 13px var(--f-body);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .viewer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);height:calc(100vh - 130px);max-height:820px;display:flex;align-items:flex-start;justify-content:center}
+.ovp .viewer .browser{width:100%;height:100%;display:flex;flex-direction:column}
+.ovp .viewer .phone{height:100%;width:auto;aspect-ratio:408/862;max-width:100%}
+.ovp .port{position:relative;flex:1;overflow:hidden;background:#1E1E20}
+.ovp .viewer .phone .scr{height:100%;width:100%;aspect-ratio:auto}
+.ovp .layer{position:absolute;left:0;top:0;width:100%;transition:transform 1.15s cubic-bezier(.7,0,.2,1);will-change:transform}
+.ovp .layer img{display:block;width:100%;aspect-ratio:auto;height:auto;object-fit:fill}
+.ovp .hl{position:absolute;left:6px;right:6px;border-radius:14px;box-shadow:0 0 0 2px var(--coral),0 0 0 4000px var(--dim);transition:top 1.15s cubic-bezier(.7,0,.2,1),height 1.15s cubic-bezier(.7,0,.2,1),opacity .4s;pointer-events:none}
+.ovp .hl b{position:absolute;left:10px;top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--coral);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ovp .viewer-note{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums;max-width:calc(100% - 24px)}
+
+/* за кадром */
+.ovp .kit{padding-block:90px 40px}
+.ovp .kit-head p{max-width:36em;color:var(--muted);margin:16px 0 0}
+.ovp .kit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:40px}
+.ovp .tile{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ovp .tile h3{margin:0;font:700 clamp(21px,1.9vw,26px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .tile p{margin:0;font-size:15px;color:var(--muted);max-width:34em}
+.ovp .t-quiz{grid-column:span 4;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:26px;align-items:center}
+.ovp .t-quiz .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .qsteps{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:6px;counter-reset:q}
+.ovp .qsteps li{display:flex;gap:10px;align-items:baseline;font:600 15px/1.3 var(--f-display)}
+.ovp .qsteps li::before{counter-increment:q;content:counter(q);flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--teal) 20%,transparent);color:var(--ink);font:500 11px var(--f-mono);transform:translateY(-1px)}
+.ovp .t-two{grid-column:span 2;background:var(--night);color:var(--night-ink);border-color:var(--night)}
+.ovp .t-two p{color:var(--night-muted)}
+.ovp .t-two .mono{color:var(--night-muted)}
+.ovp .sites{margin-top:auto;display:grid;gap:8px}
+.ovp .site{border-radius:14px;background:var(--night-2);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;font:600 15px var(--f-display)}
+.ovp .site small{font:500 11px var(--f-mono);color:var(--night-muted);letter-spacing:.04em}
+.ovp .site span{flex:none;width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 var(--teal);animation:ovp-ping 2.4s infinite}
+.ovp .site:last-child span{animation-delay:1.2s}
+@keyframes ovp-ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--teal) 60%,transparent)}70%,100%{box-shadow:0 0 0 12px transparent}}
+.ovp .t-est{grid-column:span 3}
+.ovp .t-deal{grid-column:span 3}
+.ovp .est{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.ovp .est li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .est li .mono{grid-row:span 2;align-self:center;min-width:5.2em}
+.ovp .est li b{font:600 15px/1.3 var(--f-display)}
+.ovp .est li small{font-size:13px;color:var(--muted)}
+.ovp .est li:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 8%,transparent)}
+.ovp .quota{display:grid;gap:10px;margin-top:4px}
+.ovp .quota div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}
+.ovp .quota span{font-size:14px;color:var(--muted)}
+.ovp .quota b{font:700 15px var(--f-display);font-variant-numeric:tabular-nums}
+.ovp .quota i{grid-column:1/-1;height:8px;border-radius:4px;background:var(--line);position:relative;overflow:hidden}
+.ovp .quota i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--teal);border-radius:inherit;transform-origin:left;animation:ovp-grow 1.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ovp-grow{from{transform:scaleX(0)}}
+.ovp .t-grow{grid-column:span 6;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:30px;align-items:center}
+.ovp .t-grow .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .layers{display:grid;gap:8px}
+.ovp .lay{display:grid;grid-template-columns:7.5em minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:var(--bg)}
+.ovp .lay .mono{color:var(--muted)}
+.ovp .lay b{font:600 15px/1.3 var(--f-display)}
+.ovp .lay em{font:500 11px var(--f-mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.ovp .lay.new{border-color:color-mix(in srgb,var(--teal) 60%,var(--line))}
+.ovp .lay.new em{background:color-mix(in srgb,var(--teal) 18%,transparent);border-color:transparent;color:var(--ink)}
+
+/* процесс */
+.ovp .proc{padding-block:100px 60px}
+.ovp .track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:44px;position:relative}
+.ovp .track::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .st{position:relative;padding:44px 18px 0 0}
+.ovp .st::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--coral)}
+.ovp .st .mono{color:var(--coral)}
+.ovp .st h4{margin:8px 0 8px;font:700 21px/1.15 var(--f-display);letter-spacing:-.025em}
+.ovp .st p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.ovp .span-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px dashed var(--line)}
+
+/* итог */
+.ovp .result{padding-block:60px 110px}
+.ovp .result-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.ovp .res-num{border-radius:28px;background:var(--night);color:var(--night-ink);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:380px}
+.ovp .res-num .mono{color:var(--night-muted)}
+.ovp .res-num b{font:800 clamp(90px,13vw,190px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .res-num b span{color:var(--coral)}
+.ovp .res-num p{margin:0;color:var(--night-muted);max-width:26em}
+.ovp .review{border-radius:28px;background:var(--deep);color:#EAF7F6;padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;text-decoration:none;position:relative;overflow:hidden;min-height:380px}
+.ovp .review::before{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--teal) 55%,transparent),transparent)}
+.ovp .review .mono{color:rgba(234,247,246,.65);position:relative}
+.ovp .review h3{margin:0;font:600 clamp(24px,2.4vw,34px)/1.2 var(--f-display);letter-spacing:-.025em;position:relative;text-wrap:balance}
+.ovp .play{position:relative;display:flex;align-items:center;gap:16px}
+.ovp .play i{flex:none;width:68px;height:68px;border-radius:50%;background:var(--teal);display:grid;place-items:center;box-shadow:0 0 0 0 color-mix(in srgb,var(--teal) 50%,transparent);animation:ovp-ping 2.4s infinite;transition:transform .25s}
+.ovp .play i::before{content:"";margin-left:5px;border-left:18px solid var(--deep);border-top:11px solid transparent;border-bottom:11px solid transparent}
+.ovp .review:hover .play i{transform:scale(1.08)}
+.ovp .play b{display:block;font:600 16px var(--f-display)}
+.ovp .play span{font-size:14px;color:rgba(234,247,246,.7)}
+.ovp .cta{margin-top:24px;border-radius:28px;background:var(--coral);color:var(--coral-ink);padding:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.ovp .cta h2{margin:0;font:700 clamp(30px,3.8vw,54px)/1 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .cta p{margin:12px 0 0;opacity:.85}
+.ovp .cta .acts{display:grid;gap:12px;justify-items:start}
+.ovp .cta .btn{background:var(--coral-ink);color:var(--coral);box-shadow:none}
+.ovp .cta .phone-num{font:600 20px var(--f-display);user-select:all}
+.ovp .next{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding-block:28px 40px;border-top:1px solid var(--line)}
+.ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
+.ovp .next a:hover{color:var(--coral)}
+
+/* «Ваш визит» */
+.ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
+.ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+.ovp .visit .bars i{width:4px;border-radius:2px;background:var(--line);height:20%;transition:height .6s,background .6s}
+.ovp .visit .bars i.hot{background:var(--coral)}
+.ovp .visit .bars i.warm{background:color-mix(in srgb,var(--coral) 45%,var(--line))}
+.ovp .visit div{min-width:0}
+.ovp .visit .mono{font-size:10px}
+.ovp .visit b{display:block;font:600 15px/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.ovp .visit b em{font:500 13px var(--f-mono);font-style:normal;color:var(--coral);margin-left:6px}
+
+@media (max-width:1100px){
+  .ovp .stage{grid-template-columns:minmax(0,1fr)}
+  .ovp .screen-wrap{position:relative;top:auto}
+  .ovp .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .chapters .s{display:none!important}
+  .ovp .track{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
+  .ovp .track::before{display:none}
+  .ovp .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .t-quiz,.ovp .t-grow{grid-column:span 2}
+  .ovp .t-est,.ovp .t-deal{grid-column:span 1}
+  .ovp .t-two{grid-column:span 2}
+}
+@media (max-width:900px){
+  .ovp .top nav a.hide-s{display:none}
+  .ovp .word{font-size:min(23vw,210px);flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:0}
+  .ovp .reel-chip{order:3;flex:none;width:100%;height:auto;aspect-ratio:16/10;font-size:16px;margin:22px 0 0!important;border-radius:16px}
+  .ovp .reel-chip::after{width:14px;height:14px;border-width:3px}
+  .ovp .hero-low{grid-template-columns:minmax(0,1fr)}
+  .ovp .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .fact:nth-child(3){border-left:0;padding-left:0}
+  .ovp .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .ovp .veil-stage{aspect-ratio:auto;height:min(74vh,620px);min-height:440px;border-radius:22px}
+  .ovp .veil-screen{width:auto;left:16px;right:16px;top:50%;transform:translateY(-44%)}
+  .ovp .veil-tag{display:none}
+  .ovp .veil-hint{left:16px;bottom:18px}
+  .ovp .pg-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto auto;gap:12px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px);padding-block:6px 14px}
+  .ovp .pg-left{display:contents}
+  .ovp .pg-screen{grid-row:2}
+  .ovp .sky{grid-row:3;height:74px;padding-bottom:20px;gap:6px}
+  .ovp .sky button b{bottom:-19px;font-size:10px}
+  .ovp .pg-text{grid-row:4;align-content:start;min-height:9.5em}
+  .ovp .pr{align-content:start;gap:8px}
+  .ovp .pr .no{display:none}
+  .ovp .pr h3{font-size:20px}
+  .ovp .diff div{padding:8px 12px;gap:10px;grid-template-columns:5.6em minmax(0,1fr)}
+  .ovp .diff dd{font-size:14px;line-height:1.4}
+  .ovp .pg-head .mono{display:none}
+  .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
+  .ovp .step{min-height:56vh}
+  .ovp .result-grid,.ovp .cta,.ovp .t-quiz,.ovp .t-grow{grid-template-columns:minmax(0,1fr)}
+  .ovp .kit-grid{grid-template-columns:minmax(0,1fr)}
+  .ovp .t-quiz,.ovp .t-grow,.ovp .t-two,.ovp .t-est,.ovp .t-deal{grid-column:auto}
+}
+@media (max-width:560px){
+  .ovp{font-size:16px}
+  .ovp .top .wrap{gap:10px}
+  .ovp .logo span{display:none}
+  .ovp .rec span{display:none}
+  .ovp .chapters{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters button{padding:11px 14px}
+  .ovp .screen-wrap{padding-right:0;padding-bottom:0}
+  .ovp .stage .phone{display:none}
+  .ovp .track{grid-template-columns:minmax(0,1fr)}
+  .ovp .res-num,.ovp .review,.ovp .cta{padding:28px}
+  .ovp .tile{padding:20px}
+  .ovp .lay{grid-template-columns:minmax(0,1fr) auto}
+  .ovp .lay .mono{grid-column:1/-1}
+  .ovp .diff div:first-child{display:none}
+  .ovp .visit .bars{display:none}
+  .ovp .visit b{max-width:72vw}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovp *,.ovp *::before,.ovp *::after{animation:none!important;transition:none!important}
+}
+</style>
+<div class="ovp">
+
+<section class="wrap hero" data-zone="Первый экран кейса">
+  <div class="hero-meta">
+    <span class="mono">Кейс · Производство · Ярославль · Tilda</span>
+    <span class="mono"><span class="dot"></span>mirmo76.ru · мягкие окна, ПВХ завесы, тенты</span>
+  </div>
+  <h2 class="word" aria-label="МирМО">
+    <span class="part" aria-hidden="true"><span style="--i:0">М</span><span style="--i:1">И</span><span style="--i:2">Р</span></span>
+    <figure class="reel-chip" style="margin:0">
+      <div class="stack" id="chip">
+        <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/f-home.jpg" alt="Главная mirmo76.ru">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/f-myagkie_okna.jpg" alt="Страница мягких окон" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/f-pvc.jpg" alt="Страница ПВХ завес" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/f-setka.jpg" alt="Страница сетки-гармошки" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/f-shtora.jpg" alt="Страница штор плиссе" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/f-tents.jpg" alt="Страница тентов" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/f-dealers.jpg" alt="Страница сотрудничества" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/f-dostavka.jpg" alt="Страница оплаты и доставки" loading="lazy">
+      </div>
+      <figcaption id="chipT">01 · главная</figcaption>
+    </figure>
+    <span class="part" aria-hidden="true"><span class="t" style="--i:3">М</span><span class="t" style="--i:4">О</span></span>
+  </h2>
+  <div class="hero-low">
+    <h1>Сайт производства мягких окон, где у каждого покупателя свой вход: <em>дачник, склад, перевозчик, будущий партнёр и клиент из другого региона</em></h1>
+    <div class="hero-cta">
+      <a class="btn" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">Хочу такой сайт<small>расчёт бюджета за 24 часа</small></a>
+      <a class="link" href="#pages">Пройтись по страницам ↓</a>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="mono">Страниц</span><b>8</b></div>
+    <div class="fact"><span class="mono">От брифа до запуска</span><b>~40<small>дней</small></b></div>
+    <div class="fact"><span class="mono">Направлений продукции</span><b>5</b></div>
+    <div class="fact"><span class="mono">Сайта у клиента</span><b>2</b></div>
+  </div>
+</section>
+
+<section class="wrap veil" data-zone="Завеса">
+  <div class="veil-stage" id="veil">
+    <div class="veil-screen">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span>mirmo76.ru</span></div>
+        <video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/hero.jpg" autoplay muted loop playsinline preload="auto" aria-label="Запись главной mirmo76.ru"></video>
+      </div>
+    </div>
+    <div class="strips" id="strips" aria-hidden="true"></div>
+    <div class="veil-rail" aria-hidden="true"></div>
+    <span class="veil-hint"><i></i>Проведите курсором сквозь завесу</span>
+    <span class="veil-tag">ПВХ · полосы 300 мм · до −40 °C</span>
+  </div>
+  <div class="veil-cap">
+    <span class="mono">Так МирМО закрывает проёмы складов и автомоек</span>
+    <span class="mono">Под завесой · живая запись главной · 1440 × 900</span>
+  </div>
+</section>
+
+<section class="pages" id="pages" data-zone="Восемь страниц" style="--n:8">
+  <div class="wrap pg-pin">
+    <div class="pg-head">
+      <h2>Восемь страниц, восемь покупателей. <em>Листайте: страница прокручивается вместе с вами</em></h2>
+      <span class="mono">mirmo76.ru · больше 90 000 px · 1440 × 900</span>
+    </div>
+    <div class="pg-left">
+      <nav class="sky" id="sky" aria-label="Страницы сайта">
+        <button aria-current="true" style="--h:.78"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/s-home.jpg" alt=""></span><span class="lens"></span><b>01</b><span class="sr">Главная</span></button>
+        <button style="--h:.68"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/s-myagkie_okna.jpg" alt=""></span><span class="lens"></span><b>02</b><span class="sr">Мягкие окна</span></button>
+        <button style="--h:.76"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/s-pvc.jpg" alt=""></span><span class="lens"></span><b>03</b><span class="sr">ПВХ завесы</span></button>
+        <button style="--h:.83"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/s-setka.jpg" alt=""></span><span class="lens"></span><b>04</b><span class="sr">Сетка-гармошка</span></button>
+        <button style="--h:1"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/s-shtora.jpg" alt=""></span><span class="lens"></span><b>05</b><span class="sr">Шторы плиссе</span></button>
+        <button style="--h:.77"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/s-tents.jpg" alt=""></span><span class="lens"></span><b>06</b><span class="sr">Тенты</span></button>
+        <button style="--h:.42"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/s-dealers.jpg" alt=""></span><span class="lens"></span><b>07</b><span class="sr">Сотрудничество</span></button>
+        <button style="--h:.49"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/s-dostavka.jpg" alt=""></span><span class="lens"></span><b>08</b><span class="sr">Оплата и доставка</span></button>
+      </nav>
+      <div class="pg-text" id="pgt">
+        <article class="pr on">
+          <div class="no">01<small>Главная</small></div>
+          <h3>Распределяет, а не продаёт всё сразу</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Человек из рекламы или поиска, который пока не знает, как называется то, что ему нужно.</dd></div>
+            <div><dt>Что находит</dt><dd>Пять направлений карточками «Вам подойдут, если…», квиз «Что хотите закрыть?» и больше 1000 закрытых объектов в Ярославле.</dd></div>
+          </dl>
+        </article>
+        <article class="pr">
+          <div class="no">02<small>Мягкие окна</small></div>
+          <h3>Сначала его дождь, потом материалы</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Владелец беседки, террасы или летней веранды кафе.</dd></div>
+            <div><dt>Что находит</dt><dd>«Дождь мешает отдыхать на веранде?», цену от 1400 ₽ за м², четыре материала с фотографиями и москитную сетку в подарок от 20 м².</dd></div>
+          </dl>
+        </article>
+        <article class="pr">
+          <div class="no">03<small>ПВХ завесы</small></div>
+          <h3>Язык склада: микроклимат и трафик техники</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Склад, холодильная камера, автомойка, цех.</dd></div>
+            <div><dt>Что находит</dt><dd>Экономию тепла и электричества, подбор по задаче (холодильные, антистатические, сварочные, от насекомых), полосы 200 и 300 мм и способы крепления.</dd></div>
+          </dl>
+        </article>
+        <article class="pr">
+          <div class="no">04<small>Сетка-гармошка</small></div>
+          <h3>Дом без комаров и пуха, без снятия на зиму</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Хозяин дома с комарами, тополиным пухом и кошкой на подоконнике.</dd></div>
+            <div><dt>Что находит</dt><dd>Складную сетку под размер проёма, защиту питомцев от выпадения и разбор комплектующих. У направления есть и свой сайт «Сетка Гармошка 76».</dd></div>
+          </dl>
+        </article>
+        <article class="pr">
+          <div class="no">05<small>Шторы плиссе</small></div>
+          <h3>Самая длинная страница сайта</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Квартира или мансарда, где солнце бьёт в окно, а сверлить раму не хочется.</dd></div>
+            <div><dt>Что находит</dt><dd>Шторы от 2500 ₽: бескаркасные, каркасные и комбинированные, монтаж без сверления и 16 000 px интерьеров с готовыми шторами.</dd></div>
+          </dl>
+        </article>
+        <article class="pr">
+          <div class="no">06<small>Тенты</small></div>
+          <h3>Другая аудитория, другой визуальный язык</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Перевозчик с Газелью или прицепом, хозяин спецтехники или ангара.</dd></div>
+            <div><dt>Что находит</dt><dd>«Тент под ваш кузов за 2 дня от 7000 ₽», выбор по назначению или плотности ПВХ, печать под бренд, гарантию 2 года и 270+ тентов за 5 лет.</dd></div>
+          </dl>
+        </article>
+        <article class="pr">
+          <div class="no">07<small>Сотрудничество</small></div>
+          <h3>Сайт продаёт не только окна, но и бизнес</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Предприниматель из другого города, который думает о своём производстве.</dd></div>
+            <div><dt>Что находит</dt><dd>Графики спроса из Яндекс Вордстата, три формата работы от курса до закупки комплектующих, окупаемость и число партнёров на город.</dd></div>
+          </dl>
+        </article>
+        <article class="pr">
+          <div class="no">08<small>Оплата и доставка</small></div>
+          <h3>Доверие через документ, а не обещание</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Клиент из другого региона, который заказывает заочно.</dd></div>
+            <div><dt>Что находит</dt><dd>СДЭК по всей России, настоящую смету заказа на экране, предоплату 50% и два способа оплатить остаток, путь заказа в пять шагов.</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+    <div class="pg-screen">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span id="pgUrl">mirmo76.ru</span></div>
+        <div class="scrub" id="scrub">
+          <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/w-home.jpg" data-h="12558" data-u="" width="640" height="5581" alt="Главная mirmo76.ru целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/w-myagkie_okna.jpg" data-h="10964" data-u="myagkie_okna" width="640" height="4873" alt="Страница мягких окон целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/w-pvc.jpg" data-h="12203" data-u="pvc" width="640" height="5424" alt="Страница ПВХ завес целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/w-setka.jpg" data-h="13361" data-u="setka" width="640" height="5938" alt="Страница сетки-гармошки целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/w-shtora.jpg" data-h="16063" data-u="shtora" width="640" height="7139" alt="Страница штор плиссе целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/w-tents.jpg" data-h="12295" data-u="tents" width="640" height="5464" alt="Страница тентов целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/w-dealers.jpg" data-h="6728" data-u="dealers" width="640" height="2990" alt="Страница сотрудничества целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/w-dostavka.jpg" data-h="7923" data-u="dostavka" width="640" height="3521" alt="Страница оплаты и доставки целиком">
+          <div class="wipe" id="wipe"></div>
+          <span class="depth" id="depth">↓ 0<i></i>12 558 px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cinema" id="reel" data-zone="Ролик">
+  <div class="wrap">
+    <div class="cinema-head">
+      <div><span class="mono">Запись · 1440 × 900 · без монтажа</span><h2 class="big">Сайт сегодня. <em>Десять сцен с восьми страниц</em></h2></div>
+    </div>
+    <div class="stage">
+      <ol class="chapters" id="chapters">
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/hero.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/hero.jpg" data-url="mirmo76.ru" aria-current="true"><span class="n">01</span><span class="t">Первый экран и комплект</span><span class="d">0:09</span><span class="s">Цена за метр, замер и монтаж по области, ниже мягкие окна вместе с сеткой-гармошкой со скидкой.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/catalog.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/catalog.jpg" data-url="mirmo76.ru/#catalog"><span class="n">02</span><span class="t">Каталог</span><span class="d">0:13</span><span class="s">Пять направлений, у каждого список «Вам подойдут, если…».</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/quiz.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/quiz.jpg" data-url="mirmo76.ru/#quiz"><span class="n">03</span><span class="t">Квиз</span><span class="d">0:19</span><span class="s">Что закрыть, где вы, нужен ли монтаж, контакты.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/objects.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/objects.jpg" data-url="mirmo76.ru/#objects"><span class="n">04</span><span class="t">1000 объектов</span><span class="d">0:21</span><span class="s">Почему выбирают МирМО, веранды кафе и отелей Ярославля и галерея работ.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/reviews.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/reviews.jpg" data-url="mirmo76.ru/#reviews"><span class="n">05</span><span class="t">Отзывы и вопросы</span><span class="d">0:18</span><span class="s">Отзывы листаются вбок, пока страница идёт вниз. Дальше восемь частых вопросов.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/okna.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/okna.jpg" data-url="mirmo76.ru/myagkie_okna"><span class="n">06</span><span class="t">Мягкие окна</span><span class="d">0:12</span><span class="s">Заголовок-вопрос, свойства и четыре материала с фотографиями.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/pvc.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/pvc.jpg" data-url="mirmo76.ru/pvc"><span class="n">07</span><span class="t">ПВХ завесы</span><span class="d">0:14</span><span class="s">Микроклимат, задачи бизнеса и где используются завесы.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/tents.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/tents.jpg" data-url="mirmo76.ru/tents"><span class="n">08</span><span class="t">Тенты</span><span class="d">0:16</span><span class="s">Тент за 2 дня от 7000 ₽ и выбор по назначению или плотности.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/dealers.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/dealers.jpg" data-url="mirmo76.ru/dealers"><span class="n">09</span><span class="t">Сотрудничество</span><span class="d">0:12</span><span class="s">Бизнес на мягких окнах: спрос, форматы и окупаемость.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/dostavka.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/dostavka.jpg" data-url="mirmo76.ru/dostavka"><span class="n">10</span><span class="t">Оплата и доставка</span><span class="d">0:10</span><span class="s">СДЭК по России, настоящая смета и пять шагов заказа.</span><span class="bar"><i></i></span></button></li>
+      </ol>
+      <div class="screen-wrap">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span id="urlbar">mirmo76.ru</span></div>
+          <video id="player" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/hero.jpg" muted playsinline autoplay preload="auto" aria-label="Запись сайта mirmo76.ru"></video>
+        </div>
+        <div class="phone" aria-label="Мобильная версия главной">
+          <div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/mobile_scroll.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/mobile_scroll.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap anat" id="anat" data-zone="Анатомия">
+  <div class="anat-head">
+    <div>
+      <span class="mono">Разбор главной · сверху вниз</span>
+      <h2 class="big">Анатомия главной. <em>Зачем здесь каждый блок</em></h2>
+      <p>Листайте: справа настоящий скриншот сайта доезжает до блока, о котором я рассказываю. Глубина в пикселях показывает, где блок стоит на странице.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Устройство">
+      <button id="tD" aria-pressed="true">Компьютер</button>
+      <button id="tM" aria-pressed="false">Телефон</button>
+    </div>
+  </div>
+  <div class="anat-grid">
+    <div class="steps" id="steps">
+      <article class="step on" data-d="0,812" data-m="0,830" data-y="0">
+        <span class="mono"><b>↓ 0 px</b><span>Первый экран</span></span>
+        <h3>Цена за метр и география до первой прокрутки</h3>
+        <p>«Мягкие окна и ПВХ завесы от 1400 ₽/м²» поверх фотографии настоящей беседки. Сразу ясно, что в Ярославле и области сделают всё под ключ с бесплатным замером, а в другие регионы отправят СДЭК и проконсультируют онлайн.</p>
+        <div class="tags"><span>от 1400 ₽/м²</span><span>замер бесплатно</span><span>СДЭК</span></div>
+      </article>
+      <article class="step" data-d="932,825" data-m="964,1512" data-y="932">
+        <span class="mono"><b>↓ 932 px</b><span>Комплект</span></span>
+        <h3>Окна и сетка дешевле вместе</h3>
+        <p>Мягкие окна защищают веранду от ветра и дождя, сетка-гармошка встаёт в проход от комаров. Рядом форма: куда нужна сетка, ширина и высота проёма, город. Менеджер считает комплект со скидкой.</p>
+        <div class="tags"><span>скидка за комплект</span><span>размеры в форме</span></div>
+      </article>
+      <article class="step" data-d="1877,3130" data-m="2610,5195" data-y="1877">
+        <span class="mono"><b>↓ 1 877 px</b><span>Каталог</span></span>
+        <h3>Пять направлений, у каждого «вам подойдут, если…»</h3>
+        <p>Мягкие окна, ПВХ завесы, сетка-гармошка, складные шторы и тенты. Вместо характеристик пять ситуаций, в которых человек узнаёт себя: «хотите быстро свернуть окна», «нужно удержать тепло», «важен простой монтаж». Две кнопки: рассчитать или подробнее.</p>
+        <div class="tags"><span>5 карточек</span><span>ситуации, а не ТТХ</span></div>
+      </article>
+      <article class="step" data-d="5127,652" data-m="7939,677" data-y="5127">
+        <span class="mono"><b>↓ 5 127 px</b><span>Квиз</span></span>
+        <h3>«Что хотите закрыть?»</h3>
+        <p>Четыре шага: беседка или склад, город, нужен ли монтаж, контакты. Квиз стоит на главной и на страницах продуктов, поэтому менеджер ещё до звонка знает задачу и регион.</p>
+        <div class="tags"><span>4 шага</span><span>на каждой странице</span></div>
+      </article>
+      <article class="step" data-d="5899,780" data-m="8750,1220" data-y="5899">
+        <span class="mono"><b>↓ 5 899 px</b><span>Почему МирМО</span></span>
+        <h3>Четыре причины без воды</h3>
+        <p>Точная смета без доплат, своё оборудование для спайки ПВХ, консультации менеджеров и изготовление с установкой за 1–2 дня. Крупная бирюзовая плашка: «более 1000 клиентов только по Ярославской области».</p>
+        <div class="tags"><span>смета без доплат</span><span>1–2 дня</span></div>
+      </article>
+      <article class="step" data-d="6799,1435" data-m="10104,1972" data-y="6799">
+        <span class="mono"><b>↓ 6 799 px</b><span>Объекты</span></span>
+        <h3>Места, которые знает весь Ярославль</h3>
+        <p>За 5 лет закрыто больше 1000 объектов: веранды кафе «Аладдин» и «Афоня», летняя веранда ресторана «Найс», шатёр отеля «Лунево на Волге», беседки на пляже Подзеленье. Ниже галерея фотографий готовых работ.</p>
+        <div class="tags"><span>1000+ объектов</span><span>5 лет</span><span>галерея</span></div>
+      </article>
+      <article class="step" data-d="8354,680" data-m="12210,2223" data-y="8354">
+        <span class="mono"><b>↓ 8 354 px</b><span>Отзывы</span></span>
+        <h3>Отзывы едут вбок, пока страница едет вниз</h3>
+        <p>Бирюзовые карточки листаются горизонтально прямо во время прокрутки. У каждого отзыва кнопка «Оригинал отзыва»: его можно проверить на Яндекс Картах.</p>
+        <div class="tags"><span>горизонтальный скролл</span><span>оригиналы</span></div>
+      </article>
+      <article class="step" data-d="9154,1338" data-m="14567,1774" data-y="11644">
+        <span class="mono"><b>↓ 11 644 px</b><span>Вопросы и заявка</span></span>
+        <h3>Восемь вопросов перед звонком</h3>
+        <p>Насколько прочны мягкие окна, что выбрать из ПВХ, полиуретана и Screen, нужно ли снимать на зиму, как замерить проём из другого региона. Следом форма «Нас выбрали более 2000 клиентов».</p>
+        <div class="tags"><span>8 вопросов</span><span>замер из региона</span></div>
+      </article>
+      <article class="step" data-d="10612,1946" data-m="16475,2953" data-y="13102">
+        <span class="mono"><b>↓ 13 102 px</b><span>Контакты и подвал</span></span>
+        <h3>Последний шанс оставить заявку</h3>
+        <p>Адрес производства, режим работы и реквизиты. В подвале ещё одна точка входа: «Рассчитаем стоимость под вашу задачу» с кнопкой в Telegram и каталогом всех страниц.</p>
+        <div class="tags"><span>Telegram</span><span>все страницы в подвале</span></div>
+      </article>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="browser" id="vD">
+        <div class="bar"><i></i><i></i><i></i><span>mirmo76.ru</span></div>
+        <div class="port" id="portD"><div class="layer" id="layerD"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/home-d.jpg" alt="Полный скриншот главной mirmo76.ru, компьютер" width="1100" height="9593"><div class="hl" id="hlD"><b>Первый экран</b></div></div><span class="viewer-note" id="noteD">↓ 0 px</span></div>
+      </div>
+      <div class="phone" id="vM" hidden>
+        <div class="scr port" id="portM"><div class="layer" id="layerM"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/home-m.jpg" alt="Полный скриншот главной mirmo76.ru, телефон" width="520" height="25996"><div class="hl" id="hlM"><b>Первый экран</b></div></div><span class="viewer-note" id="noteM">↓ 0 px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap kit" data-zone="За кадром">
+  <div class="kit-head">
+    <span class="mono">Что работает за кадром</span>
+    <h2 class="big">Один производитель. <em>Пять способов не потерять заявку</em></h2>
+    <p>Когда у компании пять продуктов и клиенты по всей России, заявка теряется на каждом шаге: человек не нашёл свой продукт, не понял цену, не поверил заочно. Я закрыл каждый из этих шагов отдельно.</p>
+  </div>
+  <div class="kit-grid">
+    <article class="tile t-quiz">
+      <div class="txt">
+        <span class="mono">Квиз · на главной и страницах продуктов</span>
+        <h3>Менеджер звонит, уже зная задачу</h3>
+        <ol class="qsteps">
+          <li>Что хотите закрыть?</li>
+          <li>Где вы находитесь?</li>
+          <li>Нужен ли вам монтаж?</li>
+          <li>Контакты для расчёта</li>
+        </ol>
+      </div>
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span>mirmo76.ru · квиз</span></div>
+        <video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/quiz.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/mirmo/quiz.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Квиз на главной"></video>
+      </div>
+    </article>
+    <article class="tile t-two">
+      <span class="mono">Два сайта одного клиента</span>
+      <h3>Сетки и плиссе живут ещё и на отдельном сайте</h3>
+      <p>В шапке МирМО ссылка «Дополнительное направление», на главной комплект «окна + сетка» со скидкой. Покупатель переходит между сайтами и не теряется.</p>
+      <div class="sites" aria-hidden="true">
+        <div class="site"><div>МирМО76<br><small>mirmo76.ru · мягкие окна, завесы, тенты</small></div><span></span></div>
+        <div class="site"><div>Сетка Гармошка 76<br><small>setka-garmoshka76.ru · сетки и плиссе</small></div><span></span></div>
+      </div>
+    </article>
+    <article class="tile t-est">
+      <span class="mono">Оплата и доставка</span>
+      <h3>Настоящая смета вместо «цены без обмана»</h3>
+      <p>Обещание подкреплено документом: на странице показана реальная смета заказа от 17 марта 2025 года с материалами, фурнитурой и итогом. Дальше честно про деньги:</p>
+      <ol class="est">
+        <li><span class="mono">Старт</span><b>50% перед изготовлением</b><small>остаток после того, как изделие готово</small></li>
+        <li><span class="mono">Вариант 1</span><b>Остаток онлайн, без комиссии</b><small>и отправка в день готовности</small></li>
+        <li><span class="mono">Вариант 2</span><b>Остаток при получении в СДЭК</b><small>СДЭК берёт 10% от суммы остатка, это сказано заранее</small></li>
+      </ol>
+    </article>
+    <article class="tile t-deal">
+      <span class="mono">Сотрудничество</span>
+      <h3>Партнёры по городам, без конкуренции друг с другом</h3>
+      <p>Страница для тех, кто хочет своё производство мягких окон. Сначала спрос из Вордстата, потом три формата работы и правило, сколько партнёров берут на город:</p>
+      <div class="quota">
+        <div><span>Город больше 1 млн</span><b>1 на 300 тыс. жителей</b><i style="--w:100%"></i></div>
+        <div><span>Город до 1 млн</span><b>2 на город</b><i style="--w:55%"></i></div>
+        <div><span>Город до 100 тыс.</span><b>1 на город</b><i style="--w:22%"></i></div>
+      </div>
+    </article>
+    <article class="tile t-grow">
+      <div class="txt">
+        <span class="mono">После запуска</span>
+        <h3>Сайт растёт вместе с производством</h3>
+        <p>Мы с Артёмом знакомы лично, и после запуска он возвращался ко мне с новыми задачами. Рекламу ведёт директолог, и под его рекомендации мы переделывали экраны и кнопки. Сейчас сайт собран из основы и того, что добавлялось позже.</p>
+      </div>
+      <div class="layers">
+        <div class="lay"><span class="mono">Основа</span><b>Главная, мягкие окна, ПВХ завесы, сетка, шторы, сотрудничество, доставка</b><em>запуск</em></div>
+        <div class="lay new"><span class="mono">Продукт</span><b>Страница тентов со своим визуальным языком</b><em>позже</em></div>
+        <div class="lay new"><span class="mono">Продажи</span><b>Блок «Мягкие окна + сетка-гармошка» с расчётом комплекта</b><em>позже</em></div>
+        <div class="lay new"><span class="mono">Навигация</span><b>Новая шапка с телефоном и подвал с формой расчёта</b><em>позже</em></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap proc" id="proc" data-zone="Как шла работа">
+  <span class="mono">Как появился сайт</span>
+  <h2 class="big">Около 40 дней. <em>От брифа до восьми страниц</em></h2>
+  <div class="track" id="track">
+    <div class="st"><span class="mono">01</span><h4>Интервью</h4><p>С Артёмом разобрали пять направлений: кто покупает каждое, где ошибаются конкуренты и что спрашивают клиенты.</p></div>
+    <div class="st"><span class="mono">02</span><h4>Структура</h4><p>Главная распределяет, у каждого продукта своя страница под рекламу, отдельно страницы для партнёров и регионов.</p></div>
+    <div class="st"><span class="mono">03</span><h4>Тексты и квиз</h4><p>«Вам подойдут, если…» для каждого продукта, честные цены, вопросы и квиз из четырёх шагов.</p></div>
+    <div class="st"><span class="mono">04</span><h4>Дизайн</h4><p>Бирюзовый и глубокий зелёный, крупные заголовки и фотографии настоящих объектов клиента вместо стоковых.</p></div>
+    <div class="st"><span class="mono">05</span><h4>Запуск</h4><p>Вёрстка на Tilda, формы и квизы на всех страницах, подготовка к рекламе в Яндекс Директе.</p></div>
+  </div>
+  <div class="span-note"><span class="mono">Бриф</span><span class="mono"><b>≈ 40 дней</b> до запуска</span><span class="mono">8 страниц</span></div>
+</section>
+
+<section class="wrap result" data-zone="Результат">
+  <div class="result-grid">
+    <div class="res-num">
+      <span class="mono">Посадочные страницы</span>
+      <b>8<span>.</span></b>
+      <p>У каждого направления своя страница и свой квиз, поэтому реклама ведёт человека сразу к его продукту, а не на общую главную.</p>
+    </div>
+    <a class="review" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">
+      <span class="mono">Видеоотзыв</span>
+      <h3>Артём, владелец МирМО76, рассказывает о работе над сайтом</h3>
+      <div class="play"><i aria-hidden="true"></i><div><b>Смотреть отзыв</b><span>на главной ovchinnikov-dsgn.ru</span></div></div>
+    </a>
+  </div>
+  <div class="cta">
+    <div>
+      <h2>У вас несколько продуктов и разные покупатели?</h2>
+      <p>Расскажите о бизнесе, и я пришлю бюджет и сроки меньше чем за 24 часа.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="https://t.me/Ovchinnikov_dsgn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <span class="phone-num">+7 (910) 970-01-24</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap next">
+  <span class="mono">Следующий кейс</span>
+  <a href="https://ovchinnikov-dsgn.ru/project_dentroom" target="_blank" rel="noopener">Дентрум, стоматология →</a>
+</footer>
+</div>
+<script>
+
+(()=>{
+const R=document.querySelector('.ovp');if(!R)return;const $=s=>R.querySelector(s),$$=s=>[...R.querySelectorAll(s)];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+/* слово в hero подгоняется под ширину колонки */
+const word=$('.word');function fit(){const narrow=innerWidth<=900;word.style.fontSize='';
+  const parts=[...word.querySelectorAll('.part')],chip=word.querySelector('.reel-chip');
+  const fs=parseFloat(getComputedStyle(word).fontSize);
+  const need=parts.reduce((a,p)=>a+p.scrollWidth,0)+(narrow?0:fs*1.9)+(narrow?4:40);if(need>word.clientWidth)word.style.fontSize=(fs*word.clientWidth/need*.985)+'px'}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);addEventListener('resize',fit);fit();
+
+/* окошко в hero: восемь страниц сменяют друг друга */
+const chipImgs=$$('#chip img'),chipLbl=['главная','мягкие окна','пвх завесы','сетка-гармошка','шторы плиссе','тенты','сотрудничество','доставка'];let ci=0;
+if(!reduce)setInterval(()=>{chipImgs[ci].classList.remove('on');ci=(ci+1)%chipImgs.length;chipImgs[ci].classList.add('on');$('#chipT').textContent=String(ci+1).padStart(2,'0')+' · '+chipLbl[ci]},1700);
+
+/* завеса: у каждой полосы угол и скорость, пружина возвращает её на место.
+   Курсор толкает полосы по ходу движения, прокрутка раздвигает завесу от центра. */
+const veil=$('#veil'),stripsBox=$('#strips');let S=[],veilOn=false,vraf=0,open=0,last=null;
+function build(){stripsBox.innerHTML='';const n=Math.max(6,Math.round(veil.clientWidth/78));stripsBox.style.setProperty('--n',n);
+  S=[...Array(n)].map((_,i)=>{const el=document.createElement('div');el.className='strip';el.style.setProperty('--i',i);stripsBox.appendChild(el);
+    return {el,a:0,v:0,push:0,ph:Math.random()*6.28}})}
+build();addEventListener('resize',()=>{build()});
+function veilOpen(){const r=veil.getBoundingClientRect();open=clamp((innerHeight*.5-r.top)/(r.height*1.1),0,1)}
+function stepVeil(now){vraf=0;if(!veilOn)return;const n=S.length,L=veil.clientHeight,w=veil.clientWidth/n,tt=now/1000;
+  S.forEach((s,i)=>{const side=(i+.5)/n-.5,targ=open*Math.sign(side||1)*(4+12*(1-Math.abs(side)*2))*(reduce?0:1);
+    const wind=reduce?0:Math.sin(tt*1.1+s.ph)*.5;s.push=clamp(s.push,-16,16);const goal=targ+s.push+wind;
+    s.v+=(goal-s.a)*.06;s.v*=.86;s.a+=s.v;s.push*=.9;
+    s.el.style.transform=`rotate(${s.a.toFixed(2)}deg)`;s.el.style.opacity=(1-open*.3).toFixed(2)});
+  vraf=requestAnimationFrame(stepVeil)}
+function poke(e){const r=veil.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,n=S.length,w=r.width/n;
+  if(last){const dx=x-last.x;const depth=clamp(y/r.height,.15,1);
+    S.forEach((s,i)=>{const cx=(i+.5)*w,d=Math.abs(cx-x);if(d<w*1.6){const k=(1-d/(w*1.6))*depth;s.push+=clamp(-dx*.3*k,-8,8);
+      // полоса под курсором отходит в сторону, как от плеча
+      s.push+=Math.sign(cx-x||1)*-1.2*k}})}
+  last={x,y};veil.classList.add('touched')}
+veil.addEventListener('pointermove',poke);veil.addEventListener('pointerleave',()=>last=null);
+veil.addEventListener('pointerdown',e=>{last={x:e.clientX-veil.getBoundingClientRect().left,y:e.clientY-veil.getBoundingClientRect().top}});
+new IntersectionObserver(es=>es.forEach(e=>{veilOn=e.isIntersecting;if(veilOn&&!vraf)vraf=requestAnimationFrame(stepVeil)})).observe(veil);
+addEventListener('scroll',veilOpen,{passive:true});veilOpen();
+
+/* восемь страниц: прокрутка выбирает страницу и листает её внутри браузера, мини-город показывает, где вы */
+const PG=$('#pages'),prs=$$('#pgt .pr'),skyB=$$('#sky button'),imgs=$$('#scrub img'),scrub=$('#scrub'),N=prs.length;let pi=-1,pr=0,loaded=false;
+function loadAll(){if(loaded)return;loaded=true;imgs.forEach(im=>{if(im.dataset.src&&!im.src)im.src=im.dataset.src})}
+new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))loadAll()},{rootMargin:'100% 0px'}).observe(PG);
+function setPage(i){if(i===pi)return;const first=pi<0;pi=i;
+  prs.forEach((v,k)=>v.classList.toggle('on',k===i));
+  skyB.forEach((b,k)=>{b.setAttribute('aria-current',k===i);b.classList.toggle('done',k<i)});
+  const im=imgs[i];if(!im.src&&im.dataset.src)im.src=im.dataset.src;
+  const w=$('#wipe');if(first||reduce){imgs.forEach((m,k)=>m.classList.toggle('on',k===i))}
+  else{w.classList.remove('go');void w.offsetWidth;w.classList.add('go');setTimeout(()=>imgs.forEach((m,k)=>m.classList.toggle('on',k===i)),360)}
+  $('#pgUrl').textContent='mirmo76.ru'+(im.dataset.u?'/'+im.dataset.u:'')}
+function pgUpdate(){pr=0;const r=PG.getBoundingClientRect(),span=r.height-innerHeight;const p=clamp(-r.top/Math.max(1,span),0,1);
+  const f=p*N*.9999,i=Math.min(N-1,Math.floor(f)),local=clamp((f-i-.08)/.84,0,1);setPage(i);
+  const im=imgs[i],H=+im.dataset.h,pw=scrub.clientWidth,ph=scrub.clientHeight,ih=pw*im.height/im.width,off=local*Math.max(0,ih-ph);
+  im.style.transform=`translateY(${-off}px)`;
+  const lens=skyB[i].querySelector('.lens'),lh=clamp(ph/ih,.06,1)*100;lens.style.height=lh+'%';lens.style.top=(local*(100-lh))+'%';
+  const d=$('#depth');d.style.setProperty('--d',(local*100).toFixed(1)+'%');
+  d.innerHTML=`↓ ${Math.round(off/pw*1440).toLocaleString('ru-RU')}<i></i>${H.toLocaleString('ru-RU')} px`}
+addEventListener('scroll',()=>{if(!pr)pr=requestAnimationFrame(pgUpdate)},{passive:true});addEventListener('resize',pgUpdate);
+skyB.forEach((b,k)=>b.addEventListener('click',()=>{const span=PG.offsetHeight-innerHeight;scrollTo({top:PG.getBoundingClientRect().top+scrollY+span*(k+.1)/N,behavior:reduce?'auto':'smooth'})}));
+imgs[0].addEventListener('load',pgUpdate);pgUpdate();
+
+/* ролик по главам */
+const player=$('#player'),chs=$$('#chapters button');let cur=0;
+function play(i){cur=(i+chs.length)%chs.length;chs.forEach((b,k)=>{b.setAttribute('aria-current',k===cur);b.querySelector('.bar i').style.width='0'});
+  const b=chs[cur];player.poster=b.dataset.poster;player.src=b.dataset.src;$('#urlbar').textContent=b.dataset.url;player.play().catch(()=>{})}
+chs.forEach((b,i)=>b.addEventListener('click',()=>play(i)));
+player.addEventListener('timeupdate',()=>{if(player.duration)chs[cur].querySelector('.bar i').style.width=(player.currentTime/player.duration*100)+'%'});
+player.addEventListener('ended',()=>play(cur+1));
+// видео играют только на экране
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.15});
+$$('video').forEach(v=>{if(reduce){v.removeAttribute('autoplay');v.pause()}vio.observe(v)});
+
+/* анатомия */
+const W={d:1440,m:390};let mode='d',active=0;
+const steps=$$('.step');
+function show(i){active=i;steps.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const s=steps[i],M=mode.toUpperCase(),port=$('#port'+M),layer=$('#layer'+M),img=layer.querySelector('img'),hl=$('#hl'+M);
+  if(!s.dataset[mode]){hl.style.opacity='0';$('#note'+M).textContent='Этот блок есть только на компьютере';return}
+  hl.style.opacity='1';
+  const [y,h]=s.dataset[mode].split(',').map(Number);
+  const k=port.clientWidth/W[mode],ph=port.clientHeight,top=y*k,hh=h*k;
+  const imgH=port.clientWidth*img.height/img.width;
+  let off=hh<ph-60?top-(ph-hh)/2:top-28;off=Math.max(0,Math.min(off,imgH-ph));
+  layer.style.transform=`translateY(${-off}px)`;hl.style.top=top+'px';hl.style.height=hh+'px';
+  hl.querySelector('b').textContent=s.querySelector('.mono span').textContent;
+  // глубина: на компьютере настоящая координата блока на живом сайте (липкие отзывы занимают 3170 px)
+  const real=mode==='d'?+s.dataset.y:y;$('#note'+M).textContent='↓ '+Math.round(real).toLocaleString('ru-RU')+' px'}
+// активный шаг выбирается по линии чтения, а не IntersectionObserver: во встроенном фрейме rootMargin не работает
+const viewer=$('#viewer');let raf=0;
+function pick(){raf=0;const vr=viewer.getBoundingClientRect(),narrow=innerWidth<=900;
+  const line=narrow?vr.bottom+(innerHeight-vr.bottom)*.35:innerHeight*.5;let i=0;
+  steps.forEach((s,k)=>{if(s.getBoundingClientRect().top<=line)i=k});if(i!==active)show(i)}
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+steps.forEach((s,i)=>s.addEventListener('click',()=>show(i)));
+function setMode(m){mode=m;$('#tD').setAttribute('aria-pressed',m==='d');$('#tM').setAttribute('aria-pressed',m==='m');$('#vD').hidden=m!=='d';$('#vM').hidden=m!=='m';
+  const im=$('#layerM img');if(m==='m'&&!im.src){im.src=im.dataset.src;im.onload=()=>show(active)}requestAnimationFrame(()=>show(active))}
+$('#tD').onclick=()=>setMode('d');$('#tM').onclick=()=>setMode('m');
+addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('load',()=>show(active));show(0);
+
+/* процесс: линия заполняется по мере прокрутки */
+const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+})();
+</script>
