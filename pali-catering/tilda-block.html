@@ -1,0 +1,730 @@
+<!-- Кейс «Пали кейтеринг» · «Меню сайта». Вставьте целиком в блок T123 (HTML-код). Отступы блока сверху и снизу поставьте 0. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+/* Layout: кейс как ресторанное меню. Фирменный стиль ovchinnikov-dsgn.ru (тёплый белый, сливово-чёрный, коралл, моно-подписи)
+   снаружи; мир клиента (оранжевый #FF9900, шоколадный фон, еда на тарелке) внутри рамок и в карте «Меню сайта». Глубина в px — настоящие координаты блоков на palicatering.ru. */
+.ovp{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#846F81; --line:#E7E2E4;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --leaf:#1E8C4C;
+  --pali:#FF9900; --pali-ink:#261E13; --choc:#261E13; --choc-ink:#FBEFD9; --choc-muted:#B9A587; --choc-line:#43372A;
+  --steel-1:#F4F2F0; --steel-2:#B9B3AE; --steel-3:#7E7671;
+  --night:#1D181D; --night-2:#2A232A; --night-ink:#F4EEF2; --night-muted:#A8979F; --night-line:#3B323A;
+  --dim:rgba(29,24,29,.55);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:22px;
+}
+html[data-theme="dark"] .ovp{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A9979F; --line:#352D34;
+  --coral:#FF7A64; --coral-ink:#1A1012; --leaf:#43BE77;
+  --pali:#FFA51F; --choc:#1C150D; --choc-line:#3A2E22;
+  --steel-1:#D9D5D1; --steel-2:#8F8883; --steel-3:#5A534F;
+  --night:#0F0C0F; --night-2:#1E181E; --night-line:#342B33; --dim:rgba(8,6,8,.62); color-scheme:dark}
+
+.ovp,.ovp *{box-sizing:border-box}
+.ovp [hidden]{display:none!important}
+.ovp{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+.ovp .wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovp a{color:inherit}
+.ovp :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.ovp .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .mono b{color:var(--coral);font-weight:500}
+.ovp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pali);vertical-align:middle;margin-right:6px}
+.ovp .btn{display:inline-flex;flex-direction:column;justify-content:center;gap:2px;padding:14px 26px;border-radius:999px;background:var(--coral);color:var(--coral-ink);text-decoration:none;font:600 16px/1.2 var(--f-display);box-shadow:0 14px 30px -14px var(--coral);transition:transform .25s,box-shadow .25s}
+.ovp .btn small{font:500 12px var(--f-body);opacity:.85}
+.ovp .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--coral)}
+.ovp .link{font:600 15px var(--f-display);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.ovp h2.big{font:700 clamp(36px,5.6vw,80px)/.95 var(--f-display);letter-spacing:-.045em;margin:10px 0 0;text-wrap:balance}
+.ovp h2.big em{font-style:normal;color:var(--muted)}
+
+/* шапка */
+.ovp .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ovp .top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.ovp .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.ovp .logo svg{flex:none}
+.ovp .logo b{display:block;font:600 15px/1.15 var(--f-display);letter-spacing:.02em}
+.ovp .logo span{display:block;font-size:13px;color:var(--muted)}
+.ovp .top nav{margin-left:auto;display:flex;align-items:center;gap:22px}
+.ovp .top nav a{font:500 15px var(--f-body);text-decoration:none;color:var(--muted)}
+.ovp .top nav a:hover{color:var(--ink)}
+.ovp .rec{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:500 12px var(--f-mono);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ovp .rec i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:ovp-blink 1.4s steps(2) infinite}
+@keyframes ovp-blink{50%{opacity:.15}}
+
+/* hero: слово и тарелка, на которой сменяются страницы сайта */
+.ovp .hero{padding-block:18px 40px}
+.ovp .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ovp .word{display:flex;align-items:center;justify-content:space-between;gap:.06em;font:800 min(11.4vw,170px)/.8 var(--f-display);letter-spacing:-.065em;margin:0;text-transform:uppercase;white-space:nowrap}
+.ovp .word .part{display:flex;overflow:hidden;padding-block:.06em .02em}
+.ovp .word .part span{display:inline-block;animation:ovp-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*45ms + 120ms)}
+@keyframes ovp-rise{from{transform:translateY(105%)}}
+.ovp .plate{position:relative;flex:none;width:1.15em;aspect-ratio:1;margin:0;animation:ovp-pop 1.1s cubic-bezier(.2,.9,.25,1.15) .4s both}
+.ovp .plate::before{content:"";position:absolute;inset:-6% -10% -4% -2%;background:var(--pali);border-radius:58% 42% 55% 45%/48% 60% 40% 52%;animation:ovp-blob 9s ease-in-out infinite alternate}
+@keyframes ovp-blob{to{border-radius:42% 58% 45% 55%/60% 42% 58% 40%;transform:rotate(14deg)}}
+.ovp .plate .rim{position:absolute;inset:0;border-radius:50%;background:var(--choc);padding:.07em;box-shadow:0 30px 50px -24px rgba(38,30,19,.7)}
+.ovp .plate .rim div{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;background:#fff}
+.ovp .plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;opacity:0;transform:scale(1.08) rotate(-6deg);transition:opacity .6s,transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.ovp .plate img.on{opacity:1;transform:none}
+.ovp .plate .crumb{position:absolute;width:.06em;height:.09em;border-radius:50%;background:var(--pali);animation:ovp-float 4s ease-in-out infinite alternate}
+@keyframes ovp-float{to{transform:translateY(-.05em) rotate(30deg)}}
+.ovp .plate figcaption{position:absolute;left:50%;bottom:-.06em;transform:translateX(-50%);font:500 clamp(9px,.9vw,12px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(38,30,19,.78);backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px;white-space:nowrap}
+@keyframes ovp-pop{from{transform:scale(.5) rotate(-40deg);opacity:0}}
+.ovp .hero-low{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:28px;align-items:end;margin-top:34px}
+.ovp .hero-low h1{font:700 clamp(28px,3.3vw,46px)/1.02 var(--f-display);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ovp .hero-low h1 em{font-style:normal;color:var(--muted)}
+.ovp .story{margin:16px 0 0;max-width:36em;color:var(--muted)}
+.ovp .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ovp .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.ovp .fact{padding:20px 20px 4px 0;display:grid;gap:6px}
+.ovp .fact+.fact{padding-left:20px;border-left:1px solid var(--line)}
+.ovp .fact b{font:700 clamp(34px,4.2vw,58px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.ovp .fact b small{font-size:.5em;letter-spacing:-.02em;margin-left:.08em}
+
+/* меню сайта: страницы выходят из-под клоша, как блюда на подаче */
+.ovp .carte{position:relative;height:calc(var(--n,6) * 80vh + 40vh);margin-top:40px}
+.ovp .carte-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);height:calc(100vh - 86px);min-height:560px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto minmax(0,1fr);gap:18px 48px;padding-block:10px 40px}
+.ovp .carte-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .carte-head h2{margin:0;font:700 clamp(26px,3vw,42px)/1 var(--f-display);letter-spacing:-.04em}
+.ovp .carte-head h2 em{font-style:normal;color:var(--muted)}
+.ovp .card{position:relative;min-width:0;align-self:center;border-radius:28px;background:var(--choc);color:var(--choc-ink);padding:26px 26px 22px;display:grid;gap:14px;box-shadow:0 40px 80px -50px rgba(38,30,19,.8)}
+.ovp .card-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--choc-line)}
+.ovp .card-top b{font:800 26px/1 var(--f-display);letter-spacing:-.04em;color:var(--pali);text-transform:uppercase}
+.ovp .card .mono{color:var(--choc-muted)}
+.ovp .courses{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.ovp .courses button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:2.2em auto minmax(12px,1fr) auto;gap:10px;align-items:baseline;padding:9px 10px;border-radius:12px;transition:background .3s}
+.ovp .courses button:hover{background:rgba(255,255,255,.04)}
+.ovp .courses button:focus-visible{outline:2px solid var(--pali)}
+.ovp .courses .cn{font:500 12px var(--f-mono);color:var(--choc-muted)}
+.ovp .courses .ct{font:600 18px/1.2 var(--f-display);letter-spacing:-.02em;white-space:nowrap}
+.ovp .courses .ct small{font:500 12px var(--f-mono);color:var(--choc-muted);margin-left:8px;letter-spacing:.02em}
+.ovp .courses .lead{border-bottom:2px dotted var(--choc-line);transform:translateY(-4px)}
+.ovp .courses .cv{font:500 13px var(--f-mono);color:var(--choc-muted);font-variant-numeric:tabular-nums}
+.ovp .courses button[aria-current="true"]{background:rgba(255,153,0,.12)}
+.ovp .courses button[aria-current="true"] .cn,.ovp .courses button[aria-current="true"] .cv{color:var(--pali)}
+.ovp .courses button[aria-current="true"] .lead{border-color:var(--pali)}
+.ovp .compo{display:grid;gap:8px;min-height:7.6em;padding-top:12px;border-top:1px solid var(--choc-line)}
+.ovp .compo p{margin:0;font-size:15px;line-height:1.5;color:var(--choc-ink);animation:ovp-fadeup .6s cubic-bezier(.2,.8,.2,1) both}
+.ovp .compo .mono{color:var(--pali)}
+@keyframes ovp-fadeup{from{opacity:0;transform:translateY(10px)}}
+.ovp .serve{position:relative;min-width:0;display:flex;align-items:center}
+.ovp .serve .browser{width:100%;position:relative}
+.ovp .dish{position:relative;aspect-ratio:16/10;overflow:hidden;background:#fff}
+.ovp .dish video{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.ovp .cloche{position:absolute;inset:0;z-index:3;pointer-events:none;transform:translateY(-112%);transition:transform .75s cubic-bezier(.65,0,.25,1)}
+.ovp .cloche.down{transform:none;transition-duration:.42s;transition-timing-function:cubic-bezier(.55,0,.8,.3)}
+.ovp .cloche svg{display:block;width:100%;height:100%}
+.ovp .cloche .dome{fill:url(#ovp-steel)}
+.ovp .cloche .shine{fill:none;stroke:#fff;stroke-opacity:.55;stroke-width:1.4;stroke-linecap:round}
+.ovp .cloche .knob{fill:var(--steel-3)}
+.ovp .cloche .rim{fill:var(--steel-3)}
+.ovp .steam{position:absolute;left:0;right:0;bottom:30%;z-index:2;display:flex;justify-content:center;gap:9%;pointer-events:none}
+.ovp .steam i{width:3px;height:70px;border-radius:3px;background:linear-gradient(to top,transparent,rgba(255,255,255,.85),transparent);filter:blur(2px);opacity:0}
+.ovp .steam.on i{animation:ovp-steam 1.6s ease-out both}
+.ovp .steam.on i:nth-child(2){animation-delay:.12s}
+.ovp .steam.on i:nth-child(3){animation-delay:.24s}
+@keyframes ovp-steam{0%{opacity:0;transform:translateY(30px) scaleY(.6)}35%{opacity:.9}100%{opacity:0;transform:translateY(-140px) translateX(12px) scaleY(1.4)}}
+.ovp .serve-tag{position:absolute;left:12px;bottom:12px;z-index:4;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--pali-ink);background:var(--pali);padding:6px 10px;border-radius:999px;font-variant-numeric:tabular-nums}
+
+/* ролик */
+.ovp .cinema{background:var(--night);color:var(--night-ink);border-radius:32px 32px 0 0;overflow:hidden}
+.ovp .cinema .wrap{padding-block:70px 80px}
+.ovp .cinema .mono{color:var(--night-muted)}
+.ovp .cinema-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.ovp .cinema-head h2{color:var(--night-ink)}
+.ovp .cinema-head h2 em{color:var(--night-muted)}
+.ovp .stage{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:start}
+.ovp .chapters{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.ovp .chapters button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;width:100%;padding:16px 18px;border-radius:16px;position:relative;overflow:hidden;transition:background .3s}
+.ovp .chapters button:hover{background:var(--night-2)}
+.ovp .chapters button[aria-current="true"]{background:var(--night-2)}
+.ovp .chapters .n{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px}
+.ovp .chapters .t{font:600 18px/1.25 var(--f-display);letter-spacing:-.02em}
+.ovp .chapters .d{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.ovp .chapters .s{grid-column:2/4;font-size:14px;line-height:1.45;color:var(--night-muted);display:none}
+.ovp .chapters button[aria-current="true"] .s{display:block}
+.ovp .chapters button[aria-current="true"] .n{color:var(--coral)}
+.ovp .chapters .bar{position:absolute;left:18px;right:18px;bottom:8px;height:2px;background:var(--night-line);border-radius:2px;opacity:0}
+.ovp .chapters button[aria-current="true"] .bar{opacity:1}
+.ovp .chapters .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:inherit}
+.ovp .screen-wrap{position:relative;padding-right:min(9%,110px);padding-bottom:40px}
+.ovp .browser{border-radius:18px;background:#E9E6E8;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.ovp .browser .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFECEE}
+.ovp .browser .bar i{width:11px;height:11px;border-radius:50%;background:#D3CDD1}
+.ovp .browser .bar i:first-child{background:#F36A55}
+.ovp .browser .bar span{margin-left:14px;flex:1;max-width:360px;font:500 12px var(--f-mono);color:#6E5F6B;background:#fff;border-radius:8px;padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovp .browser > video,.ovp .browser > img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#fff}
+.ovp .phone{position:relative;width:100%;border-radius:38px;padding:9px;background:#141114;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),inset 0 0 0 1.5px #3A3239}
+.ovp .phone .scr{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:390/844;background:#fff}
+.ovp .phone .scr::before{content:"";position:absolute;z-index:2;left:50%;top:9px;width:30%;height:22px;border-radius:12px;background:#141114;transform:translateX(-50%)}
+.ovp .phone video,.ovp .phone img{display:block;width:100%}
+.ovp .phone video{height:100%;object-fit:cover;object-position:top}
+.ovp .stage .phone{position:absolute;right:0;bottom:0;width:min(23%,230px)}
+
+/* анатомия */
+.ovp .anat{padding-block:100px 40px}
+.ovp .anat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ovp .anat-head p{max-width:34em;color:var(--muted);margin:16px 0 0}
+.ovp .toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .toggle button{border:0;background:transparent;color:var(--muted);font:600 14px var(--f-display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.ovp .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ovp .anat-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;margin-top:40px}
+.ovp .steps{display:grid}
+.ovp .step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.38;transition:opacity .5s}
+.ovp .step:first-child{border-top:0}
+.ovp .step.on{opacity:1}
+.ovp .step .mono{display:flex;gap:12px;flex-wrap:wrap}
+.ovp .step h3{font:700 clamp(26px,2.8vw,40px)/1.04 var(--f-display);letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.ovp .step p{margin:0;max-width:31em}
+.ovp .step .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ovp .step .tags span{font:500 13px var(--f-body);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .viewer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);height:calc(100vh - 130px);max-height:820px;display:flex;align-items:flex-start;justify-content:center}
+.ovp .viewer .browser{width:100%;height:100%;display:flex;flex-direction:column}
+.ovp .viewer .phone{height:100%;width:auto;aspect-ratio:408/862;max-width:100%}
+.ovp .port{position:relative;flex:1;overflow:hidden;background:#1E1E20}
+.ovp .viewer .phone .scr{height:100%;width:100%;aspect-ratio:auto}
+.ovp .layer{position:absolute;left:0;top:0;width:100%;transition:transform 1.15s cubic-bezier(.7,0,.2,1);will-change:transform}
+.ovp .layer img{display:block;width:100%;aspect-ratio:auto;height:auto;object-fit:fill}
+.ovp .hl{position:absolute;left:6px;right:6px;border-radius:14px;box-shadow:0 0 0 2px var(--coral),0 0 0 4000px var(--dim);transition:top 1.15s cubic-bezier(.7,0,.2,1),height 1.15s cubic-bezier(.7,0,.2,1),opacity .4s;pointer-events:none}
+.ovp .hl b{position:absolute;left:10px;top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--coral);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ovp .viewer-note{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums;max-width:calc(100% - 24px)}
+
+/* за кадром */
+.ovp .kit{padding-block:90px 40px}
+.ovp .kit-head p{max-width:36em;color:var(--muted);margin:16px 0 0}
+.ovp .kit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:40px}
+.ovp .tile{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ovp .tile h3{margin:0;font:700 clamp(21px,1.9vw,26px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .tile p{margin:0;font-size:15px;color:var(--muted);max-width:34em}
+.ovp .t-form{grid-column:span 4;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:26px;align-items:center}
+.ovp .t-form .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .form{border-radius:18px;background:var(--bg);border:1px solid var(--line);padding:18px;display:grid;gap:10px}
+.ovp .fld{display:grid;gap:5px}
+.ovp .fld > span{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ovp .fld div{min-height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);padding:8px 12px;font:500 15px var(--f-body);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ovp .chip{font:500 13px var(--f-body);padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.ovp .chip.on{background:var(--pali);border-color:var(--pali);color:var(--pali-ink)}
+.ovp .file{display:flex;align-items:center;gap:10px;font:500 14px var(--f-body)}
+.ovp .file i{flex:none;width:30px;height:36px;border-radius:6px;background:#1E7B45;color:#fff;font:600 10px/36px var(--f-mono);text-align:center;font-style:normal}
+.ovp .typed::after{content:"";display:inline-block;width:2px;height:1em;background:var(--coral);margin-left:2px;vertical-align:-2px;animation:ovp-blink 1s steps(2) infinite}
+.ovp .t-cookie{grid-column:span 2;background:var(--choc);color:var(--choc-ink);border-color:var(--choc)}
+.ovp .t-cookie .mono{color:var(--choc-muted)}
+.ovp .t-cookie p{color:var(--choc-muted)}
+.ovp .msg{margin-top:auto;border-radius:16px;background:var(--surface);color:var(--ink);padding:16px;display:grid;gap:10px;font-size:14px;line-height:1.45;animation:ovp-msg 5s cubic-bezier(.2,.8,.2,1) infinite}
+.ovp .msg b{justify-self:start;font:600 13px var(--f-display);padding:7px 14px;border-radius:999px;background:var(--pali);color:var(--pali-ink)}
+@keyframes ovp-msg{0%{transform:translateY(16px);opacity:0}10%,85%{transform:none;opacity:1}100%{opacity:0}}
+.ovp .t-price{grid-column:span 3}
+.ovp .t-tagline{grid-column:span 3}
+.ovp .prices,.ovp .lines{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.ovp .prices li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:14px;align-items:baseline;padding:11px 14px;border-radius:14px;border:1px solid var(--line);font-size:15px}
+.ovp .prices li span{font:500 13px var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.ovp .prices li b{font:600 15px var(--f-display);font-variant-numeric:tabular-nums;text-align:right;min-width:4.5em}
+.ovp .prices li:last-child{border-color:var(--pali);background:color-mix(in srgb,var(--pali) 10%,transparent);grid-template-columns:minmax(0,1fr) auto}
+.ovp .lines li{display:grid;grid-template-columns:5.4em minmax(0,1fr);gap:12px;align-items:baseline;font:600 16px/1.3 var(--f-display);letter-spacing:-.01em}
+.ovp .lines li .mono{font-size:11px}
+.ovp .t-flow{grid-column:span 6;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:30px;align-items:center}
+.ovp .t-flow .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .flowmap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;position:relative}
+.ovp .flowmap .col{display:grid;gap:10px;align-content:start}
+.ovp .node{border-radius:12px;padding:10px 12px;font:600 14px/1.25 var(--f-display);border:1px solid var(--line);background:var(--bg);position:relative}
+.ovp .node.btnish{background:var(--pali);color:var(--pali-ink);border-color:transparent;border-radius:999px;text-align:center}
+.ovp .node.goal{border-style:dashed}
+.ovp .node small{display:block;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.04em;margin-top:2px}
+.ovp .flowmap .col:not(:last-child) .node::after{content:"→";position:absolute;right:-11px;top:50%;transform:translate(50%,-50%);font:500 14px var(--f-mono);color:var(--coral)}
+
+/* процесс */
+.ovp .proc{padding-block:100px 60px}
+.ovp .track{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;margin-top:44px;position:relative}
+.ovp .track::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .st{position:relative;padding:44px 18px 0 0}
+.ovp .st::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--coral)}
+.ovp .st.first::before{background:var(--pali);border-color:var(--pali)}
+.ovp .st .mono{color:var(--coral)}
+.ovp .st h4{margin:8px 0 8px;font:700 21px/1.15 var(--f-display);letter-spacing:-.025em}
+.ovp .st p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.ovp .span-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px dashed var(--line)}
+
+/* итог */
+.ovp .result{padding-block:60px 110px}
+.ovp .result-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.ovp .res-num{border-radius:28px;background:var(--choc);color:var(--choc-ink);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:380px}
+.ovp .res-num .mono{color:var(--choc-muted)}
+.ovp .res-num b{font:800 clamp(90px,13vw,190px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .res-num b span{color:var(--pali)}
+.ovp .res-num p{margin:0;color:var(--choc-muted);max-width:26em}
+.ovp .quote{border-radius:28px;background:var(--surface);border:1px solid var(--line);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+.ovp .quote blockquote{margin:0;font:600 clamp(22px,2.2vw,30px)/1.25 var(--f-display);letter-spacing:-.025em;text-wrap:pretty}
+.ovp .who{display:flex;align-items:center;gap:14px}
+.ovp .who img{width:56px;height:56px;border-radius:50%;object-fit:cover;background:var(--pali)}
+.ovp .who b{display:block;font:600 16px var(--f-display)}
+.ovp .who span{font-size:14px;color:var(--muted)}
+.ovp .cta{margin-top:24px;border-radius:28px;background:var(--coral);color:var(--coral-ink);padding:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.ovp .cta h2{margin:0;font:700 clamp(30px,3.8vw,54px)/1 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .cta p{margin:12px 0 0;opacity:.85}
+.ovp .cta .acts{display:grid;gap:12px;justify-items:start}
+.ovp .cta .btn{background:var(--coral-ink);color:var(--coral);box-shadow:none}
+.ovp .cta .phone-num{font:600 20px var(--f-display);user-select:all}
+.ovp .next{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding-block:28px 40px;border-top:1px solid var(--line)}
+.ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
+.ovp .next a:hover{color:var(--coral)}
+
+/* «Ваш визит» */
+.ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
+.ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+.ovp .visit .bars i{width:4px;border-radius:2px;background:var(--line);height:20%;transition:height .6s,background .6s}
+.ovp .visit .bars i.hot{background:var(--coral)}
+.ovp .visit .bars i.warm{background:color-mix(in srgb,var(--coral) 45%,var(--line))}
+.ovp .visit div{min-width:0}
+.ovp .visit .mono{font-size:10px}
+.ovp .visit b{display:block;font:600 15px/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.ovp .visit b em{font:500 13px var(--f-mono);font-style:normal;color:var(--coral);margin-left:6px}
+
+@media (max-width:1100px){
+  .ovp .stage{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .chapters .s{display:none!important}
+  .ovp .track{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
+  .ovp .track::before{display:none}
+  .ovp .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .t-form,.ovp .t-flow,.ovp .t-cookie{grid-column:span 2}
+  .ovp .t-price,.ovp .t-tagline{grid-column:span 1}
+  .ovp .carte-pin{gap:18px 28px}
+  .ovp .courses .ct{font-size:16px}
+}
+@media (max-width:900px){
+  .ovp .top nav a.hide-s{display:none}
+  .ovp .word{font-size:min(13vw,170px);flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:0 .2em}
+  .ovp .plate{order:3;width:min(64vw,300px);font-size:16px;margin:30px auto 10px}
+  .ovp .plate figcaption{font-size:11px;bottom:-6px}
+  .ovp .plate .crumb{display:none}
+  .ovp .hero-low{grid-template-columns:minmax(0,1fr)}
+  .ovp .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .fact:nth-child(3){border-left:0;padding-left:0}
+  .ovp .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .ovp .carte-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);gap:12px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px);min-height:0;padding-bottom:16px}
+  .ovp .serve{grid-row:2}
+  .ovp .card{grid-row:3;align-self:start;padding:14px 14px 12px;gap:8px;border-radius:20px}
+  .ovp .card-top{padding-bottom:8px}
+  .ovp .card-top b{font-size:18px}
+  .ovp .courses{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+  .ovp .courses button{grid-template-columns:minmax(0,1fr);gap:0;padding:7px 8px}
+  .ovp .courses .lead,.ovp .courses .cv,.ovp .courses .ct small{display:none}
+  .ovp .courses .cn{font-size:10px}
+  .ovp .courses .ct{font-size:13px;white-space:normal;line-height:1.15}
+  .ovp .compo{min-height:0;padding-top:8px;gap:4px}
+  .ovp .compo p{font-size:13px;line-height:1.4}
+  .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
+  .ovp .step{min-height:56vh}
+  .ovp .result-grid,.ovp .cta,.ovp .t-form,.ovp .t-flow{grid-template-columns:minmax(0,1fr)}
+  .ovp .kit-grid{grid-template-columns:minmax(0,1fr)}
+  .ovp .t-form,.ovp .t-flow,.ovp .t-cookie,.ovp .t-price,.ovp .t-tagline{grid-column:auto}
+}
+@media (max-width:560px){
+  .ovp{font-size:16px}
+  .ovp .top .wrap{gap:10px}
+  .ovp .logo span{display:none}
+  .ovp .rec span{display:none}
+  .ovp .carte-head .mono{display:none}
+  .ovp .compo .mono{display:none}
+  .ovp .chapters{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters button{padding:12px 14px}
+  .ovp .screen-wrap{padding-right:0;padding-bottom:0}
+  .ovp .stage .phone{display:none}
+  .ovp .track{grid-template-columns:minmax(0,1fr)}
+  .ovp .res-num,.ovp .quote,.ovp .cta{padding:28px}
+  .ovp .tile{padding:20px}
+  .ovp .flowmap{grid-template-columns:minmax(0,1fr)}
+  .ovp .flowmap .col:not(:last-child) .node::after{display:none}
+  .ovp .prices li{grid-template-columns:minmax(0,1fr) auto;font-size:14px}
+  .ovp .prices li span{display:none}
+  .ovp .visit .bars{display:none}
+  .ovp .visit b{max-width:72vw}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovp *,.ovp *::before,.ovp *::after{animation:none!important;transition:none!important}
+}
+</style>
+<div class="ovp">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ovp-steel" x1="0" y1="0" x2="1" y2="0.35"><stop offset="0" stop-color="var(--steel-2)"/><stop offset=".38" stop-color="var(--steel-1)"/><stop offset=".62" stop-color="var(--steel-2)"/><stop offset="1" stop-color="var(--steel-3)"/></linearGradient></defs></svg>
+
+<section class="wrap hero" data-zone="Первый экран кейса">
+  <div class="hero-meta">
+    <span class="mono">Кейс · Кейтеринг · Ярославль · Tilda</span>
+    <span class="mono"><span class="dot"></span>palicatering.ru · кормят Ярославль с 2009 года</span>
+  </div>
+  <h2 class="word" aria-label="Пали кейтеринг">
+    <span class="part" aria-hidden="true"><span style="--i:0">П</span><span style="--i:1">А</span><span style="--i:2">Л</span><span style="--i:3">И</span></span>
+    <figure class="plate">
+      <i class="crumb" style="left:-8%;top:10%"></i><i class="crumb" style="right:-12%;top:4%;animation-delay:-1.4s"></i><i class="crumb" style="left:4%;bottom:-6%;animation-delay:-2.2s"></i>
+      <div class="rim"><div id="chip">
+        <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/pg_home.jpg" alt="Главная palicatering.ru">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/pg_food.jpg" alt="Меню кейтеринга" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/pg_arenda.jpg" alt="Каталог шатров и мебели" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/pg_bar.jpg" alt="Барный кейтеринг" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/pg_karaoke.jpg" alt="Выездное караоке" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/pg_photo.jpg" alt="Галерея и площадки" loading="lazy">
+      </div></div>
+      <figcaption id="chipT">главная</figcaption>
+    </figure>
+    <span class="part" aria-hidden="true"><span style="--i:4">К</span><span style="--i:5">Е</span><span style="--i:6">Й</span><span style="--i:7">Т</span><span style="--i:8">Е</span><span style="--i:9">Р</span><span style="--i:10">И</span><span style="--i:11">Н</span><span style="--i:12">Г</span></span>
+  </h2>
+  <div class="hero-low">
+    <div>
+      <h1>Сайт кейтеринга, где меню читается как в ресторане, <em>а заказ собирается как сэндвич</em></h1>
+      <p class="story">В 2020 году команда Евгения кормила гостей на моей свадьбе. Через два года он пришёл ко мне за сайтом, и я делал его как человек, который сам заказывал у Пали.</p>
+    </div>
+    <div class="hero-cta">
+      <a class="btn" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">Хочу такой сайт<small>расчёт бюджета за 24 часа</small></a>
+      <a class="link" href="#carte">Открыть меню сайта ↓</a>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="mono">Страниц на сайте</span><b>6</b></div>
+    <div class="fact"><span class="mono">Дней до запуска</span><b>40</b></div>
+    <div class="fact"><span class="mono">Бюджет на рекламу</span><b>0<small>₽</small></b></div>
+    <div class="fact"><span class="mono">Лет сайт в работе</span><b>3+</b></div>
+  </div>
+</section>
+
+<section class="carte" id="carte" data-zone="Меню сайта" style="--n:6">
+  <div class="wrap carte-pin">
+    <div class="carte-head">
+      <h2>Меню сайта. <em>Шесть страниц, шесть подач</em></h2>
+      <span class="mono">Листайте или выберите страницу · выход в px</span>
+    </div>
+    <div class="card">
+      <div class="card-top"><b>Пали · меню</b><span class="mono">Страница · выход, px</span></div>
+      <ol class="courses" id="courses">
+        <li><button aria-current="true" data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/home_scroll.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/home_scroll.jpg" data-url="palicatering.ru"><span class="cn">01</span><span class="ct">Главная<small>/</small></span><i class="lead"></i><span class="cv">14 366</span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/food.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/food.jpg" data-url="palicatering.ru/food"><span class="cn">02</span><span class="ct">Меню кейтеринга<small>/food</small></span><i class="lead"></i><span class="cv">3 969</span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/arenda.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/arenda.jpg" data-url="palicatering.ru/arenda"><span class="cn">03</span><span class="ct">Шатры и мебель<small>/arenda</small></span><i class="lead"></i><span class="cv">4 867</span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/bar.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/bar.jpg" data-url="palicatering.ru/bar"><span class="cn">04</span><span class="ct">Барный кейтеринг<small>/bar</small></span><i class="lead"></i><span class="cv">3 994</span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/karaoke.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/karaoke.jpg" data-url="palicatering.ru/karaoke"><span class="cn">05</span><span class="ct">Выездное караоке<small>/karaoke</small></span><i class="lead"></i><span class="cv">3 934</span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/photo.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/photo.jpg" data-url="palicatering.ru/photo"><span class="cn">06</span><span class="ct">Галерея и площадки<small>/photo</small></span><i class="lead"></i><span class="cv">3 378</span></button></li>
+      </ol>
+      <div class="compo" id="compo" aria-live="polite"><span class="mono">Состав</span><p>Тарелка с горячим на первом экране, Евгений в фартуке, цифры, сэндвич из пяти шагов заказа, отзывы гостей и вопросы. Витрина, после которой хочется открыть меню.</p></div>
+    </div>
+    <div class="serve">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span id="cUrl">palicatering.ru</span></div>
+        <div class="dish">
+          <video id="cVid" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/home_scroll.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/home_scroll.jpg" muted playsinline autoplay loop preload="metadata" aria-label="Запись страницы сайта"></video>
+          <div class="steam" id="steam" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="cloche" id="cloche" aria-hidden="true">
+            <svg viewBox="0 0 160 100" preserveAspectRatio="none"><path class="dome" d="M3 97 C3 40 38 14 80 14 C122 14 157 40 157 97 Z"/><path class="shine" d="M24 70 C28 44 46 28 66 23"/><rect class="knob" x="72" y="5" width="16" height="9" rx="4"/><rect class="rim" x="0" y="95" width="160" height="5" rx="2"/></svg>
+          </div>
+          <span class="serve-tag" id="cTag">подача 01 / 06</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cinema" id="reel" data-zone="Ролик">
+  <div class="wrap">
+    <div class="cinema-head">
+      <div><span class="mono">Запись · 1440 × 900 · без монтажа</span><h2 class="big">Главная сегодня. <em>Шесть сцен до заявки</em></h2></div>
+    </div>
+    <div class="stage">
+      <ol class="chapters" id="chapters">
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/hero.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/hero.jpg" data-url="palicatering.ru" aria-current="true"><span class="n">01</span><span class="t">Первый экран</span><span class="d">0:11</span><span class="s">Тарелка в оранжевой кляксе, «У нас есть вкус» и четыре формата: кейтеринг, фуршет, банкет, кофе-брейк.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/about.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/about.jpg" data-url="palicatering.ru/#about"><span class="n">02</span><span class="t">Евгений и команда</span><span class="d">0:11</span><span class="s">Директор в фартуке, 13 лет работы, 1500+ клиентов, 55 000 канапе. Ниже вся команда на площадке.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/ingredients.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/ingredients.jpg" data-url="palicatering.ru/#ingredients"><span class="n">03</span><span class="t">Ингредиенты успеха</span><span class="d">0:14</span><span class="s">Четыре обещания от первого лица, переход в меню и галерея «Делаем вкусно».</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/sandwich.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/sandwich.jpg" data-url="palicatering.ru/#how"><span class="n">04</span><span class="t">Сэндвич заказа</span><span class="d">0:12</span><span class="s">Пять шагов заказа: при прокрутке хлеб, сыр, зелень и ветчина слетаются в один сэндвич.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/reviews.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/reviews.jpg" data-url="palicatering.ru/#reviews"><span class="n">05</span><span class="t">Услуги и отзывы</span><span class="d">0:20</span><span class="s">Четыре дополнительные услуги, отзывы-переписки рядом с сырной тарелкой и логотипы клиентов.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/faq.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/faq.jpg" data-url="palicatering.ru/#faq"><span class="n">06</span><span class="t">Вопросы и заявка</span><span class="d">0:14</span><span class="s">Хватит ли еды, где работаем, как заказать. Дальше «Доверьтесь нам» и кнопка заявки.</span><span class="bar"><i></i></span></button></li>
+      </ol>
+      <div class="screen-wrap">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span id="urlbar">palicatering.ru</span></div>
+          <video id="player" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/hero.jpg" muted playsinline autoplay preload="auto" aria-label="Запись сайта palicatering.ru"></video>
+        </div>
+        <div class="phone" aria-label="Мобильная версия главной">
+          <div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/mobile_scroll.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/mobile_scroll.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap anat" id="anat" data-zone="Анатомия">
+  <div class="anat-head">
+    <div>
+      <span class="mono">Разбор главной · 14 366 px сверху вниз</span>
+      <h2 class="big">Анатомия главной. <em>Зачем здесь каждый блок</em></h2>
+      <p>Листайте: справа настоящий скриншот сайта доезжает до блока, о котором я рассказываю. Глубина в пикселях показывает, где блок стоит на странице.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Устройство">
+      <button id="tD" aria-pressed="true">Компьютер</button>
+      <button id="tM" aria-pressed="false">Телефон</button>
+    </div>
+  </div>
+  <div class="anat-grid">
+    <div class="steps" id="steps">
+      <article class="step on" data-d="0,870" data-m="0,981">
+        <span class="mono"><b>↓ 0 px</b><span>Первый экран</span></span>
+        <h3>Сначала тарелка, потом слова</h3>
+        <p>Кейтеринг выбирают глазами, поэтому в центре экрана настоящее блюдо Пали на оранжевой кляксе, а вокруг разлетаются крошки. Слева название и слоган «У нас есть вкус», справа четыре формата, ниже одна кнопка «Заказать».</p>
+        <div class="tags"><span>фото блюда</span><span>4 формата</span><span>1 кнопка</span></div>
+      </article>
+      <article class="step" data-d="870,1077" data-m="981,1590">
+        <span class="mono"><b>↓ 870 px</b><span>О нас</span></span>
+        <h3>Лицо компании и четыре цифры</h3>
+        <p>Евгений в фартуке и кепке, подпись «Директор». Текст о том, что команда работает с 2009 года и берётся за любой формат, от пресс-конференции до пышной свадьбы. Цифры стоят на тех же оранжевых кляксах: 13 лет, 1500+ клиентов, 55 000 канапе и бесконечность любви к делу.</p>
+        <div class="tags"><span>13 лет</span><span>1500+</span><span>55 000 канапе</span></div>
+      </article>
+      <article class="step" data-d="1947,1076" data-m="2571,396">
+        <span class="mono"><b>↓ 1 947 px</b><span>Команда</span></span>
+        <h3>Те, кто приедет на праздник</h3>
+        <p>Фото команды в фирменных фартуках на настоящей площадке, с параллаксом на всю ширину. Гость видит людей, которые будут обслуживать его мероприятие.</p>
+        <div class="tags"><span>параллакс</span><span>реальная команда</span></div>
+      </article>
+      <article class="step" data-d="3023,857" data-m="2967,1385">
+        <span class="mono"><b>↓ 3 023 px</b><span>Ингредиенты успеха</span></span>
+        <h3>Обещания от первого лица</h3>
+        <p>«Я лично выбираю продукты», «я принимаю участие в приготовлении». Свежесть, любовь к делу, контроль таймингов банкетным менеджером и забота после праздника: посуду заберут, остатки еды упакуют в контейнеры. Карточки собраны вокруг разрезанного бургера.</p>
+        <div class="tags"><span>4 обещания</span><span>от первого лица</span></div>
+      </article>
+      <article class="step" data-d="3880,1572" data-m="4352,960">
+        <span class="mono"><b>↓ 3 880 px</b><span>Меню и фото</span></span>
+        <h3>Два входа глубже</h3>
+        <p>Баннер «Посмотрите наше меню» ведёт на страницу с ценами, карусель «Делаем вкусно» на галерею работ. Человек, которому понравилась еда, сразу переходит туда, где её можно выбрать.</p>
+        <div class="tags"><span>меню</span><span>галерея</span></div>
+      </article>
+      <article class="step" data-d="5452,2515" data-m="5312,2205">
+        <span class="mono"><b>↓ 5 452 px</b><span>Как мы работаем</span></span>
+        <h3>Заказ, который собирается как сэндвич</h3>
+        <p>Пять шагов на шоколадном фоне, у каждого свой ингредиент. При прокрутке хлеб, сыр, зелень, ветчина и второй кусок хлеба слетаются в один сэндвич: заявка, Excel с меню, звонок менеджера, договор и предоплата, оплата за неделю до праздника.</p>
+        <div class="tags"><span>5 шагов</span><span>анимация по скроллу</span></div>
+      </article>
+      <article class="step" data-d="7967,670" data-m="7517,650">
+        <span class="mono"><b>↓ 7 967 px</b><span>Дополнительные услуги</span></span>
+        <h3>Всё, кроме еды</h3>
+        <p>Box-кейтеринг, аренда шатров, выездное караоке и барный кейтеринг. Четыре плашки с фото ведут на отдельные страницы: у каждой услуги свои цены и своя заявка.</p>
+        <div class="tags"><span>4 услуги</span><span>4 страницы</span></div>
+      </article>
+      <article class="step" data-d="8637,2257" data-m="8167,1560">
+        <span class="mono"><b>↓ 8 637 px</b><span>Отзывы</span></span>
+        <h3>Переписки вместо пересказа</h3>
+        <p>Отзывы показаны так, как их прислали: скриншоты сообщений и постов с фото со свадеб и праздников. Рядом сырная тарелка, а под ней логотипы клиентов: Газпром, KERAMA MARAZZI, Oriflame, Л'Этуаль, Рив Гош, Карусель.</p>
+        <div class="tags"><span>скриншоты</span><span>8 клиентов</span></div>
+      </article>
+      <article class="step" data-d="11980,879" data-m="11497,740">
+        <span class="mono"><b>↓ 11 980 px</b><span>Частые вопросы</span></span>
+        <h3>Хватит ли еды на всех?</h3>
+        <p>Пять вопросов, которые задают перед заказом: хватит ли еды, можно ли взять мебель, где работаем (Ярославль и 30 км от города), какие мероприятия обслуживаем и как заказать.</p>
+        <div class="tags"><span>5 вопросов</span><span>+30 км</span></div>
+      </article>
+      <article class="step" data-d="12859,1507" data-m="12237,2160">
+        <span class="mono"><b>↓ 12 859 px</b><span>Доверьтесь нам</span></span>
+        <h3>Быть гостем на своём празднике</h3>
+        <p>Евгений у казана с подносом шашлыка и принцип компании: «ни одна деталь не является слишком маленькой, ни одна задача не является слишком большой». Дальше кнопка заявки и оранжевый подвал с контактами и макарунами.</p>
+        <div class="tags"><span>заявка</span><span>контакты</span></div>
+      </article>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="browser" id="vD">
+        <div class="bar"><i></i><i></i><i></i><span>palicatering.ru</span></div>
+        <div class="port" id="portD"><div class="layer" id="layerD"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/home-d.jpg" alt="Полный скриншот главной palicatering.ru, компьютер" width="1100" height="10974"><div class="hl" id="hlD"><b>Первый экран</b></div></div><span class="viewer-note" id="noteD">↓ 0 px</span></div>
+      </div>
+      <div class="phone" id="vM" hidden>
+        <div class="scr port" id="portM"><div class="layer" id="layerM"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/home-m.jpg" alt="Полный скриншот главной palicatering.ru, телефон" width="520" height="19196"><div class="hl" id="hlM"><b>Первый экран</b></div></div><span class="viewer-note" id="noteM">↓ 0 px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap kit" data-zone="За кадром">
+  <div class="kit-head">
+    <span class="mono">Что работает за кадром</span>
+    <h2 class="big">Сайт кейтеринга. <em>Пять деталей, которые экономят звонок</em></h2>
+    <p>Кейтеринг продаёт не блюдо, а спокойный праздник. Поэтому сайт отвечает на вопросы о цене, количестве и составе ещё до разговора с менеджером.</p>
+  </div>
+  <div class="kit-grid">
+    <article class="tile t-form">
+      <div class="txt">
+        <span class="mono">Заявка · одна форма на всех страницах</span>
+        <h3>Меню можно приложить к заявке</h3>
+        <p>Форма спрашивает то, без чего менеджер не назовёт цену: дату, формат, количество гостей и нужна ли аренда. Меню и каталог шатров скачиваются в Excel: гость отмечает позиции и прикладывает файл, а менеджер перезванивает уже с точной суммой.</p>
+      </div>
+      <div class="form" aria-label="Пример заполненной заявки">
+        <label class="fld"><span>Дата мероприятия</span><div id="fDate" class="typed">14-06-2025</div></label>
+        <div class="fld"><span>Какой формат мероприятия</span><div><i class="chip on" style="font-style:normal">Фуршет</i><i class="chip" style="font-style:normal">Банкет</i><i class="chip" style="font-style:normal">Кофе-брейк</i><i class="chip" style="font-style:normal">Box-кейтеринг</i><i class="chip on" style="font-style:normal">Мобильный бар</i></div></div>
+        <div class="fld"><span>Нужна аренда шатра или мебели?</span><div><i class="chip on" style="font-style:normal">Да</i><i class="chip" style="font-style:normal">Нет</i></div></div>
+        <div class="fld"><span>Загрузить файл меню</span><div class="file"><i>XLS</i>menu_pali.xlsx · 40 гостей</div></div>
+      </div>
+    </article>
+    <article class="tile t-cookie">
+      <span class="mono">Плашка cookies</span>
+      <h3>Шутка там, где её никто не ждёт</h3>
+      <p>Даже обязательное уведомление говорит голосом кейтеринга.</p>
+      <div class="msg" aria-hidden="true"><span>Мы используем cookies, чтобы сайт работал правильно. А ещё мы можем приготовить cookies :)</span><b>Принимается</b></div>
+    </article>
+    <article class="tile t-price">
+      <span class="mono">Меню · /food</span>
+      <h3>Цена и выход у каждого блюда</h3>
+      <p>Как в ресторанном меню: гость сразу считает бюджет на свою компанию, а минимальный заказ написан до первой строки.</p>
+      <ol class="prices">
+        <li>Шашлык из свинины с маринованным луком<span>200 г</span><b>450 ₽</b></li>
+        <li>Стейк из мраморной говядины<span>200 г</span><b>1 250 ₽</b></li>
+        <li>Канапе с креветкой<span>15 г</span><b>105 ₽</b></li>
+        <li>Минимальный заказ банкета<b>20 000 ₽</b></li>
+      </ol>
+    </article>
+    <article class="tile t-tagline">
+      <span class="mono">Слоган</span>
+      <h3>«У нас есть вкус» проходит через всю главную</h3>
+      <p>Одна фраза про еду и про стиль сразу. Она открывает страницу и возвращается в каждом важном месте:</p>
+      <ol class="lines">
+        <li><span class="mono">0 px</span><span>У нас есть вкус</span></li>
+        <li><span class="mono">1 187 px</span><span>У нас есть вкус. А ещё…</span></li>
+        <li><span class="mono">13 186 px</span><span>Мы делаем вкусно и красиво. Потому что у нас есть вкус.</span></li>
+      </ol>
+    </article>
+    <article class="tile t-flow">
+      <div class="txt">
+        <span class="mono">Шесть страниц вместо одной</span>
+        <h3>У каждой услуги своя страница и своя заявка</h3>
+        <p>Еда, аренда, бар и караоке покупаются по-разному. Поэтому каждая услуга живёт на своей странице: со своими ценами, вкладками и формой в конце. С главной на них ведут меню, плашки услуг и шапка.</p>
+      </div>
+      <div class="flowmap" aria-label="Схема: с главной на страницы услуг, затем в заявку">
+        <div class="col"><span class="mono">Главная</span><div class="node btnish">Посмотрите меню</div><div class="node btnish">Аренда шатров</div><div class="node btnish">Барный кейтеринг</div><div class="node btnish">Выездное караоке</div></div>
+        <div class="col"><span class="mono">Страница</span><div class="node">Банкет и фуршет<small>12 разделов · цена и выход</small></div><div class="node">Шатры и мебель<small>каталог в Excel</small></div><div class="node">Классика, шоты, авторские<small>минимальный заказ</small></div><div class="node">Light и Pro<small>10 000 и 15 000 ₽</small></div></div>
+        <div class="col"><span class="mono">Заявка</span><div class="node goal">Формат и дата</div><div class="node goal">Позиции и количество</div><div class="node goal">Барная карта</div><div class="node goal">Пакет караоке</div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap proc" id="proc" data-zone="Как шла работа">
+  <span class="mono">Как появился сайт</span>
+  <h2 class="big">Сорок дней. <em>От интервью до запуска</em></h2>
+  <div class="track" id="track">
+    <div class="st first"><span class="mono">Сентябрь 2020</span><h4>Свадьба</h4><p>Сначала я был клиентом: команда Пали кормила гостей на нашей свадьбе.</p></div>
+    <div class="st"><span class="mono">Сентябрь 2022</span><h4>Интервью</h4><p>Евгений пришёл за сайтом. Старый был на другой платформе, обезличенный и устаревший.</p></div>
+    <div class="st"><span class="mono">Структура</span><h4>Шесть страниц</h4><p>Главная как витрина и отдельная страница под каждую услугу: еду, аренду, бар, караоке и площадки.</p></div>
+    <div class="st"><span class="mono">Тексты и меню</span><h4>Цифры и цены</h4><p>Банкет и фуршет в таблицах с ценой и выходом, каталог аренды в Excel, вопросы гостей.</p></div>
+    <div class="st"><span class="mono">Дизайн</span><h4>Еда на кляксах</h4><p>Оранжевые кляксы, блюда без фона, шоколадный блок с сэндвичем и живые фото команды.</p></div>
+    <div class="st"><span class="mono">Осень 2022</span><h4>Запуск</h4><p>Вёрстка на Tilda, формы с загрузкой файла, вкладки меню и плашка cookies с шуткой.</p></div>
+  </div>
+  <div class="span-note"><span class="mono">Клиент Пали · 2020</span><span class="mono"><b>40 дней</b> от интервью до запуска</span><span class="mono">Сайт работает · 2022 → сейчас</span></div>
+</section>
+
+<section class="wrap result" data-zone="Результат">
+  <div class="result-grid">
+    <div class="res-num">
+      <span class="mono">Реклама не нужна</span>
+      <b>0<span>₽</span></b>
+      <p>Рекламу на сайт не запускали. Соцсети у Евгения раскачаны, а сайт стал витриной, куда они ведут: заявки приходят, а на аренду шатров и мебели они есть всегда.</p>
+    </div>
+    <div class="quote">
+      <blockquote>Уже 3 года пользуюсь сайтом — всё на высоте! Работает стабильно, клиентам удобно, получаю только хорошие отклики. Всегда можно обратиться за советом — Валерий на связи и помогает по делу. Скорость, качество и подход — просто огонь!</blockquote>
+      <div class="who"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/pali-catering/evgeny.jpg" alt="Евгений Пали, директор «Пали кейтеринг»" width="56" height="56"><div><b>Евгений Пали</b><span>директор «Пали кейтеринг», Ярославль</span></div></div>
+    </div>
+  </div>
+  <div class="cta">
+    <div>
+      <h2>Нужен сайт, после которого хочется заказать?</h2>
+      <p>Расскажите о бизнесе, и я пришлю бюджет и сроки меньше чем за 24 часа.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="https://t.me/Ovchinnikov_dsgn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <span class="phone-num">+7 (910) 970-01-24</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap next">
+  <span class="mono">Следующий кейс</span>
+  <a href="https://ovchinnikov-dsgn.ru/project_prospect" target="_blank" rel="noopener">Prospect, кейтеринг с конструктором меню →</a>
+</footer>
+</div>
+<script>
+
+(()=>{
+const R=document.querySelector('.ovp');if(!R)return;const $=s=>R.querySelector(s),$$=s=>[...R.querySelectorAll(s)];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* слово в hero подгоняется под ширину колонки */
+const word=$('.word');function fit(){const narrow=innerWidth<=900;word.style.fontSize='';if(narrow)return;
+  const parts=[...word.querySelectorAll('.part')],chip=word.querySelector('.plate');
+  const need=parts.reduce((a,p)=>a+p.scrollWidth,0)+chip.offsetWidth+40;
+  const fs=parseFloat(getComputedStyle(word).fontSize);if(need>word.clientWidth)word.style.fontSize=(fs*word.clientWidth/need*.985)+'px'}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);addEventListener('resize',fit);fit();
+
+/* тарелка в hero: страницы сайта сменяют друг друга */
+const chipImgs=$$('#chip img'),chipLbl=['главная','меню','аренда','бар','караоке','галерея'];let ci=0;
+if(!reduce)setInterval(()=>{chipImgs[ci].classList.remove('on');ci=(ci+1)%chipImgs.length;chipImgs[ci].classList.add('on');$('#chipT').textContent=chipLbl[ci]},2200);
+
+/* меню сайта: страница выбирается прокруткой, новая выходит из-под клоша */
+const carte=$('#carte'),cBtns=$$('#courses button'),N=cBtns.length,cVid=$('#cVid'),cloche=$('#cloche'),steam=$('#steam');
+const COMPO=[
+ 'Тарелка с горячим на первом экране, Евгений в фартуке, цифры, сэндвич из пяти шагов заказа, отзывы гостей и вопросы. Витрина, после которой хочется открыть меню.',
+ 'Банкет и фуршет на двух вкладках, 12 разделов от шашлыка до напитков. У каждого блюда цена и выход в граммах, минимальный заказ написан над списком. Меню можно скачать в Excel.',
+ 'Прямоугольный шатёр на 70 гостей за 35 000 ₽ и восьмиугольный на 20, коктейльные и складные столы, стулья, посуда, официанты и повар. Каталог скачивается и прикладывается к заявке.',
+ 'Классические коктейли, шоты и авторские, у каждого состав и выход. Бармен считает алкоголь с запасом и остаётся до конца вечера. Есть шот «Ярославский» с тобаско.',
+ 'Акустика, микшер, караоке-система на 2000 песен и телевизор с моделями и характеристиками. Два пакета: Light на сутки за 10 000 ₽ и Pro со звукооператором за 15 000 ₽.',
+ 'Фото с мероприятий в карусели и семь площадок Ярославля с галереями: Некрасовская дача, Лофт Полиграф, Панорама Холл и другие. команда знает почти все и подскажет, где провести праздник.'];
+let ciCur=-1,swapT=0;
+function serve(i,instant){if(i===ciCur)return;ciCur=i;
+  cBtns.forEach((b,k)=>b.setAttribute('aria-current',k===i));
+  $('#compo').innerHTML=`<span class="mono">Состав · подача ${String(i+1).padStart(2,'0')}</span><p>${COMPO[i]}</p>`;
+  $('#cTag').textContent=`подача ${String(i+1).padStart(2,'0')} / 0${N}`;
+  const b=cBtns[i],swap=()=>{cVid.poster=b.dataset.poster;cVid.src=b.dataset.src;$('#cUrl').textContent=b.dataset.url;cVid.play().catch(()=>{})};
+  clearTimeout(swapT);
+  if(instant||reduce){swap();return}
+  cloche.classList.add('down');steam.classList.remove('on');
+  swapT=setTimeout(()=>{swap();cloche.classList.remove('down');void steam.offsetWidth;steam.classList.add('on')},460)}
+let cr=0;function cPick(){cr=0;const r=carte.getBoundingClientRect(),span=r.height-innerHeight;
+  const p=Math.min(1,Math.max(0,-r.top/Math.max(1,span)));serve(Math.min(N-1,Math.floor(p*N*.999)))}
+addEventListener('scroll',()=>{if(!cr)cr=requestAnimationFrame(cPick)},{passive:true});
+cBtns.forEach((b,k)=>b.addEventListener('click',()=>{const span=carte.offsetHeight-innerHeight;scrollTo({top:carte.getBoundingClientRect().top+scrollY+span*(k+.5)/N,behavior:reduce?'auto':'smooth'})}));
+serve(0,true);cPick();
+
+/* ролик по главам */
+const player=$('#player'),chs=$$('#chapters button');let cur=0;
+function play(i){cur=(i+chs.length)%chs.length;chs.forEach((b,k)=>{b.setAttribute('aria-current',k===cur);b.querySelector('.bar i').style.width='0'});
+  const b=chs[cur];player.poster=b.dataset.poster;player.src=b.dataset.src;$('#urlbar').textContent=b.dataset.url;player.play().catch(()=>{})}
+chs.forEach((b,i)=>b.addEventListener('click',()=>play(i)));
+player.addEventListener('timeupdate',()=>{if(player.duration)chs[cur].querySelector('.bar i').style.width=(player.currentTime/player.duration*100)+'%'});
+player.addEventListener('ended',()=>play(cur+1));
+// видео играют только на экране
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.15});
+$$('video').forEach(v=>{if(reduce){v.removeAttribute('autoplay');v.pause()}vio.observe(v)});
+
+/* анатомия */
+const W={d:1440,m:390};let mode='d',active=0;
+const steps=$$('.step');
+function show(i){active=i;steps.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const s=steps[i],M=mode.toUpperCase(),port=$('#port'+M),layer=$('#layer'+M),img=layer.querySelector('img'),hl=$('#hl'+M);
+  if(!s.dataset[mode]){hl.style.opacity='0';$('#note'+M).textContent='Этот блок есть только на компьютере';return}
+  hl.style.opacity='1';
+  const [y,h]=s.dataset[mode].split(',').map(Number);
+  const k=port.clientWidth/W[mode],ph=port.clientHeight,top=y*k,hh=h*k;
+  const imgH=port.clientWidth*img.height/img.width;
+  let off=hh<ph-60?top-(ph-hh)/2:top-28;off=Math.max(0,Math.min(off,imgH-ph));
+  layer.style.transform=`translateY(${-off}px)`;hl.style.top=top+'px';hl.style.height=hh+'px';
+  hl.querySelector('b').textContent=s.querySelector('.mono span').textContent;
+  $('#note'+M).textContent='↓ '+Math.round(y).toLocaleString('ru-RU')+' px'}
+// активный шаг выбирается по линии чтения, а не IntersectionObserver: во встроенном фрейме rootMargin не работает
+const viewer=$('#viewer');let raf=0;
+function pick(){raf=0;const vr=viewer.getBoundingClientRect(),narrow=innerWidth<=900;
+  const line=narrow?vr.bottom+(innerHeight-vr.bottom)*.35:innerHeight*.5;let i=0;
+  steps.forEach((s,k)=>{if(s.getBoundingClientRect().top<=line)i=k});if(i!==active)show(i)}
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+steps.forEach((s,i)=>s.addEventListener('click',()=>show(i)));
+function setMode(m){mode=m;$('#tD').setAttribute('aria-pressed',m==='d');$('#tM').setAttribute('aria-pressed',m==='m');$('#vD').hidden=m!=='d';$('#vM').hidden=m!=='m';
+  const im=$('#layerM img');if(m==='m'&&!im.src){im.src=im.dataset.src;im.onload=()=>show(active)}requestAnimationFrame(()=>show(active))}
+$('#tD').onclick=()=>setMode('d');$('#tM').onclick=()=>setMode('m');
+addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('load',()=>show(active));show(0);
+
+/* процесс: линия заполняется по мере прокрутки */
+const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+})();
+</script>
