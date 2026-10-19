@@ -381,6 +381,46 @@ html[data-theme="dark"] .ovp{
   .ovp .grow,.ovp .guides{grid-template-columns:minmax(0,1fr)}
   .ovp .grow li::after{display:none}
 }
+
+/* заявки по месяцам: одна серия, столбики от нуля, конверсия подписью под месяцем */
+.ovp .leads{border-radius:28px;background:var(--night);color:var(--night-ink);padding:40px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,2fr);gap:40px;margin-bottom:24px}
+.ovp .leads .mono{color:var(--night-muted)}
+.ovp .leads-txt{display:flex;flex-direction:column;gap:16px;min-width:0}
+.ovp .leads-txt b.big{font:800 clamp(80px,9vw,140px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .leads-txt b.big span{color:var(--coral)}
+.ovp .leads-txt p{margin:0;color:var(--night-muted);max-width:28em}
+.ovp .leads-txt p strong{color:var(--night-ink);font-weight:600}
+.ovp .lstats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--night-line);margin-top:auto}
+.ovp .lstats div{padding:14px 14px 0 0;display:grid;gap:4px}
+.ovp .lstats div+div{padding-left:14px;border-left:1px solid var(--night-line)}
+.ovp .lstats b{font:700 30px/1 var(--f-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ovp .chart{position:relative;min-width:0;display:flex;flex-direction:column}
+.ovp .plot{position:relative;flex:1;min-height:260px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;align-items:end;padding-top:28px;border-bottom:1px solid var(--night-line);
+  background:linear-gradient(var(--night-line) 1px,transparent 1px) 0 28px/100% 25%}
+.ovp .bar{position:relative;height:100%;display:flex;align-items:flex-end;cursor:default;outline:none}
+.ovp .bar i{display:block;width:100%;max-width:44px;margin:0 auto;height:calc(var(--v) * 1%);min-height:3px;border-radius:4px 4px 0 0;background:var(--coral);opacity:.55;transform-origin:bottom;transition:opacity .25s}
+.ovp .bar.hi i{opacity:1}
+.ovp .bar.part i{background:repeating-linear-gradient(135deg,var(--coral) 0 5px,color-mix(in srgb,var(--coral) 45%,var(--night)) 5px 9px)}
+.ovp .bar:hover i,.ovp .bar:focus-visible i{opacity:1}
+.ovp .bar b{position:absolute;left:0;right:0;bottom:calc(var(--v) * 1% + 6px);text-align:center;font:600 13px var(--f-display);font-variant-numeric:tabular-nums;color:var(--night-ink)}
+.ovp .bar:not(.hi):not(:hover):not(:focus-visible) b{color:var(--night-muted)}
+.ovp .chart.go .bar i{animation:ovp-grow 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k)*60ms)}
+@keyframes ovp-grow{from{transform:scaleY(0)}}
+.ovp .axis{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;padding-top:10px}
+.ovp .axis span{display:grid;gap:3px;text-align:center;font:500 11px var(--f-mono);color:var(--night-muted);letter-spacing:.03em;min-width:0}
+.ovp .axis em{font-style:normal;color:var(--night-ink);font-variant-numeric:tabular-nums}
+.ovp .axis-note{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
+.ovp .tip{position:absolute;z-index:3;pointer-events:none;min-width:150px;padding:10px 12px;border-radius:12px;background:var(--night-ink);color:var(--night);font:500 13px/1.4 var(--f-body);box-shadow:0 14px 30px -12px rgba(0,0,0,.6);transform:translate(-50%,-100%);opacity:0;transition:opacity .15s}
+.ovp .tip.on{opacity:1}
+.ovp .tip b{display:block;font:600 14px var(--f-display)}
+@media (max-width:900px){
+  .ovp .leads{grid-template-columns:minmax(0,1fr);padding:28px}
+  .ovp .plot{min-height:200px;gap:3px}
+  .ovp .axis{gap:3px}
+  .ovp .axis span{font-size:9px}
+  .ovp .bar b{font-size:11px}
+}
+@media (max-width:560px){.ovp .axis em{display:none}.ovp .bar b{display:none}.ovp .bar.hi b{display:block}}
 </style>
 <div class="ovp">
 
@@ -418,7 +458,7 @@ html[data-theme="dark"] .ovp{
     <div class="fact"><span class="mono">Страницы</span><b>10</b></div>
     <div class="fact"><span class="mono">Изделий в каталоге</span><b>9</b></div>
     <div class="fact"><span class="mono">Месяца до запуска</span><b>1,5</b></div>
-    <div class="fact"><span class="mono">Клиентов у бренда</span><b>1500+</b></div>
+    <div class="fact"><span class="mono">Заявок за год</span><b>259</b></div>
   </div>
 </section>
 
@@ -724,6 +764,24 @@ html[data-theme="dark"] .ovp{
 </section>
 
 <section class="wrap result" data-zone="Результат">
+  <div class="leads" id="leads">
+    <div class="leads-txt">
+      <span class="mono">Заявки с сайта · ноябрь 2025 – октябрь 2026</span>
+      <b class="big">259</b>
+      <p>Заявок с форм и квиза за год, по статистике Tilda. Звонки и сообщения в мессенджеры сюда не входят.</p>
+      <p>В марте на сайт пришло <strong>9 211 сессий</strong>, а конверсия была <strong>0,25%</strong>. С апреля трафика почти в десять раз меньше, а заявок больше: рекламу настроил директолог, а я переделал экраны и кнопки по его рекомендациям.</p>
+      <div class="lstats">
+        <div><span class="mono">Конверсия в июне</span><b>4,36%</b></div>
+        <div><span class="mono">Рекорд месяца</span><b>46</b></div>
+      </div>
+    </div>
+    <div class="chart" id="chart">
+      <div class="plot" id="plot" role="img" aria-label="Заявки по месяцам: ноябрь 8, декабрь 1, январь 18, февраль 13, март 23, апрель 26, май 46, июнь 39, июль 30, август 20, сентябрь 25, октябрь 10 (месяц не закончился)"></div>
+      <div class="axis" id="axis" aria-hidden="true"></div>
+      <div class="axis-note"><span class="mono">Заявки в месяц · под месяцем конверсия</span><span class="mono">Октябрь 2026 · по 19-е число</span></div>
+      <div class="tip" id="tip"></div>
+    </div>
+  </div>
   <div class="result-grid">
     <div class="res-num">
       <span class="mono">Лучшая оценка работы</span>
@@ -841,5 +899,19 @@ addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('l
 
 /* процесс: линия заполняется по мере прокрутки */
 const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+
+/* заявки по месяцам: данные из статистики Tilda */
+const LD=[['ноя','Ноябрь 2025',8],['дек','Декабрь 2025',1],['янв','Январь 2026',18],['фев','Февраль 2026',13,3804,.34],['мар','Март 2026',23,9211,.25],['апр','Апрель 2026',26,1143,2.27],
+  ['май','Май 2026',46,1119,4.11],['июн','Июнь 2026',39,895,4.36],['июл','Июль 2026',30,835,3.59],['авг','Август 2026',20,625,3.20],['сен','Сентябрь 2026',25,812,3.08],['окт','Октябрь 2026',10,454,2.20]];
+const plot=$('#plot'),axis=$('#axis'),tip=$('#tip'),chart=$('#chart'),MX=50,ru=n=>n.toLocaleString('ru-RU');
+LD.forEach(([s,full,v,ses,cv],k)=>{const b=document.createElement('div');b.className='bar'+(v===46||k===4?' hi':'')+(k===11?' part':'');b.tabIndex=0;
+  b.style.setProperty('--v',v/MX*100);b.style.setProperty('--k',k);b.innerHTML=`<i></i><b>${v}</b>`;
+  b.dataset.t=`<b>${full}${k===11?' · по 19-е':''}</b>${v} заявок${ses?`<br>${ru(ses)} сессий · ${String(cv.toFixed(2)).replace('.',',')}%`:''}`;plot.appendChild(b);
+  const a=document.createElement('span');a.innerHTML=`${s}<em>${cv!==undefined?String(cv).replace('.',',')+'%':'·'}</em>`;axis.appendChild(a)});
+const tipAt=b=>{const r=b.getBoundingClientRect(),c=chart.getBoundingClientRect(),i=b.querySelector('i').getBoundingClientRect();
+  tip.innerHTML=b.dataset.t;let x=r.left+r.width/2-c.left;x=Math.max(80,Math.min(c.width-80,x));tip.style.left=x+'px';tip.style.top=(i.top-c.top-10)+'px';tip.classList.add('on')};
+plot.querySelectorAll('.bar').forEach(b=>{b.addEventListener('mouseenter',()=>tipAt(b));b.addEventListener('focus',()=>tipAt(b));b.addEventListener('mouseleave',()=>tip.classList.remove('on'));b.addEventListener('blur',()=>tip.classList.remove('on'))});
+// столбики вырастают, когда график доезжает до экрана; без этого они уже на месте
+if(!reduce){const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){chart.classList.add('go');io.disconnect()}},{threshold:.3});io.observe(chart)}
 })();
 </script>
