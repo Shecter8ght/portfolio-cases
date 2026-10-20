@@ -1,0 +1,767 @@
+<!-- Кейс «ДЕПО» · «Две ветки». Вставьте целиком в блок T123 (HTML-код). Отступы блока сверху и снизу поставьте 0. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+
+/* Layout: кейс как схема метро. Фирменный стиль ovchinnikov-dsgn.ru (тёплый белый, сливово-чёрный, коралл, моно-подписи)
+   снаружи, мир клиента (чёрный, красная ветка лофта, зелёная ветка фуди шопа) внутри рамок устройств. Глубина в px — настоящие координаты блоков на depofood.ru. */
+.ovp{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#846F81; --line:#E7E2E4;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --leaf:#1E8C4C;
+  --night:#1D181D; --night-2:#2A232A; --night-ink:#F4EEF2; --night-muted:#A8979F; --night-line:#3B323A;
+  --dim:rgba(29,24,29,.55);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:22px;
+}
+html[data-theme="dark"] .ovp{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A9979F; --line:#352D34;
+  --coral:#FF7A64; --coral-ink:#1A1012; --leaf:#43BE77;
+  --night:#0F0C0F; --night-2:#1E181E; --night-line:#342B33; --dim:rgba(8,6,8,.62); color-scheme:dark}
+
+.ovp,.ovp *{box-sizing:border-box}
+.ovp [hidden]{display:none!important}
+.ovp{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+.ovp .wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovp a{color:inherit}
+.ovp :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.ovp .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .mono b{color:var(--coral);font-weight:500}
+.ovp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--leaf);vertical-align:middle;margin-right:6px}
+.ovp .btn{display:inline-flex;flex-direction:column;justify-content:center;gap:2px;padding:14px 26px;border-radius:999px;background:var(--coral);color:var(--coral-ink);text-decoration:none;font:600 16px/1.2 var(--f-display);box-shadow:0 14px 30px -14px var(--coral);transition:transform .25s,box-shadow .25s}
+.ovp .btn small{font:500 12px var(--f-body);opacity:.85}
+.ovp .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--coral)}
+.ovp .link{font:600 15px var(--f-display);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.ovp h2.big{font:700 clamp(36px,5.6vw,80px)/.95 var(--f-display);letter-spacing:-.045em;margin:10px 0 0;text-wrap:balance}
+.ovp h2.big em{font-style:normal;color:var(--muted)}
+
+/* шапка */
+.ovp .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ovp .top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.ovp .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.ovp .logo svg{flex:none}
+.ovp .logo b{display:block;font:600 15px/1.15 var(--f-display);letter-spacing:.02em}
+.ovp .logo span{display:block;font-size:13px;color:var(--muted)}
+.ovp .top nav{margin-left:auto;display:flex;align-items:center;gap:22px}
+.ovp .top nav a{font:500 15px var(--f-body);text-decoration:none;color:var(--muted)}
+.ovp .top nav a:hover{color:var(--ink)}
+.ovp .rec{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:500 12px var(--f-mono);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ovp .rec i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:ovp-blink 1.4s steps(2) infinite}
+@keyframes ovp-blink{50%{opacity:.15}}
+
+/* hero */
+.ovp .hero{padding-block:18px 40px}
+.ovp .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ovp .word{display:flex;align-items:center;justify-content:space-between;gap:.06em;font:800 min(11.4vw,170px)/.8 var(--f-display);letter-spacing:-.065em;margin:0;text-transform:uppercase;white-space:nowrap}
+.ovp .word .part{display:flex;overflow:hidden;padding-block:.06em .02em}
+.ovp .word .part span{display:inline-block;animation:ovp-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*55ms + 120ms)}
+@keyframes ovp-rise{from{transform:translateY(105%)}}
+.ovp .reel-chip{position:relative;flex:none;width:1.62em;aspect-ratio:16/10;border-radius:.09em;overflow:visible;animation:ovp-pop 1s cubic-bezier(.2,.9,.25,1.15) .45s both;margin-top:.05em!important}
+.ovp .reel-chip .stack{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--night);box-shadow:0 30px 60px -30px rgba(29,24,29,.55)}
+.ovp .reel-chip .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .5s}
+.ovp .reel-chip .stack img.on{opacity:1}
+.ovp .reel-chip::after{content:"";position:absolute;right:-.05em;top:-.05em;width:.12em;height:.12em;border-radius:50%;background:var(--coral);border:.022em solid var(--bg)}
+.ovp .reel-chip figcaption{position:absolute;left:.06em;bottom:.06em;font:500 clamp(9px,.9vw,12px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,16,20,.62);backdrop-filter:blur(6px);padding:6px 9px;border-radius:999px;font-variant-numeric:tabular-nums}
+@keyframes ovp-pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+.ovp .hero-low{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:28px;align-items:end;margin-top:30px}
+.ovp .hero-low h1{font:700 clamp(28px,3.3vw,46px)/1.02 var(--f-display);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ovp .hero-low h1 em{font-style:normal;color:var(--muted)}
+.ovp .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ovp .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.ovp .fact{padding:20px 20px 4px 0;display:grid;gap:6px}
+.ovp .fact+.fact{padding-left:20px;border-left:1px solid var(--line)}
+.ovp .fact b{font:700 clamp(34px,4.2vw,58px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+
+/* две ветки: главная — станция-развилка, дальше красная ветка лофта и зелёная ветка фуди шопа, как на схеме метро */
+.ovp .fork{position:relative;height:calc(var(--n,14) * 58vh + 50vh);margin-top:40px;--red:#D93030;--green:#2CB440}
+.ovp .fork-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);height:calc(100vh - 86px);min-height:560px;display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:16px 44px;padding-block:10px 84px}
+.ovp .fork-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .fork-head h2{margin:0;font:700 clamp(26px,3vw,42px)/1 var(--f-display);letter-spacing:-.04em}
+.ovp .fork-head h2 em{font-style:normal;color:var(--muted)}
+.ovp .scheme{position:relative;min-height:0;display:flex;align-items:center;justify-content:center}
+.ovp .scheme svg{width:100%;height:100%;overflow:visible}
+.ovp .scheme .ln{fill:none;stroke-width:9;stroke-linecap:round;opacity:.16}
+.ovp .scheme .on{fill:none;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.6,0,.2,1)}
+.ovp .stn{cursor:pointer}
+.ovp .stn circle{fill:var(--bg);stroke:currentColor;stroke-width:4;transition:fill .35s,r .35s}
+.ovp .stn.past circle,.ovp .stn.cur circle{fill:currentColor}
+.ovp .stn text{font:500 13px var(--f-body);fill:var(--muted);transition:fill .3s}
+.ovp .stn.past text{fill:var(--ink)}
+.ovp .stn.cur text{fill:var(--ink);font-weight:700}
+.ovp .stn:hover text{fill:var(--ink)}
+.ovp .stn.hub circle{stroke-width:5}
+.ovp .scheme .tag{font:500 10.5px var(--f-mono);letter-spacing:.1em;text-transform:uppercase}
+.ovp .train{transition:transform .9s cubic-bezier(.6,0,.2,1);pointer-events:none}
+.ovp .train .halo{fill:currentColor;opacity:.22;animation:ovp-halo 1.6s ease-out infinite;transform-box:fill-box;transform-origin:center}
+.ovp .train .core{fill:#fff;stroke:currentColor;stroke-width:4}
+@keyframes ovp-halo{from{transform:scale(.5);opacity:.4}to{transform:scale(1.5);opacity:0}}
+.ovp .fork-view{min-width:0;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:16px}
+.ovp .fork-view .browser{min-height:0;display:flex;flex-direction:column}
+.ovp .fork-view .browser .bar span{transition:color .3s}
+.ovp .shot{position:relative;flex:1;min-height:0;overflow:hidden;background:#151215}
+.ovp .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;opacity:0;transform:scale(1.035);transition:opacity .55s,transform 1s cubic-bezier(.2,.8,.2,1)}
+.ovp .shot img.on{opacity:1;transform:none;animation:ovp-pan 10s ease-in-out .8s both}
+@keyframes ovp-pan{to{object-position:50% 100%}}
+.ovp .line-chip{position:absolute;left:12px;top:12px;z-index:3;display:inline-flex;align-items:center;gap:8px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--lc,#2F282E);padding:7px 12px 7px 9px;border-radius:999px;box-shadow:0 8px 20px -8px rgba(0,0,0,.5);transition:background .4s}
+.ovp .line-chip i{width:10px;height:10px;border-radius:50%;background:#fff}
+.ovp .caps{position:relative;display:grid;min-height:118px}
+.ovp .cap{grid-area:1/1;display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 20px;align-content:start;opacity:0;transform:translateY(16px);transition:opacity .45s,transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ovp .cap.on{opacity:1;transform:none;pointer-events:auto}
+.ovp .cap .no{grid-row:span 3;font:800 clamp(48px,5vw,76px)/.82 var(--f-display);letter-spacing:-.07em;color:var(--c);font-variant-numeric:tabular-nums}
+.ovp .cap .mono{color:var(--c)}
+.ovp .cap h3{margin:2px 0 0;font:700 clamp(20px,1.9vw,26px)/1.12 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .cap p{margin:4px 0 0;font-size:15px;line-height:1.5;color:var(--muted);max-width:52em}
+.ovp .mrail{display:none}
+
+/* за кадром: детали depofood */
+.ovp .hdrs{display:grid;gap:10px}
+.ovp .hdrs figure{margin:0;display:grid;gap:6px}
+.ovp .hdrs img{display:block;width:100%;border-radius:10px;border:1px solid var(--line)}
+.ovp .hdrs figcaption{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted)}
+.ovp .hdrs figcaption b{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.ovp .hdrs .r b{color:#D93030}.ovp .hdrs .g b{color:#2CB440}
+.ovp .tile.t-ph{grid-column:span 2;background:var(--night);color:var(--night-ink);border-color:var(--night);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,150px);gap:20px;align-items:end}
+.ovp .t-ph p{color:var(--night-muted)}
+.ovp .tile.t-ph .txt{display:flex;flex-direction:column;gap:14px;align-self:start}
+.ovp .t-ph .phone{width:100%;border-radius:26px;padding:6px}
+.ovp .t-ph .phone .scr{border-radius:21px}
+.ovp .t-ph .phone .scr::before{height:14px;top:6px}
+.ovp .tile .shotimg{display:block;width:100%;border-radius:12px;border:1px solid var(--line);margin-top:auto}
+.ovp .name{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ovp .name div{border-radius:16px;border:1px solid var(--line);padding:14px 14px 14px;display:grid;gap:10px;position:relative;overflow:hidden}
+.ovp .name b{font:800 clamp(44px,5vw,72px)/1 var(--f-display);letter-spacing:-.05em}
+.ovp .name span{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ovp .name div:nth-child(4) b{color:var(--coral)}
+.ovp .word sup{font:500 clamp(10px,1vw,13px) var(--f-mono);letter-spacing:.04em;color:var(--coral);vertical-align:top;margin-left:.15em;position:relative;top:.4em}
+
+/* ролик */
+.ovp .cinema{background:var(--night);color:var(--night-ink);border-radius:32px 32px 0 0;overflow:hidden}
+.ovp .cinema .wrap{padding-block:70px 80px}
+.ovp .cinema .mono{color:var(--night-muted)}
+.ovp .cinema-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.ovp .cinema-head h2{color:var(--night-ink)}
+.ovp .cinema-head h2 em{color:var(--night-muted)}
+.ovp .stage{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:start}
+.ovp .chapters{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.ovp .chapters button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;width:100%;padding:16px 18px;border-radius:16px;position:relative;overflow:hidden;transition:background .3s}
+.ovp .chapters button:hover{background:var(--night-2)}
+.ovp .chapters button[aria-current="true"]{background:var(--night-2)}
+.ovp .chapters .n{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px}
+.ovp .chapters .t{font:600 18px/1.25 var(--f-display);letter-spacing:-.02em}
+.ovp .chapters .d{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.ovp .chapters .s{grid-column:2/4;font-size:14px;line-height:1.45;color:var(--night-muted);display:none}
+.ovp .chapters button[aria-current="true"] .s{display:block}
+.ovp .chapters button[aria-current="true"] .n{color:var(--coral)}
+.ovp .chapters .bar{position:absolute;left:18px;right:18px;bottom:8px;height:2px;background:var(--night-line);border-radius:2px;opacity:0}
+.ovp .chapters button[aria-current="true"] .bar{opacity:1}
+.ovp .chapters .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:inherit}
+.ovp .screen-wrap{position:relative;padding-right:min(9%,110px);padding-bottom:40px}
+.ovp .browser{border-radius:18px;background:#E9E6E8;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.ovp .browser .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFECEE}
+.ovp .browser .bar i{width:11px;height:11px;border-radius:50%;background:#D3CDD1}
+.ovp .browser .bar i:first-child{background:#F36A55}
+.ovp .browser .bar span{margin-left:14px;flex:1;max-width:360px;font:500 12px var(--f-mono);color:#6E5F6B;background:#fff;border-radius:8px;padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovp .browser video,.ovp .browser > img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#fff}
+.ovp .phone{position:relative;width:100%;border-radius:38px;padding:9px;background:#141114;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),inset 0 0 0 1.5px #3A3239}
+.ovp .phone .scr{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:390/844;background:#fff}
+.ovp .phone .scr::before{content:"";position:absolute;z-index:2;left:50%;top:9px;width:30%;height:22px;border-radius:12px;background:#141114;transform:translateX(-50%)}
+.ovp .phone video,.ovp .phone img{display:block;width:100%}
+.ovp .phone video{height:100%;object-fit:cover;object-position:top}
+.ovp .stage .phone{position:absolute;right:0;bottom:0;width:min(23%,230px)}
+
+/* анатомия */
+.ovp .anat{padding-block:100px 40px}
+.ovp .anat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ovp .anat-head p{max-width:34em;color:var(--muted);margin:16px 0 0}
+.ovp .toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .toggle button{border:0;background:transparent;color:var(--muted);font:600 14px var(--f-display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.ovp .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ovp .anat-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;margin-top:40px}
+.ovp .steps{display:grid}
+.ovp .step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.38;transition:opacity .5s}
+.ovp .step:first-child{border-top:0}
+.ovp .step.on{opacity:1}
+.ovp .step .mono{display:flex;gap:12px;flex-wrap:wrap}
+.ovp .step h3{font:700 clamp(26px,2.8vw,40px)/1.04 var(--f-display);letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.ovp .step p{margin:0;max-width:31em}
+.ovp .step .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ovp .step .tags span{font:500 13px var(--f-body);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .viewer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);height:calc(100vh - 130px);max-height:820px;display:flex;align-items:flex-start;justify-content:center}
+.ovp .viewer .browser{width:100%;height:100%;display:flex;flex-direction:column}
+.ovp .viewer .phone{height:100%;width:auto;aspect-ratio:408/862;max-width:100%}
+.ovp .port{position:relative;flex:1;overflow:hidden;background:#1E1E20}
+.ovp .viewer .phone .scr{height:100%;width:100%;aspect-ratio:auto}
+.ovp .layer{position:absolute;left:0;top:0;width:100%;transition:transform 1.15s cubic-bezier(.7,0,.2,1);will-change:transform}
+.ovp .layer img{display:block;width:100%;aspect-ratio:auto;height:auto;object-fit:fill}
+.ovp .hl{position:absolute;left:6px;right:6px;border-radius:14px;box-shadow:0 0 0 2px var(--coral),0 0 0 4000px var(--dim);transition:top 1.15s cubic-bezier(.7,0,.2,1),height 1.15s cubic-bezier(.7,0,.2,1),opacity .4s;pointer-events:none}
+.ovp .hl b{position:absolute;left:10px;top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--coral);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ovp .viewer-note{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums;max-width:calc(100% - 24px)}
+
+/* инструменты после запуска */
+.ovp .kit{padding-block:90px 40px}
+.ovp .kit-head p{max-width:36em;color:var(--muted);margin:16px 0 0}
+.ovp .kit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:40px}
+.ovp .tile{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ovp .tile h3{margin:0;font:700 clamp(21px,1.9vw,26px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .tile p{margin:0;font-size:15px;color:var(--muted);max-width:34em}
+.ovp .t-qr{grid-column:span 4;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:26px;align-items:center}
+.ovp .t-qr .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .qr{width:92px;height:92px;border-radius:14px;background:var(--surface);border:1px solid var(--line);padding:8px;display:grid}
+.ovp .qr canvas{width:100%;height:100%;image-rendering:pixelated}
+.ovp .t-tg{grid-column:span 2;background:var(--night);color:var(--night-ink);border-color:var(--night)}
+.ovp .t-tg p{color:var(--night-muted)}
+.ovp .msg{margin-top:auto;border-radius:16px 16px 16px 4px;background:var(--night-2);padding:14px 16px;display:grid;gap:4px;font-size:14px;animation:ovp-msg 4.5s cubic-bezier(.2,.8,.2,1) infinite}
+.ovp .msg b{font:600 14px var(--f-display)}
+.ovp .msg span{color:var(--night-muted)}
+.ovp .msg .mono{color:var(--coral)}
+@keyframes ovp-msg{0%{transform:translateY(16px);opacity:0}10%,85%{transform:none;opacity:1}100%{opacity:0}}
+.ovp .t-promo{grid-column:span 3}
+.ovp .t-utp{grid-column:span 3}
+.ovp .promos,.ovp .utps{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.ovp .promos li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .promos li .mono{grid-row:span 2;align-self:center;min-width:5.6em}
+.ovp .promos li b{font:600 15px/1.3 var(--f-display)}
+.ovp .promos li:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 8%,transparent)}
+.ovp .promos li small{font-size:13px;color:var(--muted)}
+.ovp .utps li{display:grid;grid-template-columns:3.6em minmax(0,1fr);gap:12px;align-items:baseline;font:600 16px/1.3 var(--f-display);letter-spacing:-.01em;color:var(--muted)}
+.ovp .utps li s{text-decoration-color:color-mix(in srgb,var(--muted) 60%,transparent)}
+.ovp .utps li:last-child{color:var(--ink)}
+.ovp .t-an{grid-column:span 6;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:30px;align-items:center}
+.ovp .t-an .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .flowmap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;position:relative}
+.ovp .flowmap .col{display:grid;gap:10px}
+.ovp .flowmap .col > .mono{margin-bottom:2px}
+.ovp .node{border-radius:12px;padding:10px 12px;font:600 14px/1.25 var(--f-display);border:1px solid var(--line);background:var(--bg);position:relative}
+.ovp .node.btnish{background:var(--coral);color:var(--coral-ink);border-color:transparent;border-radius:999px;text-align:center}
+.ovp .node.goal{border-style:dashed}
+.ovp .node small{display:block;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.04em;margin-top:2px}
+.ovp .flowmap .col:not(:last-child) .node::after{content:"→";position:absolute;right:-11px;top:50%;transform:translate(50%,-50%);font:500 14px var(--f-mono);color:var(--coral)}
+
+/* процесс */
+.ovp .proc{padding-block:100px 60px}
+.ovp .track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:44px;position:relative}
+.ovp .track::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .st{position:relative;padding:44px 18px 0 0}
+.ovp .st::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--coral)}
+.ovp .st .mono{color:var(--coral)}
+.ovp .st h4{margin:8px 0 8px;font:700 21px/1.15 var(--f-display);letter-spacing:-.025em}
+.ovp .st p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.ovp .span-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px dashed var(--line)}
+
+/* итог */
+.ovp .result{padding-block:60px 110px}
+.ovp .result-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.ovp .res-num{border-radius:28px;background:var(--night);color:var(--night-ink);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:380px}
+.ovp .res-num .mono{color:var(--night-muted)}
+.ovp .res-num b{font:800 clamp(90px,13vw,190px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .res-num b span{color:var(--coral)}
+.ovp .res-num p{margin:0;color:var(--night-muted);max-width:26em}
+.ovp .quote{border-radius:28px;background:var(--surface);border:1px solid var(--line);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+.ovp .quote blockquote{margin:0;font:600 clamp(22px,2.2vw,30px)/1.25 var(--f-display);letter-spacing:-.025em;text-wrap:pretty}
+.ovp .who{display:flex;align-items:center;gap:14px}
+.ovp .who img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.ovp .who b{display:block;font:600 16px var(--f-display)}
+.ovp .who span{font-size:14px;color:var(--muted)}
+.ovp .cta{margin-top:24px;border-radius:28px;background:var(--coral);color:var(--coral-ink);padding:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.ovp .cta h2{margin:0;font:700 clamp(30px,3.8vw,54px)/1 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .cta p{margin:12px 0 0;opacity:.85}
+.ovp .cta .acts{display:grid;gap:12px;justify-items:start}
+.ovp .cta .btn{background:var(--coral-ink);color:var(--coral);box-shadow:none}
+.ovp .cta .phone-num{font:600 20px var(--f-display);user-select:all}
+.ovp .next{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding-block:28px 40px;border-top:1px solid var(--line)}
+.ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
+.ovp .next a:hover{color:var(--coral)}
+
+/* «Ваш визит» */
+.ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
+.ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+.ovp .visit .bars i{width:4px;border-radius:2px;background:var(--line);height:20%;transition:height .6s,background .6s}
+.ovp .visit .bars i.hot{background:var(--coral)}
+.ovp .visit .bars i.warm{background:color-mix(in srgb,var(--coral) 45%,var(--line))}
+.ovp .visit div{min-width:0}
+.ovp .visit .mono{font-size:10px}
+.ovp .visit b{display:block;font:600 15px/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.ovp .visit b em{font:500 13px var(--f-mono);font-style:normal;color:var(--coral);margin-left:6px}
+
+@media (max-width:1100px){
+  .ovp .stage{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .chapters .s{display:none!important}
+  .ovp .track{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
+  .ovp .track::before{display:none}
+  .ovp .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .t-qr,.ovp .t-an{grid-column:span 2}
+    .ovp .t-tg{grid-column:span 2}
+}
+@media (max-width:900px){
+  .ovp .top nav a.hide-s{display:none}
+  .ovp .word{font-size:min(13vw,170px);flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:0}
+  .ovp .reel-chip{order:3;width:100%;font-size:16px;margin-top:22px;border-radius:16px}
+  .ovp .reel-chip::after{width:14px;height:14px;border-width:3px}
+  .ovp .hero-low{grid-template-columns:minmax(0,1fr)}
+  .ovp .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .fact:nth-child(3){border-left:0;padding-left:0}
+  .ovp .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
+  .ovp .step{min-height:56vh}
+  .ovp .result-grid,.ovp .cta,.ovp .t-qr,.ovp .t-an{grid-template-columns:minmax(0,1fr)}
+  .ovp .kit-grid{grid-template-columns:minmax(0,1fr)}
+  .ovp .t-qr,.ovp .t-an,.ovp .t-tg,.ovp .t-promo,.ovp .t-utp{grid-column:auto}
+}
+@media (max-width:560px){
+  .ovp{font-size:16px}
+  .ovp .top .wrap{gap:10px}
+  .ovp .logo span{display:none}
+  .ovp .rec span{display:none}
+  .ovp .chapters{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters button{padding:12px 14px}
+  .ovp .screen-wrap{padding-right:0;padding-bottom:0}
+  .ovp .stage .phone{display:none}
+  .ovp .track{grid-template-columns:minmax(0,1fr)}
+  .ovp .res-num,.ovp .quote,.ovp .cta{padding:28px}
+  .ovp .tile{padding:20px}
+  .ovp .flowmap{grid-template-columns:minmax(0,1fr)}
+  .ovp .flowmap .col:not(:last-child) .node::after{display:none}
+  .ovp .visit .bars{display:none}
+  .ovp .visit b{max-width:72vw}
+}
+@media (max-width:1100px){
+  .ovp .tile.t-ph{grid-column:span 2}
+}
+@media (max-width:900px){
+  .ovp .fork-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;gap:12px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px)}
+  .ovp .scheme{display:none}
+  .ovp .fork-head .mono{display:none}
+  .ovp .fork-view{grid-template-rows:auto auto;align-content:start}
+  .ovp .fork-view .browser{height:auto}
+  .ovp .shot{flex:none;aspect-ratio:16/11}
+  .ovp .cap{grid-template-columns:minmax(0,1fr);gap:4px}
+  .ovp .cap .no{display:none}
+  .ovp .cap h3{font-size:21px}
+  .ovp .cap p{font-size:14px;line-height:1.45}
+  .ovp .mrail{display:flex;gap:4px;align-items:center}
+  .ovp .mrail i{flex:1;height:5px;border-radius:3px;background:var(--line);transition:background .3s}
+  .ovp .mrail i.done{background:var(--c)}
+  .ovp .mrail i.cur{background:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 30%,transparent)}
+  .ovp .mrail i.gap{flex:.4;background:none}
+  .ovp .tile.t-ph{grid-column:auto;grid-template-columns:minmax(0,1fr) minmax(0,130px)}
+  .ovp .name b{font-size:44px}
+}
+@media (max-width:560px){
+  .ovp .name{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .tile.t-ph{grid-template-columns:minmax(0,1fr)}
+  .ovp .t-ph .phone{max-width:180px}
+  .ovp .hdrs figcaption{flex-direction:column;gap:2px}
+}
+@media (max-height:700px) and (max-width:900px){
+  .ovp .cap p{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovp *,.ovp *::before,.ovp *::after{animation:none!important;transition:none!important}
+}
+</style>
+<div class="ovp">
+
+<section class="wrap hero" data-zone="Первый экран кейса">
+  <div class="hero-meta">
+    <span class="mono">Кейс · Лофт и кухня · Якутск · Tilda</span>
+    <span class="mono"><span class="dot" style="background:#D93030"></span><span class="dot" style="background:#2CB440"></span>depofood.ru · одна станция, две ветки</span>
+  </div>
+  <h2 class="word" aria-label="Депо">
+    <span class="part" aria-hidden="true"><span style="--i:0">Д</span><span style="--i:1">Е</span></span>
+    <figure class="reel-chip" style="margin:0">
+      <div class="stack" id="chip">
+        <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_l1.jpg" alt="Страница лофта на depofood.ru">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_f1.jpg" alt="Страница фуди шопа на depofood.ru" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_h2.jpg" alt="Главная depofood.ru: экосистема сервисов" loading="lazy">
+      </div>
+      <figcaption id="chipT">ветка · лофт</figcaption>
+    </figure>
+    <span class="part" aria-hidden="true"><span style="--i:2">П</span><span style="--i:3">О</span></span>
+  </h2>
+  <div class="hero-low">
+    <h1>Один сайт для двух бизнесов: <em>лофта для свадеб на 250 гостей и кухни, которая готовит еду для сетевых магазинов Якутска</em></h1>
+    <div class="hero-cta">
+      <a class="btn" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">Хочу такой сайт<small>расчёт бюджета за 24 часа</small></a>
+      <a class="link" href="#fork">Проехать по веткам ↓</a>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="mono">Дней до запуска</span><b>15</b></div>
+    <div class="fact"><span class="mono">Направления</span><b>2</b></div>
+    <div class="fact"><span class="mono">Площадь лофта, м²</span><b>500</b></div>
+    <div class="fact"><span class="mono">Хранение заморозки, суток</span><b>180</b></div>
+  </div>
+</section>
+
+<section class="fork" id="fork" data-zone="Две ветки" style="--n:14">
+  <div class="wrap fork-pin">
+    <div class="fork-head">
+      <h2>Одна станция, две ветки. <em>Листайте, поезд едет по сайту</em></h2>
+      <span class="mono">Главная → <b style="color:#D93030">лофт</b> · <b style="color:#2CB440">фуди шоп</b></span>
+    </div>
+    <div class="scheme" aria-hidden="true">
+      <svg viewBox="0 0 330 720" id="scheme">
+        <path class="ln" stroke="currentColor" d="M40 22 V150"/>
+        <path class="ln" stroke="#D93030" d="M40 130 V640"/>
+        <path class="ln" stroke="#2CB440" d="M40 150 C40 205 200 190 200 250 V680"/>
+        <path class="on" id="pT" stroke="currentColor" d="M40 22 V150"/>
+        <path class="on" id="pR" stroke="#D93030" d="M40 130 V640"/>
+        <path class="on" id="pG" stroke="#2CB440" d="M40 150 C40 205 200 190 200 250 V680"/>
+        <text class="tag" x="58" y="16" fill="currentColor">Главная</text>
+        <text class="tag" x="40" y="672" fill="#D93030" text-anchor="middle">Лофт</text>
+        <text class="tag" x="200" y="712" fill="#2CB440" text-anchor="middle">Фуди шоп</text>
+        <g class="stn" data-i="0"><circle cx="40" cy="44" r="8"/><text x="58" y="48">Онлайн-заказ</text></g>
+        <g class="stn hub" data-i="1"><circle cx="40" cy="130" r="11"/><text x="60" y="134">Развилка</text></g>
+        <g class="stn" data-i="2" style="color:#D93030"><circle cx="40" cy="220" r="8"/><text x="58" y="224">Первый экран</text></g>
+        <g class="stn" data-i="3" style="color:#D93030"><circle cx="40" cy="300" r="8"/><text x="58" y="304">Фотостена</text></g>
+        <g class="stn" data-i="4" style="color:#D93030"><circle cx="40" cy="380" r="8"/><text x="58" y="384">Восемь форматов</text></g>
+        <g class="stn" data-i="5" style="color:#D93030"><circle cx="40" cy="460" r="8"/><text x="58" y="464">Галерея</text></g>
+        <g class="stn" data-i="6" style="color:#D93030"><circle cx="40" cy="540" r="8"/><text x="58" y="544">Простор 500 м²</text></g>
+        <g class="stn" data-i="7" style="color:#D93030"><circle cx="40" cy="620" r="8"/><text x="58" y="624">Бронирование</text></g>
+        <g class="stn" data-i="8" style="color:#2CB440"><circle cx="200" cy="260" r="8"/><text x="216" y="264">Первый экран</text></g>
+        <g class="stn" data-i="9" style="color:#2CB440"><circle cx="200" cy="340" r="8"/><text x="216" y="344">Технологии</text></g>
+        <g class="stn" data-i="10" style="color:#2CB440"><circle cx="200" cy="420" r="8"/><text x="216" y="424">Диски</text></g>
+        <g class="stn" data-i="11" style="color:#2CB440"><circle cx="200" cy="500" r="8"/><text x="216" y="504">Команда</text></g>
+        <g class="stn" data-i="12" style="color:#2CB440"><circle cx="200" cy="580" r="8"/><text x="216" y="584">Ритейлерам</text></g>
+        <g class="stn" data-i="13" style="color:#2CB440"><circle cx="200" cy="660" r="8"/><text x="216" y="664">ПП-питание</text></g>
+        <g class="train" id="train"><circle class="halo" r="17"/><circle class="core" r="7"/></g>
+      </svg>
+    </div>
+    <div class="fork-view">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span id="forkUrl">depofood.ru</span></div>
+        <div class="shot" id="shot">
+          <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_h1.jpg" alt="Главная: онлайн-заказ продукции">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_h2.jpg" alt="Главная: экосистема сервисов и две кнопки" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_l1.jpg" alt="Лофт: первый экран" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_l2.jpg" alt="Лофт: фотографии с мероприятий" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_l3.jpg" alt="Лофт: форматы мероприятий" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_l4.jpg" alt="Лофт: галерея мероприятий" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_l5.jpg" alt="Лофт: простор и стиль" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_l6.jpg" alt="Лофт: как забронировать площадку" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_f1.jpg" alt="Фуди шоп: первый экран" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_f2.jpg" alt="Фуди шоп: технологии приготовления" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_f3.jpg" alt="Фуди шоп: новинки блюд в дисках" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_f4.jpg" alt="Фуди шоп: команда" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_f5.jpg" alt="Фуди шоп: кому полезны и форма для ритейлеров" loading="lazy">
+          <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/st_f6.jpg" alt="Правильное спортивное питание" loading="lazy">
+          <span class="line-chip" id="lineChip"><i></i><span>Главная</span></span>
+        </div>
+      </div>
+      <div class="caps" id="caps">
+        <article class="cap on" data-l="t" data-url="depofood.ru"><span class="no">01</span><span class="mono">Главная · онлайн-заказ</span><h3>Сначала то, за чем приходят чаще всего</h3><p>Главная открывается магазином: диски за 5–10 минут, пицца и ПП-меню, у каждой позиции своя кнопка. Над ними условия бесплатной доставки от 3000 ₽.</p></article>
+        <article class="cap" data-l="t" data-url="depofood.ru"><span class="no">02</span><span class="mono">Главная · развилка</span><h3>Две кнопки разводят два потока гостей</h3><p>«ДЕПО — экосистема сервисов для вашего отдыха и комфорта». Красная кнопка «Забронировать дату» ведёт в лофт, зелёная «Сотрудничество ритейл» в фуди шоп. Цвета веток дальше не смешиваются.</p></article>
+        <article class="cap" data-l="r" data-url="depofood.ru/loft"><span class="no">03</span><span class="mono">Лофт · первый экран</span><h3>Заголовок, который подставляет ваш повод</h3><p>«Новая Loft площадка в Якутске для…» и дальше печатается: свадьбы, корпоратива, конференции, мастер-класса. У лофта свой телефон и WhatsApp прямо в шапке.</p></article>
+        <article class="cap" data-l="r" data-url="depofood.ru/loft"><span class="no">04</span><span class="mono">Лофт · фотостена</span><h3>Площадку продают настоящие праздники</h3><p>Сразу после первого экрана живые кадры: свадебные столы, фотозоны, горка из бокалов, гости.</p></article>
+        <article class="cap" data-l="r" data-url="depofood.ru/loft#formats"><span class="no">05</span><span class="mono">Лофт · форматы</span><h3>Восемь поводов, восемь карточек</h3><p>Свадьба, корпоратив, конференция, гастроужин, мастер-класс, концерт, день рождения и выпускной. Гость находит свой формат и видит, что площадку под него настроят.</p></article>
+        <article class="cap" data-l="r" data-url="depofood.ru/loft#gallery"><span class="no">06</span><span class="mono">Лофт · галерея</span><h3>Официальное открытие в слайдере</h3><p>Свет, сцена, сервировка и микрофон на первом кадре. Полный альбом открытия лежит на отдельной странице.</p></article>
+        <article class="cap" data-l="r" data-url="depofood.ru/loft#about"><span class="no">07</span><span class="mono">Лофт · простор</span><h3>Цифры площадки без лишних слов</h3><p>500 м², от 50 до 250 гостей, мягкая мебель и новое оборудование. Ниже карусель удобств: единственный лофт в городе, три фотозоны, проектор, микрофоны и экран.</p></article>
+        <article class="cap" data-l="r" data-url="depofood.ru/loft#booking"><span class="no">08</span><span class="mono">Лофт · бронирование</span><h3>Три шага до праздника</h3><p>Заявка или звонок, экскурсия по лофту с программой и договором, само мероприятие. Честно предупреждаем, что это 2–3 встречи. Внизу красная кнопка заявки и зелёная WhatsApp.</p></article>
+        <article class="cap" data-l="g" data-url="depofood.ru/foodyshop"><span class="no">09</span><span class="mono">Фуди шоп · первый экран</span><h3>Другой покупатель, другая станция</h3><p>«Готовая еда и полуфабрикаты для дома, работы и бизнеса». Светлая тема, контейнеры с едой, свой номер телефона и меню: каталог, услуги, юрлицам.</p></article>
+        <article class="cap" data-l="g" data-url="depofood.ru/foodyshop#tech"><span class="no">10</span><span class="mono">Фуди шоп · технологии</span><h3>Технология объясняет срок хранения</h3><p>Газомодифицированная среда держит горячие блюда и салаты 5 суток, шоковая заморозка сохраняет вкус до 180 суток. Под каждой технологией фото настоящего цеха.</p></article>
+        <article class="cap" data-l="g" data-url="depofood.ru/foodyshop#new"><span class="no">11</span><span class="mono">Фуди шоп · новинки</span><h3>Инструкция в одну строку</h3><p>Линейка с шефом Андрэ: диски от 800 г, порционные блюда, шашлыки и пицца. «Переложите в кастрюлю и разогрейте 5–10 минут», и ужин на столе.</p></article>
+        <article class="cap" data-l="g" data-url="depofood.ru/foodyshop#team"><span class="no">12</span><span class="mono">Фуди шоп · команда</span><h3>Люди, которые стоят за едой</h3><p>Технолог, заведующий производством и бренд-шеф. В их опыте меню для Grow Food, ВкусВилла, X5 и ресторанов Санкт-Петербурга. Тот же блок стоит на главной.</p></article>
+        <article class="cap" data-l="g" data-url="depofood.ru/foodyshop#b2b"><span class="no">13</span><span class="mono">Фуди шоп · ритейлерам</span><h3>Отдельный вход для сетевых магазинов</h3><p>Шесть сценариев, от доставки домой до фабрики кухни, и тёмная форма для ритейлеров: имя, компания, телефон. Закупщику не нужно читать про свадьбы.</p></article>
+        <article class="cap" data-l="g" data-url="depofood.ru/chefandry"><span class="no">14</span><span class="mono">Ветка · правильное питание</span><h3>Су-вид с точным КБЖУ</h3><p>Своя страница для спортивного питания от бренд-шефа: свежесть до 10 суток, заказ за 2 дня на неделю и скидка 10% на абонемент в фитнес-клубы «Статика».</p></article>
+      </div>
+      <div class="mrail" id="mrail" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cinema" id="reel" data-zone="Ролик">
+  <div class="wrap">
+    <div class="cinema-head">
+      <div><span class="mono">Запись · 1440 × 900 · без монтажа</span><h2 class="big">Сайт сегодня. <em>Шесть поездок по depofood.ru</em></h2></div>
+    </div>
+    <div class="stage">
+      <ol class="chapters" id="chapters">
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/hub.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/hub.jpg" data-url="depofood.ru" aria-current="true"><span class="n">01</span><span class="t">Главная-развилка</span><span class="d">0:16</span><span class="s">Онлайн-заказ, экосистема ДЕПО и два блока: лофт и фуди шоп для сетей.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/loft.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/loft.jpg" data-url="depofood.ru/loft"><span class="n">02</span><span class="t">Лофт</span><span class="d">0:16</span><span class="s">Печатающийся заголовок, фотостена с праздников и восемь форматов.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/gallery.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/gallery.jpg" data-url="depofood.ru/loft#gallery"><span class="n">03</span><span class="t">Галерея и бронь</span><span class="d">0:13</span><span class="s">Открытие площадки, удобства и три шага до мероприятия.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/food.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/food.jpg" data-url="depofood.ru/foodyshop"><span class="n">04</span><span class="t">Фуди шоп</span><span class="d">0:11</span><span class="s">Готовая еда, технологии хранения и новинки в дисках.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/team.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/team.jpg" data-url="depofood.ru/foodyshop#b2b"><span class="n">05</span><span class="t">Команда и ритейлерам</span><span class="d">0:17</span><span class="s">Шефы, шесть сценариев сотрудничества и форма для сетевых магазинов.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/pp.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/pp.jpg" data-url="depofood.ru/chefandry"><span class="n">06</span><span class="t">Правильное питание</span><span class="d">0:10</span><span class="s">Су-вид с КБЖУ, скидка в «Статике» и бренд-шеф линейки.</span><span class="bar"><i></i></span></button></li>
+      </ol>
+      <div class="screen-wrap">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span id="urlbar">depofood.ru</span></div>
+          <video id="player" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/hub.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/hub.jpg" muted playsinline autoplay preload="auto" aria-label="Запись сайта depofood.ru"></video>
+        </div>
+        <div class="phone" aria-label="Мобильная версия главной">
+          <div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/mobile_scroll.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/mobile_scroll.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap anat" id="anat" data-zone="Анатомия">
+  <div class="anat-head">
+    <div>
+      <span class="mono">Разбор главной · 9 105 px сверху вниз</span>
+      <h2 class="big">Анатомия главной. <em>Как одна страница держит два бизнеса</em></h2>
+      <p>Листайте: справа настоящий скриншот главной доезжает до блока, о котором я рассказываю. Глубина в пикселях показывает, где блок стоит на странице.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Устройство">
+      <button id="tD" aria-pressed="true">Компьютер</button>
+      <button id="tM" aria-pressed="false">Телефон</button>
+    </div>
+  </div>
+  <div class="anat-grid">
+    <div class="steps" id="steps">
+      <article class="step on" data-d="0,1804" data-m="0,2033">
+        <span class="mono"><b>↓ 0 px</b><span>Онлайн-заказ</span></span>
+        <h3>Магазин на первом экране</h3>
+        <p>Шапка с двумя кнопками-ветками: «Депо Фуди Шоп» и «Депо Лофт-площадка». Под ней три товара с фото сверху: диски, пицца и правильное меню су-вид. Условия доставки до первой прокрутки: от 3000 ₽ бесплатно, в будни с 14:00 до 17:00.</p>
+        <div class="tags"><span>диски</span><span>пицца</span><span>ПП-меню</span></div>
+      </article>
+      <article class="step" data-d="1950,965" data-m="2179,844">
+        <span class="mono"><b>↓ 1 950 px</b><span>Развилка</span></span>
+        <h3>Экосистема в одной фразе</h3>
+        <p>Тёмный экран с фото зала: «ДЕПО — экосистема сервисов для вашего отдыха и комфорта». Две кнопки разного цвета. Посетитель сам выбирает, кто он: гость праздника или партнёр-магазин.</p>
+        <div class="tags"><span>красная: лофт</span><span>зелёная: ритейл</span></div>
+      </article>
+      <article class="step" data-d="3035,700" data-m="3113,782">
+        <span class="mono"><b>↓ 3 035 px</b><span>Лофт-площадка</span></span>
+        <h3>Краткий паспорт лофта</h3>
+        <p>500 м², до 250 гостей, трендовые фотозоны, мягкая мебель и современное оборудование. Кнопка «Забронировать дату» ведёт на страницу лофта.</p>
+        <div class="tags"><span>500 м²</span><span>до 250 гостей</span></div>
+      </article>
+      <article class="step" data-d="3795,732" data-m="3924,1129">
+        <span class="mono"><b>↓ 3 795 px</b><span>Фуди шоп для сетей</span></span>
+        <h3>Три вида продукции и сроки</h3>
+        <p>Готовая продукция до 5 суток, замороженные обеды и полуфабрикаты до 180 суток. Справа стеллаж цеха с мясом и рыбой, внизу «Условия сотрудничества» для магазинов и гипермаркетов.</p>
+        <div class="tags"><span>5 суток</span><span>180 суток</span><span>сети</span></div>
+      </article>
+      <article class="step" data-d="4647,687" data-m="5144,1298">
+        <span class="mono"><b>↓ 4 647 px</b><span>Миссия</span></span>
+        <h3>Что общего у лофта и кухни</h3>
+        <p>Три обещания, которые работают для обоих направлений: профессиональный подход, качество по технологическим картам и экономия сил и времени.</p>
+        <div class="tags"><span>подход</span><span>качество</span><span>время</span></div>
+      </article>
+      <article class="step" data-d="5454,1223" data-m="6532,2436">
+        <span class="mono"><b>↓ 5 454 px</b><span>Команда</span></span>
+        <h3>«Не просто кухня и лофт-площадка»</h3>
+        <p>Технолог Дмитрий Расшивалин, заведующий производством Александр Бондин и бренд-шеф Андрей Мустяцэ. Фото на кухне, у каждого строка опыта.</p>
+        <div class="tags"><span>3 профессионала</span><span>фото на кухне</span></div>
+      </article>
+      <article class="step" data-d="7037,1009" data-m="9238,1557">
+        <span class="mono"><b>↓ 7 037 px</b><span>Вопросы</span></span>
+        <h3>Одна форма на оба направления</h3>
+        <p>«Если у вас остались вопросы, отправьте их нам». Рядом фото команды ДЕПО в фирменных фартуках. Согласие на обработку данных по 152-ФЗ под формой.</p>
+        <div class="tags"><span>форма</span><span>152-ФЗ</span></div>
+      </article>
+      <article class="step" data-d="8166,869" data-m="10886,656">
+        <span class="mono"><b>↓ 8 166 px</b><span>Подвал</span></span>
+        <h3>«Твоя станция для ярких событий»</h3>
+        <p>Слоган связывает название с метафорой станции. Здесь же ещё раз оба направления, политика конфиденциальности и подпись разработчика.</p>
+        <div class="tags"><span>слоган</span><span>2 направления</span></div>
+      </article>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="browser" id="vD">
+        <div class="bar"><i></i><i></i><i></i><span>depofood.ru</span></div>
+        <div class="port" id="portD"><div class="layer" id="layerD"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/home-d.jpg" alt="Полный скриншот главной depofood.ru, компьютер" width="1100" height="6955"><div class="hl" id="hlD"><b>Онлайн-заказ</b></div></div><span class="viewer-note" id="noteD">↓ 0 px</span></div>
+      </div>
+      <div class="phone" id="vM" hidden>
+        <div class="scr port" id="portM"><div class="layer" id="layerM"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/home-m.jpg" alt="Полный скриншот главной depofood.ru, телефон" width="520" height="15481"><div class="hl" id="hlM"><b>Онлайн-заказ</b></div></div><span class="viewer-note" id="noteM">↓ 0 px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap kit" data-zone="За кадром">
+  <div class="kit-head">
+    <span class="mono">Что работает за кадром</span>
+    <h2 class="big">Два бизнеса на одном домене. <em>Как они не мешают друг другу</em></h2>
+    <p>Гость свадьбы и закупщик сети приходят на один адрес, но ищут разное. Поэтому у каждой ветки своя шапка, свой телефон и свой цвет.</p>
+  </div>
+  <div class="kit-grid">
+    <article class="tile t-qr">
+      <div class="txt">
+        <span class="mono">Три шапки · один логотип</span>
+        <h3>Меню меняется вместе с веткой</h3>
+        <p>На главной в шапке оба направления. В лофте пункты про площадку и номер лофта, в фуди шопе каталог, услуги, «Юр. лицам» и другой номер. Звонок сразу попадает к нужному менеджеру.</p>
+      </div>
+      <div class="hdrs">
+        <figure><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/hdr_home.jpg" alt="Шапка главной depofood.ru" loading="lazy"><figcaption><b>Главная</b><span>Лофт, фуди шоп, правильное питание</span></figcaption></figure>
+        <figure class="r"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/hdr_loft.jpg" alt="Шапка страницы лофта" loading="lazy"><figcaption><b>Лофт</b><span>8 (924) 664-46-60 · форматы, площадка, бронь, FAQ</span></figcaption></figure>
+        <figure class="g"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/hdr_food.jpg" alt="Шапка фуди шопа" loading="lazy"><figcaption><b>Фуди шоп</b><span>8 (924) 369-76-89 · каталог, услуги, юрлицам</span></figcaption></figure>
+      </div>
+    </article>
+    <article class="tile t-ph">
+      <div class="txt">
+        <span class="mono">Лофт · телефон</span>
+        <h3>Свадьбу выбирают с телефона</h3>
+        <p>Мобильная версия лофта: печатающийся заголовок, форматы столбиком и кнопка WhatsApp под каждым блоком.</p>
+      </div>
+      <div class="phone"><div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/mobile_loft.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/mobile_loft.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Мобильная версия страницы лофта"></video></div></div>
+    </article>
+    <article class="tile t-promo">
+      <span class="mono">B2B · фуди шоп</span>
+      <h3>Форма для ритейлеров</h3>
+      <p>Сетевым магазинам не нужна корзина. Им нужен разговор об условиях, поэтому вместо каталога короткая форма с названием компании.</p>
+      <img class="shotimg" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/retail.jpg" alt="Блок «Информация для ритейлеров» на depofood.ru" loading="lazy">
+    </article>
+    <article class="tile t-utp">
+      <span class="mono">Партнёр · фитнес-клубы «Статика»</span>
+      <h3>Скидка, которая продаёт рацион</h3>
+      <p>При заказе недельного ПП-рациона клиент получает −10% на абонемент в сеть фитнес-клубов. Форма сразу собирает имя и телефон.</p>
+      <img class="shotimg" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/depofood/statika.jpg" alt="Блок партнёрской скидки «Статики»" loading="lazy">
+    </article>
+    <article class="tile t-an">
+      <div class="txt">
+        <span class="mono">Технологии простым языком</span>
+        <h3>Срок хранения вместо терминов</h3>
+        <p>«Газомодифицированная среда» и «су-вид» мало что говорят покупателю. На сайте каждая технология привязана к понятному ответу: сколько еда будет свежей.</p>
+      </div>
+      <div class="flowmap" aria-label="Схема: продукт, технология, срок хранения">
+        <div class="col"><span class="mono">Продукт</span><div class="node">Горячие блюда и салаты</div><div class="node">Замороженные блюда</div><div class="node">ПП-рацион</div></div>
+        <div class="col"><span class="mono">Технология</span><div class="node btnish">ГМС</div><div class="node btnish">Шоковая заморозка</div><div class="node btnish">Су-вид</div></div>
+        <div class="col"><span class="mono">Свежесть</span><div class="node goal">5 суток</div><div class="node goal">до 180 суток</div><div class="node goal">до 10 суток</div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap proc" id="proc" data-zone="Как шла работа">
+  <span class="mono">Как появился сайт</span>
+  <h2 class="big">Пятнадцать дней. <em>От первого письма до запуска</em></h2>
+  <div class="track" id="track">
+    <div class="st"><span class="mono">01</span><h4>Письмо</h4><p>Я нашёл ДЕПО сам и написал первым. Сайта у компании до этого не было.</p></div>
+    <div class="st"><span class="mono">02</span><h4>Созвоны</h4><p>Два-три видеозвонка с основателями. Они задавали много вопросов, я показывал, как будем строить сайт, и собирал требования.</p></div>
+    <div class="st"><span class="mono">03</span><h4>Структура</h4><p>Главная стала развилкой, у лофта и фуди шопа появились свои страницы, шапки и телефоны.</p></div>
+    <div class="st"><span class="mono">04</span><h4>Дизайн</h4><p>Чёрный и красный из логотипа, зелёный в пару к нему, широкий гротеск в заголовках. Красные кнопки ведут к праздникам, зелёные к еде и партнёрам.</p></div>
+    <div class="st"><span class="mono">05</span><h4>Запуск</h4><p>Вёрстка на Tilda, формы, WhatsApp, Метрика, политика конфиденциальности и согласие по 152-ФЗ.</p></div>
+  </div>
+  <div class="span-note"><span class="mono">Бриф</span><span class="mono"><b>15 дней</b> на весь сайт</span><span class="mono">Запуск</span></div>
+</section>
+
+<section class="wrap result" data-zone="Результат">
+  <div class="result-grid">
+    <div class="res-num">
+      <span class="mono">Главная сложность</span>
+      <b>1<span>+</span>1</b>
+      <p>Лофт для свадеб и производство полуфабрикатов для сетей не похожи ни аудиторией, ни языком. Сайт не смешивает их: главная разводит посетителей, а каждая ветка говорит со своим человеком.</p>
+    </div>
+    <div class="quote">
+      <span class="mono">Откуда название</span>
+      <div class="name" aria-label="ДЕПО: первые буквы имён четырёх основателей">
+        <div><b>Д</b><span>основатель 1</span></div>
+        <div><b>Е</b><span>основатель 2</span></div>
+        <div><b>П</b><span>основатель 3</span></div>
+        <div><b>О</b><span>основатель 4</span></div>
+      </div>
+      <blockquote>ДЕПО собрано из первых букв имён четырёх основателей. Сайт подхватил второе значение слова: депо как станция, откуда расходятся пути.</blockquote>
+    </div>
+  </div>
+  <div class="cta">
+    <div>
+      <h2>Несколько направлений и один сайт?</h2>
+      <p>Расскажите о бизнесе, и я пришлю бюджет и сроки меньше чем за 24 часа.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="https://t.me/Ovchinnikov_dsgn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <span class="phone-num">+7 (910) 970-01-24</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap next">
+  <span class="mono">Следующий кейс</span>
+  <a href="https://ovchinnikov-dsgn.ru/project_prospect" target="_blank" rel="noopener">Prospect, кейтеринг в Ярославле →</a>
+</footer>
+</div>
+<script>
+
+(()=>{
+const R=document.querySelector('.ovp');if(!R)return;const $=s=>R.querySelector(s),$$=s=>[...R.querySelectorAll(s)];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* слово в hero подгоняется под ширину колонки */
+const word=$('.word');function fit(){const narrow=innerWidth<=900;word.style.fontSize='';
+  const parts=[...word.querySelectorAll('.part')],chip=word.querySelector('.reel-chip');
+  const need=parts.reduce((a,p)=>a+p.scrollWidth,0)+(narrow?0:chip.offsetWidth)+ (narrow?4:40);
+  const fs=parseFloat(getComputedStyle(word).fontSize);if(need>word.clientWidth)word.style.fontSize=(fs*word.clientWidth/need*.985)+'px'}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);addEventListener('resize',fit);fit();
+
+/* окошко в hero: ветки сайта сменяют друг друга */
+const chipImgs=$$('#chip img'),chipLbl=['ветка · лофт','ветка · фуди шоп','станция · главная'];let ci=0;
+if(!reduce)setInterval(()=>{chipImgs[ci].classList.remove('on');ci=(ci+1)%chipImgs.length;chipImgs[ci].classList.add('on');$('#chipT').textContent=chipLbl[ci]},2200);
+
+/* две ветки: прокрутка ведёт поезд по схеме, справа экран станции */
+const fork=$('#fork'),caps=$$('#caps .cap'),shots=$$('#shot img'),stns=$$('.stn'),N=caps.length,train=$('#train');
+const COL={t:'#2F282E',r:'#D93030',g:'#2CB440'},LBL={t:'Главная',r:'Красная ветка · лофт',g:'Зелёная ветка · фуди шоп'};
+const P={t:$('#pT'),r:$('#pR'),g:$('#pG')},LEN={};
+for(const k in P){LEN[k]=P[k].getTotalLength();P[k].style.strokeDasharray=LEN[k];P[k].style.strokeDashoffset=LEN[k]}
+const pos=stns.map(g=>{const c=g.querySelector('circle');return [+c.getAttribute('cx'),+c.getAttribute('cy')]});
+// длина зелёной ветки до станции: кривая + прямой участок
+const gCurve=LEN.g-(680-250);
+const mr=$('#mrail');caps.forEach((c,k)=>{if(k===2||k===8){const g=document.createElement('i');g.className='gap';mr.appendChild(g)}const i=document.createElement('i');i.style.setProperty('--c',COL[c.dataset.l]);mr.appendChild(i)});
+const mdots=[...mr.querySelectorAll('i:not(.gap)')];
+let fi=-1;
+function setF(i){if(i===fi)return;fi=i;const l=caps[i].dataset.l;
+  caps.forEach((c,k)=>{c.classList.toggle('on',k===i);c.style.setProperty('--c',COL[c.dataset.l])});
+  shots.forEach((s,k)=>{if(k===i){s.classList.remove('on');void s.offsetWidth;s.classList.add('on')}else s.classList.remove('on')});
+  stns.forEach((g,k)=>{g.classList.toggle('cur',k===i);g.classList.toggle('past',k<i&&!(caps[k].dataset.l==='r'&&l==='t'))});
+  mdots.forEach((d,k)=>{d.classList.toggle('cur',k===i);d.classList.toggle('done',k<i)});
+  const fT=i>=1?1:.3,fR=i<2?0:i>7?1:(pos[i][1]-130)/510,fG=i<8?0:(gCurve+pos[i][1]-250)/LEN.g;
+  P.t.style.strokeDashoffset=LEN.t*(1-fT);P.r.style.strokeDashoffset=LEN.r*(1-fR);P.g.style.strokeDashoffset=LEN.g*(1-fG);
+  train.style.transform=`translate(${pos[i][0]}px,${pos[i][1]}px)`;train.style.color=COL[l];
+  const chip=$('#lineChip');chip.style.setProperty('--lc',COL[l]);chip.querySelector('span').textContent=LBL[l];
+  $('#forkUrl').textContent=caps[i].dataset.url}
+let fr=0;function fPick(){fr=0;const r=fork.getBoundingClientRect(),span=r.height-innerHeight;
+  const p=Math.min(1,Math.max(0,-r.top/Math.max(1,span)));setF(Math.min(N-1,Math.floor(p*N*.999)))}
+addEventListener('scroll',()=>{if(!fr)fr=requestAnimationFrame(fPick)},{passive:true});
+function goF(k){const span=fork.offsetHeight-innerHeight;scrollTo({top:fork.getBoundingClientRect().top+scrollY+span*(k+.5)/N,behavior:reduce?'auto':'smooth'})}
+stns.forEach((g,k)=>g.addEventListener('click',()=>goF(k)));
+setF(0);fPick();
+
+/* ролик по главам */
+const player=$('#player'),chs=$$('#chapters button');let cur=0;
+function play(i){cur=(i+chs.length)%chs.length;chs.forEach((b,k)=>{b.setAttribute('aria-current',k===cur);b.querySelector('.bar i').style.width='0'});
+  const b=chs[cur];player.poster=b.dataset.poster;player.src=b.dataset.src;$('#urlbar').textContent=b.dataset.url;player.play().catch(()=>{})}
+chs.forEach((b,i)=>b.addEventListener('click',()=>play(i)));
+player.addEventListener('timeupdate',()=>{if(player.duration)chs[cur].querySelector('.bar i').style.width=(player.currentTime/player.duration*100)+'%'});
+player.addEventListener('ended',()=>play(cur+1));
+// видео играют только на экране
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.15});
+$$('video').forEach(v=>{if(reduce){v.removeAttribute('autoplay');v.pause()}vio.observe(v)});
+
+/* анатомия */
+const W={d:1440,m:390};let mode='d',active=0;
+const steps=$$('.step');
+function show(i){active=i;steps.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const s=steps[i],M=mode.toUpperCase(),port=$('#port'+M),layer=$('#layer'+M),img=layer.querySelector('img'),hl=$('#hl'+M);
+  if(!s.dataset[mode]){hl.style.opacity='0';$('#note'+M).textContent='Этот блок есть только на компьютере';return}
+  hl.style.opacity='1';
+  const [y,h]=s.dataset[mode].split(',').map(Number);
+  const k=port.clientWidth/W[mode],ph=port.clientHeight,top=y*k,hh=h*k;
+  const imgH=port.clientWidth*img.height/img.width;
+  let off=hh<ph-60?top-(ph-hh)/2:top-28;off=Math.max(0,Math.min(off,imgH-ph));
+  layer.style.transform=`translateY(${-off}px)`;hl.style.top=top+'px';hl.style.height=hh+'px';
+  hl.querySelector('b').textContent=s.querySelector('.mono span').textContent;
+  $('#note'+M).textContent='↓ '+Math.round(y).toLocaleString('ru-RU')+' px'}
+// активный шаг выбирается по линии чтения, а не IntersectionObserver: во встроенном фрейме rootMargin не работает
+const viewer=$('#viewer');let raf=0;
+function pick(){raf=0;const vr=viewer.getBoundingClientRect(),narrow=innerWidth<=900;
+  const line=narrow?vr.bottom+(innerHeight-vr.bottom)*.35:innerHeight*.5;let i=0;
+  steps.forEach((s,k)=>{if(s.getBoundingClientRect().top<=line)i=k});if(i!==active)show(i)}
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+steps.forEach((s,i)=>s.addEventListener('click',()=>show(i)));
+function setMode(m){mode=m;$('#tD').setAttribute('aria-pressed',m==='d');$('#tM').setAttribute('aria-pressed',m==='m');$('#vD').hidden=m!=='d';$('#vM').hidden=m!=='m';
+  const im=$('#layerM img');if(m==='m'&&!im.src){im.src=im.dataset.src;im.onload=()=>show(active)}requestAnimationFrame(()=>show(active))}
+$('#tD').onclick=()=>setMode('d');$('#tM').onclick=()=>setMode('m');
+addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('load',()=>show(active));show(0);
+
+/* процесс: линия заполняется по мере прокрутки */
+const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+})();
+</script>
