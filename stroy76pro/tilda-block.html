@@ -1,0 +1,933 @@
+<!-- Кейс «Триколор» · «Чертёж». Вставьте целиком в блок T123 (HTML-код). Отступы блока сверху и снизу поставьте 0. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+/* Layout: кейс как стройка по чертежу. Фирменный стиль ovchinnikov-dsgn.ru (тёплый белый, сливово-чёрный, коралл, моно-подписи)
+   снаружи, синька чертежа и четыре акцента «Триколора» внутри. Высоты страниц в px — настоящие высоты страниц stroy76pro.ru при ширине 1440. */
+.ovp{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#846F81; --line:#E7E2E4;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --acc:#DB5B41; --bp:#0D2540; --bp-2:#12304F; --bp-ink:#D6E6FF; --bp-mute:#7FA4D6; --pipe:#FF7A5C;
+  --night:#1D181D; --night-2:#2A232A; --night-ink:#F4EEF2; --night-muted:#A8979F; --night-line:#3B323A;
+  --dim:rgba(29,24,29,.55);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:22px;
+}
+html[data-theme="dark"] .ovp{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A9979F; --line:#352D34;
+  --coral:#FF7A64; --coral-ink:#1A1012; 
+  --night:#0F0C0F; --night-2:#1E181E; --night-line:#342B33; --dim:rgba(8,6,8,.62); color-scheme:dark}
+
+.ovp,.ovp *{box-sizing:border-box}
+.ovp [hidden]{display:none!important}
+.ovp .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ovp{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+/* вёрстка на всю ширину экрана: поля 40px от 1400px, 20px на планшетах, 10px на телефонах */
+.ovp{--gut:40px}
+@media (max-width:1399px){.ovp{--gut:20px}}
+@media (max-width:767px){.ovp{--gut:10px}}
+.ovp .wrap{width:100%;margin:0;padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px))}
+.ovp a{color:inherit}
+.ovp :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.ovp .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .mono b{color:var(--coral);font-weight:500}
+.ovp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--acc);vertical-align:middle;margin-right:6px}
+.ovp .btn{display:inline-flex;flex-direction:column;justify-content:center;gap:2px;padding:14px 26px;border-radius:999px;background:var(--coral);color:var(--coral-ink);text-decoration:none;font:600 16px/1.2 var(--f-display);box-shadow:0 14px 30px -14px var(--coral);transition:transform .25s,box-shadow .25s}
+.ovp .btn small{font:500 12px var(--f-body);opacity:.85}
+.ovp .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--coral)}
+.ovp .link{font:600 15px var(--f-display);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.ovp h2.big{font:700 clamp(36px,5.6vw,80px)/.95 var(--f-display);letter-spacing:-.045em;margin:10px 0 0;text-wrap:balance}
+.ovp h2.big em{font-style:normal;color:var(--muted)}
+
+/* шапка */
+.ovp .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ovp .top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.ovp .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.ovp .logo svg{flex:none}
+.ovp .logo b{display:block;font:600 15px/1.15 var(--f-display);letter-spacing:.02em}
+.ovp .logo span{display:block;font-size:13px;color:var(--muted)}
+.ovp .top nav{margin-left:auto;display:flex;align-items:center;gap:22px}
+.ovp .top nav a{font:500 15px var(--f-body);text-decoration:none;color:var(--muted)}
+.ovp .top nav a:hover{color:var(--ink)}
+.ovp .rec{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:500 12px var(--f-mono);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ovp .rec i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:ovp-blink 1.4s steps(2) infinite}
+@keyframes ovp-blink{50%{opacity:.15}}
+
+/* hero */
+.ovp .hero{padding-block:18px 34px}
+.ovp .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ovp .word{display:flex;align-items:center;justify-content:space-between;gap:0;font:800 min(15vw,200px)/.8 var(--f-display);letter-spacing:-.065em;margin:0;text-transform:uppercase;white-space:nowrap}
+.ovp .word .part{display:flex;overflow:hidden;padding-block:.06em .02em}
+.ovp .word .part span{display:inline-block;animation:ovp-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*55ms + 120ms)}
+.ovp .word .part .t{color:var(--acc)}
+@keyframes ovp-rise{from{transform:translateY(105%)}}
+.ovp .reel-chip{position:relative;flex:1 1 auto;min-width:1.4em;height:.74em;margin-inline:.14em!important;border-radius:.08em;overflow:visible;animation:ovp-pop 1s cubic-bezier(.2,.9,.25,1.15) .45s both;margin-top:.05em!important}
+.ovp .reel-chip .stack{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--night);box-shadow:0 30px 60px -30px rgba(29,24,29,.55)}
+.ovp .reel-chip .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%;opacity:0;transition:opacity .5s}
+.ovp .reel-chip .stack img.on{opacity:1}
+.ovp .reel-chip::after{content:"";position:absolute;right:-.05em;top:-.05em;width:.1em;height:.1em;border-radius:50%;background:var(--coral);border:.02em solid var(--bg)}
+.ovp .reel-chip figcaption{position:absolute;left:.05em;bottom:.05em;font:500 clamp(9px,.9vw,12px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,16,20,.62);backdrop-filter:blur(6px);padding:6px 9px;border-radius:999px;font-variant-numeric:tabular-nums}
+@keyframes ovp-pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+.ovp .hero-low{display:grid;grid-template-columns:minmax(0,1.25fr) auto;gap:28px;align-items:end;margin-top:30px}
+.ovp .hero-low h1{font:700 clamp(28px,3.3vw,46px)/1.02 var(--f-display);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ovp .hero-low h1 em{font-style:normal;color:var(--muted)}
+.ovp .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ovp .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.ovp .fact{padding:20px 20px 4px 0;display:grid;gap:6px}
+.ovp .fact+.fact{padding-left:20px;border-left:1px solid var(--line)}
+.ovp .fact b{font:700 clamp(34px,4.2vw,58px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.ovp .fact b small{font-size:.5em;color:var(--muted);letter-spacing:-.02em;margin-left:.1em}
+
+/* общие рамки */
+.ovp .browser{border-radius:18px;background:#E9E6E8;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.ovp .browser .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFECEE}
+.ovp .browser .bar i{width:11px;height:11px;border-radius:50%;background:#D3CDD1}
+.ovp .browser .bar i:first-child{background:#F36A55}
+.ovp .browser .bar span{margin-left:14px;flex:1;max-width:360px;font:500 12px var(--f-mono);color:#6E5F6B;background:#fff;border-radius:8px;padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovp .browser video,.ovp .browser > img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#fff}
+.ovp .phone{position:relative;width:100%;border-radius:38px;padding:9px;background:#141114;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),inset 0 0 0 1.5px #3A3239}
+.ovp .phone .scr{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:390/844;background:#fff}
+.ovp .phone .scr::before{content:"";position:absolute;z-index:2;left:50%;top:9px;width:30%;height:22px;border-radius:12px;background:#141114;transform:translateX(-50%)}
+.ovp .phone video,.ovp .phone img{display:block;width:100%}
+.ovp .phone video{height:100%;object-fit:cover;object-position:top}
+
+/* восемь страниц: город из страниц, текущая прокручивается вместе с читателем */
+.ovp .pages{position:relative;height:calc(var(--n,8) * 95vh + 50vh);margin-top:70px}
+.ovp .pg-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);height:calc(100vh - 86px);min-height:560px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto minmax(0,1fr);gap:20px 48px;padding-block:10px 26px}
+.ovp .pg-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .pg-head h2{margin:0;font:700 clamp(26px,3vw,42px)/1 var(--f-display);letter-spacing:-.04em;text-wrap:balance}
+.ovp .pg-head h2 em{font-style:normal;color:var(--muted)}
+.ovp .pg-left{min-width:0;display:grid;grid-template-rows:auto minmax(0,1fr);gap:26px}
+.ovp .sky{position:relative;display:grid;grid-template-columns:repeat(var(--n,8),minmax(0,1fr));gap:8px;align-items:end;height:clamp(110px,21vh,190px);padding-bottom:26px;border-bottom:1px solid var(--line)}
+.ovp .sky button{all:unset;box-sizing:border-box;cursor:pointer;position:relative;height:calc(var(--h) * 100%);border-radius:5px 5px 2px 2px;overflow:visible;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.ovp .sky button .im{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--surface);box-shadow:0 0 0 1px var(--line);opacity:.5;filter:grayscale(.7);transition:opacity .4s,filter .4s,box-shadow .3s}
+.ovp .sky button img{display:block;width:100%;height:100%;object-fit:fill}
+.ovp .sky button b{position:absolute;left:0;right:0;bottom:-24px;text-align:center;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.04em}
+.ovp .sky button.done .im{opacity:.8;filter:none}
+.ovp .sky button[aria-current="true"]{transform:translateY(-6px)}
+.ovp .sky button[aria-current="true"] .im{opacity:1;filter:none;box-shadow:0 0 0 2px var(--coral),0 18px 30px -16px rgba(29,24,29,.5)}
+.ovp .sky button[aria-current="true"] b{color:var(--coral)}
+.ovp .lens{position:absolute;left:-3px;right:-3px;top:0;height:10%;border:2px solid var(--coral);border-radius:4px;background:color-mix(in srgb,var(--coral) 22%,transparent);box-shadow:0 0 0 999px transparent;opacity:0;transition:opacity .3s;pointer-events:none}
+.ovp .sky button[aria-current="true"] .lens{opacity:1}
+.ovp .pg-text{position:relative;min-width:0;display:grid;align-content:center}
+.ovp .pr{grid-area:1/1;display:grid;gap:14px;align-content:center;opacity:0;transform:translateY(24px);transition:opacity .55s,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ovp .pr.on{opacity:1;transform:none;pointer-events:auto}
+.ovp .pr .no{font:800 clamp(56px,6.4vw,104px)/.8 var(--f-display);letter-spacing:-.07em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:.16em}
+.ovp .pr .no small{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}
+.ovp .pr h3{margin:2px 0 0;font:700 clamp(22px,2.2vw,30px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .diff{margin:2px 0 0;display:grid;gap:8px}
+.ovp .diff div{display:grid;grid-template-columns:6.4em minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .diff div:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 7%,transparent)}
+.ovp .diff dt{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .diff div:last-child dt{color:var(--coral)}
+.ovp .diff dd{margin:0;font-size:15px;line-height:1.45}
+.ovp .pg-screen{position:relative;min-width:0;display:flex}
+.ovp .pg-screen .browser{width:100%;display:flex;flex-direction:column}
+.ovp .scrub{position:relative;flex:1;overflow:hidden;background:#fff}
+.ovp .scrub img{position:absolute;left:0;top:0;width:100%;height:auto;opacity:0;will-change:transform}
+.ovp .scrub img.on{opacity:1}
+.ovp .wipe{position:absolute;inset:0;z-index:2;background:var(--acc);transform:translateY(101%);pointer-events:none}
+.ovp .wipe.go{animation:ovp-wipe .8s cubic-bezier(.7,0,.2,1)}
+@keyframes ovp-wipe{0%{transform:translateY(101%)}45%,55%{transform:none}100%{transform:translateY(-101%)}}
+.ovp .depth{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.72);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums}
+.ovp .depth i{display:inline-block;width:46px;height:3px;margin:0 8px 2px;border-radius:2px;background:rgba(255,255,255,.25);vertical-align:middle;position:relative;overflow:hidden}
+.ovp .depth i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--d,0%);background:var(--acc)}
+
+/* ролик */
+.ovp .cinema{background:var(--night);color:var(--night-ink);border-radius:32px 32px 0 0;overflow:hidden}
+.ovp .cinema .wrap{padding-block:70px 80px}
+.ovp .cinema .mono{color:var(--night-muted)}
+.ovp .cinema-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.ovp .cinema-head h2{color:var(--night-ink)}
+.ovp .cinema-head h2 em{color:var(--night-muted)}
+.ovp .stage{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:start}
+.ovp .chapters{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.ovp .chapters button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;width:100%;padding:13px 18px;border-radius:16px;position:relative;overflow:hidden;transition:background .3s}
+.ovp .chapters button:hover{background:var(--night-2)}
+.ovp .chapters button[aria-current="true"]{background:var(--night-2)}
+.ovp .chapters .n{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px}
+.ovp .chapters .t{font:600 17px/1.25 var(--f-display);letter-spacing:-.02em}
+.ovp .chapters .d{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.ovp .chapters .s{grid-column:2/4;font-size:14px;line-height:1.45;color:var(--night-muted);display:none}
+.ovp .chapters button[aria-current="true"] .s{display:block}
+.ovp .chapters button[aria-current="true"] .n{color:var(--coral)}
+.ovp .chapters .bar{position:absolute;left:18px;right:18px;bottom:7px;height:2px;background:var(--night-line);border-radius:2px;opacity:0}
+.ovp .chapters button[aria-current="true"] .bar{opacity:1}
+.ovp .chapters .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:inherit}
+.ovp .screen-wrap{position:relative;padding-right:min(9%,110px);padding-bottom:40px;position:sticky;top:110px}
+.ovp .stage .phone{position:absolute;right:0;bottom:0;width:min(23%,230px)}
+
+/* анатомия */
+.ovp .anat{padding-block:100px 40px}
+.ovp .anat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ovp .anat-head p{max-width:34em;color:var(--muted);margin:16px 0 0}
+.ovp .toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .toggle button{border:0;background:transparent;color:var(--muted);font:600 14px var(--f-display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.ovp .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ovp .anat-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;margin-top:40px}
+.ovp .steps{display:grid}
+.ovp .step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.38;transition:opacity .5s}
+.ovp .step:first-child{border-top:0}
+.ovp .step.on{opacity:1}
+.ovp .step .mono{display:flex;gap:12px;flex-wrap:wrap}
+.ovp .step h3{font:700 clamp(26px,2.8vw,40px)/1.04 var(--f-display);letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.ovp .step p{margin:0;max-width:31em}
+.ovp .step .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ovp .step .tags span{font:500 13px var(--f-body);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .viewer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);height:calc(100vh - 130px);max-height:820px;display:flex;align-items:flex-start;justify-content:center}
+.ovp .viewer .browser{width:100%;height:100%;display:flex;flex-direction:column}
+.ovp .viewer .phone{height:100%;width:auto;aspect-ratio:408/862;max-width:100%}
+.ovp .port{position:relative;flex:1;overflow:hidden;background:#1E1E20}
+.ovp .viewer .phone .scr{height:100%;width:100%;aspect-ratio:auto}
+.ovp .layer{position:absolute;left:0;top:0;width:100%;transition:transform 1.15s cubic-bezier(.7,0,.2,1);will-change:transform}
+.ovp .layer img{display:block;width:100%;aspect-ratio:auto;height:auto;object-fit:fill}
+.ovp .hl{position:absolute;left:6px;right:6px;border-radius:14px;box-shadow:0 0 0 2px var(--coral),0 0 0 4000px var(--dim);transition:top 1.15s cubic-bezier(.7,0,.2,1),height 1.15s cubic-bezier(.7,0,.2,1),opacity .4s;pointer-events:none}
+.ovp .hl b{position:absolute;left:10px;top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--coral);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ovp .viewer-note{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums;max-width:calc(100% - 24px)}
+
+/* за кадром */
+.ovp .kit{padding-block:90px 40px}
+.ovp .kit-head p{max-width:36em;color:var(--muted);margin:16px 0 0}
+.ovp .kit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:40px}
+.ovp .tile{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ovp .tile h3{margin:0;font:700 clamp(21px,1.9vw,26px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .tile p{margin:0;font-size:15px;color:var(--muted);max-width:34em}
+.ovp .t-quiz{grid-column:span 4;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:26px;align-items:center}
+.ovp .t-quiz .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .qsteps{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:6px;counter-reset:q}
+.ovp .qsteps li{display:flex;gap:10px;align-items:baseline;font:600 15px/1.3 var(--f-display)}
+.ovp .qsteps li::before{counter-increment:q;content:counter(q);flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--acc) 20%,transparent);color:var(--ink);font:500 11px var(--f-mono);transform:translateY(-1px)}
+.ovp .t-two{grid-column:span 2;background:var(--night);color:var(--night-ink);border-color:var(--night)}
+.ovp .t-two p{color:var(--night-muted)}
+.ovp .t-two .mono{color:var(--night-muted)}
+.ovp .sites{margin-top:auto;display:grid;gap:8px}
+.ovp .site{border-radius:14px;background:var(--night-2);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;font:600 15px var(--f-display)}
+.ovp .site small{font:500 11px var(--f-mono);color:var(--night-muted);letter-spacing:.04em}
+.ovp .site span{flex:none;width:10px;height:10px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 var(--acc);animation:ovp-ping 2.4s infinite}
+.ovp .site:last-child span{animation-delay:1.2s}
+@keyframes ovp-ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 60%,transparent)}70%,100%{box-shadow:0 0 0 12px transparent}}
+.ovp .t-est{grid-column:span 3}
+.ovp .t-deal{grid-column:span 3}
+.ovp .est{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.ovp .est li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .est li .mono{grid-row:span 2;align-self:center;min-width:5.2em}
+.ovp .est li b{font:600 15px/1.3 var(--f-display)}
+.ovp .est li small{font-size:13px;color:var(--muted)}
+.ovp .est li:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 8%,transparent)}
+.ovp .quota{display:grid;gap:10px;margin-top:4px}
+.ovp .quota div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}
+.ovp .quota span{font-size:14px;color:var(--muted)}
+.ovp .quota b{font:700 15px var(--f-display);font-variant-numeric:tabular-nums}
+.ovp .quota i{grid-column:1/-1;height:8px;border-radius:4px;background:var(--line);position:relative;overflow:hidden}
+.ovp .quota i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--acc);border-radius:inherit;transform-origin:left;animation:ovp-grow 1.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ovp-grow{from{transform:scaleX(0)}}
+.ovp .t-grow{grid-column:span 6;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:30px;align-items:center}
+.ovp .t-grow .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .layers{display:grid;gap:8px}
+.ovp .lay{display:grid;grid-template-columns:7.5em minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:var(--bg)}
+.ovp .lay .mono{color:var(--muted)}
+.ovp .lay b{font:600 15px/1.3 var(--f-display)}
+.ovp .lay em{font:500 11px var(--f-mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.ovp .lay.new{border-color:color-mix(in srgb,var(--acc) 60%,var(--line))}
+.ovp .lay.new em{background:color-mix(in srgb,var(--acc) 18%,transparent);border-color:transparent;color:var(--ink)}
+
+/* процесс */
+.ovp .proc{padding-block:100px 60px}
+.ovp .track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:44px;position:relative}
+.ovp .track::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .st{position:relative;padding:44px 18px 0 0}
+.ovp .st::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--coral)}
+.ovp .st .mono{color:var(--coral)}
+.ovp .st h4{margin:8px 0 8px;font:700 21px/1.15 var(--f-display);letter-spacing:-.025em}
+.ovp .st p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.ovp .span-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px dashed var(--line)}
+
+/* итог */
+.ovp .result{padding-block:60px 110px}
+.ovp .result-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.ovp .res-num{border-radius:28px;background:var(--night);color:var(--night-ink);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:380px}
+.ovp .res-num .mono{color:var(--night-muted)}
+.ovp .res-num b{font:800 clamp(90px,13vw,190px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .res-num b span{color:var(--coral)}
+.ovp .res-num p{margin:0;color:var(--night-muted);max-width:26em}
+.ovp .cta{margin-top:24px;border-radius:28px;background:var(--coral);color:var(--coral-ink);padding:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.ovp .cta h2{margin:0;font:700 clamp(30px,3.8vw,54px)/1 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .cta p{margin:12px 0 0;opacity:.85}
+.ovp .cta .acts{display:grid;gap:12px;justify-items:start}
+.ovp .cta .btn{background:var(--coral-ink);color:var(--coral);box-shadow:none}
+.ovp .cta .phone-num{font:600 20px var(--f-display);user-select:all}
+.ovp .next{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding-block:28px 40px;border-top:1px solid var(--line)}
+.ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
+.ovp .next a:hover{color:var(--coral)}
+
+/* «Ваш визит» */
+.ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
+.ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+.ovp .visit .bars i{width:4px;border-radius:2px;background:var(--line);height:20%;transition:height .6s,background .6s}
+.ovp .visit .bars i.hot{background:var(--coral)}
+.ovp .visit .bars i.warm{background:color-mix(in srgb,var(--coral) 45%,var(--line))}
+.ovp .visit div{min-width:0}
+.ovp .visit .mono{font-size:10px}
+.ovp .visit b{display:block;font:600 15px/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.ovp .visit b em{font:500 13px var(--f-mono);font-style:normal;color:var(--coral);margin-left:6px}
+
+@media (max-width:1100px){
+  .ovp .stage{grid-template-columns:minmax(0,1fr)}
+  .ovp .screen-wrap{position:relative;top:auto}
+  .ovp .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .chapters .s{display:none!important}
+  .ovp .track{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
+  .ovp .track::before{display:none}
+  .ovp .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .t-quiz,.ovp .t-grow{grid-column:span 2}
+  .ovp .t-est,.ovp .t-deal{grid-column:span 1}
+  .ovp .t-two{grid-column:span 2}
+}
+@media (max-width:900px){
+  .ovp .top nav a.hide-s{display:none}
+  .ovp .word{font-size:min(23vw,210px);flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:0}
+  .ovp .reel-chip{order:3;flex:none;width:100%;height:auto;aspect-ratio:16/10;font-size:16px;margin:22px 0 0!important;border-radius:16px}
+  .ovp .reel-chip::after{width:14px;height:14px;border-width:3px}
+  .ovp .hero-low{grid-template-columns:minmax(0,1fr)}
+  .ovp .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .fact:nth-child(3){border-left:0;padding-left:0}
+  .ovp .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .ovp .pg-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto auto;gap:12px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px);padding-block:6px 14px}
+  .ovp .pg-left{display:contents}
+  .ovp .pg-screen{grid-row:2}
+  .ovp .sky{grid-row:3;height:74px;padding-bottom:20px;gap:6px}
+  .ovp .sky button b{bottom:-19px;font-size:10px}
+  .ovp .pg-text{grid-row:4;align-content:start;min-height:9.5em}
+  .ovp .pr{align-content:start;gap:8px}
+  .ovp .pr .no{display:none}
+  .ovp .pr h3{font-size:20px}
+  .ovp .diff div{padding:8px 12px;gap:10px;grid-template-columns:5.6em minmax(0,1fr)}
+  .ovp .diff dd{font-size:14px;line-height:1.4}
+  .ovp .pg-head .mono{display:none}
+  .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
+  .ovp .step{min-height:56vh}
+  .ovp .result-grid,.ovp .cta,.ovp .t-quiz,.ovp .t-grow{grid-template-columns:minmax(0,1fr)}
+  .ovp .kit-grid{grid-template-columns:minmax(0,1fr)}
+  .ovp .t-quiz,.ovp .t-grow,.ovp .t-two,.ovp .t-est,.ovp .t-deal{grid-column:auto}
+}
+@media (max-width:560px){
+  .ovp{font-size:16px}
+  .ovp .top .wrap{gap:10px}
+  .ovp .logo span{display:none}
+  .ovp .rec span{display:none}
+  .ovp .chapters{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters button{padding:11px 14px}
+  .ovp .screen-wrap{padding-right:0;padding-bottom:0}
+  .ovp .stage .phone{display:none}
+  .ovp .track{grid-template-columns:minmax(0,1fr)}
+  .ovp .res-num,.ovp .res-two,.ovp .cta{padding:28px}
+  .ovp .tile{padding:20px}
+  .ovp .lay{grid-template-columns:minmax(0,1fr) auto}
+  .ovp .lay .mono{grid-column:1/-1}
+  .ovp .diff div:first-child{display:none}
+  .ovp .visit .bars{display:none}
+  .ovp .visit b{max-width:72vw}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovp *,.ovp *::before,.ovp *::after{animation:none!important;transition:none!important}
+}
+
+/* hero: «КОЛОР» перекрашивается в цвет страницы, которая сейчас в окошке */
+.ovp .word .part .k{color:var(--acc);transition:color .6s}
+.ovp .reel-chip .stack{box-shadow:0 0 0 .02em var(--acc),0 30px 60px -30px rgba(29,24,29,.55);transition:box-shadow .6s}
+.ovp .reel-chip::after{background:var(--acc);transition:background .6s}
+.ovp .swatch{display:inline-flex;gap:4px;vertical-align:middle;margin-right:8px}
+.ovp .swatch i{width:10px;height:10px;border-radius:3px;background:var(--c)}
+
+/* чертёж: главная собирается по этапам, как дом */
+.ovp .bp{position:relative;height:calc(6 * 100vh + 40vh);margin:30px var(--gut) 0;background:var(--bp);color:var(--bp-ink);border-radius:32px;isolation:isolate}
+.ovp .bp::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  background:linear-gradient(rgba(214,230,255,.05) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(214,230,255,.05) 1px,transparent 1px) 0 0/24px 24px,
+  linear-gradient(rgba(214,230,255,.08) 1px,transparent 1px) 0 0/120px 120px,linear-gradient(90deg,rgba(214,230,255,.08) 1px,transparent 1px) 0 0/120px 120px}
+.ovp .bp-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 66px);height:calc(100vh - 74px);min-height:560px;display:grid;grid-template-columns:minmax(0,3.3fr) minmax(0,9fr);grid-template-rows:auto minmax(0,1fr);gap:18px 40px;padding-block:26px 24px}
+.ovp .bp .wrap{padding-left:max(20px,var(--gut));padding-right:max(20px,var(--gut))}
+.ovp .bp .mono{color:var(--bp-mute)}
+.ovp .bp-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .bp-head h2{margin:8px 0 0;font:700 clamp(26px,3vw,44px)/1 var(--f-display);letter-spacing:-.04em;text-wrap:balance;max-width:22em}
+.ovp .bp-head h2 em{font-style:normal;color:var(--bp-mute)}
+.ovp .tn{display:flex;align-items:center;gap:10px;font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--bp-ink);padding:9px 14px;border-radius:999px;border:1px solid rgba(214,230,255,.22);font-variant-numeric:tabular-nums}
+.ovp .tn i{display:block;width:70px;height:3px;border-radius:2px;background:rgba(214,230,255,.18);position:relative;overflow:hidden}
+.ovp .tn i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--p,0%);background:var(--pipe);transition:width .4s}
+.ovp .stages{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;min-height:0;overflow:hidden}
+.ovp .stages button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:2.2em minmax(0,1fr) auto;gap:2px 10px;width:100%;padding:11px 14px;border-radius:14px;transition:background .3s}
+.ovp .stages button:hover{background:rgba(214,230,255,.05)}
+.ovp .stages .n{font:500 12px var(--f-mono);color:var(--bp-mute);padding-top:3px}
+.ovp .stages .t{font:600 16px/1.25 var(--f-display);letter-spacing:-.015em;color:rgba(214,230,255,.55);transition:color .3s}
+.ovp .stages .t small{display:block;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--bp-mute);margin-top:3px}
+.ovp .stages .ok{font:500 10px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--bp-mute);border:1px solid rgba(214,230,255,.2);border-radius:999px;padding:4px 8px;align-self:start;opacity:0;transform:scale(.8);transition:opacity .3s,transform .3s}
+.ovp .stages .s{grid-column:2/4;margin:6px 0 2px;font-size:15px;line-height:1.5;color:rgba(214,230,255,.78);display:none}
+.ovp .stages button[aria-current="true"]{background:rgba(214,230,255,.07)}
+.ovp .stages button[aria-current="true"] .t{color:var(--bp-ink)}
+.ovp .stages button[aria-current="true"] .n{color:var(--pipe)}
+.ovp .stages button[aria-current="true"] .s{display:block}
+.ovp .stages button.done .t{color:rgba(214,230,255,.8)}
+.ovp .stages button.done .ok{opacity:1;transform:none;color:#9BE3B5;border-color:rgba(155,227,181,.4)}
+.ovp .sheet-box{position:relative;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}
+.ovp .sheet{position:relative;width:100%;max-height:100%;aspect-ratio:6850/4033}
+.ovp .bp-svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+.ovp .bp-svg path,.ovp .bp-svg rect,.ovp .bp-svg circle{fill:none;stroke:var(--bp-ink);stroke-width:5;stroke-linecap:butt}
+.ovp .bp-svg .fr{stroke:rgba(214,230,255,.4);stroke-width:6}
+.ovp .bp-svg .cl{stroke:rgba(214,230,255,.2);stroke-dasharray:20 14}
+.ovp .bp-svg .st path{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s cubic-bezier(.6,0,.2,1) var(--d,0s),opacity .6s}
+.ovp .bp-svg .st.on path{stroke-dashoffset:0}
+.ovp .bp-svg .fd{stroke:rgba(214,230,255,.55)}
+.ovp .bp-svg .dim{stroke:var(--bp-mute);stroke-width:4}
+.ovp .bp-svg .tx{opacity:.62}.ovp .bp-svg .hd{opacity:1}
+.ovp .bp-svg .im{stroke:#8FB8E8;stroke-width:4}
+.ovp .bp-svg .bt{stroke:var(--pipe);stroke-width:6}
+.ovp .bp-svg .nv{stroke:var(--bp-mute);stroke-width:5}
+.ovp .bp-svg .pp{stroke:var(--pipe);stroke-width:7}
+.ovp .bp-svg .jn{fill:var(--pipe);stroke:none;opacity:0;transition:opacity .4s var(--d,0s)}
+.ovp .bp-svg .st.on .jn{opacity:1}
+.ovp .bp-svg .st4 path{stroke:#FFD36E}
+.ovp .bp-svg text{fill:var(--bp-ink);font:500 56px var(--f-mono);letter-spacing:4px}
+.ovp .bp-svg .st text,.ovp .bp-svg .sink{opacity:0;transition:opacity .6s .5s}
+.ovp .bp-svg .st.on text,.ovp .bp-svg .st.on .sink{opacity:1}
+.ovp .bp-svg .dt{font-size:46px;fill:var(--bp-mute)}
+.ovp .bp-svg .tt{font-size:72px;font-weight:500}.ovp .bp-svg .tl{font-size:50px;fill:var(--bp-mute)}
+.ovp .bp-svg .tb rect,.ovp .bp-svg .tb path{stroke:rgba(214,230,255,.55)}
+.ovp .bp-svg .brk{stroke:rgba(214,230,255,.7)}
+.ovp .bp-svg .sink circle{fill:var(--pipe);stroke:none}
+.ovp .bp-svg .lb{fill:var(--bp-ink)}
+.ovp .sheet.fin .bp-svg .st path{opacity:.16}
+.ovp .sheet.fin .bp-svg .st5 .pp,.ovp .sheet.fin .bp-svg .st5 .bt{opacity:.9}
+.ovp .fin-col{position:absolute;margin:0;overflow:hidden;clip-path:inset(0 0 100% 0);transition:clip-path 1.5s cubic-bezier(.7,0,.2,1) var(--d,0s)}
+.ovp .fin-col img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.ovp .sheet.fin .fin-col{clip-path:inset(0 0 0 0)}
+.ovp .bp-foot{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* пять страниц: у каждого направления свой цвет */
+.ovp .pages{--acc-p:var(--acc)}
+.ovp .sky button .im{box-shadow:0 0 0 1px var(--line),inset 0 3px 0 var(--c)}
+.ovp .sky button[aria-current="true"] .im{box-shadow:0 0 0 2px var(--c),0 18px 30px -16px rgba(29,24,29,.5)}
+.ovp .sky button[aria-current="true"] b{color:var(--c)}
+.ovp .sky button .lens{border-color:var(--c);background:color-mix(in srgb,var(--c) 22%,transparent)}
+.ovp .sky button i.chip{position:absolute;left:50%;top:-18px;width:10px;height:10px;margin-left:-5px;border-radius:3px;background:var(--c)}
+.ovp .pr .no small{color:var(--c)}
+.ovp .diff div:last-child{border-color:var(--c);background:color-mix(in srgb,var(--c) 7%,transparent)}
+.ovp .diff div:last-child dt{color:var(--c)}
+.ovp .wipe{background:var(--wc,var(--acc))}
+.ovp .depth i::after{background:var(--wc,var(--acc))}
+
+/* за кадром */
+.ovp .qsteps li.alt{font-weight:500;color:var(--muted)}
+.ovp .qsteps li.alt::before{content:"↳";background:transparent}
+.ovp .t-two blockquote{margin:0;font:600 clamp(19px,1.6vw,22px)/1.35 var(--f-display);letter-spacing:-.015em;color:var(--night-ink)}
+.ovp .t-two blockquote small{display:block;margin-top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--night-muted)}
+.ovp .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.ovp .links span{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;background:var(--bg);border:1px solid var(--line);font:500 14px var(--f-body)}
+.ovp .links span i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.ovp .lay .sw{width:14px;height:14px;border-radius:4px;background:var(--c)}
+.ovp .lay{grid-template-columns:7.5em 14px minmax(0,1fr) auto}
+
+/* итог без цифр, которых пока нет */
+.ovp .res-num b{font-size:clamp(80px,11vw,170px)}
+.ovp .res-two{border-radius:28px;background:var(--surface);border:1px solid var(--line);padding:40px;display:flex;flex-direction:column;gap:22px;min-height:380px}
+.ovp .res-two h3{margin:0;font:700 clamp(24px,2.4vw,34px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .res-two p{margin:0;color:var(--muted);font-size:15px}
+.ovp .ready{list-style:none;margin:auto 0 0;padding:0;display:grid;gap:8px}
+.ovp .ready li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 14px;border-radius:14px;border:1px solid var(--line);font:600 15px/1.35 var(--f-display)}
+.ovp .ready li::before{content:"✓";font:500 13px var(--f-mono);color:var(--coral)}
+
+@media (max-width:1199px){
+  .ovp .bp-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);gap:14px}
+  .ovp .sheet-box{grid-row:2}
+  .ovp .stages{grid-row:3}
+  .ovp .stages button:not([aria-current="true"]){display:none}
+  .ovp .bp-foot{display:none}
+}
+@media (max-width:900px){
+  .ovp .bp{height:calc(6 * 92vh + 30vh);border-radius:22px}
+  .ovp .bp-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);gap:12px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px);padding-block:14px}
+  .ovp .bp-head h2{font-size:22px}
+  .ovp .bp-head .mono{display:none}
+  .ovp .sheet-box{grid-row:2}
+  .ovp .stages{grid-row:3}
+  .ovp .stages button:not([aria-current="true"]){display:none}
+  .ovp .stages button{padding:10px 4px}
+  .ovp .bp-foot{display:none}
+  .ovp .lay{grid-template-columns:14px minmax(0,1fr) auto}
+  .ovp .lay .mono{display:none}
+}
+@media (max-width:560px){
+  .ovp .res-two{padding:28px}
+}
+</style>
+<div class="ovp">
+
+<section class="wrap hero" data-zone="Первый экран кейса">
+  <div class="hero-meta">
+    <span class="mono">Кейс · Строительство · Ярославль · Tilda</span>
+    <span class="mono"><span class="swatch" aria-hidden="true"><i style="--c:#DB5B41"></i><i style="--c:#4A6339"></i><i style="--c:#005FDB"></i><i style="--c:#BA896C"></i></span>stroy76pro.ru · ООО «Триколор» · с 2004 года</span>
+  </div>
+  <h2 class="word" aria-label="Триколор">
+    <span class="part" aria-hidden="true"><span style="--i:0">Т</span><span style="--i:1">Р</span><span style="--i:2">И</span></span>
+    <figure class="reel-chip" style="margin:0">
+      <div class="stack" id="chip">
+        <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/f-home.jpg" alt="Главная stroy76pro.ru">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/f-stroitelstvo-domov.jpg" alt="Страница строительства коттеджей" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/f-lmk.jpg" alt="Страница зданий из металлоконструкций" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/f-remont.jpg" alt="Страница ремонта и инженерных систем" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/f-about.jpg" alt="Страница о компании" loading="lazy">
+      </div>
+      <figcaption id="chipT">01 · главная</figcaption>
+    </figure>
+    <span class="part" aria-hidden="true"><span class="k" style="--i:3">К</span><span class="k" style="--i:4">О</span><span class="k" style="--i:5">Л</span><span class="k" style="--i:6">О</span><span class="k" style="--i:7">Р</span></span>
+  </h2>
+  <div class="hero-low">
+    <h1>Первый сайт строительной компании, где стройку ведёт не менеджер, а владелец: <em>коттеджи, здания из металлоконструкций, ремонт и технадзор в Ярославле</em></h1>
+    <div class="hero-cta">
+      <a class="btn" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">Хочу такой сайт<small>расчёт бюджета за 24 часа</small></a>
+      <a class="link" href="#bp">Смотреть чертёж ↓</a>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="mono">Страниц</span><b>5</b></div>
+    <div class="fact"><span class="mono">От знакомства до запуска</span><b>~40<small>дней</small></b></div>
+    <div class="fact"><span class="mono">Направлений, у каждого свой цвет</span><b>4</b></div>
+    <div class="fact"><span class="mono">Шагов в квизе расчёта</span><b>5</b></div>
+  </div>
+</section>
+
+<section class="bp" id="bp" data-zone="Чертёж">
+  <div class="wrap bp-pin">
+    <div class="bp-head">
+      <div>
+        <span class="mono">Чертёж главной · 1440 × 13 329 px · 4 листа</span>
+        <h2>Сайт строился как дом. <em>Этап за этапом, с приёмкой каждого</em></h2>
+      </div>
+      <span class="tn" id="tn">Технадзор · этап <b id="tnN">1</b> из 6 <i></i></span>
+    </div>
+    <ol class="stages" id="stages">
+      <li><button aria-current="true"><span class="n">01</span><span class="t">Фундамент<small>структура</small></span><span class="ok">принято</span><span class="s">Прежде чем рисовать, я разложил главную на 15 блоков, как дом на этажи: первый экран, кто ведёт стройку, четыре направления, почему стройки идут не по плану, этапы работы, объекты, преимущества, партнёры и заявка. Высоты на чертеже настоящие.</span></button></li>
+      <li><button><span class="n">02</span><span class="t">Стены<small>заголовки и тексты</small></span><span class="ok">принято</span><span class="s">Тексты появились раньше макета. У каждого блока один тезис: «Стройку ведёт специалист с реальным опытом 20+ лет», «Почему большинство строек превращаются в проблему. Но не у нас».</span></button></li>
+      <li><button><span class="n">03</span><span class="t">Перекрытия<small>изображения</small></span><span class="ok">принято</span><span class="s">Перечёркнутый прямоугольник на чертеже — место под картинку. Они стоят там, где без них не понять: дом на первом экране, четыре направления, этапы работы.</span></button></li>
+      <li><button><span class="n">04</span><span class="t">Кровля<small>шапка</small></span><span class="ok">принято</span><span class="s">Город, кнопка «Рассчитать проект», Telegram и MAX с подписью «Мы онлайн», логотип, два телефона и адрес офиса. Шапка едет за читателем по всей странице.</span></button></li>
+      <li><button><span class="n">05</span><span class="t">Инженерные системы<small>путь к заявке</small></span><span class="ok">принято</span><span class="s">Шесть кнопок заявки на одной главной: квиз «Рассчитать проект» в шапке и форма консультации после каждого смыслового блока. На чертеже они подключены к одной магистрали, как точки к стояку.</span></button></li>
+      <li><button><span class="n">06</span><span class="t">Отделка<small>дизайн</small></span><span class="ok">принято</span><span class="s">Крупный геометрический шрифт Strogo, светло-серый фон, коралловый акцент и бегущая строка «Профессионализм · Работа по договору · Технадзор». Чертёж становится сайтом.</span></button></li>
+    </ol>
+    <div class="sheet-box">
+      <div class="sheet" id="sheet">
+        <svg class="bp-svg" viewBox="0 0 6850 4033" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs><clipPath id="bpc0"><rect x="110" y="226" width="1590" height="3341"/></clipPath><clipPath id="bpc1"><rect x="1760" y="226" width="1590" height="3341"/></clipPath><clipPath id="bpc2"><rect x="3410" y="226" width="1590" height="3341"/></clipPath><clipPath id="bpc3"><rect x="5060" y="226" width="1590" height="3341"/></clipPath></defs><rect class="fr" x="40" y="40" width="6770" height="3953"/><text class="lb" x="230" y="170">ЛИСТ 1 · ↓ 0–3 333 PX</text><text class="lb" x="1880" y="170">ЛИСТ 2 · ↓ 3 333–6 666 PX</text><text class="lb" x="3530" y="170">ЛИСТ 3 · ↓ 6 666–9 999 PX</text><text class="lb" x="5180" y="170">ЛИСТ 4 · ↓ 9 999–13 329 PX</text><rect class="cl" x="230" y="230" width="1440" height="3333"/><rect class="cl" x="1880" y="230" width="1440" height="3333"/><rect class="cl" x="3530" y="230" width="1440" height="3333"/><rect class="cl" x="5180" y="230" width="1440" height="3333"/><g class="st st1"><path class="fd" pathLength="1" d="M238,326h1424v1387h-1424z" style="--d:0.06s"/><path class="dim" pathLength="1" d="M160,332V1707M138,332h44M138,1707h44" style="--d:0.16s"/><text class="dt" x="132" y="1019.5" transform="rotate(-90 132 1019.5)" text-anchor="middle">1387</text><path class="fd" pathLength="1" d="M238,1833h1424v237h-1424z" style="--d:0.16s"/><path class="fd" pathLength="1" d="M238,2130h1424v700h-1424z" style="--d:0.18s"/><path class="dim" pathLength="1" d="M160,2136V2824M138,2136h44M138,2824h44" style="--d:0.28s"/><text class="dt" x="132" y="2480.0" transform="rotate(-90 132 2480.0)" text-anchor="middle">700</text><path class="fd" pathLength="1" d="M238,2950h1424v237h-1424z" style="--d:0.23s"/><path class="fd" pathLength="1" d="M238,3247h1424v316h-1424z" style="--d:0.25s"/><path class="fd" pathLength="1" d="M1888,230h1424v1745h-1424z" style="--d:0.25s"/><path class="dim" pathLength="1" d="M1810,236V1969M1788,236h44M1788,1969h44" style="--d:0.35s"/><text class="dt" x="1782" y="1102.5" transform="rotate(-90 1782 1102.5)" text-anchor="middle">1745</text><path class="fd" pathLength="1" d="M1888,2095h1424v232h-1424z" style="--d:0.40s"/><path class="fd" pathLength="1" d="M1888,2387h1424v671h-1424z" style="--d:0.42s"/><path class="dim" pathLength="1" d="M1810,2393V3052M1788,2393h44M1788,3052h44" style="--d:0.52s"/><text class="dt" x="1782" y="2722.5" transform="rotate(-90 1782 2722.5)" text-anchor="middle">671</text><path class="fd" pathLength="1" d="M1888,3178h1424v385h-1424z" style="--d:0.47s"/><path class="dim" pathLength="1" d="M1810,3184V3557M1788,3184h44M1788,3557h44" style="--d:0.57s"/><text class="dt" x="1782" y="3370.5" transform="rotate(-90 1782 3370.5)" text-anchor="middle">385</text><path class="fd" pathLength="1" d="M3538,230h1424v382h-1424z" style="--d:0.47s"/><path class="dim" pathLength="1" d="M3460,236V606M3438,236h44M3438,606h44" style="--d:0.57s"/><text class="dt" x="3432" y="421.0" transform="rotate(-90 3432 421.0)" text-anchor="middle">382</text><path class="fd" pathLength="1" d="M3538,732h1424v713h-1424z" style="--d:0.53s"/><path class="dim" pathLength="1" d="M3460,738V1439M3438,738h44M3438,1439h44" style="--d:0.63s"/><text class="dt" x="3432" y="1088.5" transform="rotate(-90 3432 1088.5)" text-anchor="middle">713</text><path class="fd" pathLength="1" d="M3538,1565h1424v1318h-1424z" style="--d:0.59s"/><path class="dim" pathLength="1" d="M3460,1571V2877M3438,1571h44M3438,2877h44" style="--d:0.69s"/><text class="dt" x="3432" y="2224.0" transform="rotate(-90 3432 2224.0)" text-anchor="middle">1318</text><path class="fd" pathLength="1" d="M3538,3003h1424v560h-1424z" style="--d:0.69s"/><path class="dim" pathLength="1" d="M3460,3009V3557M3438,3009h44M3438,3557h44" style="--d:0.79s"/><text class="dt" x="3432" y="3283.0" transform="rotate(-90 3432 3283.0)" text-anchor="middle">560</text><path class="fd" pathLength="1" d="M5188,230h1424v465h-1424z" style="--d:0.69s"/><path class="dim" pathLength="1" d="M5110,236V689M5088,236h44M5088,689h44" style="--d:0.79s"/><text class="dt" x="5082" y="462.5" transform="rotate(-90 5082 462.5)" text-anchor="middle">465</text><path class="fd" pathLength="1" d="M5188,815h1424v675h-1424z" style="--d:0.76s"/><path class="dim" pathLength="1" d="M5110,821V1484M5088,821h44M5088,1484h44" style="--d:0.86s"/><text class="dt" x="5082" y="1152.5" transform="rotate(-90 5082 1152.5)" text-anchor="middle">675</text><path class="fd" pathLength="1" d="M5188,1610h1424v650h-1424z" style="--d:0.82s"/><path class="dim" pathLength="1" d="M5110,1616V2254M5088,1616h44M5088,2254h44" style="--d:0.92s"/><text class="dt" x="5082" y="1935.0" transform="rotate(-90 5082 1935.0)" text-anchor="middle">650</text><path class="fd" pathLength="1" d="M5188,2380h1424v171h-1424z" style="--d:0.87s"/><path class="fd" pathLength="1" d="M5188,2550h1424v940h-1424z" style="--d:0.88s"/><path class="dim" pathLength="1" d="M5110,2556V3484M5088,2556h44M5088,3484h44" style="--d:0.98s"/><text class="dt" x="5082" y="3020.0" transform="rotate(-90 5082 3020.0)" text-anchor="middle">940</text></g><g class="st st2"><path class="tx" pathLength="1" d="M859,436h182M859,453h113" style="--d:0.06s" stroke-width="5" clip-path="url(#bpc0)"/><path class="tx hd" pathLength="1" d="M357,518h1186M357,606h735" style="--d:0.07s" stroke-width="35" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M357,675h1186" style="--d:0.08s" stroke-width="10" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M1035,676h256" style="--d:0.08s" stroke-width="10" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M573,736h328M573,759h328M573,781h203" style="--d:0.08s" stroke-width="6" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M941,736h387" style="--d:0.08s" stroke-width="6" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M941,759h387" style="--d:0.08s" stroke-width="6" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M941,782h387" style="--d:0.09s" stroke-width="6" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M867,850h166" style="--d:0.09s" stroke-width="5" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M476,945h219" style="--d:0.10s" stroke-width="7" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M1261,945h120" style="--d:0.10s" stroke-width="7" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M970,945h235" style="--d:0.10s" stroke-width="7" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M751,945h171" style="--d:0.10s" stroke-width="7" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M1417,945h269" style="--d:0.10s" stroke-width="7" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M214,945h214" style="--d:0.10s" stroke-width="7" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M272,1853h34" style="--d:0.16s" stroke-width="5" clip-path="url(#bpc0)"/><path class="tx hd" pathLength="1" d="M250,1922h962M250,1992h962M250,2062h596" style="--d:0.16s" stroke-width="28" clip-path="url(#bpc0)"/><path class="tx hd" pathLength="1" d="M250,2050h793" style="--d:0.17s" stroke-width="28" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M1312,2638h307M1312,2661h307M1312,2683h307M1312,2706h190" style="--d:0.21s" stroke-width="6" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M990,2638h256M990,2661h256M990,2683h256M990,2706h256M990,2728h256M990,2751h256M990,2773h159" style="--d:0.21s" stroke-width="6" clip-path="url(#bpc0)"/><path class="tx hd" pathLength="1" d="M973,2465h677M973,2521h677M973,2577h420" style="--d:0.20s" stroke-width="22" clip-path="url(#bpc0)"/><path class="tx hd" pathLength="1" d="M973,2602h407" style="--d:0.21s" stroke-width="22" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M1352,2760h201" style="--d:0.22s" stroke-width="5" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M272,2970h44" style="--d:0.23s" stroke-width="5" clip-path="url(#bpc0)"/><path class="tx hd" pathLength="1" d="M250,3040h862M250,3110h862M250,3180h534" style="--d:0.24s" stroke-width="28" clip-path="url(#bpc0)"/><path class="tx hd" pathLength="1" d="M250,3104h608M250,3174h377" style="--d:0.24s" stroke-width="28" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M280,3542h542" style="--d:0.27s" stroke-width="10" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M1930,258h300M1930,281h186" style="--d:0.28s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2005,357h60" style="--d:0.28s" stroke-width="5" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1930,716h436M1930,751h270" style="--d:0.31s" stroke-width="10" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1930,801h300" style="--d:0.31s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2005,877h60" style="--d:0.32s" stroke-width="5" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1930,1167h296M1930,1202h184" style="--d:0.34s" stroke-width="10" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1930,1252h300M1930,1275h300M1930,1297h300M1930,1320h186" style="--d:0.34s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2005,1397h60" style="--d:0.35s" stroke-width="5" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1930,1799h303M1930,1834h188" style="--d:0.38s" stroke-width="10" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1960,1917h171" style="--d:0.39s" stroke-width="5" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2572,2105h78" style="--d:0.40s" stroke-width="5" clip-path="url(#bpc1)"/><path class="tx hd" pathLength="1" d="M2168,2180h864M2168,2250h864M2168,2320h536" style="--d:0.40s" stroke-width="28" clip-path="url(#bpc1)"/><path class="tx hd" pathLength="1" d="M2615,2306h364" style="--d:0.41s" stroke-width="28" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1934,2440h389" style="--d:0.42s" stroke-width="10" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1954,2485h369M1954,2508h229" style="--d:0.43s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1954,2545h369M1954,2568h229" style="--d:0.43s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1954,2605h369M1954,2628h229" style="--d:0.43s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1954,2665h369M1954,2688h229" style="--d:0.44s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1934,2981h389M1934,3009h241" style="--d:0.46s" stroke-width="7" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2877,2440h389M2877,2475h241" style="--d:0.42s" stroke-width="10" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2897,2521h369M2897,2544h369M2897,2566h229" style="--d:0.43s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2897,2603h369M2897,2626h369M2897,2648h229" style="--d:0.43s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2897,2685h369M2897,2708h369M2897,2730h369M2897,2753h229" style="--d:0.44s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2897,2789h369M2897,2812h229" style="--d:0.45s" stroke-width="6" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2877,2836h389M2877,2864h389M2877,2891h389M2877,2919h241" style="--d:0.45s" stroke-width="7" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M3012,2993h119" style="--d:0.46s" stroke-width="5" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M2589,3188h42" style="--d:0.47s" stroke-width="5" clip-path="url(#bpc1)"/><path class="tx hd" pathLength="1" d="M2229,3258h742M2229,3328h460" style="--d:0.48s" stroke-width="28" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M1925,3567h293" style="--d:0.50s" stroke-width="10" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M3575,279h293M3575,302h182" style="--d:0.50s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M2630,3545h224" style="--d:0.50s" stroke-width="10" clip-path="url(#bpc1)"/><path class="tx" pathLength="1" d="M4280,257h293M4280,280h293M4280,302h182" style="--d:0.50s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M3928,510h224" style="--d:0.52s" stroke-width="10" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M3928,555h293M3928,578h182" style="--d:0.52s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4280,488h224" style="--d:0.52s" stroke-width="10" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4280,533h293M4280,556h293M4280,578h182" style="--d:0.52s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4633,488h224" style="--d:0.52s" stroke-width="10" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4633,533h293M4633,556h293M4633,578h182" style="--d:0.52s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx hd" pathLength="1" d="M3570,786h960M3570,856h595" style="--d:0.54s" stroke-width="28" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M3590,902h540" style="--d:0.54s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4236,1585h50" style="--d:0.59s" stroke-width="5" clip-path="url(#bpc2)"/><path class="tx hd" pathLength="1" d="M3790,1662h920M3790,1732h920M3790,1802h570" style="--d:0.59s" stroke-width="28" clip-path="url(#bpc2)"/><path class="tx hd" pathLength="1" d="M4004,1728h688M4004,1798h427" style="--d:0.60s" stroke-width="28" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M3560,2056h407M3560,2079h407M3560,2101h407M3560,2124h407M3560,2146h407M3560,2169h407M3560,2191h407M3560,2214h407M3560,2236h407M3560,2259h407M3560,2281h252" style="--d:0.62s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M3630,2358h337" style="--d:0.64s" stroke-width="7" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M3560,2577h407M3560,2600h407M3560,2622h407M3560,2645h407M3560,2667h407M3560,2690h407M3560,2712h407M3560,2735h407M3560,2757h252" style="--d:0.66s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M3630,2823h337" style="--d:0.67s" stroke-width="7" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4047,1976h407M4047,1999h407M4047,2021h407M4047,2044h407M4047,2066h407M4047,2089h407M4047,2111h407M4047,2134h407M4047,2156h407M4047,2179h407M4047,2201h252" style="--d:0.62s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4117,2278h337" style="--d:0.64s" stroke-width="7" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4047,2497h407M4047,2520h407M4047,2542h407M4047,2565h407M4047,2587h407M4047,2610h252" style="--d:0.65s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4117,2687h337" style="--d:0.67s" stroke-width="7" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4533,2056h407M4533,2079h407M4533,2101h407M4533,2124h407M4533,2146h407M4533,2169h407M4533,2191h407M4533,2214h407M4533,2236h407M4533,2259h252" style="--d:0.62s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4603,2330h337" style="--d:0.64s" stroke-width="7" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4533,2549h407M4533,2572h407M4533,2594h407M4533,2617h407M4533,2639h407M4533,2662h407M4533,2684h252" style="--d:0.66s" stroke-width="6" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M4603,2767h337" style="--d:0.67s" stroke-width="7" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M3570,3197h100" style="--d:0.70s" stroke-width="5" clip-path="url(#bpc2)"/><path class="tx hd" pathLength="1" d="M3550,3266h533M3550,3336h533M3550,3406h330" style="--d:0.70s" stroke-width="28" clip-path="url(#bpc2)"/><path class="tx hd" pathLength="1" d="M3550,3270h181" style="--d:0.70s" stroke-width="28" clip-path="url(#bpc2)"/><path class="tx hd" pathLength="1" d="M3604,3394h314" style="--d:0.71s" stroke-width="28" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M3550,3463h459M3550,3491h459M3550,3518h459M3550,3546h459M3550,3573h285" style="--d:0.72s" stroke-width="7" clip-path="url(#bpc2)"/><path class="tx" pathLength="1" d="M5256,351h279" style="--d:0.73s" stroke-width="7" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M5256,498h234M5256,537h145" style="--d:0.74s" stroke-width="16" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5256,593h234M5256,616h234M5256,638h234M5256,661h145" style="--d:0.75s" stroke-width="6" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5575,351h305" style="--d:0.73s" stroke-width="7" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M5575,494h234M5575,533h145" style="--d:0.74s" stroke-width="16" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5575,593h234M5575,616h234M5575,638h234M5575,661h145" style="--d:0.75s" stroke-width="6" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5946,351h279" style="--d:0.73s" stroke-width="7" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M5946,494h234M5946,533h145" style="--d:0.74s" stroke-width="16" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5946,593h234M5946,616h234M5946,638h234M5946,661h145" style="--d:0.75s" stroke-width="6" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M6291,351h279" style="--d:0.73s" stroke-width="7" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M6291,494h234M6291,533h145" style="--d:0.74s" stroke-width="16" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M6291,593h234M6291,616h234M6291,638h234M6291,661h145" style="--d:0.75s" stroke-width="6" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5223,836h66" style="--d:0.77s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M5329,864h1270M5329,934h1270M5329,1004h1270M5329,1074h787" style="--d:0.77s" stroke-width="28" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M5329,992h1181M5329,1062h732" style="--d:0.77s" stroke-width="28" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5230,1357h576" style="--d:0.80s" stroke-width="6" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5230,1391h630M5230,1408h630M5230,1426h630M5230,1443h391" style="--d:0.80s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5940,1360h338" style="--d:0.80s" stroke-width="6" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5940,1394h630M5940,1411h630M5940,1429h630M5940,1446h391" style="--d:0.80s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M5230,1688h511M5230,1758h511M5230,1828h511M5230,1898h317" style="--d:0.82s" stroke-width="28" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5230,1979h560M5230,2002h560M5230,2024h560M5230,2047h347" style="--d:0.84s" stroke-width="6" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5230,2127h259M5230,2144h161" style="--d:0.85s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5270,2200h119" style="--d:0.86s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5930,1695h227" style="--d:0.82s" stroke-width="7" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5960,1766h185" style="--d:0.83s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M6215,1766h193" style="--d:0.83s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5988,1829h217" style="--d:0.83s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5960,1892h84" style="--d:0.84s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5520,2394h760M5520,2422h760M5520,2449h760M5520,2477h760M5520,2504h760M5520,2532h471" style="--d:0.87s" stroke-width="7" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M5320,2698h1160" style="--d:0.89s" stroke-width="35" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5320,2816h545" style="--d:0.90s" stroke-width="4" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M5320,2863h545" style="--d:0.90s" stroke-width="19" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5905,2816h575" style="--d:0.90s" stroke-width="4" clip-path="url(#bpc3)"/><path class="tx hd" pathLength="1" d="M5905,2863h575" style="--d:0.90s" stroke-width="19" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5905,3007h260" style="--d:0.91s" stroke-width="4" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5915,3054h57" style="--d:0.92s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5915,3103h185" style="--d:0.92s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5915,3153h240M5915,3172h240M5915,3191h149" style="--d:0.92s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5915,3225h217" style="--d:0.93s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5915,3274h84" style="--d:0.93s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M6205,3007h275" style="--d:0.91s" stroke-width="4" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M6205,3053h275M6205,3081h170" style="--d:0.91s" stroke-width="7" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5320,3312h396M5320,3331h396M5320,3350h396M5320,3369h246" style="--d:0.93s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5351,3419h282" style="--d:0.94s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5916,3329h222" style="--d:0.93s" stroke-width="5" clip-path="url(#bpc3)"/><path class="tx" pathLength="1" d="M5916,3393h238M5916,3412h238M5916,3431h148" style="--d:0.94s" stroke-width="5" clip-path="url(#bpc3)"/></g><g class="st st3"><path class="im" pathLength="1" d="M1545,1016h60v60h-60zM1545,1016L1605,1076M1605,1016L1545,1076" style="--d:0.10s" clip-path="url(#bpc0)"/><path class="im" pathLength="1" d="M250,985h1400v708h-1400zM250,985L1650,1693M1650,985L250,1693" style="--d:0.10s" clip-path="url(#bpc0)"/><path class="im" pathLength="1" d="M973,2160h677v250h-677zM973,2160L1650,2410M1650,2160L973,2410" style="--d:0.18s" clip-path="url(#bpc0)"/><path class="im" pathLength="1" d="M250,2130h677v700h-677zM250,2130L927,2830M927,2130L250,2830" style="--d:0.18s" clip-path="url(#bpc0)"/><path class="im" pathLength="1" d="M960,3247h690v501h-690zM960,3247L1650,3748M1650,3247L960,3748" style="--d:0.25s" clip-path="url(#bpc0)"/><path class="im" pathLength="1" d="M2610,435h690v500h-690zM2610,435L3300,935M3300,435L2610,935" style="--d:0.29s" clip-path="url(#bpc1)"/><path class="im" pathLength="1" d="M2610,955h690v500h-690zM2610,955L3300,1455M3300,955L2610,1455" style="--d:0.32s" clip-path="url(#bpc1)"/><path class="im" pathLength="1" d="M2610,1475h690v500h-690zM2610,1475L3300,1975M3300,1475L2610,1975" style="--d:0.36s" clip-path="url(#bpc1)"/><path class="im" pathLength="1" d="M1871,2397h486v621h-486zM1871,2397L2357,3018M2357,2397L1871,3018" style="--d:0.42s" clip-path="url(#bpc1)"/><path class="im" pathLength="1" d="M2357,2397h486v621h-486zM2357,2397L2843,3018M2843,2397L2357,3018" style="--d:0.42s" clip-path="url(#bpc1)"/><path class="im" pathLength="1" d="M2843,2397h486v621h-486zM2843,2397L3329,3018M3329,2397L2843,3018" style="--d:0.42s" clip-path="url(#bpc1)"/><path class="im" pathLength="1" d="M2253,3403h343v266h-343zM2253,3403L2596,3669M2596,3403L2253,3669" style="--d:0.49s" clip-path="url(#bpc1)"/><path class="im" pathLength="1" d="M2958,3403h343v266h-343zM2958,3403L3301,3669M3301,3403L2958,3669" style="--d:0.49s" clip-path="url(#bpc1)"/><path class="im" pathLength="1" d="M3550,346h343v266h-343zM3550,346L3893,612M3893,346L3550,612" style="--d:0.51s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M3570,945h500v500h-500zM3570,945L4070,1445M4070,945L3570,1445" style="--d:0.55s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4090,945h500v500h-500zM4090,945L4590,1445M4590,945L4090,1445" style="--d:0.55s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4610,945h500v500h-500zM4610,945L5110,1445M5110,945L4610,1445" style="--d:0.55s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M3560,1952h60v60h-60zM3560,1952L3620,2012M3620,1952L3560,2012" style="--d:0.62s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M3560,2328h60v60h-60zM3560,2328L3620,2388M3620,2328L3560,2388" style="--d:0.64s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M3560,2473h60v60h-60zM3560,2473L3620,2533M3620,2473L3560,2533" style="--d:0.65s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M3560,2793h60v60h-60zM3560,2793L3620,2853M3620,2793L3560,2853" style="--d:0.67s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4047,1872h60v60h-60zM4047,1872L4107,1932M4107,1872L4047,1932" style="--d:0.61s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4047,2248h60v60h-60zM4047,2248L4107,2308M4107,2248L4047,2308" style="--d:0.64s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4047,2393h60v60h-60zM4047,2393L4107,2453M4107,2393L4047,2453" style="--d:0.65s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4047,2657h60v60h-60zM4047,2657L4107,2717M4107,2657L4047,2717" style="--d:0.66s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4533,1952h60v60h-60zM4533,1952L4593,2012M4593,1952L4533,2012" style="--d:0.62s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4533,2300h60v60h-60zM4533,2300L4593,2360M4593,2300L4533,2360" style="--d:0.64s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4533,2445h60v60h-60zM4533,2445L4593,2505M4593,2445L4533,2505" style="--d:0.65s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M4533,2737h60v60h-60zM4533,2737L4593,2797M4593,2737L4533,2797" style="--d:0.67s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M3530,3003h1440v1025h-1440zM3530,3003L4970,4028M4970,3003L3530,4028" style="--d:0.69s" clip-path="url(#bpc2)"/><path class="im" pathLength="1" d="M5256,391h60v60h-60zM5256,391L5316,451M5316,391L5256,451" style="--d:0.74s" clip-path="url(#bpc3)"/><path class="im" pathLength="1" d="M5575,389h60v60h-60zM5575,389L5635,449M5635,389L5575,449" style="--d:0.74s" clip-path="url(#bpc3)"/><path class="im" pathLength="1" d="M5946,389h60v60h-60zM5946,389L6006,449M6006,389L5946,449" style="--d:0.74s" clip-path="url(#bpc3)"/><path class="im" pathLength="1" d="M6291,389h60v60h-60zM6291,389L6351,449M6351,389L6291,449" style="--d:0.74s" clip-path="url(#bpc3)"/><path class="im" pathLength="1" d="M5315,1177h461v136h-461zM5315,1177L5776,1313M5776,1177L5315,1313" style="--d:0.79s" clip-path="url(#bpc3)"/><path class="im" pathLength="1" d="M6101,1175h309v141h-309zM6101,1175L6410,1316M6410,1175L6101,1316" style="--d:0.79s" clip-path="url(#bpc3)"/><path class="im" pathLength="1" d="M5601,1887h1605v443h-1605zM5601,1887L7206,2330M7206,1887L5601,2330" style="--d:0.84s" clip-path="url(#bpc3)"/></g><g class="st st4"><path class="tx" pathLength="1" d="M455,277h124" style="--d:0.05s" stroke-width="5" clip-path="url(#bpc0)"/><path class="im" pathLength="1" d="M915,241h71v78h-71zM915,241L986,319M986,241L915,319" style="--d:0.05s" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M1352,277h162M1352,294h100" style="--d:0.05s" stroke-width="5" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M1352,253h133" style="--d:0.05s" stroke-width="5" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M1141,280h179" style="--d:0.05s" stroke-width="7" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M683,267h78" style="--d:0.05s" stroke-width="5" clip-path="url(#bpc0)"/><path class="tx" pathLength="1" d="M291,276h66" style="--d:0.05s" stroke-width="4" clip-path="url(#bpc0)"/></g><g class="st st5"><path class="bt" pathLength="1" d="M447.5,252h139.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-139.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.05s"/><path class="nv" pathLength="1" d="M699.5,277h0.0a15.5,15.5 0 0 1 15.5,15.5v0.0a15.5,15.5 0 0 1 -15.5,15.5h-0.0a15.5,15.5 0 0 1 -15.5,-15.5v-0.0a15.5,15.5 0 0 1 15.5,-15.5z" style="--d:0.05s"/><path class="nv" pathLength="1" d="M740.5,277h0.0a15.5,15.5 0 0 1 15.5,15.5v0.0a15.5,15.5 0 0 1 -15.5,15.5h-0.0a15.5,15.5 0 0 1 -15.5,-15.5v-0.0a15.5,15.5 0 0 1 15.5,-15.5z" style="--d:0.05s"/><path class="nv" pathLength="1" d="M1598.5,246h0.0a31.5,31.5 0 0 1 31.5,31.5v0.0a31.5,31.5 0 0 1 -31.5,31.5h-0.0a31.5,31.5 0 0 1 -31.5,-31.5v-0.0a31.5,31.5 0 0 1 31.5,-31.5z" style="--d:0.05s"/><path class="nv" pathLength="1" d="M1575.0,1016h0.0a30.0,30.0 0 0 1 30.0,30.0v0.0a30.0,30.0 0 0 1 -30.0,30.0h-0.0a30.0,30.0 0 0 1 -30.0,-30.0v-0.0a30.0,30.0 0 0 1 30.0,-30.0z" style="--d:0.10s"/><path class="bt" pathLength="1" d="M863.5,825h173.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-173.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.09s"/><path class="pp" pathLength="1" d="M837,851.5H204" style="--d:0.24s"/><circle class="jn" cx="204" cy="851.5" r="13" style="--d:0.39s"/><path class="bt" pathLength="1" d="M1339.5,2734h225.0a27.5,27.5 0 0 1 27.5,27.5v0.0a27.5,27.5 0 0 1 -27.5,27.5h-225.0a27.5,27.5 0 0 1 -27.5,-27.5v-0.0a27.5,27.5 0 0 1 27.5,-27.5z" style="--d:0.22s"/><path class="pp" pathLength="1" d="M1312,2761.5H204" style="--d:0.37s"/><circle class="jn" cx="204" cy="2761.5" r="13" style="--d:0.52s"/><path class="nv" pathLength="1" d="M1956.5,332h158.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-158.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.28s"/><path class="nv" pathLength="1" d="M1956.5,852h158.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-158.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.32s"/><path class="nv" pathLength="1" d="M1956.5,1372h158.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-158.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.35s"/><path class="bt" pathLength="1" d="M1956.5,1892h178.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-178.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.39s"/><path class="pp" pathLength="1" d="M1930,1918.5H1854" style="--d:0.54s"/><circle class="jn" cx="1854" cy="1918.5" r="13" style="--d:0.69s"/><path class="bt" pathLength="1" d="M2906.5,2965h330.0a29.5,29.5 0 0 1 29.5,29.5v0.0a29.5,29.5 0 0 1 -29.5,29.5h-330.0a29.5,29.5 0 0 1 -29.5,-29.5v-0.0a29.5,29.5 0 0 1 29.5,-29.5z" style="--d:0.46s"/><path class="pp" pathLength="1" d="M2877,2994.5H1854" style="--d:0.61s"/><circle class="jn" cx="1854" cy="2994.5" r="13" style="--d:0.76s"/><path class="nv" pathLength="1" d="M4865.0,855h0.0a20.0,20.0 0 0 1 20.0,20.0v0.0a20.0,20.0 0 0 1 -20.0,20.0h-0.0a20.0,20.0 0 0 1 -20.0,-20.0v-0.0a20.0,20.0 0 0 1 20.0,-20.0z" style="--d:0.54s"/><path class="nv" pathLength="1" d="M4910.0,855h0.0a20.0,20.0 0 0 1 20.0,20.0v0.0a20.0,20.0 0 0 1 -20.0,20.0h-0.0a20.0,20.0 0 0 1 -20.0,-20.0v-0.0a20.0,20.0 0 0 1 20.0,-20.0z" style="--d:0.54s"/><path class="bt" pathLength="1" d="M5257.5,2175h145.0a27.5,27.5 0 0 1 27.5,27.5v0.0a27.5,27.5 0 0 1 -27.5,27.5h-145.0a27.5,27.5 0 0 1 -27.5,-27.5v-0.0a27.5,27.5 0 0 1 27.5,-27.5z" style="--d:0.86s"/><path class="pp" pathLength="1" d="M5230,2202.5H5154" style="--d:1.01s"/><circle class="jn" cx="5154" cy="2202.5" r="13" style="--d:1.16s"/><path class="nv" pathLength="1" d="M5956.5,1741h192.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-192.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.83s"/><path class="nv" pathLength="1" d="M6211.5,1741h200.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-200.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.83s"/><path class="nv" pathLength="1" d="M5956.5,1804h280.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-280.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.83s"/><path class="nv" pathLength="1" d="M5956.5,1867h91.0a26.5,26.5 0 0 1 26.5,26.5v0.0a26.5,26.5 0 0 1 -26.5,26.5h-91.0a26.5,26.5 0 0 1 -26.5,-26.5v-0.0a26.5,26.5 0 0 1 26.5,-26.5z" style="--d:0.84s"/><path class="nv" pathLength="1" d="M5926.5,3034h34.0a21.5,21.5 0 0 1 21.5,21.5v0.0a21.5,21.5 0 0 1 -21.5,21.5h-34.0a21.5,21.5 0 0 1 -21.5,-21.5v-0.0a21.5,21.5 0 0 1 21.5,-21.5z" style="--d:0.91s"/><path class="nv" pathLength="1" d="M5926.5,3083h217.0a21.5,21.5 0 0 1 21.5,21.5v0.0a21.5,21.5 0 0 1 -21.5,21.5h-217.0a21.5,21.5 0 0 1 -21.5,-21.5v-0.0a21.5,21.5 0 0 1 21.5,-21.5z" style="--d:0.92s"/><path class="nv" pathLength="1" d="M5926.5,3205h217.0a21.5,21.5 0 0 1 21.5,21.5v0.0a21.5,21.5 0 0 1 -21.5,21.5h-217.0a21.5,21.5 0 0 1 -21.5,-21.5v-0.0a21.5,21.5 0 0 1 21.5,-21.5z" style="--d:0.93s"/><path class="nv" pathLength="1" d="M5926.5,3254h217.0a21.5,21.5 0 0 1 21.5,21.5v0.0a21.5,21.5 0 0 1 -21.5,21.5h-217.0a21.5,21.5 0 0 1 -21.5,-21.5v-0.0a21.5,21.5 0 0 1 21.5,-21.5z" style="--d:0.93s"/><path class="pp riser" pathLength="1" d="M204,851.5V3658" style="--d:0.20s"/><path class="pp riser" pathLength="1" d="M1854,1918.5V3658" style="--d:0.32s"/><path class="pp riser" pathLength="1" d="M5154,2202.5V3658" style="--d:0.56s"/><path class="pp main" pathLength="1" d="M204,3658H5154" style="--d:0.90s"/><g class="sink" style="--d:1.3s"><circle cx="5154" cy="3658" r="34"/><text x="5090" y="3618" text-anchor="end" class="lb">6 КНОПОК → КВИЗ И ФОРМА ЗАЯВКИ</text></g></g><path class="brk" d="M200,3563H878.0l30,-40l40,80l30,-40H1700"/><path class="brk" d="M1850,3563H2528.0l30,-40l40,80l30,-40H3350"/><path class="brk" d="M1850,230H2528.0l30,-40l40,80l30,-40H3350"/><path class="brk" d="M3500,3563H4178.0l30,-40l40,80l30,-40H5000"/><path class="brk" d="M3500,230H4178.0l30,-40l40,80l30,-40H5000"/><path class="brk" d="M5150,230H5828.0l30,-40l40,80l30,-40H6650"/><g class="tb"><rect x="4320" y="3733" width="2300" height="220"/><path d="M4320,3843H6620M5420,3733V3953M6120,3733V3953"/>
+<text x="4350" y="3805" class="tt">stroy76pro.ru · Главная</text><text x="4350" y="3915" class="tl">Заказчик ООО «Триколор»</text>
+<text x="5450" y="3805" class="tl">1440 × 13 329 px</text><text x="5450" y="3915" class="tl">Разраб. Овчинников</text>
+<text x="6150" y="3805" class="tl">Листов 4</text><text x="6150" y="3915" class="tl">2026</text></g></svg>
+        <figure class="fin-col" style="left:3.358%;top:5.703%;width:21.022%;height:82.643%;--d:0s"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/col1.jpg" alt="Главная stroy76pro.ru, лист 1"></figure>
+        <figure class="fin-col" style="left:27.445%;top:5.703%;width:21.022%;height:82.643%;--d:.18s"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/col2.jpg" alt="Главная stroy76pro.ru, лист 2"></figure>
+        <figure class="fin-col" style="left:51.533%;top:5.703%;width:21.022%;height:82.643%;--d:.36s"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/col3.jpg" alt="Главная stroy76pro.ru, лист 3"></figure>
+        <figure class="fin-col" style="left:75.62%;top:5.703%;width:21.022%;height:82.643%;--d:.54s"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/col4.jpg" alt="Главная stroy76pro.ru, лист 4"></figure>
+      </div>
+    </div>
+    <div class="bp-foot">
+      <span class="mono">Этапы те же, что Андрей проверяет на своих объектах: фундамент, стены, перекрытия, кровля, инженерные системы</span>
+      <span class="mono">Нажмите на этап, чтобы перейти к нему</span>
+    </div>
+  </div>
+</section>
+
+<section class="pages" id="pages" data-zone="Пять страниц" style="--n:5">
+  <div class="wrap pg-pin">
+    <div class="pg-head">
+      <h2>Компания называется «Триколор», а цветов на сайте четыре. <em>У каждого направления свой</em></h2>
+      <span class="mono">stroy76pro.ru · 59 152 px · 1440 × 900</span>
+    </div>
+    <div class="pg-left">
+      <nav class="sky" id="sky" aria-label="Страницы сайта">
+        <button aria-current="true" style="--h:.93;--c:#DB5B41"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/s-home.jpg" alt=""></span><span class="lens"></span><b>01</b><span class="sr">Главная</span></button>
+        <button style="--h:1;--c:#4A6339"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/s-stroitelstvo-domov.jpg" alt=""></span><span class="lens"></span><b>02</b><span class="sr">Коттеджи</span></button>
+        <button style="--h:.86;--c:#005FDB"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/s-lmk.jpg" alt=""></span><span class="lens"></span><b>03</b><span class="sr">Здания из ЛМК</span></button>
+        <button style="--h:.84;--c:#BA896C"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/s-remont.jpg" alt=""></span><span class="lens"></span><b>04</b><span class="sr">Ремонт и инженерные системы</span></button>
+        <button style="--h:.49;--c:#513524"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/s-about.jpg" alt=""></span><span class="lens"></span><b>05</b><span class="sr">О компании</span></button>
+      </nav>
+      <div class="pg-text" id="pgt">
+        <article class="pr on" style="--c:#DB5B41">
+          <div class="no">01<small>Главная · коралловый</small></div>
+          <h3>Распределяет по четырём направлениям</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Человек, который ещё не решил, строить дом, склад или делать ремонт, и выбирает, кому доверить деньги.</dd></div>
+            <div><dt>Что находит</dt><dd>«Строим дома и здания, которые служат десятки лет», цифры по объектам, владельца с опытом 20+ лет и четыре направления карточками с кнопкой «Перейти».</dd></div>
+          </dl>
+        </article>
+        <article class="pr" style="--c:#4A6339">
+          <div class="no">02<small>Коттеджи · зелёный</small></div>
+          <h3>Дом на сто лет начинается с грунта</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Семья, которая строит каменный дом для постоянной жизни и боится, что смета вырастет посреди стройки.</dd></div>
+            <div><dt>Что находит</dt><dd>Газоблок, кирпич или керамический кирпич, «срок службы 100+ лет за ~2 года», расчёты до начала работ и технадзор пяти этапов: фундамент, стены, перекрытия, кровля, инженерные системы.</dd></div>
+          </dl>
+        </article>
+        <article class="pr" style="--c:#005FDB">
+          <div class="no">03<small>Здания из ЛМК · синий</small></div>
+          <h3>Язык бизнеса: СТО, склад, ангар</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Предприниматель, которому нужно здание под задачу: автомойка, склад, магазин, гараж или навес.</dd></div>
+            <div><dt>Что находит</dt><dd>Здания под задачи бизнеса карточками, «работаем вне демпинговых тендеров», «не уменьшаем толщину металла ради сметы» и путь от заявки до предварительной сметы.</dd></div>
+          </dl>
+        </article>
+        <article class="pr" style="--c:#BA896C">
+          <div class="no">04<small>Ремонт · песочный</small></div>
+          <h3>Ремонт без остановки бизнеса</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Владелец магазина, офиса, цеха или административного здания, у которого прошлый ремонт затянулся.</dd></div>
+            <div><dt>Что находит</dt><dd>Три типа объектов, ремонт и инженерные системы под ключ, честный список, почему ремонт выходит дороже и дольше срока, и бесплатный выезд на объект.</dd></div>
+          </dl>
+        </article>
+        <article class="pr" style="--c:#513524">
+          <div class="no">05<small>О компании · коричневый</small></div>
+          <h3>Лицо компании — сам владелец</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Тот, кто перед звонком хочет понять, с кем будет иметь дело.</dd></div>
+            <div><dt>Что находит</dt><dd>«Меня зовут Андрей Чирков. Работаю в строительстве с 2004 года» и рассказ от первого лица: выезжает на объекты, контролирует ключевые этапы, принимает технические решения.</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+    <div class="pg-screen">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span id="pgUrl">stroy76pro.ru</span></div>
+        <div class="scrub" id="scrub">
+          <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/w-home.jpg" data-h="13329" data-u="" data-c="#DB5B41" width="640" height="5924" alt="Главная stroy76pro.ru целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/w-stroitelstvo-domov.jpg" data-h="14396" data-u="stroitelstvo-domov" data-c="#4A6339" width="640" height="6398" alt="Страница коттеджей целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/w-lmk.jpg" data-h="12315" data-u="lmk" data-c="#005FDB" width="640" height="5473" alt="Страница зданий из ЛМК целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/w-remont.jpg" data-h="12050" data-u="remont" data-c="#BA896C" width="640" height="5356" alt="Страница ремонта целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/w-about.jpg" data-h="7062" data-u="about" data-c="#513524" width="640" height="3139" alt="Страница о компании целиком">
+          <div class="wipe" id="wipe"></div>
+          <span class="depth" id="depth">↓ 0<i></i>13 329 px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cinema" id="reel" data-zone="Ролик">
+  <div class="wrap">
+    <div class="cinema-head">
+      <div><span class="mono">Запись · 1440 × 900 · без монтажа</span><h2 class="big">Сайт сегодня. <em>Девять сцен с пяти страниц</em></h2></div>
+    </div>
+    <div class="stage">
+      <ol class="chapters" id="chapters">
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/hero.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/hero.jpg" data-url="stroy76pro.ru" aria-current="true"><span class="n">01</span><span class="t">Первый экран и владелец</span><span class="d">0:13</span><span class="s">Цифры по объектам, бегущая строка и блок «Большинство строительных компаний — это менеджеры и подрядчики. У нас другая модель».</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/quiz.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/quiz.jpg" data-url="stroy76pro.ru/#popup:quiz"><span class="n">02</span><span class="t">Квиз «Рассчитать проект»</span><span class="d">0:28</span><span class="s">Пять шагов, вопросы меняются под задачу. Для инженерных систем квиз спрашивает, какие именно.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/services.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/services.jpg" data-url="stroy76pro.ru/#services"><span class="n">03</span><span class="t">Четыре направления</span><span class="d">0:16</span><span class="s">Коттеджи, здания из ЛМК, ремонт с инженерными системами и технадзор.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/model.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/model.jpg" data-url="stroy76pro.ru/#why"><span class="n">04</span><span class="t">Почему стройки идут не по плану</span><span class="d">0:10</span><span class="s">Причины проблем, другой принцип работы и пять шагов до старта.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/finale.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/finale.jpg" data-url="stroy76pro.ru/#contacts"><span class="n">05</span><span class="t">Преимущества, партнёры, заявка</span><span class="d">0:13</span><span class="s">Скидки поставщиков до 20%, форма «Обсудим ваш проект» и ссылки на другие разделы.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/houses.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/houses.jpg" data-url="stroy76pro.ru/stroitelstvo-domov"><span class="n">06</span><span class="t">Коттеджи</span><span class="d">0:16</span><span class="s">Материалы стен, расчёты до стройки и этапы под технадзором.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/lmk.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/lmk.jpg" data-url="stroy76pro.ru/lmk"><span class="n">07</span><span class="t">Здания из ЛМК</span><span class="d">0:19</span><span class="s">Синяя страница для бизнеса: типы зданий и «почему заказчики работают с нами».</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/remont.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/remont.jpg" data-url="stroy76pro.ru/remont"><span class="n">08</span><span class="t">Ремонт и инженерные системы</span><span class="d">0:12</span><span class="s">Типы объектов и почему ремонт выходит дороже и дольше срока.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/about.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/about.jpg" data-url="stroy76pro.ru/about"><span class="n">09</span><span class="t">О компании</span><span class="d">0:09</span><span class="s">«Нормальная стройка — это когда вы понимаете, что происходит» и рассказ Андрея.</span><span class="bar"><i></i></span></button></li>
+      </ol>
+      <div class="screen-wrap">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span id="urlbar">stroy76pro.ru</span></div>
+          <video id="player" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/hero.jpg" muted playsinline autoplay preload="auto" aria-label="Запись сайта stroy76pro.ru"></video>
+        </div>
+        <div class="phone" aria-label="Мобильная версия главной">
+          <div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/mobile_scroll.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/mobile_scroll.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap anat" id="anat" data-zone="Анатомия">
+  <div class="anat-head">
+    <div>
+      <span class="mono">Разбор главной · сверху вниз</span>
+      <h2 class="big">Анатомия главной. <em>Зачем здесь каждый блок</em></h2>
+      <p>Листайте: справа настоящий скриншот сайта доезжает до блока, о котором я рассказываю. Глубина в пикселях показывает, где блок стоит на странице.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Устройство">
+      <button id="tD" aria-pressed="true">Компьютер</button>
+      <button id="tM" aria-pressed="false">Телефон</button>
+    </div>
+  </div>
+  <div class="anat-grid">
+    <div class="steps" id="steps">
+      <article class="step on" data-d="0,1483" data-m="0,1185" data-y="0">
+        <span class="mono"><b>↓ 0 px</b><span>Первый экран</span></span>
+        <h3>Город, срок на рынке и три цифры</h3>
+        <p>«Строительная компания в Ярославле. Строим дома и здания, которые служат десятки лет». Рядом три цифры по направлениям: 350+ объектов ремонта и инженерных работ, 15+ зданий из металлоконструкций, 10+ коттеджей. Ниже коралловая бегущая строка с тем, за что платят строителю: договор, технадзор, опыт с 2004 года.</p>
+        <div class="tags"><span>с 2004 года</span><span>три цифры</span><span>бегущая строка</span></div>
+      </article>
+      <article class="step" data-d="1603,997" data-m="1285,1204" data-y="1603">
+        <span class="mono"><b>↓ 1 603 px</b><span>Владелец</span></span>
+        <h3>«У нас другая модель»</h3>
+        <p>Главный довод компании стоит сразу после первого экрана: «Большинство строительных компаний — это менеджеры и подрядчики». Андрей начинал с производства работ и до сих пор сам ведёт объекты. Это то, чего нет у конкурентов, поэтому блок получил целый экран.</p>
+        <div class="tags"><span>20+ лет</span><span>владелец на объекте</span></div>
+      </article>
+      <article class="step" data-d="2720,2358" data-m="2589,2936" data-y="2720">
+        <span class="mono"><b>↓ 2 720 px</b><span>Направления</span></span>
+        <h3>Четыре двери в четыре страницы</h3>
+        <p>Строительство коттеджей, быстровозводимые здания из металлоконструкций, внутренние и внешние работы, технический надзор. Каждая карточка ведёт на свою страницу со своим цветом, а технадзор сразу на консультацию.</p>
+        <div class="tags"><span>4 карточки</span><span>3 страницы + консультация</span></div>
+      </article>
+      <article class="step" data-d="5198,963" data-m="5625,1535" data-y="5198">
+        <span class="mono"><b>↓ 5 198 px</b><span>Почему мы</span></span>
+        <h3>Сначала боль, потом принцип</h3>
+        <p>Слева то, чего боится каждый заказчик: ошибки в фундаменте, дешёвые материалы, нет контроля, демпинг подрядчика. Справа как работает Триколор: расчёты до стройки, закупки у поставщиков со скидкой, контроль каждого этапа специалистом с лицензией технадзора.</p>
+        <div class="tags"><span>проблема → решение</span><span>технадзор</span></div>
+      </article>
+      <article class="step" data-d="6281,767" data-m="7260,1864" data-y="6281">
+        <span class="mono"><b>↓ 6 281 px</b><span>Этапы</span></span>
+        <h3>Пять шагов до первого колышка</h3>
+        <p>Звонок или встреча, выезд на объект, формирование задачи, предварительная смета, договор и старт. Человек заранее видит, что от него потребуется и когда появится цифра бюджета.</p>
+        <div class="tags"><span>5 шагов</span><span>смета до договора</span></div>
+      </article>
+      <article class="step" data-d="9439,1025" data-m="12611,1574" data-y="9439">
+        <span class="mono"><b>↓ 9 439 px</b><span>Преимущества</span></span>
+        <h3>Опыт, который превращается в результат</h3>
+        <p>Тёмный блок с четырьмя карточками: 20+ лет практики, контроль каждого этапа, проверенные материалы, работа по договору с фиксированным объёмом и сроками. Он повторяется на страницах направлений, а меняется только цвет.</p>
+        <div class="tags"><span>4 довода</span><span>общий для всех страниц</span></div>
+      </article>
+      <article class="step" data-d="10584,675" data-m="14285,887" data-y="10584">
+        <span class="mono"><b>↓ 10 584 px</b><span>Партнёры</span></span>
+        <h3>Скидки поставщиков до 20%</h3>
+        <p>Безрамное остекление MIRO и Московский завод термопанелей. Корпоративная скидка партнёров переходит в смету заказчика, и это аргумент в рублях, а не в словах.</p>
+        <div class="tags"><span>до 20%</span><span>2 производителя</span></div>
+      </article>
+      <article class="step" data-d="11379,1950" data-m="15272,2910" data-y="11379">
+        <span class="mono"><b>↓ 11 379 px</b><span>Заявка и подвал</span></span>
+        <h3>«Обсудим ваш проект»</h3>
+        <p>Три вопроса для первого разговора: какой объект, где участок, какие задачи. Рядом «Другие разделы сайта», чтобы человек не уходил в тупик. В подвале почта, телефон, карта сайта и адрес офиса.</p>
+        <div class="tags"><span>3 вопроса</span><span>другие разделы</span></div>
+      </article>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="browser" id="vD">
+        <div class="bar"><i></i><i></i><i></i><span>stroy76pro.ru</span></div>
+        <div class="port" id="portD"><div class="layer" id="layerD"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/home-d.jpg" alt="Полный скриншот главной stroy76pro.ru, компьютер" width="1100" height="10182"><div class="hl" id="hlD"><b>Первый экран</b></div></div><span class="viewer-note" id="noteD">↓ 0 px</span></div>
+      </div>
+      <div class="phone" id="vM" hidden>
+        <div class="scr port" id="portM"><div class="layer" id="layerM"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/home-m.jpg" alt="Полный скриншот главной stroy76pro.ru, телефон" width="520" height="24243"><div class="hl" id="hlM"><b>Первый экран</b></div></div><span class="viewer-note" id="noteM">↓ 0 px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap kit" data-zone="За кадром">
+  <div class="kit-head">
+    <span class="mono">Что работает за кадром</span>
+    <h2 class="big">Стройка начинается со звонка. <em>Я сделал так, чтобы он был</em></h2>
+    <p>До сайта компания жила только в Instagram: там видно фото, но не понятно, сколько стоит дом и кто за него отвечает. Сайт отвечает на эти вопросы до звонка, а звонок превращает в разговор о конкретном объекте.</p>
+  </div>
+  <div class="kit-grid">
+    <article class="tile t-quiz">
+      <div class="txt">
+        <span class="mono">Квиз · кнопка «Рассчитать проект» в шапке</span>
+        <h3>Квиз задаёт разные вопросы под разные задачи</h3>
+        <ol class="qsteps">
+          <li>Что вас интересует?</li>
+          <li class="alt">На каком этапе объект? или Какие системы нужны?</li>
+          <li>Что нужно сделать в первую очередь?</li>
+          <li>Когда хотите начать?</li>
+          <li>Площадь или масштаб проекта</li>
+        </ol>
+        <p>Если выбрать инженерные системы, квиз спросит, какие: электрика, вода, канализация, отопление, вентиляция. Менеджер перезванивает, уже зная задачу, срок и масштаб.</p>
+      </div>
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span>stroy76pro.ru · квиз</span></div>
+        <video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/quiz.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/stroy76pro/quiz.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Квиз расчёта проекта"></video>
+      </div>
+    </article>
+    <article class="tile t-two">
+      <span class="mono">Позиционирование</span>
+      <h3>Продаёт человек, а не компания</h3>
+      <p>Андрей работает «в полях» сам. Я вынес это в главный довод сайта и написал страницу «О компании» от первого лица.</p>
+      <blockquote>«Для меня важно, чтобы стройка шла без хаоса, а клиент понимал, что происходит и за что он платит»<small>stroy76pro.ru/about</small></blockquote>
+    </article>
+    <article class="tile t-est">
+      <span class="mono">Деньги</span>
+      <h3>Смета по этапам, а не одной цифрой</h3>
+      <p>Страх строительства — что бюджет вырастет посреди работ. На каждой странице направления сказано прямо, как считаются деньги:</p>
+      <ol class="est">
+        <li><span class="mono">До договора</span><b>Предварительная смета</b><small>понимание бюджета и этапов строительства</small></li>
+        <li><span class="mono">Договор</span><b>Объём, сроки и стоимость</b><small>фиксируются до старта работ</small></li>
+        <li><span class="mono">По ходу</span><b>Сметы на следующие этапы</b><small>чтобы контролировать и бюджет, и процесс</small></li>
+      </ol>
+    </article>
+    <article class="tile t-deal">
+      <span class="mono">Навигация</span>
+      <h3>Из любой страницы видно соседние</h3>
+      <p>Перед подвалом каждой страницы стоит блок «Другие разделы сайта». Тот, кто пришёл за ремонтом офиса, узнаёт, что здесь же строят склады и коттеджи.</p>
+      <div class="links" aria-hidden="true">
+        <span><i style="--c:#4A6339"></i>Строительство коттеджей</span>
+        <span><i style="--c:#005FDB"></i>Быстровозводимые здания</span>
+        <span><i style="--c:#BA896C"></i>Внутренние и внешние работы</span>
+        <span><i style="--c:#513524"></i>О компании</span>
+        <span><i style="--c:#DB5B41"></i>На главную</span>
+      </div>
+    </article>
+    <article class="tile t-grow">
+      <div class="txt">
+        <span class="mono">Система</span>
+        <h3>Один каркас, пять отделок</h3>
+        <p>Блоки «Этапы», «Преимущества», «Партнёры» и «Обсудим проект» общие для всех страниц, поэтому сайт легко поддерживать и дополнять. Меняются заголовки, примеры и цвет акцента, поэтому каждая страница выглядит своей, а компания остаётся одной.</p>
+      </div>
+      <div class="layers">
+        <div class="lay"><span class="mono">Главная</span><i class="sw" style="--c:#DB5B41"></i><b>Распределяет по направлениям</b><em>коралловый</em></div>
+        <div class="lay"><span class="mono">Коттеджи</span><i class="sw" style="--c:#4A6339"></i><b>Каменные дома для постоянной жизни</b><em>зелёный</em></div>
+        <div class="lay"><span class="mono">ЛМК</span><i class="sw" style="--c:#005FDB"></i><b>Склады, СТО, магазины и ангары</b><em>синий</em></div>
+        <div class="lay"><span class="mono">Ремонт</span><i class="sw" style="--c:#BA896C"></i><b>Ремонт и инженерные системы</b><em>песочный</em></div>
+        <div class="lay"><span class="mono">О компании</span><i class="sw" style="--c:#513524"></i><b>Андрей от первого лица</b><em>коричневый</em></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap proc" id="proc" data-zone="Как шла работа">
+  <span class="mono">Как появился сайт</span>
+  <h2 class="big">Около 40 дней. <em>От сообщения в WhatsApp до пяти страниц</em></h2>
+  <div class="track" id="track">
+    <div class="st"><span class="mono">01</span><h4>Знакомство</h4><p>Андрей сам нашёл меня и написал в WhatsApp. До этого компания пробовала продвигаться только через Instagram.</p></div>
+    <div class="st"><span class="mono">02</span><h4>Интервью</h4><p>Разобрали четыре направления, как Андрей ведёт объекты и чего боятся его заказчики: роста сметы, сорванных сроков, случайных рабочих.</p></div>
+    <div class="st"><span class="mono">03</span><h4>Структура</h4><p>Главная распределяет, у каждого направления своя страница под поисковые запросы, отдельно страница о владельце.</p></div>
+    <div class="st"><span class="mono">04</span><h4>Тексты и квиз</h4><p>Тезис на каждый блок, честный разговор о смете и квиз, который задаёт разные вопросы под разные задачи.</p></div>
+    <div class="st"><span class="mono">05</span><h4>Дизайн и запуск</h4><p>Шрифт Strogo, четыре цвета направлений, вёрстка на Tilda, квиз и формы на всех страницах.</p></div>
+  </div>
+  <div class="span-note"><span class="mono">Сообщение в WhatsApp</span><span class="mono"><b>≈ 40 дней</b> до запуска</span><span class="mono">5 страниц</span></div>
+</section>
+
+<section class="wrap result" data-zone="Результат">
+  <div class="result-grid">
+    <div class="res-num">
+      <span class="mono">Было → стало</span>
+      <b>0<span>→</span>5</b>
+      <p>Своего сайта не было, только Instagram. Теперь у компании пять страниц, квиз расчёта и форма заявки на каждой.</p>
+    </div>
+    <div class="res-two">
+      <span class="mono">Что дальше</span>
+      <h3>Сайт готов к рекламе</h3>
+      <p>Рекламу пока не запускали. Когда запустят, у каждого направления уже есть куда вести человека из поиска:</p>
+      <ul class="ready">
+        <li>Своя страница под запрос «строительство коттеджей», «здания из ЛМК», «ремонт помещений»</li>
+        <li>Квиз, который сразу отделяет коттедж от склада и ремонта</li>
+        <li>SEO-текст о компании и заголовки с городом на каждой странице</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cta">
+    <div>
+      <h2>Ваш бизнес пока живёт только в Instagram?</h2>
+      <p>Расскажите о нём, и я пришлю бюджет и сроки меньше чем за 24 часа.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="https://t.me/Ovchinnikov_dsgn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <span class="phone-num">+7 (910) 970-01-24</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap next">
+  <span class="mono">Следующий кейс</span>
+  <a href="https://ovchinnikov-dsgn.ru/project_setka-garmoshka76" target="_blank" rel="noopener">Сетка-гармошка 76 →</a>
+</footer>
+</div>
+<script>
+
+(()=>{
+const R=document.querySelector('.ovp');if(!R)return;const $=s=>R.querySelector(s),$$=s=>[...R.querySelectorAll(s)];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+/* слово в hero подгоняется под ширину колонки */
+const word=$('.word');function fit(){const narrow=innerWidth<=900;word.style.fontSize='';
+  const parts=[...word.querySelectorAll('.part')],chip=word.querySelector('.reel-chip');
+  const fs=parseFloat(getComputedStyle(word).fontSize);
+  const need=parts.reduce((a,p)=>a+p.scrollWidth,0)+(narrow?0:fs*1.9)+(narrow?4:40);if(need>word.clientWidth)word.style.fontSize=(fs*word.clientWidth/need*.985)+'px'}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);addEventListener('resize',fit);fit();
+
+/* окошко в hero: пять страниц сменяют друг друга, «КОЛОР» и рамка перекрашиваются в цвет страницы */
+const chipImgs=$$('#chip img'),chipLbl=['главная','коттеджи','здания из лмк','ремонт','о компании'],chipC=['#DB5B41','#4A6339','#005FDB','#BA896C','#513524'];let ci=0;
+const heroS=$('.hero');function chipSet(i){heroS.style.setProperty('--acc',chipC[i])}chipSet(0);
+if(!reduce)setInterval(()=>{chipImgs[ci].classList.remove('on');ci=(ci+1)%chipImgs.length;chipImgs[ci].classList.add('on');chipSet(ci);$('#chipT').textContent=String(ci+1).padStart(2,'0')+' · '+chipLbl[ci]},1900);
+
+/* чертёж: прокрутка ведёт по шести этапам стройки, каждый принятый этап остаётся на листе */
+const BP=$('#bp'),sheet=$('#sheet'),stB=$$('#stages button'),stG=$$('#sheet .st'),NS=stB.length;let si=-1,bpr=0,finLoaded=false;
+function finLoad(){if(finLoaded)return;finLoaded=true;$$('.fin-col img').forEach(im=>{im.src=im.dataset.src})}
+new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))finLoad()},{rootMargin:'50% 0px'}).observe(BP);
+function setStage(i){if(i===si)return;si=i;
+  stB.forEach((b,k)=>{b.setAttribute('aria-current',k===i);b.classList.toggle('done',k<i)});
+  stG.forEach((g,k)=>g.classList.toggle('on',k<=i));
+  sheet.classList.toggle('fin',i>=NS-1);
+  $('#tnN').textContent=i+1;$('#tn').style.setProperty('--p',((i+1)/NS*100)+'%')}
+function bpUpdate(){bpr=0;const r=BP.getBoundingClientRect(),span=r.height-innerHeight;const p=clamp((-r.top+innerHeight*.25)/Math.max(1,span),0,1);
+  setStage(Math.min(NS-1,Math.floor(p*NS*.999)))}
+addEventListener('scroll',()=>{if(!bpr)bpr=requestAnimationFrame(bpUpdate)},{passive:true});
+stB.forEach((b,k)=>b.addEventListener('click',()=>{const span=BP.offsetHeight-innerHeight;scrollTo({top:BP.getBoundingClientRect().top+scrollY+span*(k+.35)/NS-innerHeight*.25,behavior:reduce?'auto':'smooth'})}));
+if(reduce){stG.forEach(g=>g.classList.add('on'))}
+bpUpdate();
+
+/* пять страниц: прокрутка выбирает страницу и листает её внутри браузера, шторка проходит цветом направления */
+const PG=$('#pages'),prs=$$('#pgt .pr'),skyB=$$('#sky button'),imgs=$$('#scrub img'),scrub=$('#scrub'),N=prs.length;let pi=-1,pr=0,loaded=false;
+function loadAll(){if(loaded)return;loaded=true;imgs.forEach(im=>{if(im.dataset.src&&!im.src)im.src=im.dataset.src})}
+new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))loadAll()},{rootMargin:'100% 0px'}).observe(PG);
+function setPage(i){if(i===pi)return;const first=pi<0;pi=i;
+  prs.forEach((v,k)=>v.classList.toggle('on',k===i));
+  skyB.forEach((b,k)=>{b.setAttribute('aria-current',k===i);b.classList.toggle('done',k<i)});
+  const im=imgs[i];if(!im.src&&im.dataset.src)im.src=im.dataset.src;
+  const w=$('#wipe');w.style.setProperty('--wc',im.dataset.c);$('#depth').style.setProperty('--wc',im.dataset.c);if(first||reduce){imgs.forEach((m,k)=>m.classList.toggle('on',k===i))}
+  else{w.classList.remove('go');void w.offsetWidth;w.classList.add('go');setTimeout(()=>imgs.forEach((m,k)=>m.classList.toggle('on',k===i)),360)}
+  $('#pgUrl').textContent='stroy76pro.ru'+(im.dataset.u?'/'+im.dataset.u:'')}
+function pgUpdate(){pr=0;const r=PG.getBoundingClientRect(),span=r.height-innerHeight;const p=clamp(-r.top/Math.max(1,span),0,1);
+  const f=p*N*.9999,i=Math.min(N-1,Math.floor(f)),local=clamp((f-i-.08)/.84,0,1);setPage(i);
+  const im=imgs[i],H=+im.dataset.h,pw=scrub.clientWidth,ph=scrub.clientHeight,ih=pw*im.height/im.width,off=local*Math.max(0,ih-ph);
+  im.style.transform=`translateY(${-off}px)`;
+  const lens=skyB[i].querySelector('.lens'),lh=clamp(ph/ih,.06,1)*100;lens.style.height=lh+'%';lens.style.top=(local*(100-lh))+'%';
+  const d=$('#depth');d.style.setProperty('--d',(local*100).toFixed(1)+'%');
+  d.innerHTML=`↓ ${Math.round(off/pw*1440).toLocaleString('ru-RU')}<i></i>${H.toLocaleString('ru-RU')} px`}
+addEventListener('scroll',()=>{if(!pr)pr=requestAnimationFrame(pgUpdate)},{passive:true});addEventListener('resize',pgUpdate);
+skyB.forEach((b,k)=>b.addEventListener('click',()=>{const span=PG.offsetHeight-innerHeight;scrollTo({top:PG.getBoundingClientRect().top+scrollY+span*(k+.1)/N,behavior:reduce?'auto':'smooth'})}));
+imgs[0].addEventListener('load',pgUpdate);pgUpdate();
+
+/* ролик по главам */
+const player=$('#player'),chs=$$('#chapters button');let cur=0;
+function play(i){cur=(i+chs.length)%chs.length;chs.forEach((b,k)=>{b.setAttribute('aria-current',k===cur);b.querySelector('.bar i').style.width='0'});
+  const b=chs[cur];player.poster=b.dataset.poster;player.src=b.dataset.src;$('#urlbar').textContent=b.dataset.url;player.play().catch(()=>{})}
+chs.forEach((b,i)=>b.addEventListener('click',()=>play(i)));
+player.addEventListener('timeupdate',()=>{if(player.duration)chs[cur].querySelector('.bar i').style.width=(player.currentTime/player.duration*100)+'%'});
+player.addEventListener('ended',()=>play(cur+1));
+// видео играют только на экране
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!reduce)v.play().catch(()=>{})}else v.pause()}),{threshold:.15});
+$$('video').forEach(v=>{if(reduce){v.removeAttribute('autoplay');v.pause()}vio.observe(v)});
+
+/* анатомия */
+const W={d:1440,m:390};let mode='d',active=0;
+const steps=$$('.step');
+function show(i){active=i;steps.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const s=steps[i],M=mode.toUpperCase(),port=$('#port'+M),layer=$('#layer'+M),img=layer.querySelector('img'),hl=$('#hl'+M);
+  if(!s.dataset[mode]){hl.style.opacity='0';$('#note'+M).textContent='Этот блок есть только на компьютере';return}
+  hl.style.opacity='1';
+  const [y,h]=s.dataset[mode].split(',').map(Number);
+  const k=port.clientWidth/W[mode],ph=port.clientHeight,top=y*k,hh=h*k;
+  const imgH=port.clientWidth*img.height/img.width;
+  let off=hh<ph-60?top-(ph-hh)/2:top-28;off=Math.max(0,Math.min(off,imgH-ph));
+  layer.style.transform=`translateY(${-off}px)`;hl.style.top=top+'px';hl.style.height=hh+'px';
+  hl.querySelector('b').textContent=s.querySelector('.mono span').textContent;
+  const real=y;$('#note'+M).textContent='↓ '+Math.round(real).toLocaleString('ru-RU')+' px'}
+// активный шаг выбирается по линии чтения, а не IntersectionObserver: во встроенном фрейме rootMargin не работает
+const viewer=$('#viewer');let raf=0;
+function pick(){raf=0;const vr=viewer.getBoundingClientRect(),narrow=innerWidth<=900;
+  const line=narrow?vr.bottom+(innerHeight-vr.bottom)*.35:innerHeight*.5;let i=0;
+  steps.forEach((s,k)=>{if(s.getBoundingClientRect().top<=line)i=k});if(i!==active)show(i)}
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+steps.forEach((s,i)=>s.addEventListener('click',()=>show(i)));
+function setMode(m){mode=m;$('#tD').setAttribute('aria-pressed',m==='d');$('#tM').setAttribute('aria-pressed',m==='m');$('#vD').hidden=m!=='d';$('#vM').hidden=m!=='m';
+  const im=$('#layerM img');if(m==='m'&&!im.src){im.src=im.dataset.src;im.onload=()=>show(active)}requestAnimationFrame(()=>show(active))}
+$('#tD').onclick=()=>setMode('d');$('#tM').onclick=()=>setMode('m');
+addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('load',()=>show(active));show(0);
+
+/* процесс: линия заполняется по мере прокрутки */
+const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+
+})();
+</script>
