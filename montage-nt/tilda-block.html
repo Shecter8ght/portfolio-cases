@@ -1,0 +1,969 @@
+<!-- Кейс «Бизнес Плюс» · «Монтаж фасада». Вставьте целиком в блок T123 (HTML-код). Отступы блока сверху и снизу поставьте 0. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+
+/* Layout: кейс как монтаж фасада. Фирменный стиль ovchinnikov-dsgn.ru (тёплый белый, сливово-чёрный, коралл, моно-подписи)
+   снаружи, графитовый мир «Бизнес Плюс» внутри рамок. Высоты страниц в px — настоящие высоты страниц montage-nt.ru при ширине 1440. */
+.ovp{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#2F282E; --muted:#846F81; --line:#E7E2E4;
+  --coral:#F36A55; --coral-ink:#FFFFFF; --steel:#4A86E8; --amber:#F07A3E; --deep:#16202E;
+  --night:#1D181D; --night-2:#2A232A; --night-ink:#F4EEF2; --night-muted:#A8979F; --night-line:#3B323A;
+  --dim:rgba(29,24,29,.55);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:22px;
+}
+html[data-theme="dark"] .ovp{
+  --bg:#161216; --surface:#211B21; --ink:#F3EDF1; --muted:#A9979F; --line:#352D34;
+  --coral:#FF7A64; --coral-ink:#1A1012; --steel:#6A9DF0; --amber:#FF8A50;
+  --night:#0F0C0F; --night-2:#1E181E; --night-line:#342B33; --dim:rgba(8,6,8,.62); color-scheme:dark}
+
+.ovp,.ovp *{box-sizing:border-box}
+.ovp [hidden]{display:none!important}
+.ovp .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ovp{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased;text-align:left}
+.ovp .wrap{--pad:20px;margin:0;padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px))}
+@media (min-width:1400px){.ovp .wrap{--pad:40px}}
+@media (max-width:767px){.ovp .wrap{--pad:10px}}
+.ovp a{color:inherit}
+.ovp :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.ovp .mono{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .mono b{color:var(--coral);font-weight:500}
+.ovp .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--steel);vertical-align:middle;margin-right:6px}
+.ovp .btn{display:inline-flex;flex-direction:column;justify-content:center;gap:2px;padding:14px 26px;border-radius:999px;background:var(--coral);color:var(--coral-ink);text-decoration:none;font:600 16px/1.2 var(--f-display);box-shadow:0 14px 30px -14px var(--coral);transition:transform .25s,box-shadow .25s}
+.ovp .btn small{font:500 12px var(--f-body);opacity:.85}
+.ovp .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--coral)}
+.ovp .link{font:600 15px var(--f-display);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.ovp h2.big{font:700 clamp(36px,5.6vw,80px)/.95 var(--f-display);letter-spacing:-.045em;margin:10px 0 0;text-wrap:balance}
+.ovp h2.big em{font-style:normal;color:var(--muted)}
+
+/* шапка */
+.ovp .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ovp .top .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
+.ovp .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.ovp .logo svg{flex:none}
+.ovp .logo b{display:block;font:600 15px/1.15 var(--f-display);letter-spacing:.02em}
+.ovp .logo span{display:block;font-size:13px;color:var(--muted)}
+.ovp .top nav{margin-left:auto;display:flex;align-items:center;gap:22px}
+.ovp .top nav a{font:500 15px var(--f-body);text-decoration:none;color:var(--muted)}
+.ovp .top nav a:hover{color:var(--ink)}
+.ovp .rec{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:500 12px var(--f-mono);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ovp .rec i{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:ovp-blink 1.4s steps(2) infinite}
+@keyframes ovp-blink{50%{opacity:.15}}
+
+/* hero */
+.ovp .hero{padding-block:18px 34px}
+.ovp .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.ovp .word{display:flex;align-items:center;justify-content:space-between;gap:0;font:800 min(15vw,320px)/.8 var(--f-display);letter-spacing:-.065em;margin:0;text-transform:uppercase;white-space:nowrap}
+.ovp .word .part{display:flex;overflow:hidden;padding-block:.06em .02em}
+.ovp .word .part span{display:inline-block;animation:ovp-rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*55ms + 120ms)}
+.ovp .word .part .t{color:var(--steel)}
+@keyframes ovp-rise{from{transform:translateY(105%)}}
+.ovp .reel-chip{position:relative;flex:1 1 auto;min-width:1.4em;height:.74em;margin-inline:.14em!important;border-radius:.08em;overflow:visible;animation:ovp-pop 1s cubic-bezier(.2,.9,.25,1.15) .45s both;margin-top:.05em!important}
+.ovp .reel-chip .stack{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--night);box-shadow:0 30px 60px -30px rgba(29,24,29,.55)}
+.ovp .reel-chip .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%;opacity:0;transition:opacity .5s}
+.ovp .reel-chip .stack img.on{opacity:1}
+.ovp .reel-chip::after{content:"";position:absolute;right:-.05em;top:-.05em;width:.1em;height:.1em;border-radius:50%;background:var(--coral);border:.02em solid var(--bg)}
+.ovp .reel-chip figcaption{position:absolute;left:.05em;bottom:.05em;font:500 clamp(9px,.9vw,12px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,16,20,.62);backdrop-filter:blur(6px);padding:6px 9px;border-radius:999px;font-variant-numeric:tabular-nums}
+@keyframes ovp-pop{from{transform:scale(.6) rotate(-4deg);opacity:0}}
+.ovp .hero-low{display:grid;grid-template-columns:minmax(0,1.25fr) auto;gap:28px;align-items:end;margin-top:30px}
+.ovp .hero-low h1{font:700 clamp(28px,3.3vw,46px)/1.02 var(--f-display);letter-spacing:-.04em;margin:0;text-wrap:balance}
+.ovp .hero-low h1 em{font-style:normal;color:var(--muted)}
+.ovp .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ovp .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.ovp .fact{padding:20px 20px 4px 0;display:grid;gap:6px}
+.ovp .fact+.fact{padding-left:20px;border-left:1px solid var(--line)}
+.ovp .fact b{font:700 clamp(34px,4.2vw,58px)/1 var(--f-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.ovp .fact b small{font-size:.5em;color:var(--muted);letter-spacing:-.02em;margin-left:.1em}
+
+/* общие рамки */
+.ovp .browser{border-radius:18px;background:#E9E6E8;overflow:hidden;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.08)}
+.ovp .browser .bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#EFECEE}
+.ovp .browser .bar i{width:11px;height:11px;border-radius:50%;background:#D3CDD1}
+.ovp .browser .bar i:first-child{background:#F36A55}
+.ovp .browser .bar span{margin-left:14px;flex:1;max-width:360px;font:500 12px var(--f-mono);color:#6E5F6B;background:#fff;border-radius:8px;padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovp .browser video,.ovp .browser > img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#fff}
+.ovp .phone{position:relative;width:100%;border-radius:38px;padding:9px;background:#141114;box-shadow:0 40px 80px -30px rgba(0,0,0,.65),inset 0 0 0 1.5px #3A3239}
+.ovp .phone .scr{position:relative;border-radius:30px;overflow:hidden;aspect-ratio:390/844;background:#fff}
+.ovp .phone .scr::before{content:"";position:absolute;z-index:2;left:50%;top:9px;width:30%;height:22px;border-radius:12px;background:#141114;transform:translateX(-50%)}
+.ovp .phone video,.ovp .phone img{display:block;width:100%}
+.ovp .phone video{height:100%;object-fit:cover;object-position:top}
+
+/* восемь страниц: город из страниц, текущая прокручивается вместе с читателем */
+.ovp .pages{position:relative;height:calc(var(--n,8) * 95vh + 50vh);margin-top:70px}
+.ovp .pg-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);height:calc(100vh - 86px);min-height:560px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto minmax(0,1fr);gap:20px 48px;padding-block:10px 26px}
+.ovp .pg-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .pg-head h2{margin:0;font:700 clamp(26px,3vw,42px)/1 var(--f-display);letter-spacing:-.04em;text-wrap:balance}
+.ovp .pg-head h2 em{font-style:normal;color:var(--muted)}
+.ovp .pg-left{min-width:0;display:grid;grid-template-rows:auto minmax(0,1fr);gap:26px}
+.ovp .sky{position:relative;display:grid;grid-template-columns:repeat(var(--n,8),minmax(0,1fr));gap:8px;align-items:end;height:clamp(110px,21vh,190px);padding-bottom:26px;border-bottom:1px solid var(--line)}
+.ovp .sky button{all:unset;box-sizing:border-box;cursor:pointer;position:relative;height:calc(var(--h) * 100%);border-radius:5px 5px 2px 2px;overflow:visible;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.ovp .sky button .im{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:var(--surface);box-shadow:0 0 0 1px var(--line);opacity:.5;filter:grayscale(.7);transition:opacity .4s,filter .4s,box-shadow .3s}
+.ovp .sky button img{display:block;width:100%;height:100%;object-fit:fill}
+.ovp .sky button b{position:absolute;left:0;right:0;bottom:-24px;text-align:center;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.04em}
+.ovp .sky button.done .im{opacity:.8;filter:none}
+.ovp .sky button[aria-current="true"]{transform:translateY(-6px)}
+.ovp .sky button[aria-current="true"] .im{opacity:1;filter:none;box-shadow:0 0 0 2px var(--coral),0 18px 30px -16px rgba(29,24,29,.5)}
+.ovp .sky button[aria-current="true"] b{color:var(--coral)}
+.ovp .lens{position:absolute;left:-3px;right:-3px;top:0;height:10%;border:2px solid var(--coral);border-radius:4px;background:color-mix(in srgb,var(--coral) 22%,transparent);box-shadow:0 0 0 999px transparent;opacity:0;transition:opacity .3s;pointer-events:none}
+.ovp .sky button[aria-current="true"] .lens{opacity:1}
+.ovp .pg-text{position:relative;min-width:0;display:grid;align-content:center}
+.ovp .pr{grid-area:1/1;display:grid;gap:14px;align-content:center;opacity:0;transform:translateY(24px);transition:opacity .55s,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ovp .pr.on{opacity:1;transform:none;pointer-events:auto}
+.ovp .pr .no{font:800 clamp(56px,6.4vw,104px)/.8 var(--f-display);letter-spacing:-.07em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:.16em}
+.ovp .pr .no small{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--coral)}
+.ovp .pr h3{margin:2px 0 0;font:700 clamp(22px,2.2vw,30px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .diff{margin:2px 0 0;display:grid;gap:8px}
+.ovp .diff div{display:grid;grid-template-columns:6.4em minmax(0,1fr);gap:12px;align-items:baseline;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .diff div:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 7%,transparent)}
+.ovp .diff dt{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ovp .diff div:last-child dt{color:var(--coral)}
+.ovp .diff dd{margin:0;font-size:15px;line-height:1.45}
+.ovp .pg-screen{position:relative;min-width:0;display:flex}
+.ovp .pg-screen .browser{width:100%;display:flex;flex-direction:column}
+.ovp .scrub{position:relative;flex:1;overflow:hidden;background:#fff}
+.ovp .scrub img{position:absolute;left:0;top:0;width:100%;height:auto;opacity:0;will-change:transform}
+.ovp .scrub img.on{opacity:1}
+.ovp .wipe{position:absolute;inset:0;z-index:2;background:var(--steel);transform:translateY(101%);pointer-events:none}
+.ovp .wipe.go{animation:ovp-wipe .8s cubic-bezier(.7,0,.2,1)}
+@keyframes ovp-wipe{0%{transform:translateY(101%)}45%,55%{transform:none}100%{transform:translateY(-101%)}}
+.ovp .depth{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.72);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums}
+.ovp .depth i{display:inline-block;width:46px;height:3px;margin:0 8px 2px;border-radius:2px;background:rgba(255,255,255,.25);vertical-align:middle;position:relative;overflow:hidden}
+.ovp .depth i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--d,0%);background:var(--steel)}
+
+/* ролик */
+.ovp .cinema{background:var(--night);color:var(--night-ink);border-radius:32px 32px 0 0;overflow:hidden;margin-top:40px}
+.ovp .cinema .wrap{padding-block:70px 80px}
+.ovp .cinema .mono{color:var(--night-muted)}
+.ovp .cinema-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.ovp .cinema-head h2{color:var(--night-ink)}
+.ovp .cinema-head h2 em{color:var(--night-muted)}
+.ovp .stage{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:start}
+.ovp .chapters{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.ovp .chapters button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;width:100%;padding:13px 18px;border-radius:16px;position:relative;overflow:hidden;transition:background .3s}
+.ovp .chapters button:hover{background:var(--night-2)}
+.ovp .chapters button[aria-current="true"]{background:var(--night-2)}
+.ovp .chapters .n{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px}
+.ovp .chapters .t{font:600 17px/1.25 var(--f-display);letter-spacing:-.02em}
+.ovp .chapters .d{font:500 12px var(--f-mono);color:var(--night-muted);padding-top:4px;font-variant-numeric:tabular-nums}
+.ovp .chapters .s{grid-column:2/4;font-size:14px;line-height:1.45;color:var(--night-muted);display:none}
+.ovp .chapters button[aria-current="true"] .s{display:block}
+.ovp .chapters button[aria-current="true"] .n{color:var(--coral)}
+.ovp .chapters .bar{position:absolute;left:18px;right:18px;bottom:7px;height:2px;background:var(--night-line);border-radius:2px;opacity:0}
+.ovp .chapters button[aria-current="true"] .bar{opacity:1}
+.ovp .chapters .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:inherit}
+.ovp .screen-wrap{position:relative;padding-right:min(9%,110px);padding-bottom:40px;position:sticky;top:110px}
+.ovp .stage .phone{position:absolute;right:0;bottom:0;width:min(23%,230px)}
+
+/* анатомия */
+.ovp .anat{padding-block:100px 40px}
+.ovp .anat-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.ovp .anat-head p{max-width:34em;color:var(--muted);margin:16px 0 0}
+.ovp .toggle{display:inline-flex;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .toggle button{border:0;background:transparent;color:var(--muted);font:600 14px var(--f-display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.ovp .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ovp .anat-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;margin-top:40px}
+.ovp .steps{display:grid}
+.ovp .step{min-height:72vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.38;transition:opacity .5s}
+.ovp .step:first-child{border-top:0}
+.ovp .step.on{opacity:1}
+.ovp .step .mono{display:flex;gap:12px;flex-wrap:wrap}
+.ovp .step h3{font:700 clamp(26px,2.8vw,40px)/1.04 var(--f-display);letter-spacing:-.04em;margin:14px 0 14px;text-wrap:balance}
+.ovp .step p{margin:0;max-width:31em}
+.ovp .step .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.ovp .step .tags span{font:500 13px var(--f-body);padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.ovp .viewer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);height:calc(100vh - 130px);max-height:820px;display:flex;align-items:flex-start;justify-content:center}
+.ovp .viewer .browser{width:100%;height:100%;display:flex;flex-direction:column}
+.ovp .viewer .phone{height:100%;width:auto;aspect-ratio:408/862;max-width:100%}
+.ovp .port{position:relative;flex:1;overflow:hidden;background:#1E1E20}
+.ovp .viewer .phone .scr{height:100%;width:100%;aspect-ratio:auto}
+.ovp .layer{position:absolute;left:0;top:0;width:100%;transition:transform 1.15s cubic-bezier(.7,0,.2,1);will-change:transform}
+.ovp .layer img{display:block;width:100%;aspect-ratio:auto;height:auto;object-fit:fill}
+.ovp .hl{position:absolute;left:6px;right:6px;border-radius:14px;box-shadow:0 0 0 2px var(--coral),0 0 0 4000px var(--dim);transition:top 1.15s cubic-bezier(.7,0,.2,1),height 1.15s cubic-bezier(.7,0,.2,1),opacity .4s;pointer-events:none}
+.ovp .hl b{position:absolute;left:10px;top:10px;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--coral);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.ovp .viewer-note{position:absolute;right:12px;bottom:12px;z-index:3;font:500 11px var(--f-mono);color:#fff;background:rgba(20,16,20,.7);padding:6px 10px;border-radius:999px;letter-spacing:.05em;font-variant-numeric:tabular-nums;max-width:calc(100% - 24px)}
+
+/* за кадром */
+.ovp .kit{padding-block:90px 40px}
+.ovp .kit-head p{max-width:36em;color:var(--muted);margin:16px 0 0}
+.ovp .kit-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;margin-top:40px}
+.ovp .tile{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.ovp .tile h3{margin:0;font:700 clamp(21px,1.9vw,26px)/1.1 var(--f-display);letter-spacing:-.03em;text-wrap:balance}
+.ovp .tile p{margin:0;font-size:15px;color:var(--muted);max-width:34em}
+.ovp .t-quiz{grid-column:span 4;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:26px;align-items:center}
+.ovp .t-quiz .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .qsteps{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:6px;counter-reset:q}
+.ovp .qsteps li{display:flex;gap:10px;align-items:baseline;font:600 15px/1.3 var(--f-display)}
+.ovp .qsteps li::before{counter-increment:q;content:counter(q);flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--steel) 20%,transparent);color:var(--ink);font:500 11px var(--f-mono);transform:translateY(-1px)}
+.ovp .t-two{grid-column:span 2;background:var(--night);color:var(--night-ink);border-color:var(--night)}
+.ovp .t-two p{color:var(--night-muted)}
+.ovp .t-two .mono{color:var(--night-muted)}
+.ovp .sites{margin-top:auto;display:grid;gap:8px}
+.ovp .site{border-radius:14px;background:var(--night-2);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;font:600 15px var(--f-display)}
+.ovp .site small{font:500 11px var(--f-mono);color:var(--night-muted);letter-spacing:.04em}
+.ovp .site span{flex:none;width:10px;height:10px;border-radius:50%;background:var(--steel);box-shadow:0 0 0 0 var(--steel);animation:ovp-ping 2.4s infinite}
+.ovp .site:last-child span{animation-delay:1.2s}
+@keyframes ovp-ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--steel) 60%,transparent)}70%,100%{box-shadow:0 0 0 12px transparent}}
+.ovp .t-est{grid-column:span 3}
+.ovp .t-deal{grid-column:span 3}
+.ovp .est{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px}
+.ovp .est li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .est li .mono{grid-row:span 2;align-self:center;min-width:5.2em}
+.ovp .est li b{font:600 15px/1.3 var(--f-display)}
+.ovp .est li small{font-size:13px;color:var(--muted)}
+.ovp .est li:last-child{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 8%,transparent)}
+.ovp .quota{display:grid;gap:10px;margin-top:4px}
+.ovp .quota div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}
+.ovp .quota span{font-size:14px;color:var(--muted)}
+.ovp .quota b{font:700 15px var(--f-display);font-variant-numeric:tabular-nums}
+.ovp .quota i{grid-column:1/-1;height:8px;border-radius:4px;background:var(--line);position:relative;overflow:hidden}
+.ovp .quota i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--steel);border-radius:inherit;transform-origin:left;animation:ovp-grow 1.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ovp-grow{from{transform:scaleX(0)}}
+.ovp .t-grow{grid-column:span 6;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:30px;align-items:center}
+.ovp .t-grow .txt{display:flex;flex-direction:column;gap:14px}
+.ovp .layers{display:grid;gap:8px}
+.ovp .lay{display:grid;grid-template-columns:7.5em minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:var(--bg)}
+.ovp .lay .mono{color:var(--muted)}
+.ovp .lay b{font:600 15px/1.3 var(--f-display)}
+.ovp .lay em{font:500 11px var(--f-mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.ovp .lay.new{border-color:color-mix(in srgb,var(--steel) 60%,var(--line))}
+.ovp .lay.new em{background:color-mix(in srgb,var(--steel) 18%,transparent);border-color:transparent;color:var(--ink)}
+
+/* процесс */
+.ovp .proc{padding-block:100px 60px}
+.ovp .track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:44px;position:relative}
+.ovp .track::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--coral) var(--p,0%),var(--line) var(--p,0%))}
+.ovp .st{position:relative;padding:44px 18px 0 0}
+.ovp .st::before{content:"";position:absolute;left:0;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--coral)}
+.ovp .st .mono{color:var(--coral)}
+.ovp .st h4{margin:8px 0 8px;font:700 21px/1.15 var(--f-display);letter-spacing:-.025em}
+.ovp .st p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.ovp .span-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px dashed var(--line)}
+
+/* итог */
+.ovp .result{padding-block:60px 110px}
+.ovp .result-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.ovp .res-num{border-radius:28px;background:var(--night);color:var(--night-ink);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;min-height:380px}
+.ovp .res-num .mono{color:var(--night-muted)}
+.ovp .res-num b{font:800 clamp(90px,13vw,190px)/.8 var(--f-display);letter-spacing:-.07em}
+.ovp .res-num b span{color:var(--coral)}
+.ovp .res-num p{margin:0;color:var(--night-muted);max-width:26em}
+.ovp .review{border-radius:28px;background:var(--deep);color:#EAF7F6;padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;text-decoration:none;position:relative;overflow:hidden;min-height:380px}
+.ovp .review::before{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--steel) 55%,transparent),transparent)}
+.ovp .review .mono{color:rgba(234,247,246,.65);position:relative}
+.ovp .review h3{margin:0;font:600 clamp(24px,2.4vw,34px)/1.2 var(--f-display);letter-spacing:-.025em;position:relative;text-wrap:balance}
+.ovp .play{position:relative;display:flex;align-items:center;gap:16px}
+.ovp .play i{flex:none;width:68px;height:68px;border-radius:50%;background:var(--steel);display:grid;place-items:center;box-shadow:0 0 0 0 color-mix(in srgb,var(--steel) 50%,transparent);animation:ovp-ping 2.4s infinite;transition:transform .25s}
+.ovp .play i::before{content:"";margin-left:5px;border-left:18px solid var(--deep);border-top:11px solid transparent;border-bottom:11px solid transparent}
+.ovp .review:hover .play i{transform:scale(1.08)}
+.ovp .play b{display:block;font:600 16px var(--f-display)}
+.ovp .play span{font-size:14px;color:rgba(234,247,246,.7)}
+.ovp .cta{margin-top:24px;border-radius:28px;background:var(--coral);color:var(--coral-ink);padding:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center}
+.ovp .cta h2{margin:0;font:700 clamp(30px,3.8vw,54px)/1 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovp .cta p{margin:12px 0 0;opacity:.85}
+.ovp .cta .acts{display:grid;gap:12px;justify-items:start}
+.ovp .cta .btn{background:var(--coral-ink);color:var(--coral);box-shadow:none}
+.ovp .cta .phone-num{font:600 20px var(--f-display);user-select:all}
+.ovp .next{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;padding-block:28px 40px;border-top:1px solid var(--line)}
+.ovp .next a{font:700 clamp(22px,2.6vw,34px) var(--f-display);letter-spacing:-.03em;text-decoration:none}
+.ovp .next a:hover{color:var(--coral)}
+
+/* «Ваш визит» */
+.ovp .visit{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25;display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:18px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 18px 40px -20px rgba(29,24,29,.45);max-width:calc(100vw - 32px)}
+.ovp .visit .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+.ovp .visit .bars i{width:4px;border-radius:2px;background:var(--line);height:20%;transition:height .6s,background .6s}
+.ovp .visit .bars i.hot{background:var(--coral)}
+.ovp .visit .bars i.warm{background:color-mix(in srgb,var(--coral) 45%,var(--line))}
+.ovp .visit div{min-width:0}
+.ovp .visit .mono{font-size:10px}
+.ovp .visit b{display:block;font:600 15px/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+.ovp .visit b em{font:500 13px var(--f-mono);font-style:normal;color:var(--coral);margin-left:6px}
+
+/* монтаж фасада: каркас здания на чертеже, панели с первым экраном сайта поднимаются ряд за рядом */
+.ovp .build{position:relative;height:calc(var(--n,6) * 90vh + 40vh);margin-top:60px}
+.ovp .bd-pin{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);height:calc(100vh - 86px);min-height:560px;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);grid-template-rows:auto minmax(0,1fr);gap:18px 44px;padding-block:10px 24px}
+.ovp .bd-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.ovp .bd-head h2{margin:0;font:700 clamp(26px,3vw,42px)/1 var(--f-display);letter-spacing:-.04em;text-wrap:balance}
+.ovp .bd-head h2 em{font-style:normal;color:var(--muted)}
+.ovp .bd-text{position:relative;min-width:0;display:grid;align-content:center}
+.ovp .bd-text .pr .no{color:var(--ink)}
+.ovp .bd-stage{position:relative;min-width:0;border-radius:26px;overflow:hidden;background:#101826;isolation:isolate;display:grid;place-items:center}
+.ovp .bd-stage::before{content:"";position:absolute;inset:0;z-index:0;background:
+  linear-gradient(rgba(120,160,230,.07) 1px,transparent 1px) 0 0/40px 40px,
+  linear-gradient(90deg,rgba(120,160,230,.07) 1px,transparent 1px) 0 0/40px 40px,
+  linear-gradient(rgba(120,160,230,.12) 1px,transparent 1px) 0 0/200px 200px,
+  linear-gradient(90deg,rgba(120,160,230,.12) 1px,transparent 1px) 0 0/200px 200px}
+.ovp .bd-stage::after{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(60% 50% at 50% 70%,rgba(243,106,85,.32),transparent 70%);opacity:var(--warm,0);transition:opacity .8s}
+.ovp .bld{position:relative;z-index:1;width:min(100%,calc((100vh - 200px) * 1600 / 1300));aspect-ratio:1600/1300;max-height:100%}
+.ovp .bld svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ovp .fr line,.ovp .fr path,.ovp .fr polyline{stroke:var(--steel);stroke-width:5;fill:none;stroke-linecap:round}
+.ovp .fr .thin{stroke-width:2.5;opacity:.75}
+.ovp .fr .ghost{stroke-width:1.5;opacity:.45;stroke-dasharray:8 8}
+.ovp .dim line{stroke:rgba(190,205,235,.55);stroke-width:1.5}
+.ovp .dim text{fill:rgba(190,205,235,.75);font:500 22px var(--f-mono);letter-spacing:.06em}
+.ovp .ground{stroke:rgba(190,205,235,.4);stroke-width:2;stroke-dasharray:3 9}
+.ovp .roof{transition:transform 1s cubic-bezier(.2,.8,.2,1),opacity .6s;transform-box:fill-box}
+.ovp .roof.l{transform:translate(-40px,-60px);opacity:0}.ovp .roof.r{transform:translate(40px,-60px);opacity:0}
+.ovp .bld.roofed .roof{transform:none;opacity:1}
+.ovp .trim{stroke:var(--amber);stroke-width:7;fill:none;opacity:0;transition:opacity .6s .5s}
+.ovp .bld.roofed .trim{opacity:1}
+.ovp .wall{position:absolute;left:10%;top:30.769%;width:80%;height:61.538%;display:grid;grid-template-columns:repeat(var(--c),minmax(0,1fr));grid-template-rows:repeat(var(--r),minmax(0,1fr))}
+.ovp .pn{position:relative;background-image:var(--img);background-size:calc(var(--c) * 100%) calc(var(--r) * 100%);background-color:#2A2F38;
+  opacity:var(--o,0);transform:translateY(calc((1 - var(--o,0)) * 60px)) rotate(calc((1 - var(--o,0)) * var(--tw,2deg)));will-change:transform,opacity;box-shadow:inset 0 0 0 1px rgba(10,14,22,.55)}
+.ovp .pn::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.08) 0 1px,transparent 1px 25%),linear-gradient(180deg,rgba(255,255,255,.10),transparent 30%,rgba(0,0,0,.12));mix-blend-mode:overlay;pointer-events:none}
+.ovp .wall-live{position:absolute;inset:0;z-index:2;opacity:0;transition:opacity 1s;pointer-events:none}
+.ovp .wall-live video{width:100%;height:100%;object-fit:cover;display:block}
+.ovp .bld.done .wall-live{opacity:1}
+.ovp .door{position:absolute;z-index:3;border:2px solid var(--amber);border-radius:6px;background:rgba(243,106,85,.14);opacity:0;transform:scale(1.15);transition:opacity .4s,transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ovp .door b{position:absolute;left:-2px;bottom:calc(100% + 6px);font:500 clamp(8px,.8vw,11px)/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--amber);padding:5px 8px;border-radius:999px;white-space:nowrap}
+.ovp .door.l b{left:auto;right:calc(100% + 8px);bottom:auto;top:50%;transform:translateY(-50%)}
+.ovp .bld.doors .door{opacity:1;transform:none}
+.ovp .bld.doors .door:nth-of-type(2){transition-delay:.15s}.ovp .bld.doors .door:nth-of-type(3){transition-delay:.3s}
+.ovp .climber{position:absolute;z-index:4;left:0;top:0;width:4.2%;transform:translate(var(--cx,50%),var(--cy,0));transition:transform .5s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ovp .rope{position:absolute;left:50%;bottom:62%;width:2px;margin-left:-1px;height:var(--rope,100px);background:linear-gradient(var(--amber),#FFC36B);transition:height .5s cubic-bezier(.2,.8,.2,1)}
+.ovp .climber svg{position:relative;display:block;width:100%;height:auto}
+.ovp .bd-meter{position:absolute;left:18px;top:18px;z-index:5;display:flex;gap:10px;align-items:center;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#E6ECF7;background:rgba(10,14,22,.6);backdrop-filter:blur(8px);padding:9px 14px;border-radius:999px;font-variant-numeric:tabular-nums}
+.ovp .bd-meter i{display:inline-block;width:70px;height:4px;border-radius:2px;background:rgba(255,255,255,.18);position:relative;overflow:hidden}
+.ovp .bd-meter i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--m,0%);background:var(--amber)}
+.ovp .bd-stamp{position:absolute;right:18px;top:18px;z-index:5;font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:rgba(230,236,247,.7)}
+.ovp .bd-steps{display:flex;gap:6px;margin-top:4px}
+.ovp .bd-steps i{flex:1;height:3px;border-radius:2px;background:var(--line);transition:background .4s}
+.ovp .bd-steps i.on{background:var(--coral)}
+
+/* масштаб объектов: площадь квадрата пропорциональна площади работ */
+.ovp .t-scale{grid-column:span 6;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.7fr);gap:30px;align-items:end}
+.ovp .t-scale .txt{display:flex;flex-direction:column;gap:14px;align-self:center}
+.ovp .sq{display:flex;align-items:flex-end;gap:clamp(6px,1vw,14px);flex-wrap:nowrap;padding-bottom:4px;overflow:visible}
+.ovp .sq figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0}
+.ovp .sq figure i{display:block;width:calc(var(--s) * var(--k,1) * 1px);aspect-ratio:1;border-radius:3px;background:color-mix(in srgb,var(--steel) 22%,transparent);border:1.5px solid var(--steel);transform-origin:50% 100%;animation:ovp-grow2 1.2s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 80ms)}
+.ovp .sq figure:last-child i{background:color-mix(in srgb,var(--coral) 22%,transparent);border-color:var(--coral)}
+.ovp .sq figcaption{font:500 10px/1.25 var(--f-mono);letter-spacing:.02em;color:var(--muted);text-align:center;white-space:nowrap}
+.ovp .sq figcaption b{display:block;font:600 13px var(--f-display);color:var(--ink);letter-spacing:-.01em}
+@keyframes ovp-grow2{from{transform:scale(0)}}
+.ovp .passport{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ovp .passport li{padding:12px 14px;border-radius:14px;border:1px solid var(--line);display:grid;gap:2px}
+.ovp .passport li b{font:700 22px/1.1 var(--f-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ovp .passport li b small{font-size:.55em;color:var(--muted)}
+.ovp .passport li.wide{grid-column:1/-1;border-color:var(--coral);background:color-mix(in srgb,var(--coral) 7%,transparent)}
+.ovp .passport li.wide span{font-size:14px;line-height:1.5}
+.ovp .doors2{display:grid;gap:8px;margin-top:4px}
+.ovp .doors2 div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 14px;padding:12px 14px;border-radius:14px;border:1px solid var(--line)}
+.ovp .doors2 .mono{grid-row:span 2;align-self:center;min-width:4.6em}
+.ovp .doors2 b{font:600 15px/1.3 var(--f-display)}
+.ovp .doors2 small{font-size:13px;color:var(--muted)}
+.ovp .honest{margin-top:24px;border-radius:28px;background:var(--surface);border:1px solid var(--line);padding:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:30px;align-items:center}
+.ovp .honest h3{margin:10px 0 0;font:700 clamp(26px,2.8vw,40px)/1.05 var(--f-display);letter-spacing:-.04em;text-wrap:balance}
+.ovp .honest p{margin:0;color:var(--muted)}
+
+@media (max-width:1100px){.ovp .t-scale{grid-column:span 2;grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){
+  .ovp .bd-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;gap:12px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px);padding-block:6px 14px}
+  .ovp .bd-stage{grid-row:2;border-radius:20px}
+  .ovp .bld{width:min(100%,calc((100vh - 360px) * 1600 / 1300))}
+  .ovp .bd-text{grid-row:3;align-content:start;min-height:12.5em}
+  .ovp .bd-text .pr{align-content:start;gap:8px}
+  .ovp .bd-text .pr .no{display:none}
+  .ovp .bd-text .pr h3{font-size:20px}
+  .ovp .bd-text .pr p{font-size:14px;line-height:1.45;margin:0}
+  .ovp .bd-head .mono{display:none}
+  .ovp .word .part:last-child{margin-left:.16em}
+  .ovp .bd-meter{left:10px;top:10px;padding:7px 10px}.ovp .bd-meter i{width:40px}
+  .ovp .bd-stamp{display:none}
+  .ovp .t-scale{grid-column:auto}
+  .ovp .honest{grid-template-columns:minmax(0,1fr);padding:28px}
+  .ovp .sq{flex-wrap:wrap;row-gap:16px}
+}
+@media (max-width:560px){.ovp .passport li b{font-size:19px}}
+
+.ovp .bd-text .pr p{margin:0;color:var(--muted);max-width:30em}
+
+@media (max-width:1100px){
+  .ovp .stage{grid-template-columns:minmax(0,1fr)}
+  .ovp .screen-wrap{position:relative;top:auto}
+  .ovp .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .chapters .s{display:none!important}
+  .ovp .track{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:34px}
+  .ovp .track::before{display:none}
+  .ovp .kit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .t-quiz,.ovp .t-grow{grid-column:span 2}
+  .ovp .t-est,.ovp .t-deal{grid-column:span 1}
+  .ovp .t-two{grid-column:span 2}
+}
+@media (max-width:900px){
+  .ovp .top nav a.hide-s{display:none}
+  .ovp .word{font-size:min(23vw,210px);flex-wrap:wrap;justify-content:flex-start;white-space:normal;gap:0}
+  .ovp .reel-chip{order:3;flex:none;width:100%;height:auto;aspect-ratio:16/10;font-size:16px;margin:22px 0 0!important;border-radius:16px}
+  .ovp .reel-chip::after{width:14px;height:14px;border-width:3px}
+  .ovp .hero-low{grid-template-columns:minmax(0,1fr)}
+  .ovp .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .fact:nth-child(3){border-left:0;padding-left:0}
+  .ovp .fact:nth-child(n+3){border-top:1px solid var(--line)}
+  .ovp .pg-pin{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto auto;gap:12px;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 70px);padding-block:6px 14px}
+  .ovp .pg-left{display:contents}
+  .ovp .pg-screen{grid-row:2}
+  .ovp .sky{grid-row:3;height:74px;padding-bottom:20px;gap:6px}
+  .ovp .sky button b{bottom:-19px;font-size:10px}
+  .ovp .pg-text{grid-row:4;align-content:start;min-height:9.5em}
+  .ovp .pr{align-content:start;gap:8px}
+  .ovp .pr .no{display:none}
+  .ovp .pr h3{font-size:20px}
+  .ovp .diff div{padding:8px 12px;gap:10px;grid-template-columns:5.6em minmax(0,1fr)}
+  .ovp .diff dd{font-size:14px;line-height:1.4}
+  .ovp .pg-head .mono{display:none}
+  .ovp .anat-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ovp .viewer{order:-1;top:calc(env(safe-area-inset-top,0px) + 66px);height:46vh;z-index:5;background:var(--bg);padding-bottom:12px}
+  .ovp .step{min-height:56vh}
+  .ovp .result-grid,.ovp .cta,.ovp .t-quiz,.ovp .t-grow,.ovp .stats-head{grid-template-columns:minmax(0,1fr)}
+  .ovp .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ovp .kpi:nth-child(3){padding-left:0;border-left:0}
+  .ovp .kpi:nth-child(n+3){margin-top:14px;border-top:1px solid var(--night-line)}
+  .ovp .kit-grid{grid-template-columns:minmax(0,1fr)}
+  .ovp .t-quiz,.ovp .t-grow,.ovp .t-two,.ovp .t-est,.ovp .t-deal{grid-column:auto}
+}
+@media (max-width:560px){
+  .ovp{font-size:16px}
+  .ovp .top .wrap{gap:10px}
+  .ovp .logo span{display:none}
+  .ovp .rec span{display:none}
+  .ovp .chapters{grid-template-columns:minmax(0,1fr)}
+  .ovp .chapters button{padding:11px 14px}
+  .ovp .screen-wrap{padding-right:0;padding-bottom:0}
+  .ovp .stage .phone{display:none}
+  .ovp .track{grid-template-columns:minmax(0,1fr)}
+  .ovp .cta{padding:28px}
+  .ovp .stats{padding:28px 20px;gap:26px}
+  .ovp .lc-plot{height:230px;margin-left:28px}
+  .ovp .lc-x{margin-left:28px}
+  .ovp .lc-x span{font-size:9px;letter-spacing:0}
+  .ovp .lc-col em{font-size:12px}
+  .ovp .tile{padding:20px}
+  .ovp .lay{grid-template-columns:minmax(0,1fr) auto}
+  .ovp .lay .mono{grid-column:1/-1}
+  .ovp .diff div:first-child{display:none}
+  .ovp .visit .bars{display:none}
+  .ovp .visit b{max-width:72vw}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovp *,.ovp *::before,.ovp *::after{animation:none!important;transition:none!important}
+}
+</style>
+<div class="ovp">
+
+<section class="wrap hero" data-zone="Первый экран кейса">
+  <div class="hero-meta">
+    <span class="mono">Кейс · Промышленное строительство · Нижний Тагил · Tilda</span>
+    <span class="mono"><span class="dot"></span>montage-nt.ru · здания под ключ и монтаж сэндвич-панелей</span>
+  </div>
+  <h2 class="word" aria-label="Бизнес Плюс">
+    <span class="part" aria-hidden="true"><span style="--i:0">Б</span><span style="--i:1">И</span><span style="--i:2">З</span><span style="--i:3">Н</span><span style="--i:4">Е</span><span style="--i:5">С</span></span>
+    <figure class="reel-chip" style="margin:0">
+      <div class="stack" id="chip">
+        <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/f-home.jpg" alt="Главная montage-nt.ru">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/f-sp.jpg" alt="Страница монтажа сэндвич-панелей" loading="lazy">
+        <img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/f-portfolio.jpg" alt="Страница кейсов" loading="lazy">
+      </div>
+      <figcaption id="chipT">01 · здания под ключ</figcaption>
+    </figure>
+    <span class="part" aria-hidden="true"><span class="t" style="--i:6">П</span><span class="t" style="--i:7">Л</span><span class="t" style="--i:8">Ю</span><span class="t" style="--i:9">С</span></span>
+  </h2>
+  <div class="hero-low">
+    <h1>Сайт подрядчика, который строит цеха, склады и автомойки, <em>говорит языком договора: цена, срок и ответственность известны до старта</em></h1>
+    <div class="hero-cta">
+      <a class="btn" href="https://ovchinnikov-dsgn.ru/" target="_blank" rel="noopener">Хочу такой сайт<small>расчёт бюджета за 24 часа</small></a>
+      <a class="link" href="#build">Смотреть, как он собран ↓</a>
+    </div>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="mono">Страниц</span><b>3</b></div>
+    <div class="fact"><span class="mono">От интервью до запуска</span><b>~1<small>месяц</small></b></div>
+    <div class="fact"><span class="mono">Квиза с инженером</span><b>3</b></div>
+    <div class="fact"><span class="mono">Объектов с цифрами</span><b>11</b></div>
+  </div>
+</section>
+
+<section class="build" id="build" data-zone="Монтаж фасада" style="--n:6">
+  <div class="wrap bd-pin">
+    <div class="bd-head">
+      <h2>Сайт собран как здание. <em>Листайте: панели поднимаются ряд за рядом</em></h2>
+      <span class="mono">Фасад · первый экран montage-nt.ru · 1440 × 900</span>
+    </div>
+    <div class="bd-text" id="bdt">
+      <article class="pr on">
+        <div class="no">01<small>Каркас</small></div>
+        <h3>Сначала каркас: два разных заказчика</h3>
+        <p>На интервью с Игорем, владельцем компании, выяснилось: одному клиенту нужно здание с нуля, у другого каркас уже стоит и надо закрыть контур. Так появились три страницы: здания под ключ, монтаж сэндвич-панелей и объекты с цифрами.</p>
+      </article>
+      <article class="pr">
+        <div class="no">02<small>Стены</small></div>
+        <h3>Ответ на главный страх: «смета вырастет»</h3>
+        <p>Заказчик стройки боится, что цена поползёт вверх, а подрядчики будут кивать друг на друга. Поэтому первые ряды о деньгах и ответственности: смета фиксируется в договоре, работа по генподряду, срок ввода прописан заранее.</p>
+      </article>
+      <article class="pr">
+        <div class="no">03<small>Стены</small></div>
+        <h3>Доказательства, которые видно с трассы</h3>
+        <p>«Северсталь», ЕВРАЗ НТМК, ВСМПО, Титановая Долина. 25 лет работы и 11 объектов, у каждого паспорт: площадь, срок, бригада и ход работ по дням.</p>
+      </article>
+      <article class="pr">
+        <div class="no">04<small>Проёмы</small></div>
+        <h3>Три входа, и за каждым инженер</h3>
+        <p>В шапке, на главной и на странице монтажа стоят квизы. Вопросы задаёт главный инженер и объясняет, зачем спрашивает. Заказчик понимает, что говорит со специалистом, а не с колл-центром.</p>
+      </article>
+      <article class="pr">
+        <div class="no">05<small>Кровля</small></div>
+        <h3>То, что не повторит конкурент: монтаж без кранов</h3>
+        <p>Промышленные альпинисты закрывают до 100 м² в день там, где кран не встанет: в действующих цехах, в плотной застройке, в ветер. Этому отдельная страница с расчётом и экономией до 40% на технике.</p>
+      </article>
+      <article class="pr">
+        <div class="no">06<small>Сдача</small></div>
+        <h3>Тёплый контур закрыт</h3>
+        <p>Около месяца от интервью до запуска, январь 2026. Под панелями живая запись сайта: прокрутка, квиз, каталог зданий.</p>
+      </article>
+    </div>
+    <div class="bd-stage" id="bdStage">
+      <span class="bd-meter"><span id="bdM">Панелей 0 / 21</span><i></i></span>
+      <span class="bd-stamp" id="bdS">Этап 01 · каркас</span>
+      <div class="bld" id="bld">
+        <svg viewBox="0 0 1600 1300" aria-hidden="true">
+          <g class="dim">
+            <line x1="160" y1="1250" x2="1440" y2="1250"/><line x1="160" y1="1235" x2="160" y2="1265"/><line x1="1440" y1="1235" x2="1440" y2="1265"/>
+            <text x="800" y="1240" text-anchor="middle">24 000</text>
+            <line x1="90" y1="400" x2="90" y2="1200"/><line x1="75" y1="400" x2="105" y2="400"/><line x1="75" y1="1200" x2="105" y2="1200"/>
+            <text x="70" y="810" text-anchor="middle" transform="rotate(-90 70 810)">6 000</text>
+            <text x="1500" y="1196">±0.000</text>
+          </g>
+          <line class="ground" x1="40" y1="1200" x2="1560" y2="1200"/>
+          <g class="fr">
+            <line x1="160" y1="400" x2="160" y2="1200"/><line x1="480" y1="400" x2="480" y2="1200"/><line x1="800" y1="400" x2="800" y2="1200"/><line x1="1120" y1="400" x2="1120" y2="1200"/><line x1="1440" y1="400" x2="1440" y2="1200"/>
+            <line x1="160" y1="400" x2="1440" y2="400"/><line class="thin" x1="160" y1="800" x2="1440" y2="800"/>
+            <path class="thin" d="M160 400 L480 800 M480 400 L160 800 M1120 400 L1440 800 M1440 400 L1120 800 M160 800 L480 1200 M480 800 L160 1200 M1120 800 L1440 1200 M1440 800 L1120 1200"/>
+            <polyline points="120,400 800,170 1480,400"/>
+            <path class="thin" d="M160 400 L320 346 L480 400 L640 238 L800 400 L960 238 L1120 400 L1280 346 L1440 400 M320 346 L320 400 M480 292 L480 400 M640 238 L640 400 M800 170 L800 400 M960 238 L960 400 M1120 292 L1120 400 M1280 346 L1280 400"/>
+            <path class="ghost" d="M160 600 H1440 M160 1000 H1440"/>
+          </g>
+          <polygon class="roof l" points="112,404 800,166 800,196 140,420" fill="#3A404B"/>
+          <polygon class="roof r" points="800,166 1488,404 1460,420 800,196" fill="#2E333C"/>
+          <polyline class="trim" points="112,404 800,166 1488,404"/>
+        </svg>
+        <div class="wall" id="wall" style="--c:3;--r:7;--img:url(https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/facade.jpg)">
+          <div class="wall-live"><video data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/facade.jpg" muted loop playsinline preload="none" aria-label="Запись главной montage-nt.ru"></video></div>
+          <span class="door" style="left:16.7%;top:2.4%;width:14.4%;height:5%"><b>Квиз в шапке</b></span>
+          <span class="door l" style="left:69.7%;top:46.3%;width:29%;height:6.2%"><b>Обсудить проект</b></span>
+          <span class="door l" style="left:69.7%;top:55.9%;width:29%;height:6.2%"><b>11 объектов</b></span>
+        </div>
+        <div class="climber" id="climber"><span class="rope"></span>
+          <svg viewBox="0 0 40 64"><circle cx="20" cy="9" r="7" fill="#FFB020"/><rect x="13" y="6" width="14" height="4" rx="2" fill="#E89B12"/><rect x="12" y="17" width="16" height="22" rx="6" fill="#F36A55"/><path d="M12 22 L3 32 M28 22 L37 14" stroke="#F36A55" stroke-width="5" stroke-linecap="round"/><path d="M16 38 L12 58 M24 38 L30 56" stroke="#2F3A4C" stroke-width="6" stroke-linecap="round"/><rect x="14" y="27" width="12" height="4" fill="#1D2330"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pages" id="pages" data-zone="Три страницы" style="--n:3">
+  <div class="wrap pg-pin">
+    <div class="pg-head">
+      <h2>Три страницы, два заказчика и скептик. <em>Листайте: страница прокручивается вместе с вами</em></h2>
+      <span class="mono">montage-nt.ru · больше 34 000 px · 1440 × 900</span>
+    </div>
+    <div class="pg-left">
+      <nav class="sky" id="sky" aria-label="Страницы сайта">
+        <button aria-current="true" style="--h:.89"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/s-home.jpg" alt=""></span><span class="lens"></span><b>01</b><span class="sr">Здания под ключ</span></button>
+        <button style="--h:.79"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/s-sp.jpg" alt=""></span><span class="lens"></span><b>02</b><span class="sr">Монтаж сэндвич-панелей</span></button>
+        <button style="--h:1"><span class="im"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/s-portfolio.jpg" alt=""></span><span class="lens"></span><b>03</b><span class="sr">Кейсы</span></button>
+      </nav>
+      <div class="pg-text" id="pgt">
+        <article class="pr on">
+          <div class="no">01<small>Здания под ключ</small></div>
+          <h3>Здание целиком: от каркаса до тёплого контура</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Владелец бизнеса, которому нужен цех, склад, автомойка или СТО. Подрядчика он ещё не выбрал.</dd></div>
+            <div><dt>Что находит</dt><dd>Срок от 4 недель и цену в договоре на первом экране, четыре типа зданий, квиз от главного инженера и восемь этапов под ключ с метками, где ошибаются, если подрядчиков несколько.</dd></div>
+          </dl>
+        </article>
+        <article class="pr">
+          <div class="no">02<small>Монтаж панелей</small></div>
+          <h3>Каркас уже стоит, нужно закрыть контур</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Заказчик или генподрядчик с готовым металлокаркасом и сроком, который горит.</dd></div>
+            <div><dt>Что находит</dt><dd>Монтаж альпинистами от 100 м² в день и от 5000 ₽ за м², экономию до 40% на кранах, контроль на каждом этапе, квиз на шесть вопросов и честный ответ «Вы беретесь за любой объект? Нет».</dd></div>
+          </dl>
+        </article>
+        <article class="pr">
+          <div class="no">03<small>Кейсы</small></div>
+          <h3>11 объектов с цифрами вместо фотогалереи</h3>
+          <dl class="diff">
+            <div><dt>Кто приходит</dt><dd>Тот, кто сомневается и хочет проверить подрядчика до звонка.</dd></div>
+            <div><dt>Что находит</dt><dd>От торгового здания на 96 м² до 45 000 м² на «Северстали»: площадь, срок, бригада, ход работ по дням, задача, решение и результат.</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+    <div class="pg-screen">
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span id="pgUrl">montage-nt.ru</span></div>
+        <div class="scrub" id="scrub">
+          <img class="on" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/w-home.jpg" data-h="11368" data-u="" width="640" height="5052" alt="Главная montage-nt.ru целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/w-sp.jpg" data-h="10042" data-u="sp" width="640" height="4463" alt="Страница монтажа сэндвич-панелей целиком">
+          <img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/w-portfolio.jpg" data-h="12751" data-u="portfolio" width="640" height="5667" alt="Страница кейсов целиком">
+          <div class="wipe" id="wipe"></div>
+          <span class="depth" id="depth">↓ 0<i></i>11 368 px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cinema" id="reel" data-zone="Ролик">
+  <div class="wrap">
+    <div class="cinema-head">
+      <div><span class="mono">Запись · 1440 × 900 · без монтажа</span><h2 class="big">Сайт сегодня. <em>Одиннадцать сцен с трёх страниц</em></h2></div>
+    </div>
+    <div class="stage">
+      <ol class="chapters" id="chapters">
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/hero.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/hero.jpg" data-url="montage-nt.ru" aria-current="true"><span class="n">01</span><span class="t">Первый экран</span><span class="d">0:14</span><span class="s">Срок, масштаб и цена в заголовке, ниже четыре причины в цифрах.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/types.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/types.jpg" data-url="montage-nt.ru/#types"><span class="n">02</span><span class="t">Типы зданий и объекты</span><span class="d">0:19</span><span class="s">Четыре типа зданий с расчётом, слайдер реализованных проектов.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/quiz.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/quiz.jpg" data-url="montage-nt.ru/#quiz"><span class="n">03</span><span class="t">Квиз с инженером</span><span class="d">0:36</span><span class="s">Шесть шагов, у каждого реплика главного инженера.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/turnkey.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/turnkey.jpg" data-url="montage-nt.ru/#turnkey"><span class="n">04</span><span class="t">Один подрядчик</span><span class="d">0:18</span><span class="s">Риски цепочки подрядчиков и восемь этапов под ключ.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/team.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/team.jpg" data-url="montage-nt.ru/#team"><span class="n">05</span><span class="t">Почему мы и команда</span><span class="d">0:15</span><span class="s">25 лет, 30 человек, до 6 объектов параллельно, 6 регионов.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/consult.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/consult.jpg" data-url="montage-nt.ru"><span class="n">06</span><span class="t">Квиз в шапке</span><span class="d">0:23</span><span class="s">«Что у вас есть сейчас?» и маршрут к нужному инженеру.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/sp_hero.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/sp_hero.jpg" data-url="montage-nt.ru/sp"><span class="n">07</span><span class="t">Монтаж без кранов</span><span class="d">0:13</span><span class="s">100 м² в день альпинистами и почему так дешевле.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/sp_control.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/sp_control.jpg" data-url="montage-nt.ru/sp"><span class="n">08</span><span class="t">Контроль и этапы</span><span class="d">0:14</span><span class="s">Что получает заказчик, риски без контроля, путь монтажа.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/sp_quiz.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/sp_quiz.jpg" data-url="montage-nt.ru/sp"><span class="n">09</span><span class="t">Расчёт монтажа</span><span class="d">0:42</span><span class="s">Шесть вопросов для предварительной сметы.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/sp_faq.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/sp_faq.jpg" data-url="montage-nt.ru/sp"><span class="n">10</span><span class="t">Команда и вопросы</span><span class="d">0:16</span><span class="s">Свои монтажники с допусками и честные ответы.</span><span class="bar"><i></i></span></button></li>
+        <li><button data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/portfolio.mp4" data-poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/portfolio.jpg" data-url="montage-nt.ru/portfolio"><span class="n">11</span><span class="t">11 объектов</span><span class="d">0:21</span><span class="s">Паспорт каждого объекта: площадь, срок, бригада, ход работ.</span><span class="bar"><i></i></span></button></li>
+      </ol>
+      <div class="screen-wrap">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span id="urlbar">montage-nt.ru</span></div>
+          <video id="player" src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/hero.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/hero.jpg" muted playsinline autoplay preload="auto" aria-label="Запись сайта montage-nt.ru"></video>
+        </div>
+        <div class="phone" aria-label="Мобильная версия главной">
+          <div class="scr"><video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/mobile_scroll.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/mobile_scroll.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap anat" id="anat" data-zone="Анатомия">
+  <div class="anat-head">
+    <div>
+      <span class="mono">Разбор главной · сверху вниз</span>
+      <h2 class="big">Анатомия главной. <em>Зачем здесь каждый блок</em></h2>
+      <p>Листайте: справа настоящий скриншот сайта доезжает до блока, о котором я рассказываю.</p>
+    </div>
+    <div class="toggle" role="group" aria-label="Устройство">
+      <button id="tD" aria-pressed="true">Компьютер</button>
+      <button id="tM" aria-pressed="false">Телефон</button>
+    </div>
+  </div>
+  <div class="anat-grid">
+    <div class="steps" id="steps">
+      <article class="step on" data-d="83,1199" data-m="118,683">
+        <span class="mono"><b>↓ 83 px</b><span>Первый экран</span></span>
+        <h3>Срок, масштаб и цена в одном заголовке</h3>
+        <p>«Быстровозводимые здания под ключ от 4 недель. 25 лет опыта, объекты Северстали и ЕВРАЗа». Рядом весь цикл работ и обещание, ради которого звонят: цену и срок фиксируем в договоре. Две кнопки: обсудить проект или сразу посмотреть 11 объектов.</p>
+        <div class="tags"><span>от 4 недель</span><span>цена в договоре</span><span>2 кнопки</span></div>
+      </article>
+      <article class="step" data-d="1282,516" data-m="801,1239">
+        <span class="mono"><b>↓ 1 282 px</b><span>Четыре причины</span></span>
+        <h3>Аргументы с цифрами, без «качественно и в срок»</h3>
+        <p>Монтаж без кранов до 100 м² в день, объекты, которые знает весь Урал, смета без роста по ходу стройки и договор генподряда с полной ответственностью.</p>
+        <div class="tags"><span>100 м²/день</span><span>генподряд</span></div>
+      </article>
+      <article class="step" data-d="1948,825" data-m="2125,2167">
+        <span class="mono"><b>↓ 1 948 px</b><span>Типы зданий</span></span>
+        <h3>Заказчик находит своё здание</h3>
+        <p>Производство, склады, административные и торговые здания, малые объекты вроде автомоек и СТО. Под каждым типом своя кнопка «Заказать расчёт проекта».</p>
+        <div class="tags"><span>4 типа</span><span>расчёт под тип</span></div>
+      </article>
+      <article class="step" data-d="2923,977" data-m="4377,613">
+        <span class="mono"><b>↓ 2 923 px</b><span>Объекты</span></span>
+        <h3>Фотографии с настоящих строек</h3>
+        <p>Слайдер реализованных проектов: металлургические цеха, панели на высоте, монтажники на верёвках. Кнопка ведёт на страницу всех кейсов.</p>
+        <div class="tags"><span>реальные фото</span><span>все кейсы</span></div>
+      </article>
+      <article class="step" data-d="4050,600" data-m="5075,675">
+        <span class="mono"><b>↓ 4 050 px</b><span>Квиз</span></span>
+        <h3>«Подберите формат здания под вашу задачу»</h3>
+        <p>Шесть шагов, и на каждом главный инженер объясняет, зачем спрашивает. К звонку уже известны тип здания, стадия, площадь, приоритет и сроки.</p>
+        <div class="tags"><span>6 шагов</span><span>реплики инженера</span></div>
+      </article>
+      <article class="step" data-d="4800,487" data-m="5835,785">
+        <span class="mono"><b>↓ 4 800 px</b><span>Свой каркас</span></span>
+        <h3>Мост на вторую страницу</h3>
+        <p>«Работаем как с нуля, так и с уже смонтированным металлокаркасом». Тому, у кого каркас уже стоит, сайт показывает отдельную страницу про монтаж сэндвич-панелей.</p>
+        <div class="tags"><span>ссылка на /sp</span></div>
+      </article>
+      <article class="step" data-d="5437,741" data-m="6705,1278">
+        <span class="mono"><b>↓ 5 437 px</b><span>Один подрядчик</span></span>
+        <h3>Что теряет заказчик с цепочкой подрядчиков</h3>
+        <p>Слева один руководитель, единый график и фиксация объёма и цены. Справа разные зоны ответственности, недочёты на приёмке и плюс 15–25% к срокам и бюджету.</p>
+        <div class="tags"><span>было / стало</span><span>+15–25%</span></div>
+      </article>
+      <article class="step" data-d="6328,1118" data-m="8069,2593">
+        <span class="mono"><b>↓ 6 328 px</b><span>Восемь этапов</span></span>
+        <h3>От металлоконструкций до сдачи</h3>
+        <p>Путь объекта под ключ в восемь шагов. Этапы, где чаще всего ошибаются разные подрядчики, отмечены отдельно: так видно, за что заказчик платит генподрядчику.</p>
+        <div class="tags"><span>8 этапов</span><span>метки рисков</span></div>
+      </article>
+      <article class="step" data-d="7596,1160" data-m="10747,1792">
+        <span class="mono"><b>↓ 7 596 px</b><span>Почему мы</span></span>
+        <h3>Три причины и фотографии бригады</h3>
+        <p>Один подрядчик вместо цепочки, специализация в монтаже сэндвич-панелей и промышленный масштаб: несколько проектов одновременно.</p>
+        <div class="tags"><span>специализация</span><span>масштаб</span></div>
+      </article>
+      <article class="step" data-d="8906,779" data-m="12624,1102">
+        <span class="mono"><b>↓ 8 906 px</b><span>Команда</span></span>
+        <h3>Цифры компании одной строкой</h3>
+        <p>25 лет на рынке, 30 человек, до 6 объектов параллельно и 6 регионов. Рядом вопрос напрямую инженеру: «Ответим без менеджерских обещаний».</p>
+        <div class="tags"><span>25 лет</span><span>30 человек</span><span>6 регионов</span></div>
+      </article>
+      <article class="step" data-d="9835,1463" data-m="13811,1678">
+        <span class="mono"><b>↓ 9 835 px</b><span>Финал</span></span>
+        <h3>Последний вход и все реквизиты</h3>
+        <p>«Готовы обсудить проект?» с консультацией без обязательств, затем адрес, режим работы, почта, ИНН и ОГРНИП. Для промышленного заказчика реквизиты тоже аргумент.</p>
+        <div class="tags"><span>реквизиты</span><span>Telegram</span></div>
+      </article>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="browser" id="vD">
+        <div class="bar"><i></i><i></i><i></i><span>montage-nt.ru</span></div>
+        <div class="port" id="portD"><div class="layer" id="layerD"><img src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/home-d.jpg" alt="Полный скриншот главной montage-nt.ru, компьютер" width="1100" height="8684"><div class="hl" id="hlD"><b>Первый экран</b></div></div><span class="viewer-note" id="noteD">↓ 0 px</span></div>
+      </div>
+      <div class="phone" id="vM" hidden>
+        <div class="scr port" id="portM"><div class="layer" id="layerM"><img data-src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/home-m.jpg" alt="Полный скриншот главной montage-nt.ru, телефон" width="520" height="20745"><div class="hl" id="hlM"><b>Первый экран</b></div></div><span class="viewer-note" id="noteM">↓ 0 px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap kit" data-zone="За кадром">
+  <div class="kit-head">
+    <span class="mono">Что работает за кадром</span>
+    <h2 class="big">Стройка на миллионы. <em>Решение принимают после трёх проверок</em></h2>
+    <p>Промышленное здание не покупают по красивой картинке. Заказчик сверяет масштаб, ищет подвох в смете и хочет поговорить с инженером. Я собрал на сайте ответ на каждую из этих проверок.</p>
+  </div>
+  <div class="kit-grid">
+    <article class="tile t-quiz">
+      <div class="txt">
+        <span class="mono">Квиз на главной · 6 шагов</span>
+        <h3>Каждый вопрос объясняет главный инженер</h3>
+        <ol class="qsteps">
+          <li>Какое здание вам нужно?</li>
+          <li>На какой стадии проект?</li>
+          <li>Примерная площадь здания</li>
+          <li>Что для вас критично?</li>
+          <li>Когда планируете начать?</li>
+          <li>Телефон для расчёта</li>
+        </ol>
+        <p>Рядом с вопросом фото Игоря и короткая реплика: «Тип здания определяет конструктив, нагрузки и бюджет. Начнём с этого». Так анкета превращается в первую консультацию.</p>
+      </div>
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span>montage-nt.ru · квиз</span></div>
+        <video src="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/quiz.mp4" poster="https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/montage-nt/quiz.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Квиз на главной"></video>
+      </div>
+    </article>
+    <article class="tile t-two">
+      <span class="mono">Два заказчика · две двери</span>
+      <h3>Квиз в шапке сам решает, куда вести</h3>
+      <p>Первый вопрос «Что у вас есть сейчас?»: участок, готовый каркас или здание без стен. По ответу заявка уходит инженеру по строительству или по монтажу.</p>
+      <div class="sites" aria-hidden="true">
+        <div class="site"><div>Здания под ключ<br><small>montage-nt.ru · цех, склад, автомойка</small></div><span></span></div>
+        <div class="site"><div>Монтаж сэндвич-панелей<br><small>montage-nt.ru/sp · каркас уже стоит</small></div><span></span></div>
+      </div>
+    </article>
+    <article class="tile t-est">
+      <span class="mono">Паспорт объекта</span>
+      <h3>Вместо галереи цифры, которые можно проверить</h3>
+      <p>Все 11 объектов описаны по одному шаблону. Например, автомойка в Нижнем Тагиле, август 2025:</p>
+      <ul class="passport">
+        <li><span class="mono">Фасад</span><b>1 117<small> м²</small></b></li>
+        <li><span class="mono">Срок</span><b>17<small> раб. дней</small></b></li>
+        <li><span class="mono">Бригада</span><b>4<small> человека</small></b></li>
+        <li><span class="mono">Профлист</span><b>72<small> м²</small></b></li>
+        <li class="wide"><span class="mono">Ход работ</span><span>2 дня выгрузка, 5 дней стены, 2 дня кровля, 1 день профлист, 7 дней доборные элементы</span></li>
+      </ul>
+    </article>
+    <article class="tile t-deal">
+      <span class="mono">Подвох в смете</span>
+      <h3>Риски названы до того, как о них спросят</h3>
+      <p>На обеих страницах есть блок «если над проектом работают разные подрядчики». Он показывает, где теряются деньги, и переводит страх в аргумент за генподряд:</p>
+      <div class="doors2">
+        <div><span class="mono">Сроки</span><b>+15–25% к срокам и бюджету</b><small>столько добавляет исправление недочётов</small></div>
+        <div><span class="mono">Этапы</span><b>Три метки на восьми этапах</b><small>каркас, панели и тёплый контур, где ошибаются чаще всего</small></div>
+        <div><span class="mono">Ответ</span><b>Один руководитель проекта</b><small>и единый график от каркаса до сдачи</small></div>
+      </div>
+    </article>
+    <article class="tile t-scale">
+      <div class="txt">
+        <span class="mono">Масштаб · площадь работ, м²</span>
+        <h3>От торгового павильона до «Северстали»</h3>
+        <p>Квадраты пропорциональны площади объектов из кейсов. Маленький заказчик видит, что его автомойку возьмут, а крупный, что бригада справится с 45 000 м² на высоте до 50 метров.</p>
+      </div>
+      <div class="sq" id="sq">
+        <figure style="--s:10;--i:0"><i></i><figcaption><b>96</b>торговое</figcaption></figure>
+        <figure style="--s:12.7;--i:1"><i></i><figcaption><b>150</b>автомойка</figcaption></figure>
+        <figure style="--s:17.7;--i:2"><i></i><figcaption><b>290</b>ВМЗ</figcaption></figure>
+        <figure style="--s:34.7;--i:3"><i></i><figcaption><b>1 117</b>автомойка</figcaption></figure>
+        <figure style="--s:37.7;--i:4"><i></i><figcaption><b>1 320</b>Союз Металл</figcaption></figure>
+        <figure style="--s:50.5;--i:5"><i></i><figcaption><b>2 367</b>админ. здание</figcaption></figure>
+        <figure style="--s:71.1;--i:6"><i></i><figcaption><b>4 700</b>ВСМПО</figcaption></figure>
+        <figure style="--s:107.5;--i:7"><i></i><figcaption><b>10 750</b>Титан. Долина</figcaption></figure>
+        <figure style="--s:109.8;--i:8"><i></i><figcaption><b>11 200</b>завод «Полёт»</figcaption></figure>
+        <figure style="--s:220;--i:9"><i></i><figcaption><b>45 000</b>«Северсталь»</figcaption></figure>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap proc" id="proc" data-zone="Как шла работа">
+  <span class="mono">Как появился сайт · январь 2026</span>
+  <h2 class="big">Около месяца. <em>С нуля, без старого сайта</em></h2>
+  <div class="track" id="track">
+    <div class="st"><span class="mono">01</span><h4>Интервью</h4><p>С Игорем разобрали, кто заказчики, чего они боятся и чем компания сильнее других: 25 лет на промышленных объектах и свои альпинисты.</p></div>
+    <div class="st"><span class="mono">02</span><h4>Структура</h4><p>Две страницы под два запроса, у каждой свой квиз. Третья страница собирает доказательства для обеих.</p></div>
+    <div class="st"><span class="mono">03</span><h4>Тексты</h4><p>Заголовки с цифрами, риски и восемь этапов под ключ. Паспорт объекта, по которому описаны все 11 кейсов.</p></div>
+    <div class="st"><span class="mono">04</span><h4>Дизайн</h4><p>Графит, оранжевый и чертёжная сетка. Скобки-уголки как на строительных чертежах, визуализации каркаса в фирменной гамме.</p></div>
+    <div class="st"><span class="mono">05</span><h4>Запуск</h4><p>Вёрстка на Tilda, три квиза, формы на каждом экране и Telegram в один клик.</p></div>
+  </div>
+  <div class="span-note"><span class="mono">Интервью</span><span class="mono"><b>≈ 1 месяц</b> до запуска</span><span class="mono">3 страницы</span></div>
+</section>
+
+<section class="wrap result" data-zone="Итог">
+  <div class="cta">
+    <div>
+      <h2>Вы строите, производите или монтируете?</h2>
+      <p>Сложную услугу можно объяснить так, что заказчик поймёт её до звонка. Расскажите о бизнесе, и я пришлю бюджет и сроки меньше чем за 24 часа.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="https://t.me/Ovchinnikov_dsgn" target="_blank" rel="noopener">Написать в Telegram</a>
+      <span class="phone-num">+7 (910) 970-01-24</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap next">
+  <span class="mono">Следующий кейс</span>
+  <a href="https://ovchinnikov-dsgn.ru/project_dentroom" target="_blank" rel="noopener">Дентрум, стоматология →</a>
+</footer>
+</div>
+<script>
+
+(()=>{
+const R=document.querySelector('.ovp');if(!R)return;const $=s=>R.querySelector(s),$$=s=>[...R.querySelectorAll(s)];
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+/* слово в hero подгоняется под ширину колонки */
+const word=$('.word');function fit(){const narrow=innerWidth<=900;word.style.fontSize='';
+  const parts=[...word.querySelectorAll('.part')];
+  const fs=parseFloat(getComputedStyle(word).fontSize);
+  const need=parts.reduce((a,p)=>a+p.scrollWidth,0)+(narrow?0:fs*1.6)+(narrow?4:40);if(need>word.clientWidth)word.style.fontSize=(fs*word.clientWidth/need*.985)+'px'}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(fit);addEventListener('resize',fit);fit();
+
+/* окошко в hero: три страницы сменяют друг друга */
+const chipImgs=$$('#chip img'),chipLbl=['здания под ключ','монтаж панелей','кейсы'];let ci=0;
+if(!reduce)setInterval(()=>{chipImgs[ci].classList.remove('on');ci=(ci+1)%chipImgs.length;chipImgs[ci].classList.add('on');$('#chipT').textContent=String(ci+1).padStart(2,'0')+' · '+chipLbl[ci]},1900);
+
+/* монтаж фасада: прокрутка поднимает панели снизу вверх, затем проёмы, кровля и живая запись под панелями */
+const BD=$('#build'),wall=$('#wall'),bld=$('#bld'),bprs=$$('#bdt .pr'),NS=bprs.length,C=3,RW=7,NP=C*RW,climber=$('#climber');
+const STAGE=['каркас','стены','стены','проёмы','кровля','сдача'];
+const pans=[];for(let r=RW-1;r>=0;r--)for(let c=0;c<C;c++){const p=document.createElement('div');p.className='pn';
+  p.style.gridArea=`${r+1}/${c+1}`;p.style.backgroundPosition=`${c/(C-1)*100}% ${r/(RW-1)*100}%`;p.style.setProperty('--tw',((c-1)*3+(r%2?1:-1))+'deg');
+  wall.insertBefore(p,wall.firstChild);pans.push({el:p,r,c})}
+const live=wall.querySelector('video');let bi=-1,braf=0;
+function bldFit(){const st=$('#bdStage');bld.style.width=Math.max(200,Math.min(st.clientWidth-32,(st.clientHeight-28)*1600/1300))+'px'}
+function roofY(x){return 400-(800-Math.abs(x-800))*230/680}
+function bdUpdate(){braf=0;const r=BD.getBoundingClientRect(),span=r.height-innerHeight,p=clamp(-r.top/Math.max(1,span),0,1);
+  const f=p*NS*.9999,i=Math.min(NS-1,Math.floor(f));
+  if(i!==bi){bi=i;bprs.forEach((v,k)=>v.classList.toggle('on',k===i));$('#bdS').textContent='Этап '+String(i+1).padStart(2,'0')+' · '+STAGE[i];
+    bld.classList.toggle('doors',i===3);bld.classList.toggle('roofed',i>=4);bld.classList.toggle('done',i>=5);$('#bdStage').style.setProperty('--warm',i>=5?1:0);
+    if(i>=5){if(!live.src)live.src=live.dataset.src;if(!reduce)live.play().catch(()=>{})}else live.pause()}
+  // панели: этапы 2 и 3, по одной за раз
+  const m=reduce?(i>=1?NP:0):clamp((f-1)/2*NP,0,NP);
+  pans.forEach((pn,k)=>pn.el.style.setProperty('--o',clamp(m-k,0,1).toFixed(3)));
+  const done=Math.floor(m+.001);$('#bdM').textContent=`Панелей ${done} / ${NP}`;$('#bdStage').style.setProperty('--m',(done/NP*100)+'%');
+  $('.bd-meter i').style.setProperty('--m',(done/NP*100)+'%');
+  // альпинист: висит над панелью, которую ставят сейчас
+  const W=bld.clientWidth,k=W/1600;let x,y;
+  if(i===0){x=1280;y=520}
+  else if(i<=2){const cur=pans[Math.min(NP-1,Math.floor(m))];x=160+(cur.c+.5)*1280/C;y=400+(cur.r+.35)*800/RW}
+  else if(i===3){x=1120;y=700}
+  else{x=620;y=roofY(620)-60}
+  const top=roofY(x);climber.style.setProperty('--cx',(x*k-climber.clientWidth/2)+'px');climber.style.setProperty('--cy',(y*k)+'px');
+  climber.querySelector('.rope').style.setProperty('--rope',Math.max(0,(y-top)*k-climber.clientHeight*.38)+'px')}
+addEventListener('scroll',()=>{if(!braf)braf=requestAnimationFrame(bdUpdate)},{passive:true});addEventListener('resize',()=>{bldFit();bdUpdate()});bldFit();bdUpdate();
+
+/* три страницы: прокрутка выбирает страницу и листает её внутри браузера */
+const PG=$('#pages'),prs=$$('#pgt .pr'),skyB=$$('#sky button'),imgs=$$('#scrub img'),scrub=$('#scrub'),N=prs.length;let pi=-1,pr=0,loaded=false;
+function loadAll(){if(loaded)return;loaded=true;imgs.forEach(im=>{if(im.dataset.src&&!im.src)im.src=im.dataset.src})}
+new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))loadAll()},{rootMargin:'100% 0px'}).observe(PG);
+function setPage(i){if(i===pi)return;const first=pi<0;pi=i;
+  prs.forEach((v,k)=>v.classList.toggle('on',k===i));
+  skyB.forEach((b,k)=>{b.setAttribute('aria-current',k===i);b.classList.toggle('done',k<i)});
+  const im=imgs[i];if(!im.src&&im.dataset.src)im.src=im.dataset.src;
+  const w=$('#wipe');if(first||reduce){imgs.forEach((m,k)=>m.classList.toggle('on',k===i))}
+  else{w.classList.remove('go');void w.offsetWidth;w.classList.add('go');setTimeout(()=>imgs.forEach((m,k)=>m.classList.toggle('on',k===i)),360)}
+  $('#pgUrl').textContent='montage-nt.ru'+(im.dataset.u?'/'+im.dataset.u:'')}
+function pgUpdate(){pr=0;const r=PG.getBoundingClientRect(),span=r.height-innerHeight;const p=clamp(-r.top/Math.max(1,span),0,1);
+  const f=p*N*.9999,i=Math.min(N-1,Math.floor(f)),local=clamp((f-i-.08)/.84,0,1);setPage(i);
+  const im=imgs[i],H=+im.dataset.h,pw=scrub.clientWidth,ph=scrub.clientHeight,ih=pw*im.height/im.width,off=local*Math.max(0,ih-ph);
+  im.style.transform=`translateY(${-off}px)`;
+  const lens=skyB[i].querySelector('.lens'),lh=clamp(ph/ih,.06,1)*100;lens.style.height=lh+'%';lens.style.top=(local*(100-lh))+'%';
+  const d=$('#depth');d.style.setProperty('--d',(local*100).toFixed(1)+'%');
+  d.innerHTML=`↓ ${Math.round(off/pw*1440).toLocaleString('ru-RU')}<i></i>${H.toLocaleString('ru-RU')} px`}
+addEventListener('scroll',()=>{if(!pr)pr=requestAnimationFrame(pgUpdate)},{passive:true});addEventListener('resize',pgUpdate);
+skyB.forEach((b,k)=>b.addEventListener('click',()=>{const span=PG.offsetHeight-innerHeight;scrollTo({top:PG.getBoundingClientRect().top+scrollY+span*(k+.1)/N,behavior:reduce?'auto':'smooth'})}));
+imgs[0].addEventListener('load',pgUpdate);pgUpdate();
+
+/* ролик по главам */
+const player=$('#player'),chs=$$('#chapters button');let cur=0;
+function play(i){cur=(i+chs.length)%chs.length;chs.forEach((b,k)=>{b.setAttribute('aria-current',k===cur);b.querySelector('.bar i').style.width='0'});
+  const b=chs[cur];player.poster=b.dataset.poster;player.src=b.dataset.src;$('#urlbar').textContent=b.dataset.url;player.play().catch(()=>{})}
+chs.forEach((b,i)=>b.addEventListener('click',()=>play(i)));
+player.addEventListener('timeupdate',()=>{if(player.duration)chs[cur].querySelector('.bar i').style.width=(player.currentTime/player.duration*100)+'%'});
+player.addEventListener('ended',()=>play(cur+1));
+// видео играют только на экране (запись под фасадом включается на последнем этапе)
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!reduce&&v!==live)v.play().catch(()=>{})}else v.pause()}),{threshold:.15});
+$$('video').forEach(v=>{if(reduce){v.removeAttribute('autoplay');v.pause()}vio.observe(v)});
+
+/* анатомия */
+const W={d:1440,m:390};let mode='d',active=0;
+const steps=$$('.step');
+function show(i){active=i;steps.forEach((s,k)=>s.classList.toggle('on',k===i));
+  const s=steps[i],M=mode.toUpperCase(),port=$('#port'+M),layer=$('#layer'+M),img=layer.querySelector('img'),hl=$('#hl'+M);
+  if(!s.dataset[mode]){hl.style.opacity='0';$('#note'+M).textContent='Этот блок есть только на компьютере';return}
+  hl.style.opacity='1';
+  const [y,h]=s.dataset[mode].split(',').map(Number);
+  const k=port.clientWidth/W[mode],ph=port.clientHeight,top=y*k,hh=h*k;
+  const imgH=port.clientWidth*img.height/img.width;
+  let off=hh<ph-60?top-(ph-hh)/2:top-28;off=Math.max(0,Math.min(off,imgH-ph));
+  layer.style.transform=`translateY(${-off}px)`;hl.style.top=top+'px';hl.style.height=hh+'px';
+  hl.querySelector('b').textContent=s.querySelector('.mono span').textContent;
+  $('#note'+M).textContent='↓ '+Math.round(y).toLocaleString('ru-RU')+' px'}
+// активный шаг выбирается по линии чтения, а не IntersectionObserver: во встроенном фрейме rootMargin не работает
+const viewer=$('#viewer');let raf=0;
+function pick(){raf=0;const vr=viewer.getBoundingClientRect(),narrow=innerWidth<=900;
+  const line=narrow?vr.bottom+(innerHeight-vr.bottom)*.35:innerHeight*.5;let i=0;
+  steps.forEach((s,k)=>{if(s.getBoundingClientRect().top<=line)i=k});if(i!==active)show(i)}
+addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+steps.forEach((s,i)=>s.addEventListener('click',()=>show(i)));
+function setMode(m){mode=m;$('#tD').setAttribute('aria-pressed',m==='d');$('#tM').setAttribute('aria-pressed',m==='m');$('#vD').hidden=m!=='d';$('#vM').hidden=m!=='m';
+  const im=$('#layerM img');if(m==='m'&&!im.src){im.src=im.dataset.src;im.onload=()=>show(active)}requestAnimationFrame(()=>show(active))}
+$('#tD').onclick=()=>setMode('d');$('#tM').onclick=()=>setMode('m');
+addEventListener('resize',()=>show(active));$('#layerD img').addEventListener('load',()=>show(active));show(0);
+
+/* масштаб объектов: квадраты подгоняются под ширину плитки */
+const sq=$('#sq');function sqFit(){const figs=[...sq.children],sum=figs.reduce((a,f)=>a+parseFloat(f.style.getPropertyValue('--s')),0);
+  const gap=parseFloat(getComputedStyle(sq).columnGap)||10,wrap=innerWidth<=900;
+  const k=wrap?Math.min(1,(sq.clientWidth*.9)/220):Math.min(1.6,(sq.clientWidth-gap*(figs.length-1)-30)/sum);sq.style.setProperty('--k',k.toFixed(3))}
+addEventListener('resize',sqFit);sqFit();
+
+/* процесс: линия заполняется по мере прокрутки */
+const track=$('#track');addEventListener('scroll',()=>{const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(r.height+innerHeight*.3)));track.style.setProperty('--p',(p*100).toFixed(1)+'%')},{passive:true});
+})();
+</script>
