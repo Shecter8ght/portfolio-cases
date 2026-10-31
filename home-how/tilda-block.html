@@ -1,0 +1,298 @@
+<!-- Экран главной «Как я работаю» (вместо старого блока «4 шага»). Вставьте целиком в блок T123 (HTML-код), отступы блока сверху и снизу 0.
+     Окно справа закреплено при прокрутке и учитывает шапку сайта (--top: 96px на компьютере, 70px на телефоне).
+     Картинка: setka-garmoshka/fold_home.jpg из репозитория portfolio-cases. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: экран «Как я работаю». Слева четыре шага по порядку, справа закреплённое окно браузера.
+   Пока посетитель листает шаги, в окне из разговора с владельцем вырастает сайт: реестр смыслов → прототип → дизайн → запуск.
+   Пример — первый экран setka-garmoshka76.ru: прототип повторяет его сетку, и настоящий дизайн ложится точно поверх. */
+.ovh{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#141214; --mute:#6E6669; --soft:#A29A9D; --line:rgba(20,18,20,.12);
+  --coral:#F36A55; --green:#3BB273; --chrome:#ECE9E7; --wire:#E4E0DE; --wire2:#D3CECB; --glass:rgba(255,255,255,.88); --shadow:rgba(20,18,20,.20);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --px:40px; --top:96px;
+}
+html[data-theme="dark"] .ovh{
+  --bg:#0C0B0C; --surface:#171517; --ink:#F3F0EC; --mute:#9A939B; --soft:#6F6971; --line:rgba(243,240,236,.13);
+  --coral:#FF7A64; --green:#4CC585; --chrome:#1F1C1F; --wire:#242024; --wire2:#332E33; --glass:rgba(23,21,23,.88); --shadow:rgba(0,0,0,.6); color-scheme:dark}
+
+.ovh,.ovh *{box-sizing:border-box}
+.ovh [hidden]{display:none!important}
+.ovh{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:clip;text-align:left;transition:background-color .3s,color .3s}
+.ovh a{color:inherit;text-decoration:none}
+.ovh :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:10px}
+.ovh-in{padding-left:max(var(--px),env(safe-area-inset-left,0px));padding-right:max(var(--px),env(safe-area-inset-right,0px));padding-block:clamp(56px,7vw,120px) clamp(56px,6vw,104px)}
+@media (max-width:1399px){.ovh{--px:20px}}
+@media (max-width:639px){.ovh{--px:10px}}
+
+.ovh-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:500 clamp(10.5px,.62vw,13px)/1.35 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.ovh-meta b{font-weight:500;color:var(--coral)}
+.ovh-h{margin:clamp(18px,2.4vw,40px) 0 0;max-width:15em;font:700 clamp(40px,6.4vw,112px)/.92 var(--f-display);letter-spacing:-.045em;text-wrap:balance}
+.ovh-h span{color:var(--soft)}
+.ovh-h i{font-style:normal;color:var(--coral)}
+
+/* шаги + закреплённое окно */
+.ovh-body{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,4vw,80px);margin-top:clamp(24px,3vw,48px)}
+.ovh-steps{display:flex;flex-direction:column;counter-reset:s}
+.ovh-step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding-block:40px;border-top:1px solid var(--line);opacity:.32;transition:opacity .45s}
+.ovh-step:first-child{border-top:0;min-height:60vh;justify-content:flex-start;padding-top:clamp(40px,8vh,96px)}
+.ovh-step:last-child{min-height:70vh}
+.ovh-step.on{opacity:1}
+.ovh-n{display:flex;align-items:center;gap:12px;font:500 12px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.ovh-n b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);font-weight:500;color:var(--ink);transition:background-color .3s,color .3s,border-color .3s}
+.ovh-step.on .ovh-n b{background:var(--coral);border-color:var(--coral);color:#fff}
+.ovh-t{margin:16px 0 0;font:700 clamp(30px,3.2vw,54px)/1 var(--f-display);letter-spacing:-.04em;text-wrap:balance}
+.ovh-p{margin:16px 0 0;max-width:30em;font:400 clamp(16px,1.15vw,19px)/1.55 var(--f-body);text-wrap:pretty}
+.ovh-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.ovh-tags span{padding:6px 10px;border-radius:8px;background:var(--chrome);font:500 12px/1.2 var(--f-mono);color:var(--ink)}
+.ovh-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:28px}
+.ovh-btn{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:999px;background:var(--coral);color:#fff!important;font:600 16px/1 var(--f-display);box-shadow:0 14px 30px -14px rgba(243,106,85,.9);transition:transform .2s,filter .2s}
+.ovh-btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.ovh-note{font:500 13px/1.3 var(--f-mono);color:var(--mute)}
+
+.ovh-stick{position:sticky;top:calc(var(--top) + 20px);align-self:start}
+.ovh-rail{display:flex;gap:6px;margin-bottom:14px}
+.ovh-rail i{flex:1;height:3px;border-radius:2px;background:var(--line);overflow:hidden;position:relative}
+.ovh-rail i::after{content:"";position:absolute;inset:0;background:var(--coral);transform:scaleX(var(--p,0));transform-origin:left;transition:transform .5s}
+.ovh-win{position:relative;border-radius:16px;overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:0 40px 80px -48px var(--shadow)}
+.ovh-chrome{display:flex;align-items:center;gap:12px;height:44px;padding:0 14px;background:var(--chrome);border-bottom:1px solid var(--line)}
+.ovh-dots{display:flex;gap:6px;flex:none}.ovh-dots i{width:10px;height:10px;border-radius:50%;background:var(--soft);opacity:.55}.ovh-dots i:first-child{background:var(--coral);opacity:1}
+.ovh-url{margin:0 auto;display:flex;align-items:center;gap:8px;min-width:0;padding:5px 14px;border-radius:8px;background:var(--surface);font:500 13px/1.2 var(--f-mono);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovh-url::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--soft);flex:none;transition:background-color .3s}
+.ovh[data-s="4"] .ovh-url::before{background:var(--green)}
+.ovh-tag{flex:none;min-width:84px;text-align:right;font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.ovh-screen{position:relative;aspect-ratio:16/10;max-width:100%;container-type:inline-size;background:var(--bg);overflow:hidden}
+
+/* сцена 1: разговор */
+.sc-talk{position:absolute;inset:0;display:grid;grid-template-columns:1.15fr 1fr;gap:3cqw;padding:4cqw;transition:opacity .5s,transform .6s cubic-bezier(.2,.75,.15,1)}
+.ovh:not([data-s="1"]) .sc-talk{opacity:0;transform:translateY(-4%);pointer-events:none}
+.talk-col{display:flex;flex-direction:column;gap:1.6cqw;min-width:0}
+.rec{display:flex;align-items:center;gap:1cqw;font:500 1.5cqw/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
+.rec i{width:1.2cqw;height:1.2cqw;border-radius:50%;background:var(--coral);animation:ovh-blink 1.4s infinite}
+@keyframes ovh-blink{50%{opacity:.25}}
+.q{align-self:flex-start;max-width:100%;padding:1.4cqw 1.8cqw;border-radius:1.6cqw 1.6cqw 1.6cqw .4cqw;background:var(--surface);border:1px solid var(--line);font:500 1.9cqw/1.3 var(--f-body);color:var(--ink);opacity:0;transform:translateY(1.5cqw);transition:opacity .45s,transform .5s cubic-bezier(.2,.75,.15,1)}
+.q small{display:block;margin-bottom:.5cqw;font:500 1.3cqw/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
+.reg{align-self:start;padding:2cqw;border-radius:1.6cqw;background:var(--ink);color:var(--bg)}
+.reg h4{margin:0 0 1.4cqw;font:500 1.4cqw/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.reg ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1cqw}
+.reg li{display:flex;align-items:center;gap:1cqw;font:600 2cqw/1.2 var(--f-display);letter-spacing:-.01em;opacity:0;transform:translateX(-1.5cqw);transition:opacity .4s,transform .5s cubic-bezier(.2,.75,.15,1)}
+.reg li::before{content:"";width:1cqw;height:1cqw;border-radius:50%;background:var(--coral);flex:none}
+.reg .more{margin-top:1.6cqw;font:500 1.3cqw/1.3 var(--f-mono);opacity:.6}
+.ovh[data-s="1"] .q,.ovh[data-s="1"] .reg li{opacity:1;transform:none}
+.ovh[data-s="1"] .q:nth-of-type(2){transition-delay:.2s}.ovh[data-s="1"] .q:nth-of-type(3){transition-delay:1.1s}.ovh[data-s="1"] .q:nth-of-type(4){transition-delay:2s}
+.ovh[data-s="1"] .reg li:nth-child(1){transition-delay:.7s}.ovh[data-s="1"] .reg li:nth-child(2){transition-delay:1s}
+.ovh[data-s="1"] .reg li:nth-child(3){transition-delay:1.6s}.ovh[data-s="1"] .reg li:nth-child(4){transition-delay:2.5s}
+
+/* сцена 2: прототип, повторяет сетку первого экрана сайта */
+.sc-wire{position:absolute;inset:0;transition:opacity .5s}
+.ovh[data-s="1"] .sc-wire{opacity:0}
+.w{position:absolute;background:var(--wire);border-radius:.6cqw}
+.w.bar{left:0;right:0;top:0;height:4%;border-radius:0;background:var(--wire2)}
+.w.logo{left:3.2%;top:5.6%;width:8%;height:5.4%}
+.w.nav{left:12.8%;top:7.4%;width:37%;height:1.8%;background:repeating-linear-gradient(90deg,var(--wire2) 0 18%,transparent 18% 25%)}
+.w.ph{left:58.6%;top:5.8%;width:11.4%;height:4.6%;background:repeating-linear-gradient(180deg,var(--wire2) 0 38%,transparent 38% 62%)}
+.w.hb{left:83.6%;top:5.5%;width:13.6%;height:5.3%;border-radius:3cqw;background:var(--wire2)}
+.w.card{left:1.3%;top:13.4%;width:50.4%;height:90%;border-radius:1.6cqw;background:var(--surface);border:1px dashed var(--wire2)}
+.w.photo{left:53%;top:13.4%;width:45.7%;height:90%;border-radius:1.6cqw;background:var(--wire) linear-gradient(to top right,transparent calc(50% - 1px),var(--wire2) 50%,transparent calc(50% + 1px)),var(--wire)}
+.w.photo::after{content:"фото продукта";position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font:500 1.3cqw/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--soft);background:var(--wire);padding:.6cqw 1cqw;border-radius:.4cqw}
+.w.h1{left:3.5%;top:26%;width:45%;background:none;font:600 3.55cqw/1.08 var(--f-display);letter-spacing:-.03em;color:var(--ink)}
+.w.h1 .caret{display:inline-block;width:.08em;height:.9em;margin-left:.04em;vertical-align:-.08em;background:var(--coral);animation:ovh-blink 1s infinite}
+.w.lead{left:3.5%;top:46.8%;width:26%;height:7.6%;background:repeating-linear-gradient(180deg,var(--wire2) 0 22%,transparent 22% 36%)}
+.w.list{left:3.5%;top:56.6%;width:40%;background:none;display:flex;flex-direction:column;gap:.5cqw}
+.w.list span{display:flex;align-items:center;gap:.8cqw;font:500 1.55cqw/1.15 var(--f-body);color:var(--ink);opacity:0;transform:translateX(-2cqw);transition:opacity .4s,transform .5s cubic-bezier(.2,.75,.15,1)}
+.w.list span::before{content:"";width:.6cqw;height:.6cqw;border-radius:50%;background:var(--coral);flex:none}
+.ovh:not([data-s="1"]) .w.list span{opacity:1;transform:none}
+.ovh[data-s="2"] .w.list span:nth-child(2){transition-delay:.15s}.ovh[data-s="2"] .w.list span:nth-child(3){transition-delay:.3s}.ovh[data-s="2"] .w.list span:nth-child(4){transition-delay:.45s}
+.w.b1{left:3.5%;top:82.7%;width:23.5%;height:6.4%;border-radius:3cqw;background:var(--coral);opacity:.85}
+.w.b2{left:3.5%;top:91.2%;width:23.5%;height:6.1%;border-radius:3cqw;background:var(--wire2)}
+.w.hint{left:29.8%;top:83.4%;width:18%;height:4%;background:repeating-linear-gradient(180deg,var(--wire2) 0 30%,transparent 30% 55%)}
+.w.label{left:auto;right:2.4%;top:auto;bottom:3%;padding:.8cqw 1.2cqw;background:var(--ink);color:var(--bg);font:500 1.3cqw/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;border-radius:.6cqw;z-index:3;transition:opacity .3s}
+.ovh[data-s="3"] .w.label,.ovh[data-s="4"] .w.label{opacity:0}
+
+/* сцена 3: настоящий дизайн ложится поверх прототипа */
+.sc-real{position:absolute;inset:0;clip-path:inset(0 100% 0 0);transition:clip-path 1.1s cubic-bezier(.7,0,.2,1)}
+.sc-real img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.sc-real::after{content:"";position:absolute;top:0;bottom:0;right:0;width:3px;background:var(--coral);opacity:0;transition:opacity .3s}
+.ovh[data-s="3"] .sc-real,.ovh[data-s="4"] .sc-real{clip-path:inset(0 0 0 0)}
+
+/* плашки поверх окна */
+.ovh-card{position:absolute;z-index:5;padding:14px 16px;border-radius:14px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 30px 60px -30px var(--shadow);opacity:0;transform:translateY(14px);transition:opacity .4s,transform .5s cubic-bezier(.2,.75,.15,1);pointer-events:none}
+.ovh-card .k{font:500 10.5px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.c-style{left:clamp(-28px,-1.6vw,-12px);bottom:clamp(-30px,-2vw,-14px)}
+.ovh[data-s="3"] .c-style{opacity:1;transform:none;transition-delay:.9s}
+.sw{display:flex;gap:6px;margin-top:10px}
+.sw i{width:30px;height:30px;border-radius:8px;border:1px solid var(--line)}
+.fonts{margin-top:10px;display:flex;gap:14px;align-items:baseline;color:var(--ink)}
+.fonts b{font:700 22px/1 var(--f-display);letter-spacing:-.03em}
+.fonts span{font:400 12px/1.3 var(--f-mono);color:var(--mute)}
+.c-live{right:clamp(-28px,-1.6vw,-12px);bottom:clamp(-36px,-2.4vw,-16px);min-width:250px}
+.ovh[data-s="4"] .c-live{opacity:1;transform:none;transition-delay:.3s}
+.c-live .pub{display:flex;align-items:center;gap:10px;font:600 15px/1.2 var(--f-display);color:var(--ink)}
+.c-live .pub i{width:9px;height:9px;border-radius:50%;background:var(--green);animation:ovh-ping 2s infinite}
+@keyframes ovh-ping{0%{box-shadow:0 0 0 0 rgba(59,178,115,.55)}80%,100%{box-shadow:0 0 0 10px rgba(59,178,115,0)}}
+.c-live ul{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;font:500 12px/1.3 var(--f-mono);color:var(--mute)}
+.c-live li::before{content:"✓ ";color:var(--green)}
+.c-live .big{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:10px}
+.c-live .big b{font:700 34px/1 var(--f-display);letter-spacing:-.04em;color:var(--ink)}
+.c-live .big span{font:500 12px/1.3 var(--f-body);color:var(--mute)}
+
+@media (max-width:1023px){
+  .ovh{--top:70px}
+  .ovh-body{grid-template-columns:minmax(0,1fr)}
+  .ovh-stick{grid-row:1;top:calc(var(--top) + 8px);z-index:4;padding-bottom:12px;background:var(--bg)}
+  .ovh-steps{grid-row:2}
+  .ovh-step,.ovh-step:first-child,.ovh-step:last-child{min-height:62vh;justify-content:flex-start;padding-top:28px}
+  .ovh-card{transform:scale(.82) translateY(14px);transform-origin:bottom left}
+  .c-live{transform-origin:bottom right}
+  .ovh[data-s="3"] .c-style,.ovh[data-s="4"] .c-live{transform:scale(.82)}
+  .c-style{left:8px;bottom:8px}.c-live{right:8px;bottom:8px}
+}
+@media (max-width:639px){
+  .ovh-win{border-radius:12px}
+  .ovh-chrome{height:34px;padding:0 10px}
+  .ovh-url{font-size:11px;padding:4px 10px}
+  .ovh-tag{display:none}
+  .ovh-card{transform:scale(.62) translateY(14px)}
+  .ovh[data-s="3"] .c-style,.ovh[data-s="4"] .c-live{transform:scale(.62)}
+  .ovh-btn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){.ovh *,.ovh *::before,.ovh *::after{animation:none!important;transition:none!important}}
+</style>
+
+<section class="ovh" id="how" data-s="1" aria-labelledby="ovh-h">
+<div class="ovh-in">
+  <div class="ovh-meta"><span>Как я работаю · <b>4</b> шага</span><span>листайте, сайт соберётся справа</span></div>
+  <h2 class="ovh-h" id="ovh-h">От разговора <span>до первых заявок<i>.</i></span></h2>
+
+  <div class="ovh-body">
+    <div class="ovh-steps">
+      <article class="ovh-step on" data-step="1">
+        <div class="ovh-n"><b>1</b>Разговор и исследование</div>
+        <h3 class="ovh-t">Начинаю с разговора с вами</h3>
+        <p class="ovh-p">Анкету на 47 вопросов заполнять не нужно. Мы говорим полтора-два часа, лично или по видео, и я узнаю, за что вас выбирают клиенты. Параллельно изучаю конкурентов и ваших покупателей. Итог — реестр смыслов вашей компании.</p>
+        <div class="ovh-tags"><span>1,5–2 часа разговора</span><span>0 анкет</span><span>анализ конкурентов</span></div>
+      </article>
+      <article class="ovh-step" data-step="2">
+        <div class="ovh-n"><b>2</b>Структура и тексты</div>
+        <h3 class="ovh-t">Смыслы превращаются в прототип</h3>
+        <p class="ovh-p">Из реестра собираю структуру и пишу тексты, которые отвечают на вопросы ваших клиентов. Вы видите, что будет на каждом экране и что на нём написано, ещё до дизайна.</p>
+        <div class="ovh-tags"><span>прототип</span><span>продающие тексты</span></div>
+      </article>
+      <article class="ovh-step" data-step="3">
+        <div class="ovh-n"><b>3</b>Дизайн</div>
+        <h3 class="ovh-t">Прототип получает лицо компании</h3>
+        <p class="ovh-p">Подбираю референсы, цвета и шрифты и рисую макет. Структура остаётся той, что вы уже одобрили, поэтому дизайн не уводит от смысла.</p>
+        <div class="ovh-tags"><span>референсы</span><span>цвета и шрифты</span><span>дизайн-макет</span></div>
+      </article>
+      <article class="ovh-step" data-step="4">
+        <div class="ovh-n"><b>4</b>Запуск</div>
+        <h3 class="ovh-t">Сайт выходит и приносит заявки</h3>
+        <p class="ovh-p">Собираю сайт на Tilda, подключаю домен, базовое SEO и Метрику. После запуска остаюсь на связи: смотрю статистику и дорабатываю экраны, если заявок меньше, чем могло бы быть.</p>
+        <div class="ovh-tags"><span>Tilda</span><span>домен и SEO</span><span>Метрика</span></div>
+        <div class="ovh-cta"><a class="ovh-btn" href="#popup:quiz">Начать с разговора</a><span class="ovh-note">расчёт за 24 часа</span></div>
+      </article>
+    </div>
+
+    <div class="ovh-stick">
+      <div class="ovh-rail" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="ovh-vis" style="position:relative">
+        <div class="ovh-win">
+          <div class="ovh-chrome"><span class="ovh-dots"><i></i><i></i><i></i></span><span class="ovh-url" id="ovh-url">разговор с владельцем</span><span class="ovh-tag" id="ovh-tag">шаг 1 из 4</span></div>
+          <div class="ovh-screen" role="img" aria-label="Как из разговора с владельцем получается первый экран сайта setka-garmoshka76.ru">
+            <div class="sc-wire" aria-hidden="true">
+              <i class="w bar"></i><i class="w logo"></i><i class="w nav"></i><i class="w ph"></i><i class="w hb"></i>
+              <i class="w card"></i><i class="w photo"></i>
+              <div class="w h1"><span id="ovh-type"></span><i class="caret"></i></div>
+              <i class="w lead"></i>
+              <div class="w list"><span>Доставка в любой город</span><span>Долговечная конструкция</span><span>Услуги монтажа</span><span>Не нужно снимать на зиму</span></div>
+              <i class="w b1"></i><i class="w b2"></i><i class="w hint"></i>
+              <span class="w label">прототип</span>
+            </div>
+            <div class="sc-real" aria-hidden="true"><img id="ovh-img" data-src="setka-garmoshka/fold_home.jpg" alt=""></div>
+            <div class="sc-talk" aria-hidden="true">
+              <div class="talk-col">
+                <div class="rec"><i></i><span id="ovh-clock">01:12:40</span> · разговор</div>
+                <div class="q"><small>Валерий</small>Почему клиенты выбирают вас, а не соседей?</div>
+                <div class="q"><small>Валерий</small>Что спрашивают перед покупкой чаще всего?</div>
+                <div class="q"><small>Валерий</small>Что получает клиент, кроме самой сетки?</div>
+              </div>
+              <div class="reg">
+                <h4>Реестр смыслов</h4>
+                <ul><li>Не нужно снимать на зиму</li><li>Долговечная конструкция</li><li>Доставка в любой город</li><li>Услуги монтажа</li></ul>
+                <div class="more">+ ещё 30 строк из разговора</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ovh-card c-style" aria-hidden="true">
+          <div class="k">Цвета и шрифт</div>
+          <div class="sw"><i style="background:#FF5A1F"></i><i style="background:#1B2BF0"></i><i style="background:#2B2B2B"></i><i style="background:#F2F2F2"></i></div>
+          <div class="fonts"><b>Аа</b><span>гротеск,<br>крупный кегль</span></div>
+        </div>
+        <div class="ovh-card c-live" aria-hidden="true">
+          <div class="pub"><i></i>Сайт опубликован</div>
+          <ul><li>домен</li><li>базовое SEO</li><li>Метрика</li><li>формы заявок</li></ul>
+          <div class="big"><b>259</b><span>заявок за год<br>setka-garmoshka76.ru</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<script>
+(function(){
+const MEDIA = 'https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/';
+const root = document.getElementById('how');
+const steps = [...root.querySelectorAll('.ovh-step')];
+const rail = [...root.querySelectorAll('.ovh-rail i')];
+const url = document.getElementById('ovh-url'), tag = document.getElementById('ovh-tag');
+const img = document.getElementById('ovh-img');
+const H1 = 'Складные москитные сетки и шторы плиссе на заказ в Ярославле';
+const typeEl = document.getElementById('ovh-type');
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const URLS = {1:'разговор с владельцем',2:'черновик · прототип',3:'черновик · дизайн',4:'setka-garmoshka76.ru'};
+let cur = 0, typed = false, typeTimer = null;
+
+function type(){
+  if(typed) return; typed = true;
+  if(RM){typeEl.textContent = H1; return}
+  let i = 0; clearInterval(typeTimer);
+  typeTimer = setInterval(()=>{typeEl.textContent = H1.slice(0, ++i); if(i >= H1.length) clearInterval(typeTimer)}, 28);
+}
+function set(n){
+  if(n === cur) return; cur = n;
+  root.dataset.s = n;
+  steps.forEach((s,i)=>s.classList.toggle('on', i === n-1));
+  rail.forEach((r,i)=>r.style.setProperty('--p', i < n ? 1 : 0));
+  url.textContent = URLS[n]; tag.textContent = 'шаг ' + n + ' из 4';
+  if(n >= 2) type();
+  if(n >= 2 && img.dataset.src){img.src = MEDIA + img.dataset.src; img.removeAttribute('data-src')}
+}
+
+/* шаг выбирается по тому, какой текст сейчас в середине экрана */
+function pick(){
+  const st = root.querySelector('.ovh-stick').getBoundingClientRect();
+  const mid = innerWidth < 1024 ? Math.min(innerHeight * .8, st.bottom + 120) : innerHeight * .55; let n = 1;
+  steps.forEach((s,i)=>{if(s.getBoundingClientRect().top < mid) n = i+1});
+  set(n);
+}
+let raf = 0;
+addEventListener('scroll', ()=>{if(!raf) raf = requestAnimationFrame(()=>{raf = 0; pick()})}, {passive:true});
+addEventListener('resize', pick);
+
+/* часы разговора идут, пока виден первый шаг */
+const clock = document.getElementById('ovh-clock'); let sec = 1*3600 + 12*60 + 40;
+setInterval(()=>{if(cur !== 1 || RM) return; sec++; const h = Math.floor(sec/3600), m = Math.floor(sec/60)%60, s = sec%60;
+  clock.textContent = [h,m,s].map(v=>String(v).padStart(2,'0')).join(':')}, 1000);
+
+if('IntersectionObserver' in window){
+  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting && img.dataset.src){img.src = MEDIA + img.dataset.src; img.removeAttribute('data-src')}}),{rootMargin:'800px 0px'}).observe(root);
+}
+set(1); pick();
+})();
+</script>
