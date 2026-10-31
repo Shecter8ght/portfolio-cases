@@ -1,0 +1,341 @@
+<!-- Второй экран главной «Ваш случай». Вставьте целиком в блок T123 (HTML-код) сразу под первым экраном, отступы блока сверху и снизу 0.
+     Медиа берутся из папок cafe-prospect/, setka-garmoshka/, dentroom/, mirmo/ репозитория portfolio-cases. Тёмная тема включается кнопкой в шапке (data-theme на html). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: второй экран главной. Огромная фраза «У вас сейчас …» в духе фамилии на первом экране, под ней четыре случая.
+   Выбор случая меняет фразу по буквам, окно браузера с живым сайтом клиента и доказательство из кейса. Пока никто не нажал, случаи сами листаются раз в 7 секунд. */
+.ovc{
+  --bg:#F6F5F4; --surface:#FFFFFF; --ink:#141214; --mute:#6E6669; --soft:#A29A9D; --line:rgba(20,18,20,.12);
+  --coral:#F36A55; --green:#3BB273; --chrome:#ECE9E7; --glass:rgba(255,255,255,.86); --shadow:rgba(20,18,20,.20);
+  --f-display:"Inter Tight","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --px:40px;
+}
+html[data-theme="dark"] .ovc{
+  --bg:#0C0B0C; --surface:#171517; --ink:#F3F0EC; --mute:#9A939B; --soft:#6F6971; --line:rgba(243,240,236,.13);
+  --coral:#FF7A64; --green:#4CC585; --chrome:#1F1C1F; --glass:rgba(23,21,23,.86); --shadow:rgba(0,0,0,.6); color-scheme:dark}
+
+.ovc,.ovc *{box-sizing:border-box}
+.ovc [hidden]{display:none!important}
+.ovc{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:clip;text-align:left;transition:background-color .3s,color .3s}
+.ovc a{color:inherit;text-decoration:none}
+.ovc button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ovc :focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:10px}
+.ovc-in{padding-left:max(var(--px),env(safe-area-inset-left,0px));padding-right:max(var(--px),env(safe-area-inset-right,0px));padding-block:clamp(56px,7vw,120px) clamp(56px,6vw,104px)}
+@media (max-width:1399px){.ovc{--px:20px}}
+@media (max-width:639px){.ovc{--px:10px}}
+
+/* верхняя строка, как на первом экране */
+.ovc-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:500 clamp(10.5px,.62vw,13px)/1.35 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.ovc-meta b{font-weight:500;color:var(--coral)}
+
+/* главная фраза */
+.ovc-h{margin:clamp(18px,2.4vw,40px) 0 0;font-family:var(--f-display);font-weight:600;letter-spacing:-.045em;line-height:.9}
+.ovc-lead{display:block;font-size:clamp(28px,4vw,64px);font-weight:500;letter-spacing:-.035em;color:var(--soft);line-height:1}
+.ovc-word{display:block;font-size:clamp(44px,10.4vw,176px);font-weight:700;color:var(--ink);white-space:nowrap;padding-bottom:.06em;margin-top:.04em;overflow:hidden}
+.ovc-word i{display:inline-block;font-style:normal;animation:ovc-rise .7s cubic-bezier(.2,.75,.15,1) both;animation-delay:calc(var(--i)*24ms)}
+.ovc-word i.dot{color:var(--coral)}
+@keyframes ovc-rise{from{transform:translateY(105%);opacity:.0}to{transform:none;opacity:1}}
+
+/* случаи */
+.ovc-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(20px,2.2vw,36px)}
+.ovc .ovc-tab{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:10px 20px 10px 16px;border-radius:999px;border:1px solid var(--line);font:500 15px/1.2 var(--f-body);color:var(--mute);transition:color .25s,border-color .25s,background-color .25s}
+.ovc-tab::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--soft);transition:background-color .25s,transform .25s;flex:none}
+.ovc-tab:hover{color:var(--ink);border-color:var(--soft)}
+.ovc-tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.ovc-tab[aria-selected="true"]::before{background:var(--coral);transform:scale(1.15)}
+.ovc-tab .bar{position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--coral);transform-origin:left;transform:scaleX(0)}
+
+/* сцена */
+.ovc-stage{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,4vw,80px);align-items:center;margin-top:clamp(28px,3.4vw,56px)}
+.ovc-vis{position:relative;min-width:0}
+.ovc-win{position:relative;border-radius:16px;overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:0 40px 80px -48px var(--shadow)}
+.ovc-chrome{display:flex;align-items:center;gap:12px;height:44px;padding:0 14px;background:var(--chrome);border-bottom:1px solid var(--line)}
+.ovc-dots{display:flex;gap:6px;flex:none}.ovc-dots i{width:10px;height:10px;border-radius:50%;background:var(--soft);opacity:.55}.ovc-dots i:first-child{background:var(--coral);opacity:1}
+.ovc-url{flex:0 1 auto;min-width:0;margin:0 auto;display:flex;align-items:center;gap:8px;padding:5px 14px;border-radius:8px;background:var(--surface);font:500 13px/1.2 var(--f-mono);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovc-url::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);flex:none}
+.ovc-tag{flex:none;font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);min-width:64px;text-align:right}
+.ovc-screen{position:relative;aspect-ratio:16/10;max-width:100%;background:var(--chrome)}
+.ovc-pane{position:absolute;inset:0;opacity:0;visibility:hidden;clip-path:inset(0 0 0 100%);transition:clip-path .9s cubic-bezier(.7,0,.2,1),opacity 0s .9s,visibility 0s .9s}
+.ovc-pane.on{opacity:1;visibility:visible;clip-path:inset(0 0 0 0);transition:clip-path .9s cubic-bezier(.7,0,.2,1);z-index:2}
+.ovc-pane.off{opacity:1;visibility:visible;clip-path:inset(0 0 0 0);z-index:1;transition:none}
+.ovc-pane video,.ovc-pane img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+
+/* шторка было / стало */
+.ovc-cur{touch-action:pan-y;cursor:ew-resize}
+.ovc-cur .new{clip-path:inset(0 0 0 var(--x,50%))}
+.ovc-cur .knob{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;margin-left:-1px;background:var(--coral);pointer-events:none}
+.ovc-cur .knob::after{content:"⟷";position:absolute;top:50%;left:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font:600 18px/1 var(--f-body);box-shadow:0 10px 24px -10px rgba(243,106,85,.9)}
+.ovc-cur .lab{position:absolute;top:14px;padding:6px 10px;border-radius:8px;background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);pointer-events:none}
+.ovc-cur .lab.l{left:14px}.ovc-cur .lab.r{right:14px}
+
+/* карточка-доказательство поверх окна */
+.ovc-card{position:absolute;z-index:5;right:clamp(-28px,-1.6vw,-12px);bottom:clamp(-36px,-2.4vw,-16px);width:min(360px,62%);padding:16px 18px 14px;border-radius:14px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 30px 60px -30px var(--shadow);opacity:0;transform:translateY(16px);transition:opacity .4s,transform .5s cubic-bezier(.2,.75,.15,1);pointer-events:none}
+.ovc-card.on{opacity:1;transform:none;transition-delay:.45s}
+.ovc-card .k{display:flex;justify-content:space-between;gap:10px;font:500 10.5px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.ovc-card .k b{font-weight:500;color:var(--ink)}
+.ovc-card svg{display:block;width:100%;height:auto;margin-top:10px;overflow:visible}
+.ovc-card .ln{fill:none;stroke:var(--coral);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ovc-card .ar{fill:var(--coral);opacity:.12}
+.ovc-card .gr{stroke:var(--line);stroke-width:1}
+.ovc-card .tx{fill:var(--mute);font:500 10px var(--f-mono)}
+.ovc-card .tv{fill:var(--ink);font:600 13px var(--f-display)}
+.ovc-card .bk{fill:var(--soft);opacity:.45}
+.ovc-card .bh{fill:var(--coral)}
+.ovc-card .pt{fill:var(--bg);stroke:var(--coral);stroke-width:2}
+.ovc-card.live{width:auto;right:16px;bottom:16px;display:flex;align-items:center;gap:10px;padding:10px 14px}
+.ovc-card.live .k{color:var(--ink)}
+.ovc-card.live i{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 var(--green);animation:ovc-ping 2s infinite}
+@keyframes ovc-ping{0%{box-shadow:0 0 0 0 rgba(59,178,115,.55)}80%,100%{box-shadow:0 0 0 10px rgba(59,178,115,0)}}
+
+/* текст случая */
+.ovc-copy{display:grid;min-width:0}
+.ovc-txt{grid-area:1/1;min-width:0;opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .35s,transform .35s,visibility 0s .35s}
+.ovc-txt.on{opacity:1;visibility:visible;transform:none;transition:opacity .5s .15s,transform .6s .15s cubic-bezier(.2,.75,.15,1)}
+.ovc-case{font:500 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.ovc-case b{font-weight:500;color:var(--ink)}
+.ovc-num{margin:14px 0 0;font:700 clamp(44px,5.2vw,88px)/.95 var(--f-display);letter-spacing:-.045em;color:var(--ink);text-wrap:balance}
+.ovc-num s{text-decoration:none;color:var(--soft)}
+.ovc-num em{font-style:normal;color:var(--coral)}
+.ovc-sub{margin:10px 0 0;font:500 clamp(15px,1.05vw,18px)/1.35 var(--f-body);color:var(--mute)}
+.ovc-p{margin:clamp(18px,1.8vw,28px) 0 0;max-width:34em;font:400 clamp(16px,1.15vw,19px)/1.55 var(--f-body);color:var(--ink);text-wrap:pretty}
+.ovc-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.ovc-facts span{padding:6px 10px;border-radius:8px;background:var(--chrome);font:500 12px/1.2 var(--f-mono);color:var(--ink)}
+.ovc-links{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:clamp(22px,2vw,32px)}
+.ovc-btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;background:var(--coral);color:#fff!important;font:600 16px/1 var(--f-display);box-shadow:0 14px 30px -14px rgba(243,106,85,.9);transition:transform .2s,filter .2s}
+.ovc-btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.ovc-lnk{font:500 15px/1.2 var(--f-display);border-bottom:1px solid var(--soft);padding-bottom:3px;transition:border-color .2s,color .2s}
+.ovc-lnk:hover{color:var(--coral);border-color:var(--coral)}
+
+/* планшет и телефон */
+@media (max-width:1023px){
+  .ovc-stage{grid-template-columns:minmax(0,1fr)}
+  .ovc-card{right:10px;bottom:10px;width:min(340px,70%)}
+}
+@media (max-width:639px){
+  .ovc-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .ovc .ovc-tab{min-height:52px;padding:8px 12px;font-size:14px;border-radius:14px;text-align:left;line-height:1.2}
+  .ovc-card:not(.on){display:none}
+  .ovc-win{border-radius:12px}
+  .ovc-chrome{height:36px;padding:0 10px}
+  .ovc-url{font-size:11.5px;padding:4px 10px}
+  .ovc-tag{display:none}
+  .ovc-card{position:relative;right:auto;bottom:auto;width:auto;margin:-28px 10px 0;transform:translateY(10px)}
+  .ovc-card.live{position:absolute;right:10px;bottom:10px;margin:0}
+  .ovc-btn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  .ovc *,.ovc *::before,.ovc *::after{animation:none!important;transition:none!important}
+}
+</style>
+
+<section class="ovc" id="case" aria-labelledby="ovc-h">
+<div class="ovc-in">
+  <div class="ovc-meta"><span>Ваш случай · <b>4</b> истории из кейсов</span><span>выберите, что ближе</span></div>
+
+  <h2 class="ovc-h" id="ovc-h"><span class="ovc-lead">У вас сейчас</span><span class="ovc-word" id="ovc-word">нет сайта.</span></h2>
+
+  <div class="ovc-tabs" role="tablist" aria-label="Ваш случай" id="ovc-tabs"></div>
+
+  <div class="ovc-stage">
+    <div class="ovc-vis">
+      <div class="ovc-win">
+        <div class="ovc-chrome"><span class="ovc-dots"><i></i><i></i><i></i></span><span class="ovc-url" id="ovc-url">cafe-prospekt76.ru</span><span class="ovc-tag" id="ovc-tag">2026</span></div>
+        <div class="ovc-screen" id="ovc-screen"></div>
+      </div>
+      <div id="ovc-cards"></div>
+    </div>
+    <div class="ovc-copy" id="ovc-copy" aria-live="polite"></div>
+  </div>
+</div>
+</section>
+
+<script>
+(function(){
+const MEDIA = 'https://cdn.jsdelivr.net/gh/Shecter8ght/portfolio-cases@main/';
+const QUIZ = '#popup:quiz';
+const CASES = [
+  {id:'nosite', tab:'Сайта нет', word:'нет сайта.', url:'cafe-prospekt76.ru', tag:'запуск',
+   kind:'video', src:'cafe-prospect/hero.mp4', poster:'cafe-prospect/hero.jpg',
+   card:'live', live:'Сайт опубликован',
+   label:'<b>Проспект кафе</b> · банкетный зал, Ярославль',
+   num:'2 заявки', sub:'за первую неделю после запуска, без рекламы',
+   p:'У кафе на проспекте Ленина сайта не было совсем. Поговорил с владелицей и собрал сайт под банкеты: форматы, меню и расчёт стоимости для зала на 20–30 гостей. Первые заявки пришли раньше, чем включили рекламу.',
+   facts:['под ключ от 88 000 ₽','лендинг от 3 дней'],
+   link:{href:'https://cafe-prospekt76.ru', text:'Открыть сайт ↗', ext:true}},
+  {id:'silent', tab:'Сайт есть, заявок мало', word:'мало заявок.', url:'setka-garmoshka76.ru', tag:'после запуска',
+   kind:'video', src:'setka-garmoshka/hero.mp4', poster:'setka-garmoshka/hero.jpg',
+   card:'line', data:[['фев',.34],['мар',.25],['апр',2.27],['май',4.11],['июн',4.36],['июл',3.59],['авг',3.20],['сен',3.08]],
+   label:'<b>Сетка-гармошка 76</b> · москитные сетки и шторы',
+   num:'<s>0,25%</s> → <em>4,36%</em>', sub:'конверсия сайта в заявку, март → июнь 2026',
+   p:'Сайт работал, а посетители уходили без заявки. Я не бросаю сайты после запуска: смотрю статистику, дорабатываю экраны и кнопки вместе с рекламой. За год сайт принёс 259 заявок.',
+   facts:['259 заявок за год','статистика Tilda'],
+   link:{href:'https://setka-garmoshka76.ru', text:'Открыть сайт ↗', ext:true}},
+  {id:'old', tab:'Сайт устарел', word:'старый сайт.', url:'dentroom76.ru', tag:'2023 → 2026',
+   kind:'curtain', old:'dentroom/old_hero.jpg', neu:'dentroom/new_hero.jpg',
+   label:'<b>Дентрум</b> · стоматология, Ярославль',
+   num:'3 недели', sub:'от интервью до запуска нового сайта',
+   p:'Бирюзовый сайт 2023 года отставал от самой клиники. Поговорил с главным врачом и пересобрал всё: имплантация, врачи, цены и онлайн-запись. Рекламы нет, а заявки приходят каждую неделю.',
+   facts:['0 ₽ на рекламу','онлайн-запись 24/7'],
+   link:{href:'/project_dentroom', text:'Смотреть кейс →'}},
+  {id:'onepage', tab:'Вырос из одностраничника', word:'одностраничник.', url:'mirmo76.ru', tag:'8 страниц',
+   kind:'video', src:'mirmo/hero.mp4', poster:'mirmo/hero.jpg',
+   card:'bars', data:[12,7,10,5,13,29,48,48,47,53,150,79], months:['Н','Д','Я','Ф','М','А','М','И','И','А','С','О'],
+   label:'<b>МирМО76</b> · мягкие окна и тенты',
+   num:'501 заявка', sub:'за год, в 3,6 раза больше, чем годом раньше',
+   p:'Раньше у МирМО был квиз на одну страницу. Сделал восемь страниц под восемь типов покупателей: мягкие окна, ПВХ-завесы, тенты. Каждый сразу находит своё, и в сентябре пришло 150 заявок.',
+   facts:['150 заявок в сентябре','8 страниц'],
+   link:{href:'https://mirmo76.ru', text:'Открыть сайт ↗', ext:true}}
+];
+
+const root = document.getElementById('case');
+const $ = id => document.getElementById(id);
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const tabs = $('ovc-tabs'), screen = $('ovc-screen'), copy = $('ovc-copy'), cards = $('ovc-cards');
+let cur = -1, auto = true, visible = false, loaded = false;
+
+/* графики */
+function lineSVG(d){
+  const W=320,H=120,X0=8,X1=W-8,Y0=96,Y1=18,MX=5;
+  const px=i=>X0+(X1-X0)*i/(d.length-1), py=v=>Y0-(Y0-Y1)*v/MX;
+  const pts=d.map((v,i)=>[px(i),py(v[1])]);
+  const path='M'+pts.map(p=>p.map(n=>n.toFixed(1)).join(',')).join(' L');
+  let g=`<line class="gr" x1="${X0}" x2="${X1}" y1="${Y0}" y2="${Y0}"/>`;
+  g+=`<path class="ar" d="${path} L${X1},${Y0} L${X0},${Y0} Z"/><path class="ln" d="${path}"/>`;
+  pts.forEach((p,i)=>{g+=`<circle class="pt" cx="${p[0]}" cy="${p[1]}" r="${i===4||i===1?4:2.5}"/>`;g+=`<text class="tx" x="${p[0]}" y="${H-4}" text-anchor="middle">${d[i][0]}</text>`});
+  g+=`<text class="tv" x="${pts[4][0]}" y="${pts[4][1]-10}" text-anchor="middle">4,36%</text>`;
+  g+=`<text class="tx" x="${pts[1][0]}" y="${pts[1][1]-10}" text-anchor="middle">0,25%</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Конверсия по месяцам: с 0,25% в марте до 4,36% в июне">${g}</svg>`;
+}
+function barsSVG(d,m){
+  const W=320,H=120,X0=4,X1=W-4,Y0=100,Y1=20,MX=150,n=d.length,step=(X1-X0)/n,bw=step*.62;
+  let g=`<line class="gr" x1="${X0}" x2="${X1}" y1="${Y0}" y2="${Y0}"/>`;
+  d.forEach((v,i)=>{const h=(Y0-Y1)*v/MX,x=X0+step*i+(step-bw)/2;
+    g+=`<rect class="${i===10?'bh':'bk'}" x="${x.toFixed(1)}" y="${(Y0-h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2"/>`;
+    g+=`<text class="tx" x="${(x+bw/2).toFixed(1)}" y="${H-4}" text-anchor="middle">${m[i]}</text>`});
+  const xs=X0+step*10+step/2;
+  g+=`<text class="tv" x="${xs}" y="${Y1-6}" text-anchor="middle">150</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Заявки по месяцам с ноября 2025 по октябрь 2026, пик 150 в сентябре">${g}</svg>`;
+}
+
+/* сборка */
+CASES.forEach((c,i)=>{
+  const b=document.createElement('button');
+  b.className='ovc-tab';b.type='button';b.id='ovc-tab-'+c.id;b.setAttribute('role','tab');b.setAttribute('aria-selected','false');
+  b.innerHTML=`${c.tab}<span class="bar"></span>`;
+  b.addEventListener('click',()=>{auto=false;show(i)});
+  b.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const j=(i+(e.key==='ArrowRight'?1:CASES.length-1))%CASES.length;auto=false;show(j);tabs.children[j].focus()}});
+  tabs.appendChild(b);
+
+  const pane=document.createElement('div');pane.className='ovc-pane';
+  if(c.kind==='video'){
+    pane.innerHTML=`<video muted loop playsinline preload="none" data-src="${MEDIA+c.src}" poster="${MEDIA+c.poster}" aria-label="Запись сайта ${c.url}"></video>`;
+  }else{
+    pane.classList.add('ovc-cur');
+    pane.innerHTML=`<img src="${MEDIA+c.old}" alt="Сайт Дентрума 2023 года" loading="lazy"><img class="new" src="${MEDIA+c.neu}" alt="Сайт Дентрума 2026 года" loading="lazy"><span class="knob"></span><span class="lab l">Было · 2023</span><span class="lab r">Стало · 2026</span>`;
+    curtain(pane);
+  }
+  screen.appendChild(pane);
+
+  const card=document.createElement('div');card.className='ovc-card';card.setAttribute('aria-hidden','true');
+  if(c.card==='line'){card.innerHTML=`<div class="k"><span>Конверсия в заявку</span><b>2026</b></div>${lineSVG(c.data)}`}
+  else if(c.card==='bars'){card.innerHTML=`<div class="k"><span>Заявки по месяцам</span><b>501 за год</b></div>${barsSVG(c.data,c.months)}`}
+  else if(c.card==='live'){card.classList.add('live');card.innerHTML=`<i></i><span class="k">${c.live}</span>`}
+  else card.hidden=true;
+  cards.appendChild(card);
+
+  const t=document.createElement('div');t.className='ovc-txt';t.setAttribute('role','tabpanel');t.setAttribute('aria-labelledby','ovc-tab-'+c.id);
+  const ext=c.link.ext?' target="_blank" rel="noopener"':'';
+  t.innerHTML=`<div class="ovc-case">${c.label}</div><p class="ovc-num">${c.num}</p><p class="ovc-sub">${c.sub}</p><p class="ovc-p">${c.p}</p>`+
+    `<div class="ovc-facts">${c.facts.map(f=>`<span>${f}</span>`).join('')}</div>`+
+    `<div class="ovc-links"><a class="ovc-btn" href="${QUIZ}">Разобрать мой случай</a><a class="ovc-lnk" href="${c.link.href}"${ext}>${c.link.text}</a></div>`;
+  copy.appendChild(t);
+});
+
+function setWord(w){
+  const el=$('ovc-word');
+  el.innerHTML=[...w].map((ch,i)=>`<i style="--i:${i}"${ch==='.'?' class="dot"':''}>${ch===' '?'&nbsp;':ch}</i>`).join('');
+  el.setAttribute('aria-label',w);
+}
+
+function show(i){
+  if(i===cur) return;
+  const c=CASES[i], panes=screen.children;
+  [...panes].forEach((p,j)=>{p.classList.toggle('off',j===cur);p.classList.toggle('on',j===i);if(j!==i&&j!==cur)p.classList.remove('off')});
+  setTimeout(()=>{[...panes].forEach((p,j)=>{if(j!==i)p.classList.remove('off')})},950);
+  [...tabs.children].forEach((b,j)=>{b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1;b.querySelector('.bar').style.transform='scaleX(0)'});
+  [...copy.children].forEach((t,j)=>t.classList.toggle('on',j===i));
+  [...cards.children].forEach((k,j)=>k.classList.toggle('on',j===i));
+  $('ovc-url').textContent=c.url;$('ovc-tag').textContent=c.tag;
+  setWord(c.word);
+  cur=i; t0=performance.now();
+  play();
+  if(c.kind==='curtain') sweep(panes[i]);
+}
+
+/* видео: грузим, когда блок рядом, играет только выбранное */
+function load(){
+  if(loaded) return; loaded=true;
+  screen.querySelectorAll('video[data-src]').forEach(v=>{v.src=v.dataset.src;v.removeAttribute('data-src')});
+}
+function play(){
+  screen.querySelectorAll('video').forEach((v,j)=>{
+    const mine=v.closest('.ovc-pane')===screen.children[cur];
+    if(mine&&visible&&loaded){const p=v.play();if(p)p.catch(()=>{})}else v.pause();
+  });
+}
+
+/* шторка */
+function setX(p,x){p.style.setProperty('--x',x+'%')}
+function curtain(p){
+  let drag=false;
+  const at=e=>{const r=p.getBoundingClientRect();setX(p,Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100)))};
+  p.addEventListener('pointerdown',e=>{drag=true;auto=false;p.dataset.touched='1';p.setPointerCapture(e.pointerId);at(e)});
+  p.addEventListener('pointermove',e=>{if(drag)at(e)});
+  p.addEventListener('pointerup',()=>drag=false);p.addEventListener('pointercancel',()=>drag=false);
+  setX(p,50);
+}
+function sweep(p){
+  if(p.dataset.touched) return;
+  if(RM){setX(p,50);return}
+  const s=performance.now(),D=2200;
+  const k=[[0,96],[.55,22],[1,50]];
+  (function f(now){
+    if(p.dataset.touched) return;
+    const t=Math.min(1,(now-s)/D);
+    const seg=t<k[1][0]?0:1, a=k[seg],b=k[seg+1], u=(t-a[0])/(b[0]-a[0]);
+    const e=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
+    setX(p,a[1]+(b[1]-a[1])*e);
+    if(t<1) requestAnimationFrame(f);
+  })(s+0);
+}
+
+/* автопереключение, пока посетитель ничего не выбрал */
+const DUR=7000; let t0=performance.now(), hold=false, last=performance.now();
+root.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hold=true});
+root.addEventListener('pointerleave',()=>hold=false);
+root.addEventListener('focusin',()=>hold=true);root.addEventListener('focusout',()=>hold=false);
+function tick(now){
+  const dt=now-last;last=now;
+  if(!auto||RM){tabs.querySelectorAll('.bar').forEach(b=>b.style.transform='scaleX(0)');return}
+  if(!visible||hold||document.hidden) t0+=dt;
+  const p=Math.min(1,(now-t0)/DUR);
+  const bar=tabs.children[cur]&&tabs.children[cur].querySelector('.bar');
+  if(bar) bar.style.transform=`scaleX(${p})`;
+  if(p>=1) show((cur+1)%CASES.length);
+  requestAnimationFrame(tick);
+}
+
+if('IntersectionObserver' in window){
+  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)load()}),{rootMargin:'600px 0px'}).observe(root);
+  new IntersectionObserver(es=>es.forEach(e=>{visible=e.isIntersecting;play()}),{threshold:.25}).observe(root);
+}else{visible=true;load();play()}
+document.addEventListener('visibilitychange',play);
+
+show(0);
+requestAnimationFrame(t=>{last=t;t0=t;tick(t)});
+})();
+</script>
